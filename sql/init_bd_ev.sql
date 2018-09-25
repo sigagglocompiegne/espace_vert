@@ -151,7 +151,7 @@ INSERT INTO m_espace_vert.lt_ev_entretien(
     ('01-06','paillage'),
     ('01-07','terre à nue'),
     ('01-08','vivace'),
-    ('01-09','vivace, couvre-sol, paillage'),
+    ('01-09','vivace, couvre-sol et paillage'),
     ('01-99','autre'),
     ('01-00','non renseigné'),
     ('01-XX','aucun'),
