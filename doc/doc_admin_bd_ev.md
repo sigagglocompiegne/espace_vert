@@ -27,14 +27,13 @@ L'ensemble des classes d'objets de gestion sont stockés dans le schéma m_espac
    
 |Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
-|id|identifiant unique de l'objet|bigint| |
+|id|identifiant unique de l'objet|bigint| nextval('m_espace_vert.an_ev_type_id_seq'::regclass)|
 |type_ev|type d'espace vert|character varying(2)| |
 |sstype_ev|sous-type d'espace vert|character varying(5)| |
 |insee|code Insee|character varying(5)| |
 |commune|nom de la commune|character varying(150)| |
 |op_sai|opérateur de la dernière saisie en base de l'objet|character varying(80)| |
-|date_int|date d'intégration de l'objet|timestamp without time zone| |
-|date_sai|date de saisie de l'objet|timestamp without time zone| |
+|date_sai|date de saisie de l'objet|timestamp without time zone|now()|
 |date_maj|date de mise à jour de l'objet|timestamp without time zone| |
 |src_geom|référentiel de saisie|character varying(2)| |
 |observ|commentaires|character varying(254)| |
