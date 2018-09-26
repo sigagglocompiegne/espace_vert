@@ -215,6 +215,27 @@ Valeurs possibles :
 
 ---
 
+`m_espace_vert.lt_ev_gestion` : liste des valeurs permettant de décrire la maitrise d'oeuvre de l'entretien des espaces verts.
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|code de la liste énumérée relative à la maitrise d'oeuvre de l'entretien des espaces verts|character varying(2)| |
+|valeur|valeur de la liste énumérée relative à la maitrise d'oeuvre de l'entretien des espaces verts|character varying(80)| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `code` 
+
+Valeurs possibles :
+
+|Code|Valeur|
+|:---|:---|
+|00|non renseigné|
+|01|régie|
+|02|sous-traitance|
+|99|autre|
+
+---
+
 `r_objet.lt_src_geom` : liste des valeurs permettant de décrire le référentiel géographique utilisé pour la saisie des données.
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
