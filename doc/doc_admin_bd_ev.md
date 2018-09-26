@@ -23,16 +23,22 @@ L'ensemble des classes d'objets de gestion sont stockés dans le schéma m_espac
 
 ### classes d'objets de gestion :
 
-an_ads_commune` : table des attributs sur l'état de l'ADS ARC sur les communes.
+`an_ev_type` : table des attributs sur la typologie et informations génériques des objets.
    
 |Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
-|insee|Code INSEE|character(5)| |
-|docurba|Présence d'un document d'urbanisme (PLUi,PLU,POS,CC)|boolean| |
-|ads_arc|Gestion de l'ADS par l'ARC|boolean| |
-|l_rev|Information sur la révision en cours ou non du document d'urbanisme|character varying(30)| |
-|l_daterev|Date de prescripiton de la révision|timestamp without time zone| |
+|id|identifiant unique|bigint| |
+|type_ev|type d'espace vert|character varying(2)| |
+|sstype_ev|sous-type d'espace vert|character varying(5)| |
+|insee|code Insee|character varying(5)| |
+|commune|nom de la commune|character varying(150)| |
+|op_sai|opérateur de la dernière saisie en base de l'objet|character varying(80)| |
+|date_int|date d'intégration de l'objet|timestamp without time zone| |
+|date_sai|date de saisie de l'objet|timestamp without time zone| |
+|date_maj|date de mise à jour de l'objet|timestamp without time zone| |
+|src_geom|référentiel de saisie|character varying(2)| |
+|observ|commentaires|character varying(254)| |
 
 Particularité(s) à noter :
-* Une clé primaire existe sur le champ insee
+* Une clé primaire existe sur le champ `id`
 ---
