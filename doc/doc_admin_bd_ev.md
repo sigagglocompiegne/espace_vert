@@ -120,6 +120,47 @@ Valeurs possibles :
 
 ---
 
+`m_espace_vert.lt_ssev_type` : liste des valeurs permettant de décrire le sous-type d'espace vert.
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|code de la liste énumérée relative au sous-type d'espace vert|character varying(2)| |
+|valeur|valeur de la liste énumérée relative au sous-type d'espace vert|character varying(80)| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `code` 
+
+Valeurs possibles :
+
+|Code|Valeur|
+|:---|:---|
+|00-00|non renseigné|
+|01-00|non renseigné|
+|01-01|arbre|
+|01-02|arbuste|
+|01-03|bac, pot|
+|01-04|fleurissement|
+|01-05|massif|
+|01-99|autre|
+|02-00|non renseigné|
+|02-01|boisement|
+|02-02|haie|
+|02-03|HLM|
+|02-04|pelouse, herbe|
+|02-05|privé|
+|02-06|zone naturelle|
+|02-99|autre|
+|03-00|non renseigné|
+|03-01|bicouche gravier|
+|03-02|enrobé abimé|
+|03-03|enrobé, béton, pavé|
+|03-04|pave autobloquant, dalle|
+|03-05|pavé autre|
+|03-06|stabilisé, calcaire, gravier, terre, schiste|
+|03-99|autre|
+
+---
+
 `r_objet.lt_src_geom` : liste des valeurs permettant de décrire le référentiel géographique utilisé pour la saisie des données.
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
