@@ -124,8 +124,49 @@ Valeurs possibles :
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|    
-|code|code de la liste énumérée relative au sous-type d'espace vert|character varying(2)| |
+|code|code de la liste énumérée relative au sous-type d'espace vert|character varying(5)| |
 |valeur|valeur de la liste énumérée relative au sous-type d'espace vert|character varying(80)| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `code` 
+
+Valeurs possibles :
+
+|Code|Valeur|
+|:---|:---|
+|00-00|non renseigné|
+|01-00|non renseigné|
+|01-01|arbre|
+|01-02|arbuste|
+|01-03|bac, pot|
+|01-04|fleurissement|
+|01-05|massif|
+|01-99|autre|
+|02-00|non renseigné|
+|02-01|boisement|
+|02-02|haie|
+|02-03|HLM|
+|02-04|pelouse, herbe|
+|02-05|privé|
+|02-06|zone naturelle|
+|02-99|autre|
+|03-00|non renseigné|
+|03-01|bicouche gravier|
+|03-02|enrobé abimé|
+|03-03|enrobé, béton, pavé|
+|03-04|pave autobloquant, dalle|
+|03-05|pavé autre|
+|03-06|stabilisé, calcaire, gravier, terre, schiste|
+|03-99|autre|
+
+---
+
+`m_espace_vert.lt_entretien` : liste des valeurs permettant de décrire la pratique d'entretien des espaces verts.
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|code de la liste énumérée relative à la pratique d'entretien des espaces|character varying(5)| |
+|valeur|valeur de la liste énumérée relative à la pratique d'entretien des espaces|character varying(80)| |
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ `code` 
