@@ -71,6 +71,7 @@ Particularité(s) à noter :
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ `id` avec une séquence d'incrémentation automatique `m_espace_vert.an_ev_type_id_seq`
+* Un index est présent sur le champ geom
 ---
 
 `geo_ev_l` : table géographique des objets espaces verts linéaires.
@@ -83,6 +84,7 @@ Particularité(s) à noter :
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ `id` avec une séquence d'incrémentation automatique `m_espace_vert.an_ev_type_id_seq`
+* Un index est présent sur le champ geom
 ---
 
 `geo_ev_p` : table géographique des objets espaces verts ponctuels.
@@ -94,6 +96,7 @@ Particularité(s) à noter :
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ `id` avec une séquence d'incrémentation automatique `m_espace_vert.an_ev_type_id_seq`
+* Un index est présent sur le champ geom
 ---
 
 ## Liste de valeurs
