@@ -59,3 +59,15 @@ Particularité(s) à noter :
 * Une clé étrangère existe sur la table de valeur `lt_ev_entretien` sur l'attribut `code` (`m_espace_vert.lt_ev_entretien`)
 * Une clé étrangère existe sur la table de valeur `lt_ev_gestion` sur l'attribut `code` (`m_espace_vert.lt_ev_gestion`)
 ---
+
+`geo_ev_s` : table géographique des objets espaces verts surfaciques.
+   
+|Nom attribut | Définition | Type | Valeurs par défaut |
+|:---|:---|:---|:---|
+|id|identifiant unique|bigint| |
+|sup_m2|superficie de l'objet en m²|integer| |
+|geom|géométrie de l'objet|MultiPolygon| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ id avec une séquence d'incrémentation automatique `m_espace_vert.an_ev_type_id_seq`
+---
