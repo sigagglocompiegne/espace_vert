@@ -52,11 +52,11 @@ COMMENT ON COLUMN m_espace_vert.lt_ev_type.valeur IS 'Valeur de la liste énumé
 INSERT INTO m_espace_vert.lt_ev_type(
             code, valeur)
     VALUES
+    ('00','non renseigné'),
     ('01','floral'),
     ('02','végétal'),
     ('03','minéral'),
-    ('99','autre'),
-    ('00','non renseigné');
+    ('99','autre');
 
 
     
@@ -89,13 +89,14 @@ INSERT INTO m_espace_vert.lt_ev_sstype(
             code, valeur)
     VALUES
     ('00-00','non renseigné'),
+    ('01-00','non renseigné'),
     ('01-01','arbre'),
     ('01-02','arbuste'),
     ('01-03','bac, pot'),
     ('01-04','fleurissement'),
     ('01-05','massif'),
     ('01-99','autre'),
-    ('01-00','non renseigné'),
+    ('02-00','non renseigné'),
     ('02-01','boisement'),
     ('02-02','haie'),
     ('02-03','HLM'),
@@ -103,14 +104,14 @@ INSERT INTO m_espace_vert.lt_ev_sstype(
     ('02-05','privé'),
     ('02-06','zone naturelle'),
     ('02-99','autre'),
+    ('03-00','non renseigné'),
     ('03-01','bicouche gravier'),
     ('03-02','enrobé abimé'),
     ('03-03','enrobé, béton, pavé'),
     ('03-04','pavé autobloquant, dalle'),
     ('03-05','pavé autre'),
     ('03-06','stabilisé, calcaire, gravier, terre, schiste'),
-    ('03-99','autre'),
-    ('03-00','non renseigné');
+    ('03-99','autre');
     
     
     
@@ -143,6 +144,7 @@ INSERT INTO m_espace_vert.lt_ev_entretien(
             code, valeur)
     VALUES
     ('00-00','non renseigné'),
+    ('01-00','non renseigné'),
     ('01-01','annuel'),
     ('01-02','arbustif'),
     ('01-03','couvre-sol'),
@@ -153,9 +155,9 @@ INSERT INTO m_espace_vert.lt_ev_entretien(
     ('01-08','vivace'),
     ('01-09','vivace, couvre-sol, paillage'),
     ('01-99','autre'),
-    ('01-00','non renseigné'),
     ('01-XX','aucun'),
     ('01-ZZ','non concerné'),
+    ('02-00','non renseigné'),
     ('02-01','écopaturage'),
     ('02-02','entretien écologique'),
     ('02-03','fauche tardive'),
@@ -164,11 +166,11 @@ INSERT INTO m_espace_vert.lt_ev_entretien(
     ('02-06','tonte régulière'),
     ('02-07','tonte très régulière'),
     ('02-99','autre'),
-    ('02-00','non renseigné'),
     ('02-XX','aucun'),
     ('02-ZZ','non concerné'),
+    ('03-00','non renseigné'),
     ('03-01','chimique'),
-    ('03-02','débroussaillage/tonte'),
+    ('03-02','débroussaillage, tonte'),
     ('03-03','enherbement'),
     ('03-04','manuel'),
     ('03-05','mécanique'),
@@ -176,7 +178,6 @@ INSERT INTO m_espace_vert.lt_ev_entretien(
     ('03-07','thermique'),
     ('03-08','tolérance et gestion de la flore spontanée'),
     ('03-99','autre'),
-    ('03-00','non renseigné'),
     ('03-XX','aucun'),
     ('03-ZZ','non concerné');
     
@@ -210,10 +211,10 @@ COMMENT ON COLUMN m_espace_vert.lt_ev_gestion.valeur IS 'Valeur de la liste énu
 INSERT INTO m_espace_vert.lt_ev_gestion(
             code, valeur)
     VALUES
+    ('00','non renseigné')
     ('01','régie'),
     ('02','sous-traitance'),
-    ('99','autre'),
-    ('00','non renseigné');  
+    ('99','autre');  
 
 
 
@@ -237,7 +238,6 @@ CREATE TABLE m_espace_vert.an_ev_type
   insee character varying(5) NOT NULL,
   commune character varying(150) NOT NULL,
   op_sai character varying(80),
-  date_int timestamp without time zone DEFAULT NOW(),
   date_sai timestamp without time zone,
   date_maj timestamp without time zone,
   src_geom character varying(2),
@@ -269,7 +269,6 @@ COMMENT ON COLUMN m_espace_vert.an_ev_type.sstype_ev IS 'Sous-type d''espace ver
 COMMENT ON COLUMN m_espace_vert.an_ev_type.insee IS 'Code Insee de la commune';
 COMMENT ON COLUMN m_espace_vert.an_ev_type.commune IS 'Nome de la commune';
 COMMENT ON COLUMN m_espace_vert.an_ev_type.op_sai IS 'Opérateur de la dernière saisie en base de l''objet';
-COMMENT ON COLUMN m_espace_vert.an_ev_type.date_int IS 'Date d''intégration de l''objet';
 COMMENT ON COLUMN m_espace_vert.an_ev_type.date_sai IS 'Horodatage de l''intégration en base de l''objet';
 COMMENT ON COLUMN m_espace_vert.an_ev_type.date_maj IS 'Horodatage de la mise jour en base de l''objet';
 COMMENT ON COLUMN m_espace_vert.an_ev_type.src_geom IS 'Référentiel de saisie';
