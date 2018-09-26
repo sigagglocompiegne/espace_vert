@@ -40,5 +40,7 @@ L'ensemble des classes d'objets de gestion sont stockés dans le schéma m_espac
 |observ|commentaires|character varying(254)| |
 
 Particularité(s) à noter :
-* Une clé primaire existe sur le champ `id`
+* Une clé primaire existe sur le champ id avec une séquence d'incrémentation automatique `m_espace_vert.an_ev_type_id_seq`
+* Une clé étrangère existe sur la table de valeur `lt_ev_type` (sur les attributs code et sous-code)
+* Une clé étrangère existe sur la table de valeur `lt_ev_sstype` (sur les attributs code et sous-code)
 ---
