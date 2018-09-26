@@ -42,5 +42,20 @@ L'ensemble des classes d'objets de gestion sont stockés dans le schéma m_espac
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ id avec une séquence d'incrémentation automatique `m_espace_vert.an_ev_type_id_seq`
 * Une clé étrangère existe sur la table de valeur `lt_ev_type` sur l'attribut `code` (`m_espace_vert.lt_ev_type`)
-* Une clé étrangère existe sur la table de valeur `lt_ev_sstype` ur l'attribut `code` (`m_espace_vert.lt_ev_sstype`)
+* Une clé étrangère existe sur la table de valeur `lt_ev_sstype` sur l'attribut `code` (`m_espace_vert.lt_ev_sstype`)
+---
+
+`an_ev_entretien` : table des attributs sur l'entretien et la gestion des espaces verts.
+   
+|Nom attribut | Définition | Type | Valeurs par défaut |
+|:---|:---|:---|:---|
+|id|identifiant unique|bigint| |
+|prat_ini|pratique d'entretien initiale appliquée lors du diagnostic|character varying(5)| |
+|preco|préconisation d'entretien conseillée à l'avenir|character varying(5)| |
+|gestion|maitrise d'oeuvre de l'entretien|character varying(2)| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ id avec une séquence d'incrémentation automatique `m_espace_vert.an_ev_type_id_seq`
+* Une clé étrangère existe sur la table de valeur `lt_ev_entretien` sur l'attribut `code` (`m_espace_vert.lt_ev_entretien`)
+* Une clé étrangère existe sur la table de valeur `lt_ev_gestion` sur l'attribut `code` (`m_espace_vert.lt_ev_gestion`)
 ---
