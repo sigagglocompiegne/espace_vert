@@ -98,14 +98,34 @@ Particularité(s) à noter :
 
 ## Liste de valeurs
 
-
-
-`r_objet.lt_src_geom` : Liste des valeurs permettant de décrire le référentiel géographique utilisé pour la saisie des données.
+`m_espace_vert.lt_ev_type` : liste des valeurs permettant de décrire le type d'espace vert.
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|    
-|code|Code de la liste énumérée relative au référentiel de saisie utilisé pour la saisie de l'objet|character varying(2)| |
-|valeur|Valeur de la liste énumérée relative au référentiel de saisie utilisé pour la saisie de l'objet|character varying(254)| |
+|code|code de la liste énumérée relative au type d'espace vert|character varying(2)| |
+|valeur|valeur de la liste énumérée relative au type d'espace vert|character varying(80)| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `code` 
+
+Valeurs possibles :
+
+|Code|Valeur|
+|:---|:---|
+|00|non renseigné|
+|01|floral|
+|02|végétal|
+|03|minéral|
+|99|autre|
+
+---
+
+`r_objet.lt_src_geom` : liste des valeurs permettant de décrire le référentiel géographique utilisé pour la saisie des données.
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|code de la liste énumérée relative au référentiel de saisie utilisé pour la saisie de l'objet|character varying(2)| |
+|valeur|valeur de la liste énumérée relative au référentiel de saisie utilisé pour la saisie de l'objet|character varying(254)| |
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ `code` 
@@ -142,4 +162,5 @@ Valeurs possibles :
 |82|Occupation du sol|
 |83|Thèmes BDTopo|
 |99|Autre|
+
 ---
