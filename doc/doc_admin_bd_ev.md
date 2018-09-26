@@ -42,6 +42,8 @@ Particularité(s) à noter :
 * Une clé primaire existe sur le champ id avec une séquence d'incrémentation automatique `m_espace_vert.an_ev_type_id_seq`
 * Une clé étrangère existe sur la table de valeur `lt_ev_type` sur l'attribut `code` (`m_espace_vert.lt_ev_type`)
 * Une clé étrangère existe sur la table de valeur `lt_ev_sstype` sur l'attribut `code` (`m_espace_vert.lt_ev_sstype`)
+* Un trigger :
+   `m_espace_vert.ft_an_ev_type_type_ev()` : fonction permettant de renseigner le type d'espace vert à partir du sous-type.
 ---
 
 `an_ev_entretien` : table des attributs sur l'entretien et la gestion des espaces verts.
