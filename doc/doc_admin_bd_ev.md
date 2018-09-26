@@ -27,7 +27,7 @@ L'ensemble des classes d'objets de gestion sont stockés dans le schéma m_espac
    
 |Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
-|id|identifiant unique|bigint| |
+|id|identifiant unique de l'objet|bigint| |
 |type_ev|type d'espace vert|character varying(2)| |
 |sstype_ev|sous-type d'espace vert|character varying(5)| |
 |insee|code Insee|character varying(5)| |
@@ -49,7 +49,7 @@ Particularité(s) à noter :
    
 |Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
-|id|identifiant unique|bigint| |
+|id|identifiant unique de l'objet|bigint| |
 |prat_ini|pratique d'entretien initiale appliquée lors du diagnostic|character varying(5)| |
 |preco|préconisation d'entretien conseillée à l'avenir|character varying(5)| |
 |gestion|maitrise d'oeuvre de l'entretien|character varying(2)| |
@@ -64,9 +64,32 @@ Particularité(s) à noter :
    
 |Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
-|id|identifiant unique|bigint| |
+|id|identifiant unique de l'objet|bigint| |
 |sup_m2|superficie de l'objet en m²|integer| |
 |geom|géométrie de l'objet|MultiPolygon| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ id avec une séquence d'incrémentation automatique `m_espace_vert.an_ev_type_id_seq`
+---
+
+`geo_ev_l` : table géographique des objets espaces verts linéaires.
+   
+|Nom attribut | Définition | Type | Valeurs par défaut |
+|:---|:---|:---|:---|
+|id|identifiant unique de l'objet|bigint| |
+|long_m|longueur de l'objet en mètres|integer| |
+|geom|géométrie de l'objet|MultiLineString| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ id avec une séquence d'incrémentation automatique `m_espace_vert.an_ev_type_id_seq`
+---
+
+`geo_ev_p` : table géographique des objets espaces verts ponctuels.
+   
+|Nom attribut | Définition | Type | Valeurs par défaut |
+|:---|:---|:---|:---|
+|id|identifiant unique de l'objet|bigint| |
+|geom|géométrie de l'objet|Point| |
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ id avec une séquence d'incrémentation automatique `m_espace_vert.an_ev_type_id_seq`
