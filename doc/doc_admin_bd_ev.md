@@ -95,3 +95,11 @@ Particularité(s) à noter :
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ id avec une séquence d'incrémentation automatique `m_espace_vert.an_ev_type_id_seq`
 ---
+
+## Liste de valeurs
+
+
+
+`r_objet.lt_src_geom` : Liste des valeurs permettant de décrire le référentiel géographique utilisé pour la saisie des données.
+
+Se référerer à la documentation de la base de données Adresse pour plus d'informations.
