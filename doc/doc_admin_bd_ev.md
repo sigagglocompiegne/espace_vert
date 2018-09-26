@@ -177,28 +177,41 @@ Valeurs possibles :
 |:---|:---|
 |00-00|non renseigné|
 |01-00|non renseigné|
-|01-01|arbre|
-|01-02|arbuste|
-|01-03|bac, pot|
-|01-04|fleurissement|
-|01-05|massif|
+|01-01|annuel|
+|01-02|arbustif|
+|01-03|couvre-sol|
+|01-04|herbe|
+|01-05|mixte|
+|01-06|paillage|
+|01-07|terre à nue|
+|01-08|vivace|
+|01-09|vivace, couvre-sol, paillage|
 |01-99|autre|
+|01-XX|aucun|
+|01-ZZ|non concerné|
 |02-00|non renseigné|
-|02-01|boisement|
-|02-02|haie|
-|02-03|HLM|
-|02-04|pelouse, herbe|
-|02-05|privé|
-|02-06|zone naturelle|
+|02-01|écopaturage|
+|02-02|entretien écologique|
+|02-03|fauche tardive|
+|02-04|tonte 2x/semaine|
+|02-05|tonte différenciée|
+|02-06|tonte régulière|
+|02-07|tonte très régulière|
 |02-99|autre|
+|02-XX|aucun|
+|02-ZZ|non concerné|
 |03-00|non renseigné|
-|03-01|bicouche gravier|
-|03-02|enrobé abimé|
-|03-03|enrobé, béton, pavé|
-|03-04|pave autobloquant, dalle|
-|03-05|pavé autre|
-|03-06|stabilisé, calcaire, gravier, terre, schiste|
+|03-01|chimique|
+|03-02|débroussaillage, tonte|
+|03-03|enherbement|
+|03-04|manuel|
+|03-05|mécanique|
+|03-06|nettoyeur haute pression|
+|03-07|thermique|
+|03-08|tolérance et gestion de la flore spontanée|
 |03-99|autre|
+|03-XX|aucun|
+|03-ZZ|non concerné|
 
 ---
 
