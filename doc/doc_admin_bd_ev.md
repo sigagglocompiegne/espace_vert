@@ -99,6 +99,14 @@ Particularité(s) à noter :
 * Un index est présent sur le champ geom
 ---
 
+### classes d'objets applicatives :
+
+`xapps_geo_v_ev_floral_s` : vue géographique regroupant les données surfaciques d'espace vert floral et les informations de typologie et d'entretien.
+
+`xapps_geo_v_ev_floral_p` : vue géographique regroupant les données ponctuelles d'espace vert floral et les informations de typologie et d'entretien.
+
+---
+
 ## Liste de valeurs
 
 `m_espace_vert.lt_ev_type` : liste des valeurs permettant de décrire le type d'espace vert.
