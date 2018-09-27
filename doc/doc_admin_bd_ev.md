@@ -283,3 +283,7 @@ Valeurs possibles :
 |99|Autre|
 
 ---
+
+## Schéma fonctionnel
+
+![schema_fonctionnel](img/schema_fonctionnel_ev2.jpg)
