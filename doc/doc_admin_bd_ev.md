@@ -302,4 +302,4 @@ Valeurs possibles :
 
 ## Schéma fonctionnel
 
-![schema_fonctionnel](img/schema_fonctionnel_ev.png)
+![schema_fonctionnel](img/schema_fonctionnel_ev2.png)
