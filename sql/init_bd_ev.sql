@@ -625,7 +625,7 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_ev_vegetal_l AS
  t.observ,
  y.geom
    FROM m_espace_vert.geo_ev_l y    
-   LEFT JOIN m_espace_vert.an_ev_type t ON t.id = yz.id
+   LEFT JOIN m_espace_vert.an_ev_type t ON t.id = y.id
    LEFT JOIN m_espace_vert.an_ev_entretien e ON e.id = y.id
    
    WHERE  t.type_ev = '02';
