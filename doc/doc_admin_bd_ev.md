@@ -109,7 +109,9 @@ Particularité(s) à noter :
 
 `xapps_geo_v_ev_vegetal_l` : vue géographique regroupant les données linéaires d'espace vert de type végétal et les informations de typologie et d'entretien.
 
-`xapps_geo_v_ev_minéral_s` : vue géographique regroupant les données surfaciques d'espace vert de type végétal et les informations de typologie et d'entretien.
+`xapps_geo_v_ev_minéral_s` : vue géographique regroupant les données surfaciques d'espace vert de type minéral et les informations de typologie et d'entretien.
+
+`xapps_geo_v_ev_minéral_l` : vue géographique regroupant les données linéaires d'espace vert de type minéral et les informations de typologie et d'entretien.
 
 ---
 
