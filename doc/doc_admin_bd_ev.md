@@ -4,12 +4,13 @@
 
 ## Principes
 * **généralités** :
-A la suite du marché passé par la ville de Compiègne ayant souhaité réaliser un plan d'actions en faveur d'une gestion différenciée à objectif zéro pesticide sur ses espaces verts et minéraux, nous avons réceptionné un lot de données géographiques sur la typologie et la pratique d'entretien initiale et conseillée de ces surfaces.
-Une réflexion a donc été engagé en interne afin d'intégrer ces données en base de manière structurée, ceci dans l'objectif de mettre en place une application dédiée au suivi de la gestion de ces espaces verts.
+A la suite d'un marché passé par la ville de Compiègne, ayant souhaité réaliser un plan d'actions en faveur d'une gestion différenciée à objectif zéro pesticide sur ses espaces verts et minéraux, nous avons réceptionné un lot de données géographiques sur la typologie et la pratique d'entretien initiale et conseillée de ces surfaces.
+Une réflexion a donc été engagé en interne afin d'intégrer ces données en base de manière structurée, ceci dans l'objectif de mettre en place une application dédiée à la consultation de ces éléments.
 
 
 * **résumé fonctionnel** :
-Les données shape d'origine fournies ont été restructuré lors de l'intégration dans la base de données afin d'être en cohérence avec les principes d'organisation établis au sein de l'Agglomération de la Région de Compiègne. Les données sont donc réordonnées en 2 tables alphanumériques (une table "principale" avec la typologie des objets et les informations génériques et une table concernant l'entretien et la gestion faisant chacune appel à des domaines de valeurs) et 3 tables géographiques contenant la géométrie des objets surfaciques, linéaires et ponctuels. Une dernière table spécifique sur les espèces invasives est intégrée de manière indépendante.
+Les données s'organisent autour de 2 tables alphanumériques orientées métier, une concernant la typologie de l'objet et l'autre sur l'entretien et la gestion. Ces tables faisant chacune appel à des domaines de valeurs. Les objets géométriques sont eux objets surfaciques, linéaires et ponctuels. Une dernière table spécifique sur les espèces invasives est intégrée de manière indépendante.
+Il est à noter qu'il n'est pas prévu à ce jour (01/10/2018) qu'un suivi ou qu'une mise à jour de ces données soit réalisé en interne par le service métier compétent en matière d'espaces verts.
 
 ## Dépendances (non critiques)
 
@@ -21,7 +22,7 @@ L'ensemble des classes d'objets de gestion sont stockés dans le schéma m_espac
 
 ### classes d'objets de gestion :
 
-`an_ev_type` : table des attributs sur la typologie et informations génériques des objets.
+`an_ev_type` : table des attributs sur la typologie et les informations génériques des objets.
    
 |Nom attribut | Définition | Type | Valeurs par défaut |
 |:---|:---|:---|:---|
