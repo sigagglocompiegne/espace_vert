@@ -495,10 +495,218 @@ EXECUTE PROCEDURE m_espace_vert.ft_an_ev_type_type_ev();
 
 -- ####################################################################################################################################################
 -- ###                                                                                                                                              ###
--- ###                                                                        VUES                                                                  ###
+-- ###                                                                 VUES APPLICATIVES                                                            ###
 -- ###                                                                                                                                              ###
 -- ####################################################################################################################################################
+ 
+-- View: x_apps.xapps_geo_v_ev_floral_s
+
+-- DROP VIEW x_apps.xapps_geo_v_ev_floral_s;
+
+CREATE OR REPLACE VIEW x_apps.xapps_geo_v_ev_floral_s AS 
+ SELECT 
+ z.id,
+ t.type_ev,
+ t.sstype_ev,
+ e.prat_ini,
+ e.preco,
+ e.gestion,
+ t.insee,
+ t.commune,
+ t.op_sai,
+ t.date_sai,
+ t.date_maj,
+ t.src_geom,
+ z.sup_m2,
+ t.observ,
+ z.geom
+   FROM m_espace_vert.geo_ev_s z    
+   LEFT JOIN m_espace_vert.an_ev_type t ON t.id = z.id
+   LEFT JOIN m_espace_vert.an_ev_entretien e ON e.id = z.id
+   
+   WHERE  t.type_ev = '01';
 
 
+ALTER TABLE x_apps.xapps_geo_v_ev_floral_s
+  OWNER TO postgres;
+GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_floral_s TO postgres;
 
-commit;        
+COMMENT ON VIEW x_apps.xapps_geo_v_ev_floral_s
+IS 'Vue applicative sur les données surfaciques d''espace vert de type floral';
+
+-- View: x_apps.xapps_geo_v_ev_floral_p
+
+-- DROP VIEW x_apps.xapps_geo_v_ev_floral_p;
+
+CREATE OR REPLACE VIEW x_apps.xapps_geo_v_ev_floral_p AS 
+ SELECT 
+ x.id,
+ t.type_ev,
+ t.sstype_ev,
+ e.prat_ini,
+ e.preco,
+ e.gestion,
+ t.insee,
+ t.commune,
+ t.op_sai,
+ t.date_sai,
+ t.date_maj,
+ t.src_geom,
+ t.observ,
+ x.geom
+   FROM m_espace_vert.geo_ev_p x    
+   LEFT JOIN m_espace_vert.an_ev_type t ON t.id = x.id
+   LEFT JOIN m_espace_vert.an_ev_entretien e ON e.id = x.id
+   
+   WHERE  t.type_ev = '01';
+
+
+ALTER TABLE x_apps.xapps_geo_v_ev_floral_p
+  OWNER TO postgres;
+GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_floral_p TO postgres;
+
+COMMENT ON VIEW x_apps.xapps_geo_v_ev_floral_p
+IS 'Vue applicative sur les données ponctuelles d''espace vert de type floral';
+
+-- View: x_apps.xapps_geo_v_ev_vegetal_s
+
+-- DROP VIEW x_apps.xapps_geo_v_ev_vegetal_s;
+
+CREATE OR REPLACE VIEW x_apps.xapps_geo_v_ev_vegetal_s AS 
+ SELECT 
+ z.id,
+ t.type_ev,
+ t.sstype_ev,
+ e.prat_ini,
+ e.preco,
+ e.gestion,
+ t.insee,
+ t.commune,
+ t.op_sai,
+ t.date_sai,
+ t.date_maj,
+ t.src_geom,
+ z.sup_m2,
+ t.observ,
+ z.geom
+   FROM m_espace_vert.geo_ev_s z    
+   LEFT JOIN m_espace_vert.an_ev_type t ON t.id = z.id
+   LEFT JOIN m_espace_vert.an_ev_entretien e ON e.id = z.id
+   
+   WHERE  t.type_ev = '02';
+
+
+ALTER TABLE x_apps.xapps_geo_v_ev_vegetal_s
+  OWNER TO postgres;
+GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_vegetal_s TO postgres;
+
+COMMENT ON VIEW x_apps.xapps_geo_v_ev_vegetal_s
+IS 'Vue applicative sur les données surfaciques d''espace vert de type végétal';
+
+-- View: x_apps.xapps_geo_v_ev_vegetal_l
+
+-- DROP VIEW x_apps.xapps_geo_v_ev_vegetal_l;
+
+CREATE OR REPLACE VIEW x_apps.xapps_geo_v_ev_vegetal_l AS 
+ SELECT 
+ y.id,
+ t.type_ev,
+ t.sstype_ev,
+ e.prat_ini,
+ e.preco,
+ e.gestion,
+ t.insee,
+ t.commune,
+ t.op_sai,
+ t.date_sai,
+ t.date_maj,
+ t.src_geom,
+ y.long_m,
+ t.observ,
+ y.geom
+   FROM m_espace_vert.geo_ev_l y    
+   LEFT JOIN m_espace_vert.an_ev_type t ON t.id = yz.id
+   LEFT JOIN m_espace_vert.an_ev_entretien e ON e.id = y.id
+   
+   WHERE  t.type_ev = '02';
+
+
+ALTER TABLE x_apps.xapps_geo_v_ev_vegetal_l
+  OWNER TO postgres;
+GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_vegetal_l TO postgres;
+
+COMMENT ON VIEW x_apps.xapps_geo_v_ev_vegetal_l
+IS 'Vue applicative sur les données linéaires d''espace vert de type végétal';
+
+-- View: x_apps.xapps_geo_v_ev_mineral_s
+
+-- DROP VIEW x_apps.xapps_geo_v_ev_mineral_s;
+
+CREATE OR REPLACE VIEW x_apps.xapps_geo_v_ev_mineral_s AS 
+ SELECT 
+ z.id,
+ t.type_ev,
+ t.sstype_ev,
+ e.prat_ini,
+ e.preco,
+ e.gestion,
+ t.insee,
+ t.commune,
+ t.op_sai,
+ t.date_sai,
+ t.date_maj,
+ t.src_geom,
+ z.sup_m2,
+ t.observ,
+ z.geom
+   FROM m_espace_vert.geo_ev_s z    
+   LEFT JOIN m_espace_vert.an_ev_type t ON t.id = z.id
+   LEFT JOIN m_espace_vert.an_ev_entretien e ON e.id = z.id
+   
+   WHERE  t.type_ev = '03';
+
+
+ALTER TABLE x_apps.xapps_geo_v_ev_mineral_s
+  OWNER TO postgres;
+GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_mineral_s TO postgres;
+
+COMMENT ON VIEW x_apps.xapps_geo_v_ev_mineral_s
+IS 'Vue applicative sur les données surfaciques d''espace vert de type minéral';
+
+-- View: x_apps.xapps_geo_v_ev_mineral_l
+
+-- DROP VIEW x_apps.xapps_geo_v_ev_mineral_l;
+
+CREATE OR REPLACE VIEW x_apps.xapps_geo_v_ev_mineral_l AS 
+ SELECT 
+ y.id,
+ t.type_ev,
+ t.sstype_ev,
+ e.prat_ini,
+ e.preco,
+ e.gestion,
+ t.insee,
+ t.commune,
+ t.op_sai,
+ t.date_sai,
+ t.date_maj,
+ t.src_geom,
+ y.long_m,
+ t.observ,
+ y.geom
+   FROM m_espace_vert.geo_ev_l y    
+   LEFT JOIN m_espace_vert.an_ev_type t ON t.id = yz.id
+   LEFT JOIN m_espace_vert.an_ev_entretien e ON e.id = y.id
+   
+   WHERE  t.type_ev = '03';
+
+
+ALTER TABLE x_apps.xapps_geo_v_ev_mineral_l
+  OWNER TO postgres;
+GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_mineral_l TO postgres;
+
+COMMENT ON VIEW x_apps.xapps_geo_v_ev_mineral_l
+IS 'Vue applicative sur les données linéaires d''espace vert de type minéral';
+
+
+commit;
