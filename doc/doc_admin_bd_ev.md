@@ -9,7 +9,7 @@ Une réflexion a donc été engagé en interne afin d'intégrer ces données en 
 
 
 * **résumé fonctionnel** :
-Les données s'organisent autour de 2 tables alphanumériques orientées métier, une concernant la typologie de l'objet et l'autre sur l'entretien et la gestion. Ces tables faisant chacune appel à des domaines de valeurs. Les objets géométriques sont eux objets surfaciques, linéaires et ponctuels. Une dernière table spécifique sur les espèces invasives est intégrée de manière indépendante.
+Les données s'organisent autour de 2 tables alphanumériques, une concernant la typologie de l'objet et l'autre, orientée métier, sur l'entretien et la gestion. Ces tables faisant chacune appel à des domaines de valeurs. Les objets géométriques sont eux répartis en 3 tables (surfacique, linéaire et ponctuelle). Une dernière table spécifique sur les espèces invasives est intégrée de manière indépendante.
 Il est à noter qu'il n'est pas prévu à ce jour (01/10/2018) qu'un suivi ou qu'une mise à jour de ces données soit réalisé en interne par le service métier compétent en matière d'espaces verts.
 
 ## Dépendances (non critiques)
