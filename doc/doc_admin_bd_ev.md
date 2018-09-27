@@ -101,9 +101,15 @@ Particularité(s) à noter :
 
 ### classes d'objets applicatives :
 
-`xapps_geo_v_ev_floral_s` : vue géographique regroupant les données surfaciques d'espace vert floral et les informations de typologie et d'entretien.
+`xapps_geo_v_ev_floral_s` : vue géographique regroupant les données surfaciques d'espace vert de type floral et les informations de typologie et d'entretien.
 
-`xapps_geo_v_ev_floral_p` : vue géographique regroupant les données ponctuelles d'espace vert floral et les informations de typologie et d'entretien.
+`xapps_geo_v_ev_floral_p` : vue géographique regroupant les données ponctuelles d'espace vert de type floral et les informations de typologie et d'entretien.
+
+`xapps_geo_v_ev_vegetal_s` : vue géographique regroupant les données surfaciques d'espace vert de type végétal et les informations de typologie et d'entretien.
+
+`xapps_geo_v_ev_vegetal_l` : vue géographique regroupant les données linéaires d'espace vert de type végétal et les informations de typologie et d'entretien.
+
+`xapps_geo_v_ev_minéral_s` : vue géographique regroupant les données surfaciques d'espace vert de type végétal et les informations de typologie et d'entretien.
 
 ---
 
