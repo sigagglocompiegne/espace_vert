@@ -286,4 +286,4 @@ Valeurs possibles :
 
 ## Schéma fonctionnel
 
-![schema_fonctionnel](img/schema_fonctionnel_ev2.jpg)
+![schema_fonctionnel](img/schema_fonctionnel_ev2.png)
