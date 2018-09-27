@@ -70,7 +70,7 @@ Particularité(s) à noter :
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ `id` avec une séquence d'incrémentation automatique `m_espace_vert.an_ev_type_id_seq`
-* Un index est présent sur le champ geom
+* Un index est présent sur le champ `geom`
 ---
 
 `geo_ev_l` : table géographique des objets espaces verts linéaires.
@@ -83,7 +83,7 @@ Particularité(s) à noter :
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ `id` avec une séquence d'incrémentation automatique `m_espace_vert.an_ev_type_id_seq`
-* Un index est présent sur le champ geom
+* Un index est présent sur le champ `geom`
 ---
 
 `geo_ev_p` : table géographique des objets espaces verts ponctuels.
@@ -95,8 +95,22 @@ Particularité(s) à noter :
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ `id` avec une séquence d'incrémentation automatique `m_espace_vert.an_ev_type_id_seq`
-* Un index est présent sur le champ geom
+* Un index est présent sur le champ `geom`
 ---
+
+`geo_ev_espece_invasive` : table géographique ponctuelle répertoriant les espèces invasives.
+   
+|Nom attribut | Définition | Type | Valeurs par défaut |
+|:---|:---|:---|:---|
+|id|identifiant unique de l'objet|bigint| |
+|nom_esp|nom de l'espèce végétale exotique envahissante|character varying(100)| |
+|insee|code Insee|character varying(5)| |
+|commune|nom de la commune|character varying(150)| |
+|geom|géométrie de l'objet|Point| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `id`
+* Un index est présent sur le champ `geom`
 
 ### classes d'objets applicatives :
 
@@ -301,4 +315,4 @@ Valeurs possibles :
 
 ## Schéma fonctionnel
 
-![schema_fonctionnel](img/schema_fonctionnel_ev2.png)
+![schema_fonctionnel](img/schema_fonctionnel_ev.png)
