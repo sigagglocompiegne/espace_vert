@@ -417,28 +417,34 @@ COMMENT ON COLUMN m_espace_vert.geo_ev_p.geom IS 'Géométrie de l''objet';
 
 -- ############################################################### geo_ev_espece_invasive ############################################################  
   
--- Table: m_espace_vert.geo_ev_p
+-- Table: m_espace_vert.geo_ev_espece_invasive
 
-DROP TABLE if exists m_espace_vert.geo_ev_p;
+DROP TABLE if exists m_espace_vert.geo_ev_espece_invasive;
 
-CREATE TABLE m_espace_vert.geo_ev_p
+CREATE TABLE m_espace_vert.geo_ev_espece_invasive
 (
   id bigint NOT NULL,
+  nom_esp character varying(100),
+  insee character varying(5) NOT NULL,
+  commune character varying(150) NOT NULL,
   geom geometry (Point,2154),
   
-  CONSTRAINT geo_ev_p_pkey PRIMARY KEY (id)
+  CONSTRAINT geo_ev_espece_invasive_pkey PRIMARY KEY (id)
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE m_espace_vert.geo_ev_p
+ALTER TABLE m_espace_vert.geo_ev_espece_invasive
   OWNER TO postgres;
-GRANT ALL ON TABLE m_espace_vert.geo_ev_p TO postgres;
+GRANT ALL ON TABLE m_espace_vert.geo_ev_espece_invasive TO postgres;
 
-COMMENT ON TABLE m_espace_vert.geo_ev_p
-IS 'Table géographique contenant les objets ponctuels espace vert';
-COMMENT ON COLUMN m_espace_vert.geo_ev_p.id IS 'Identifiant unique de l''objet espace vert';
-COMMENT ON COLUMN m_espace_vert.geo_ev_p.geom IS 'Géométrie de l''objet';
+COMMENT ON TABLE m_espace_vert.geo_ev_espece_invasive
+IS 'table géographique ponctuelle répertoriant les espèces invasives';
+COMMENT ON COLUMN m_espace_vert.geo_ev_espece_invasive.id IS 'Identifiant unique de l''objet espace vert';
+COMMENT ON COLUMN m_espace_vert.geo_ev_espece_invasive.nom_esp IS 'Nom de l''espèce végétale exotique envahissante'
+COMMENT ON COLUMN m_espace_vert.an_ev_type.insee IS 'Code Insee de la commune';
+COMMENT ON COLUMN m_espace_vert.an_ev_type.commune IS 'Nome de la commune';
+COMMENT ON COLUMN m_espace_vert.geo_ev_espece_invasive.geom IS 'Géométrie de l''objet';
 
 
 
@@ -474,6 +480,16 @@ CREATE INDEX geo_ev_p_geom_idx
   ON m_espace_vert.geo_ev_p
   USING gist
 (geom);
+
+-- Index: m_espace_vert.geo_ev_espece_invasive_geom_idx
+
+DROP INDEX if exists m_espace_vert.geo_ev_espece_invasive_geom_idx;
+
+CREATE INDEX geo_ev_espece_invasive_geom_idx
+  ON m_espace_vert.geo_ev_espece_invasive
+  USING gist
+(geom);
+
 
 
 -- ####################################################################################################################################################
@@ -516,7 +532,6 @@ CREATE TRIGGER t_t1_insert_update_sstype_ev
   ON m_espace_vert.an_ev_type
   FOR EACH ROW
 EXECUTE PROCEDURE m_espace_vert.ft_an_ev_type_type_ev();
-
 
 
 
