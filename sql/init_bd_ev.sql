@@ -219,7 +219,7 @@ COMMENT ON COLUMN m_espace_vert.lt_ev_gestion.valeur IS 'Valeur de la liste énu
 INSERT INTO m_espace_vert.lt_ev_gestion(
             code, valeur)
     VALUES
-    ('00','non renseigné')
+    ('00','non renseigné'),
     ('01','régie'),
     ('02','sous-traitance'),
     ('99','autre');  
