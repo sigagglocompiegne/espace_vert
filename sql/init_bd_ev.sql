@@ -41,8 +41,10 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE m_espace_vert.lt_ev_type
-  OWNER TO postgres;
-GRANT ALL ON TABLE m_espace_vert.lt_ev_type TO postgres;
+  OWNER TO sig_create;
+GRANT ALL ON TABLE m_espace_vert.lt_ev_type TO sig_create;
+GRANT SELECT ON TABLE m_espace_vert.lt_ev_type TO read_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_espace_vert.lt_ev_type TO edit_sig;
 
 COMMENT ON TABLE m_espace_vert.lt_ev_type
 IS 'Code permettant de décrire le type d''espace vert';
@@ -77,8 +79,10 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE m_espace_vert.lt_ev_sstype
-  OWNER TO postgres;
-GRANT ALL ON TABLE m_espace_vert.lt_ev_sstype TO postgres;
+  OWNER TO sig_create;
+GRANT ALL ON TABLE m_espace_vert.lt_ev_sstype TO sig_create;
+GRANT SELECT ON TABLE m_espace_vert.lt_ev_sstype TO read_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_espace_vert.lt_ev_sstype TO edit_sig;
 
 COMMENT ON TABLE m_espace_vert.lt_ev_sstype
 IS 'Code permettant de décrire le sous-type d''espace vert';
@@ -132,8 +136,10 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE m_espace_vert.lt_ev_entretien
-  OWNER TO postgres;
-GRANT ALL ON TABLE m_espace_vert.lt_ev_entretien TO postgres;
+  OWNER TO sig_create;
+GRANT ALL ON TABLE m_espace_vert.lt_ev_entretien TO sig_create;
+GRANT SELECT ON TABLE m_espace_vert.lt_ev_entretien TO read_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_espace_vert.lt_ev_entretien TO edit_sig;
 
 COMMENT ON TABLE m_espace_vert.lt_ev_entretien
 IS 'Code permettant de décrire la pratique d''entretien des espaces verts';
@@ -200,8 +206,10 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE m_espace_vert.lt_ev_gestion
-  OWNER TO postgres;
-GRANT ALL ON TABLE m_espace_vert.lt_ev_gestion TO postgres;
+  OWNER TO sig_create;
+GRANT ALL ON TABLE m_espace_vert.lt_ev_gestion TO sig_create;
+GRANT SELECT ON TABLE m_espace_vert.lt_ev_gestion TO read_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_espace_vert.lt_ev_gestion TO edit_sig;
 
 COMMENT ON TABLE m_espace_vert.lt_ev_gestion
 IS 'Code permettant de décrire la maitrise d''oeuvre de l''entretien des espaces verts';
@@ -258,8 +266,10 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE m_espace_vert.an_ev_type
-  OWNER TO postgres;
-GRANT ALL ON TABLE m_espace_vert.an_ev_type TO postgres;
+  OWNER TO sig_create;
+GRANT ALL ON TABLE m_espace_vert.an_ev_type TO sig_create;
+GRANT SELECT ON TABLE m_espace_vert.an_ev_type TO read_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_espace_vert.an_ev_type TO edit_sig;
 
 COMMENT ON TABLE m_espace_vert.an_ev_type
 IS 'Table alphanumérique principale contenant les informations typologiques sur les objets';
@@ -285,8 +295,10 @@ CREATE SEQUENCE m_espace_vert.an_ev_type_id_seq
   START 1
   CACHE 1;
 ALTER TABLE m_espace_vert.an_ev_type_id_seq
-  OWNER TO postgres;
-GRANT ALL ON SEQUENCE m_espace_vert.an_ev_type_id_seq TO postgres;
+  OWNER TO sig_create;
+GRANT ALL ON TABLE m_espace_vert.an_ev_type_id_seq TO sig_create;
+GRANT SELECT ON TABLE m_espace_vert.an_ev_type_id_seq TO read_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_espace_vert.an_ev_type_id_seq TO edit_sig;
 
 
                                                                                                                                        
@@ -318,8 +330,10 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE m_espace_vert.an_ev_entretien
-  OWNER TO postgres;
-GRANT ALL ON TABLE m_espace_vert.an_ev_entretien TO postgres;
+  OWNER TO sig_create;
+GRANT ALL ON TABLE m_espace_vert.an_ev_entretien TO sig_create;
+GRANT SELECT ON TABLE m_espace_vert.an_ev_entretien TO read_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_espace_vert.an_ev_entretien TO edit_sig;
 
 COMMENT ON TABLE m_espace_vert.an_ev_entretien
 IS 'Table alphanumérique contenant les informations d''entretien et de gestion des espaces verts';
@@ -348,8 +362,10 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE m_espace_vert.geo_ev_s
-  OWNER TO postgres;
-GRANT ALL ON TABLE m_espace_vert.geo_ev_s TO postgres;
+  OWNER TO sig_create;
+GRANT ALL ON TABLE m_espace_vert.geo_ev_s TO sig_create;
+GRANT SELECT ON TABLE m_espace_vert.geo_ev_s TO read_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_espace_vert.geo_ev_s TO edit_sig;
 
 COMMENT ON TABLE m_espace_vert.geo_ev_s
 IS 'Table géographique contenant les objets surfaciques espace vert';
@@ -377,8 +393,10 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE m_espace_vert.geo_ev_l
-  OWNER TO postgres;
-GRANT ALL ON TABLE m_espace_vert.geo_ev_l TO postgres;
+  OWNER TO sig_create;
+GRANT ALL ON TABLE m_espace_vert.geo_ev_l TO sig_create;
+GRANT SELECT ON TABLE m_espace_vert.geo_ev_l TO read_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_espace_vert.geo_ev_l TO edit_sig;
 
 COMMENT ON TABLE m_espace_vert.geo_ev_l
 IS 'Table géographique contenant les objets linéaires espace vert';
@@ -405,8 +423,10 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE m_espace_vert.geo_ev_p
-  OWNER TO postgres;
-GRANT ALL ON TABLE m_espace_vert.geo_ev_p TO postgres;
+  OWNER TO sig_create;
+GRANT ALL ON TABLE m_espace_vert.geo_ev_p TO sig_create;
+GRANT SELECT ON TABLE m_espace_vert.geo_ev_p TO read_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_espace_vert.geo_ev_p TO edit_sig;
 
 COMMENT ON TABLE m_espace_vert.geo_ev_p
 IS 'Table géographique contenant les objets ponctuels espace vert';
@@ -435,8 +455,10 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE m_espace_vert.geo_ev_espece_invasive
-  OWNER TO postgres;
-GRANT ALL ON TABLE m_espace_vert.geo_ev_espece_invasive TO postgres;
+  OWNER TO sig_create;
+GRANT ALL ON TABLE m_espace_vert.geo_ev_espece_invasive TO sig_create;
+GRANT SELECT ON TABLE m_espace_vert.geo_ev_espece_invasive TO read_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_espace_vert.geo_ev_espece_invasive TO edit_sig;
 
 COMMENT ON TABLE m_espace_vert.geo_ev_espece_invasive
 IS 'table géographique ponctuelle répertoriant les espèces invasives';
