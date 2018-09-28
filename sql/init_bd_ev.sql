@@ -539,8 +539,9 @@ $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
 ALTER FUNCTION m_espace_vert.ft_an_ev_type_type_ev()
-  OWNER TO postgres;
+  OWNER TO sig_create;
 GRANT EXECUTE ON FUNCTION m_espace_vert.ft_an_ev_type_type_ev() TO public;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_an_ev_type_type_ev() TO sig_create;
 									   
 COMMENT ON FUNCTION m_espace_vert.ft_an_ev_type_type_ev() IS 'Fonction trigger permettant de renseigner le type d''espace vert à partir du sous-type';
 
@@ -591,8 +592,10 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_ev_floral_s AS
 
 
 ALTER TABLE x_apps.xapps_geo_v_ev_floral_s
-  OWNER TO postgres;
-GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_floral_s TO postgres;
+  OWNER TO sig_create;
+GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_floral_s TO sig_create;
+GRANT SELECT ON TABLE x_apps.xapps_geo_v_ev_floral_s TO read_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE x_apps.xapps_geo_v_ev_floral_s TO edit_sig;
 
 COMMENT ON VIEW x_apps.xapps_geo_v_ev_floral_s
 IS 'Vue applicative sur les données surfaciques d''espace vert de type floral';
@@ -625,8 +628,10 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_ev_floral_p AS
 
 
 ALTER TABLE x_apps.xapps_geo_v_ev_floral_p
-  OWNER TO postgres;
-GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_floral_p TO postgres;
+  OWNER TO sig_create;
+GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_floral_p TO sig_create;
+GRANT SELECT ON TABLE x_apps.xapps_geo_v_ev_floral_p TO read_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE x_apps.xapps_geo_v_ev_floral_p TO edit_sig;
 
 COMMENT ON VIEW x_apps.xapps_geo_v_ev_floral_p
 IS 'Vue applicative sur les données ponctuelles d''espace vert de type floral';
@@ -660,8 +665,10 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_ev_vegetal_s AS
 
 
 ALTER TABLE x_apps.xapps_geo_v_ev_vegetal_s
-  OWNER TO postgres;
-GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_vegetal_s TO postgres;
+  OWNER TO sig_create;
+GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_vegetal_s TO sig_create;
+GRANT SELECT ON TABLE x_apps.xapps_geo_v_ev_vegetal_s TO read_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE x_apps.xapps_geo_v_ev_vegetal_s TO edit_sig;
 
 COMMENT ON VIEW x_apps.xapps_geo_v_ev_vegetal_s
 IS 'Vue applicative sur les données surfaciques d''espace vert de type végétal';
@@ -695,8 +702,10 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_ev_vegetal_l AS
 
 
 ALTER TABLE x_apps.xapps_geo_v_ev_vegetal_l
-  OWNER TO postgres;
-GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_vegetal_l TO postgres;
+  OWNER TO sig_create;
+GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_vegetal_l TO sig_create;
+GRANT SELECT ON TABLE x_apps.xapps_geo_v_ev_vegetal_l TO read_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE x_apps.xapps_geo_v_ev_vegetal_l TO edit_sig;
 
 COMMENT ON VIEW x_apps.xapps_geo_v_ev_vegetal_l
 IS 'Vue applicative sur les données linéaires d''espace vert de type végétal';
@@ -730,8 +739,10 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_ev_mineral_s AS
 
 
 ALTER TABLE x_apps.xapps_geo_v_ev_mineral_s
-  OWNER TO postgres;
-GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_mineral_s TO postgres;
+  OWNER TO sig_create;
+GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_mineral_s TO sig_create;
+GRANT SELECT ON TABLE x_apps.xapps_geo_v_ev_mineral_s TO read_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE x_apps.xapps_geo_v_ev_mineral_s TO edit_sig;
 
 COMMENT ON VIEW x_apps.xapps_geo_v_ev_mineral_s
 IS 'Vue applicative sur les données surfaciques d''espace vert de type minéral';
@@ -765,8 +776,10 @@ CREATE OR REPLACE VIEW x_apps.xapps_geo_v_ev_mineral_l AS
 
 
 ALTER TABLE x_apps.xapps_geo_v_ev_mineral_l
-  OWNER TO postgres;
-GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_mineral_l TO postgres;
+  OWNER TO sig_create;
+GRANT ALL ON TABLE x_apps.xapps_geo_v_ev_mineral_l TO sig_create;
+GRANT SELECT ON TABLE x_apps.xapps_geo_v_ev_mineral_l TO read_sig;
+GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE x_apps.xapps_geo_v_ev_mineral_l TO edit_sig;
 
 COMMENT ON VIEW x_apps.xapps_geo_v_ev_mineral_l
 IS 'Vue applicative sur les données linéaires d''espace vert de type minéral';
