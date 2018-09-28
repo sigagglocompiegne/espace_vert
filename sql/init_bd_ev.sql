@@ -297,8 +297,7 @@ CREATE SEQUENCE m_espace_vert.an_ev_type_id_seq
 ALTER TABLE m_espace_vert.an_ev_type_id_seq
   OWNER TO sig_create;
 GRANT ALL ON TABLE m_espace_vert.an_ev_type_id_seq TO sig_create;
-GRANT SELECT ON TABLE m_espace_vert.an_ev_type_id_seq TO read_sig;
-GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_espace_vert.an_ev_type_id_seq TO edit_sig;
+GRANT SELECT, USAGE ON SEQUENCE r_objet.geo_objet_pt_adresse_id_seq TO public;
 
 
                                                                                                                                        
