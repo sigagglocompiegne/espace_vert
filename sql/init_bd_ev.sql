@@ -462,7 +462,7 @@ GRANT SELECT, UPDATE, INSERT, DELETE ON TABLE m_espace_vert.geo_ev_espece_invasi
 COMMENT ON TABLE m_espace_vert.geo_ev_espece_invasive
 IS 'table géographique ponctuelle répertoriant les espèces invasives';
 COMMENT ON COLUMN m_espace_vert.geo_ev_espece_invasive.id IS 'Identifiant unique de l''objet espace vert';
-COMMENT ON COLUMN m_espace_vert.geo_ev_espece_invasive.nom_esp IS 'Nom de l''espèce végétale exotique envahissante'
+COMMENT ON COLUMN m_espace_vert.geo_ev_espece_invasive.nom_esp IS 'Nom de l''espèce végétale exotique envahissante';
 COMMENT ON COLUMN m_espace_vert.geo_ev_espece_invasive.insee IS 'Code Insee de la commune';
 COMMENT ON COLUMN m_espace_vert.geo_ev_espece_invasive.commune IS 'Nome de la commune';
 COMMENT ON COLUMN m_espace_vert.geo_ev_espece_invasive.geom IS 'Géométrie de l''objet';
