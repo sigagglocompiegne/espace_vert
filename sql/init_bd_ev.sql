@@ -289,6 +289,46 @@ ALTER TABLE m_espace_vert.an_ev_type_id_seq
 GRANT ALL ON SEQUENCE m_espace_vert.an_ev_type_id_seq TO postgres;
 
 
+                                                                                                                                       
+-- ####################################################################### an_ev_entretien ##########################################################  
+  
+-- Table: m_espace_vert.an_ev_entretien
+
+DROP TABLE if exists m_espace_vert.an_ev_entretien;
+
+CREATE TABLE m_espace_vert.an_ev_entretien
+(
+  id bigint NOT NULL,
+  prat_ini character varying(5),
+  preco character varying(5),
+  gestion character varying(2),
+  
+  CONSTRAINT an_ev_entretien_pkey PRIMARY KEY (id),
+  CONSTRAINT lt_ev_entretien_prat_ini_fkey FOREIGN KEY (prat_ini)
+      REFERENCES m_espace_vert.lt_ev_entretien (code) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT lt_ev_entretien_preco_fkey FOREIGN KEY (preco)
+      REFERENCES m_espace_vert.lt_ev_entretien (code) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT lt_ev_gestion_fkey FOREIGN KEY (gestion)
+      REFERENCES m_espace_vert.lt_ev_gestion (code) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION        
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE m_espace_vert.an_ev_entretien
+  OWNER TO postgres;
+GRANT ALL ON TABLE m_espace_vert.an_ev_entretien TO postgres;
+
+COMMENT ON TABLE m_espace_vert.an_ev_entretien
+IS 'Table alphanumérique contenant les informations d''entretien et de gestion des espaces verts';
+COMMENT ON COLUMN m_espace_vert.an_ev_entretien.id IS 'Identifiant unique de l''objet espace vert';
+COMMENT ON COLUMN m_espace_vert.an_ev_entretien.prat_ini IS 'Pratique d''entretien initial appliquée lors du diagnostic';
+COMMENT ON COLUMN m_espace_vert.an_ev_entretien.preco IS 'Préconisation d''entretien conseillé à l''avenir';
+COMMENT ON COLUMN m_espace_vert.an_ev_entretien.gestion IS 'Maitrise d''oeuvre de l''entretien';
+
+
 
 -- ####################################################################### geo_ev_s #################################################################  
   
@@ -374,44 +414,31 @@ COMMENT ON COLUMN m_espace_vert.geo_ev_p.id IS 'Identifiant unique de l''objet e
 COMMENT ON COLUMN m_espace_vert.geo_ev_p.geom IS 'Géométrie de l''objet';
 
 
-                                                                                                                                       
--- ####################################################################### an_ev_entretien ##########################################################  
+
+-- ############################################################### geo_ev_espece_invasive ############################################################  
   
--- Table: m_espace_vert.an_ev_entretien
+-- Table: m_espace_vert.geo_ev_p
 
-DROP TABLE if exists m_espace_vert.an_ev_entretien;
+DROP TABLE if exists m_espace_vert.geo_ev_p;
 
-CREATE TABLE m_espace_vert.an_ev_entretien
+CREATE TABLE m_espace_vert.geo_ev_p
 (
   id bigint NOT NULL,
-  prat_ini character varying(5),
-  preco character varying(5),
-  gestion character varying(2),
+  geom geometry (Point,2154),
   
-  CONSTRAINT an_ev_entretien_pkey PRIMARY KEY (id),
-  CONSTRAINT lt_ev_entretien_prat_ini_fkey FOREIGN KEY (prat_ini)
-      REFERENCES m_espace_vert.lt_ev_entretien (code) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT lt_ev_entretien_preco_fkey FOREIGN KEY (preco)
-      REFERENCES m_espace_vert.lt_ev_entretien (code) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT lt_ev_gestion_fkey FOREIGN KEY (gestion)
-      REFERENCES m_espace_vert.lt_ev_gestion (code) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION        
+  CONSTRAINT geo_ev_p_pkey PRIMARY KEY (id)
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE m_espace_vert.an_ev_entretien
+ALTER TABLE m_espace_vert.geo_ev_p
   OWNER TO postgres;
-GRANT ALL ON TABLE m_espace_vert.an_ev_entretien TO postgres;
+GRANT ALL ON TABLE m_espace_vert.geo_ev_p TO postgres;
 
-COMMENT ON TABLE m_espace_vert.an_ev_entretien
-IS 'Table alphanumérique contenant les informations d''entretien et de gestion des espaces verts';
-COMMENT ON COLUMN m_espace_vert.an_ev_entretien.id IS 'Identifiant unique de l''objet espace vert';
-COMMENT ON COLUMN m_espace_vert.an_ev_entretien.prat_ini IS 'Pratique d''entretien initial appliquée lors du diagnostic';
-COMMENT ON COLUMN m_espace_vert.an_ev_entretien.preco IS 'Préconisation d''entretien conseillé à l''avenir';
-COMMENT ON COLUMN m_espace_vert.an_ev_entretien.gestion IS 'Maitrise d''oeuvre de l''entretien';
+COMMENT ON TABLE m_espace_vert.geo_ev_p
+IS 'Table géographique contenant les objets ponctuels espace vert';
+COMMENT ON COLUMN m_espace_vert.geo_ev_p.id IS 'Identifiant unique de l''objet espace vert';
+COMMENT ON COLUMN m_espace_vert.geo_ev_p.geom IS 'Géométrie de l''objet';
 
 
 
