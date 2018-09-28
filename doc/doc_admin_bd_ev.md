@@ -270,46 +270,7 @@ Valeurs possibles :
 
 `r_objet.lt_src_geom` : liste des valeurs permettant de décrire le référentiel géographique utilisé pour la saisie des données.
 
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|    
-|code|code de la liste énumérée relative au référentiel de saisie utilisé pour la saisie de l'objet|character varying(2)| |
-|valeur|valeur de la liste énumérée relative au référentiel de saisie utilisé pour la saisie de l'objet|character varying(254)| |
-
-Particularité(s) à noter :
-* Une clé primaire existe sur le champ `code` 
-
-Valeurs possibles :
-
-|Code|Valeur|
-|:---|:---|
-|00|Non renseigné|
-|10|Cadastre|
-|11|PCI vecteur|
-|12|BD Parcellaire|
-|13|RPCU|
-|20|Ortho-images|
-|21|Orthophotoplan IGN|
-|22|Orthophotoplan partenaire|
-|23|Orthophotoplan local|
-|30|Filaire voirie|
-|31|Route BDTopo|
-|32|Route OSM|
-|40|Cartes|
-|41|Scan25|
-|50|Lever|
-|51|Plan topographique|
-|52|PCRS|
-|53|Trace GPS|
-|60|Geocodage|
-|61|Base Adresse Locale|
-|70|Plan masse|
-|71|Plan masse vectoriel|
-|72|Plan masse redessiné|
-|80|Thématique|
-|81|Document d'urbanisme|
-|82|Occupation du sol|
-|83|Thèmes BDTopo|
-|99|Autre|
+Se référerer à la documentation de la base de données Adresse pour plus d'informations.
 
 ---
 
