@@ -519,11 +519,11 @@ CREATE INDEX geo_ev_espece_invasive_geom_idx
 -- ###                                                                                                                                              ###
 -- ####################################################################################################################################################
 
--- Function: m_espace_vert.ft_an_ev_type_type_ev()
+-- Function: m_espace_vert.ft_m_an_ev_type_type_ev()
 
-DROP FUNCTION if exists m_espace_vert.ft_an_ev_type_type_ev();
+DROP FUNCTION if exists m_espace_vert.ft_m_an_ev_type_type_ev();
 
-CREATE OR REPLACE FUNCTION m_espace_vert.ft_an_ev_type_type_ev()
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_an_ev_type_type_ev()
   RETURNS trigger AS
 $BODY$
 
@@ -538,12 +538,12 @@ END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
-ALTER FUNCTION m_espace_vert.ft_an_ev_type_type_ev()
+ALTER FUNCTION m_espace_vert.ft_m_an_ev_type_type_ev()
   OWNER TO sig_create;
-GRANT EXECUTE ON FUNCTION m_espace_vert.ft_an_ev_type_type_ev() TO public;
-GRANT EXECUTE ON FUNCTION m_espace_vert.ft_an_ev_type_type_ev() TO sig_create;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_an_ev_type_type_ev() TO public;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_an_ev_type_type_ev() TO sig_create;
 									   
-COMMENT ON FUNCTION m_espace_vert.ft_an_ev_type_type_ev() IS 'Fonction trigger permettant de renseigner le type d''espace vert à partir du sous-type';
+COMMENT ON FUNCTION m_espace_vert.ft_m_an_ev_type_type_ev() IS 'Fonction trigger permettant de renseigner le type d''espace vert à partir du sous-type';
 
 -- Trigger: t_t1_insert_update_sstype_ev on m_espace_vert.an_ev_type
 
@@ -553,7 +553,7 @@ CREATE TRIGGER t_t1_insert_update_sstype_ev
   BEFORE INSERT OR UPDATE
   ON m_espace_vert.an_ev_type
   FOR EACH ROW
-EXECUTE PROCEDURE m_espace_vert.ft_an_ev_type_type_ev();
+EXECUTE PROCEDURE m_espace_vert.ft_m_an_ev_type_type_ev();
 
 
 
