@@ -4,7 +4,7 @@
 
 [ ] à rédiger [x] en cours de rédaction [ ] finaliser
 
-Spécification du fichier d’échange relatif aux données concernant la   localisation géographique des espaces verts sur le territoire de  l'Agglomération de la Région de Compiègne (ARC) et gérés par le service mutualisé de la ville de Compiègne et de l'Agglomération.
+Spécification du fichier d’échange relatif aux données concernant la production cartographique des objets constituant les espaces verts sur le territoire de  l'Agglomération de la Région de Compiègne (ARC) et gérés par le service mutualisé de la ville de Compiègne et de l'Agglomération.
 
 - [Lire la documentation du standard](gabarit/livrables.md)
 - [Documentation d'administration de la base sur les déchets](bdd/doc_admin_bd_tri.md)
