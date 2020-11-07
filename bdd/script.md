@@ -16,5 +16,5 @@ Ensemble des éléments constituant la mise en oeuvre de la base de données sur
   * [Création des vues de gestion](/bdd/tri_20_vues_gestion.sql)
   * [Création des vues applicatives](/bdd/tri_21_vues_xapps.sql)
   * [Création des vues applicatives gd public](/bdd/tri_22_vues_xapps_public.sql)
-  * [Création des vues open data](/bdd/tri_23_vues_xopendata.sql)
+  * [Création des vues open data](/bdd/ev_23_vues_xopendata.sql)
   * [Création des privilèges](/bdd/ev_99_grant.sql)
