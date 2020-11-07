@@ -6,4 +6,4 @@
 /* Propriétaire : GeoCompiegnois - http://geo.compiegnois.fr/ */
 /* Auteur : Grégory Bodet */
 
-/* SANS OBJET */
+Sans objet
