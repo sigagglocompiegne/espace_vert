@@ -18,7 +18,7 @@
 
 ## Principe fonctionnel
 
-Le principe de fonctionnement de la base de données des Points d'Apport Volontaire Verre s'appuie sur le lieu de collecte. Ce lieu est un point unique disposant de n conteneurs, qu'ils soient à usage Verre ou TLC. 
+Le principe de fonctionnement de la base de données de gestion des espaces verts s'appuie sur la production cartographique d'objets constituant un espace à vocation récréative ou d'embellissement de la ville. Ces objets peuvent être représentés de façon surfacique (espace enherbé, parterre, bois...), linéaire (haie, accotement...) ou ponctuel (arbre en alignement, pot...). Ils sont intégrés à la fois dans un site cohérent (équipements publics, ensemble urbain, voie...) et dans une zone de gestion et/ou intervention.
 
 (mettre ici principe de gestion des objets surfac, ligne, pojnt) 
 
@@ -34,6 +34,8 @@ Schéma 3 : restitution conceptuelle dans la base de données
 
 ## Règle de modélisation
 ==> indiquer ici les modalite de production (règle de modélisation) (cf PDF GeoPal)
+
+
 
 *Important :*
 -	le gabarit Qgis proposé, 
