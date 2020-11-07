@@ -20,6 +20,8 @@
 
 Le principe de fonctionnement de la base de données de gestion des espaces verts s'appuie sur la production cartographique d'objets constituant un espace à vocation récréative ou d'embellissement de la ville. Ces objets peuvent être représentés de façon surfacique (espace enherbé, parterre, bois...), linéaire (haie, accotement...) ou ponctuel (arbre en alignement, pot...). Ils sont intégrés à la fois dans un site cohérent (équipements publics, ensemble urbain, voie...) et dans une zone de gestion et/ou intervention.
 
+Le modèle de données prend ainsi en compte la production initiale cartographique des objets en y intégrant des notions d'appartenance cohérente à des objets de gestion et la possibilité d'y affecter des éléments de gestion au besoin du service.
+
 (mettre ici principe de gestion des objets surfac, ligne, pojnt) 
 
 Schéma 1 : principe fonctionnel de gestion des espaces verts
