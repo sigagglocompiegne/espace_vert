@@ -12,8 +12,8 @@ Ensemble des éléments constituant la mise en oeuvre de la base de données sur
 
 ## Scripts SQL 
 
-  * [Création de la structure initiale](/bdd/tri_10_squelette.sql)
-  * [Création des vues de gestion](/bdd/tri_20_vues_gestion.sql)
+  * [Création de la structure initiale](/bdd/ev_10_squelette.sql)
+  * [Création des vues de gestion](/bdd/ev_20_vues_gestion.sql)
   * [Création des vues applicatives](/bdd/ev_21_vues_xapps.sql)
   * [Création des vues applicatives gd public](/bdd/ev_22_vues_xapps_public.sql)
   * [Création des vues open data](/bdd/ev_23_vues_xopendata.sql)
