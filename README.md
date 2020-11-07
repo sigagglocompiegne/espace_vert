@@ -21,7 +21,7 @@ L’ARC privilégie donc une organisation dans laquelle l’Interface Homme Mach
 
 ## Voir aussi
 
-- [Accès aux téléchargements (rubrique Gabarits)](https://github.com/sigagglocompiegne/tri_selectif/blob/master/gabarit/livrables.md)
+- [Accès aux téléchargements (rubrique Gabarits)](https://github.com/sigagglocompiegne/espace_vert/blob/master/gabarit/livrables.md)
 
 ## Jeu de données consolidé
 
