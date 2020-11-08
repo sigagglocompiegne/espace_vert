@@ -25,10 +25,14 @@ Le principe du modèle de données (schéma 2) prend ainsi en compte la producti
 (mettre ici principe de gestion des objets surfac, ligne, pojnt) 
 
 ![picto]()
+
 Schéma 1 : principe fonctionnel de gestion des espaces verts
 
 ![picto](principe_modelisation.png)
+
 Schéma 2 : principe de modélisation autour de 3 blocs de production
+
+![picto]
 
 Schéma 3 : restitution conceptuelle dans la base de données
 
