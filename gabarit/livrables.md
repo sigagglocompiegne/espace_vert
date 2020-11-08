@@ -53,7 +53,7 @@ Chaque objet saisi devra être complété par des informations attributaires ass
 -	l'attribut 
 - L'attribut 
 
-Un gabarit de saisi, sous le logiciel SIG QGIS 3.x, est disponible et permet de disposer des fonds de plan géographiques nécessaires à la localisation des espaces verts. D'autres fonds de plan peuvent ajoutés si le prodcuteur en dispose.
+Un gabarit de saisi, sous le logiciel SIG QGIS 3.x, est disponible et permet de disposer des fonds de plan géographiques nécessaires à la localisation des espaces verts. D'autres fonds de plan peuvent être ajoutés si le prodcuteur en dispose.
 
 ### Système de coordonnées
 
