@@ -51,14 +51,16 @@ Schéma 3 : restitution conceptuelle dans la base de données
 
 Un gabarit de saisi, sous le logiciel SIG QGIS 3.x, est disponible et permet de disposer des fonds de plan géographiques nécessaires à la localisation des espaces verts. D'autres fonds de plan peuvent ajoutés si le prodcuteur en dispose.
 
-## Système de coordonnées
+### Système de coordonnées
 
 Les coordonnées seront exprimées en mètre avec trois chiffres après la virgule dans le système national en vigueur.
 Sur le territoire métropolitain s'applique le système géodésique français légal RGF93 associé au système altimétrique IGN69. La projection associée Lambert 93 France (epsg:2154) sera à utiliser pour la livraison des données.
 
-## Topologie
+### Topologie
 
-- Tout objet est nécessairement inclu dans l'emprise de la commune de Compiègne et dans les zones d'aménagement (ZAE) gérées par l'Agglomération de la Région de Compiègne.
+- Tous les objets sont nécessairement inclu dans l'emprise de la commune de Compiègne et dans les zones d'aménagement (ZAE) gérées par l'Agglomération de la Région de Compiègne. 
+- Ils sont également inclus dans un site de production cartographique correspondant à un équipement public, une voie... et dans une zone de gestion/intervention. Ces deux derniers éléments seront intégrés dans une phase ultérieure à la production initiale. 
+-
 
 ## Format des fichiers
 
