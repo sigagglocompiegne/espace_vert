@@ -24,9 +24,9 @@ Le principe du modèle de données (schéma 2) prend ainsi en compte la producti
 
 (mettre ici principe de gestion des objets surfac, ligne, pojnt) 
 
-![picto]()
+![picto](objets_pro_carto.png)
 
-Schéma 1 : principe fonctionnel de gestion des espaces verts
+Schéma 1 : les objets de la production cartographique
 
 ![picto](principe_modelisation.png)
 
@@ -40,6 +40,11 @@ Schéma 3 : restitution conceptuelle dans la base de données
 
 ## Règle de modélisation
 ==> indiquer ici les modalite de production (règle de modélisation) (cf PDF GeoPal)
+
+Les objets constituant la production cartographique initiale sont organisés autour des 3 primitives géographiques de base : polygones, lignes et points.
+La saisie de ces objets doit permettre une restitution de l'ordre du 1 000ème.
+
+Chaque objet saisi devra être complété par des informations attributaires associées. Certains de ces attributs seront autogénérés par le gabarit, d'autres le seront à l'intégration de la production cartographique par le maître d'ouvrage et d'autres devront être saisis obligatoirement par le prestataire.
 
 - Le tracé d'un linéaire est forcément positionné au centre de l'objet saisie avec un repport de sa largeur.
 - La saisie d'un ponctuel doit représenter le centre de l'objet saisi.
@@ -65,7 +70,7 @@ Sur le territoire métropolitain s'applique le système géodésique français l
 
 Ces deux derniers éléments seront intégrés dans une phase ultérieure à la production cartographique initiale.
 
-- Tous les objets de type "polygone", si ils sont adjacents, devront être topologique (absence de chevauchements et de micro-trous). 
+- Tous les objets de type "surface" sont des polygones fermés, et si ils sont adjacents, ils devront être topologique (absence de chevauchements et de micro-trous). 
 
 ![picto](topo_poly_1.png) ![picto](topo_poly_3.png)
 
@@ -77,6 +82,7 @@ Ces deux derniers éléments seront intégrés dans une phase ultérieure à la 
 
 ![picto](topo_line_1.png)
 
+- Les arcs de cercle ou ellipse devront être numérisés sous forme de polyligne suffisamment détaillée pour en reproduire le forme.
 
 ## Format des fichiers
 
