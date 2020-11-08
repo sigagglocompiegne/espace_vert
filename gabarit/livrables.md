@@ -41,7 +41,8 @@ Schéma 3 : restitution conceptuelle dans la base de données
 ## Règle de modélisation
 ==> indiquer ici les modalite de production (règle de modélisation) (cf PDF GeoPal)
 
-
+- Le tracé d'un linéaire est forcément positionné au centre de l'objet saisie avec un repport de sa largeur.
+- La saisie d'un ponctuel doit représenter le centre de l'objet saisi.
 
 *Important :*
 -	le gabarit Qgis proposé, 
@@ -72,13 +73,13 @@ Ces deux derniers éléments seront intégrés dans une phase ultérieure à la 
 
 ![picto](topo_poly_2.png)
 
-- Le tracé d'un linéaire est forcément positionné au centre de l'objet saisie avec un repport de sa largeur
+- Les inéraires contigües doivent être connnectés
 
 ![picto](topo_line_1.png)
 
-- La saisie d'un ponctuel doit représenter le centre de l'objet saisi
 
-![picto](topo_pct_1.png)
+
+
 
 ## Format des fichiers
 
