@@ -30,7 +30,7 @@ Schéma 1 : principe fonctionnel de gestion des espaces verts
 
 Schéma 2 : principe de modélisation autour de 3 blocs de production
 
-![picto]()
+![picto](principe_modelisation_.png)
 
 Schéma 3 : restitution conceptuelle dans la base de données
 
