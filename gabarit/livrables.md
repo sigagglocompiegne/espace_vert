@@ -73,12 +73,9 @@ Ces deux derniers éléments seront intégrés dans une phase ultérieure à la 
 
 ![picto](topo_poly_2.png)
 
-- Les inéraires contigües doivent être connnectés
+- Les linéraires doivent être connnectés entre eux si ils sont contiguës dans la réalité du dessin saisi.
 
 ![picto](topo_line_1.png)
-
-
-
 
 
 ## Format des fichiers
