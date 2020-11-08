@@ -22,8 +22,6 @@ Le principe de fonctionnement de la base de données de gestion des espaces vert
 
 Le principe du modèle de données (schéma 2) prend ainsi en compte la production initiale cartographique des objets en y intégrant des notions d'appartenance cohérente à des zones de gestion, d'intervention ou de production cartographique d'ensemble (site...). Il rend également possible l'affectation d'éléments de gestion de ce patrimoine cartographique au besoin du service dans un temps plus long.
 
-(mettre ici principe de gestion des objets surfac, ligne, pojnt) 
-
 ![picto](objets_pro_carto.png)
 
 Schéma 1 : les objets de la production cartographique
