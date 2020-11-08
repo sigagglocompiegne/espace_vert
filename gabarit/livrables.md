@@ -64,7 +64,7 @@ Sur le territoire métropolitain s'applique le système géodésique français l
 
 Ces deux derniers éléments seront intégrés dans une phase ultérieure à la production cartographique initiale.
 
-- Tous les objets de type "polygone", si ils sont adjacents, devront être topolique (absence de chevauchements et de micro-trous). 
+- Tous les objets de type "polygone", si ils sont adjacents, devront être topologique (absence de chevauchements et de micro-trous). 
 
 ![picto](topo_poly_1.png) ![picto](topo_poly_3.png)
 
@@ -73,7 +73,12 @@ Ces deux derniers éléments seront intégrés dans une phase ultérieure à la 
 ![picto](topo_poly_2.png)
 
 - Le tracé d'un linéaire est forcément positionné au centre de l'objet saisie avec un repport de sa largeur
+
+![picto](topo_line_1.png)
+
 - La saisie d'un ponctuel doit représenter le centre de l'objet saisi
+
+![picto](topo_pct_1.png)
 
 ## Format des fichiers
 
