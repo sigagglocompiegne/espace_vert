@@ -65,11 +65,11 @@ Ces deux derniers éléments seront intégrés dans une phase ultérieure à la 
 
 - Tous les objets de type "polygone", si ils sont adjacents, devront être topolique (absence de chevauchements et de micro-trous). 
 
-![picto](topo_poly_1.png) ![picto](topo_poly_2.png)
+![picto](topo_poly_1.png) ![picto](topo_poly_3.png)
 
 - Un polygone contenant un autre polygone devra être découpé avec celui-ci.
 
-![picto](topo_poly_3.png)
+![picto](topo_poly_2.png)
 
 - Le tracé d'un linéaire est forcément positionné au centre de l'objet saisie avec un repport de sa largeur
 - La saisie d'un ponctuel doit représenter le centre de l'objet saisi
