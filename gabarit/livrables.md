@@ -59,8 +59,13 @@ Sur le territoire métropolitain s'applique le système géodésique français l
 ### Topologie
 
 - Tous les objets sont nécessairement inclu dans l'emprise de la commune de Compiègne et dans les zones d'aménagement (ZAE) gérées par l'Agglomération de la Région de Compiègne. 
-- Ils sont également inclus dans un site de production cartographique correspondant à un équipement public, une voie... et dans une zone de gestion/intervention. Ces deux derniers éléments seront intégrés dans une phase ultérieure à la production initiale. 
--
+- Ils sont également inclus dans un site de production cartographique correspondant à un équipement public, une voie... et dans une zone de gestion/intervention.  
+- A l'intérieur d'une zone d'aménagement (ZAE) gérée par l'Agglomération de la Région de Compiègne, les objets devront être découpés avec les limites communales
+Ces deux derniers éléments seront intégrés dans une phase ultérieure à la production cartographique initiale.
+- Tous les objets de type "polygone", si ils sont adjacents, devront être topolique (absence de chevauchements et de micro-trous). 
+- Un polygone contenant un autre polygone devra être découpé avec celui-ci.
+- Le tracé d'un linéaire est forcément positionné au centre de l'objet saisie avec un repport de sa largeur
+- La saisie d'un ponctuel doit représenter le centre de l'objet saisi
 
 ## Format des fichiers
 
