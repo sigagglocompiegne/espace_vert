@@ -31,6 +31,7 @@ Schéma 1 : principe fonctionnel de gestion des espaces verts
 ![picto](principe_modelisation.png)
 
 Schéma 2 : principe de modélisation autour de 3 blocs de production
+*Ce schéma montre la prise en compte dans le modèle de donnée de la périodicité d'intégration par le service "espace vert" des différents éléments lui permettant à terme de gérer l'ensemble de son patrimoine de données. La production cartographique des objets (partie 1) constituant les espaces verts étant le maillon de base, le modèle s'attachera . Les parties 2 et 3, même si elles sont évoquées et en partie intégrées dans cette première modélisation, seront développées dans un second temps.
 
 ![picto]
 
