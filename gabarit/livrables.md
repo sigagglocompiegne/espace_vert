@@ -36,17 +36,21 @@ Schéma 2 : principe de modélisation autour de 3 blocs de production
 
 Schéma 3 : restitution conceptuelle dans la base de données
 
+## Production cartographique initiale attendue en 2020 
+
+**Cette production cartographique initiale des objets des espaces verts consiste en 3 points :**
+
+- **compléter l'inventaire initié par le service "Espace Vert" existant concernant le positionnement des arbres isolés ou en alignement sur la commune de Compiègne,**
+- **compléter et mettre à jour une production cartographique initiée en 2018 sur la commune de Compiègne (hors arbre). Cette donnée pourra être reprise par le prestataire afin d'en améliorer la qualité de précision des objets recensés,**
+- **produire les objets des espaces verts sur les zones d'aménagements (ZAE) gérées par l'Agglomération de la Région de Compiègne.
+
 ## Règle de modélisation
-==> indiquer ici les modalite de production (règle de modélisation) (cf PDF GeoPal)
 
 Les objets constituant la production cartographique initiale sont organisés autour des 3 primitives géographiques de base : polygones, lignes et points.
 La saisie de ces objets doit permettre une restitution de l'ordre du 1 000ème.
 
 Chaque objet saisi devra être complété par des informations attributaires associées. Certains de ces attributs seront autogénérés par le gabarit, d'autres le seront à l'intégration de la production cartographique par le maître d'ouvrage et d'autres devront être saisis obligatoirement par le prestataire.
 
-**Cette production cartographique initiale des objets des espaces verts consiste en 3 points :**
-
-- **compléter l'inventaire existant concernant le positionnement des arbres isolés ou en alignement**
 
 - Le tracé d'un linéaire est forcément positionné au centre de l'objet saisie avec un repport de sa largeur.
 - La saisie d'un ponctuel doit représenter le centre de l'objet saisi.
