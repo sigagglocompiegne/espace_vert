@@ -30,6 +30,7 @@ La base de données des espaces verts s'appuie sur des référentiels préexista
 |:---|:---|:---|:---|   
 |r_objet|lt_src_geom|domaine de valeur générique d'une table géographique|source du référentiel de saisies des objets|
 |r_objet|lt_contrat|liste et caractéristiques des contrats de délégation ou d'entretien|Gestion des différents données ou s'apparentant un contrat ou un type d'entretien (interne ou non)|
+|m_amenagement|geo_amt_zone_gestion|Table géographique délimitant les différentes zones de gestion entre la ville de Compiègne et l'Agglomération de la Région de Compigne|Déterminbation des zones d'aménagements et de gestion plus ou moins adaptées en fonction des types d'objets gérés permettant un rattachement à la table alphanumérique des contrats ou des services d'intervention|
 
 ---
 
@@ -71,7 +72,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet|
+|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
 |qualglocxy|Qualité de la géolocalisation planimétrique (XY) du point saisi|varchar(2)|00 (liste de valeurs `lt_ev_qualglocxy`)|
 |x_l93|Coordonnée X du point saisi en Lambert 93|numeric(10,3)|valeur vide interdite|
 |y_l93|Coordonnée Y du point saisi en Lambert 93|numeric(10,3)|valeur vide interdite|
@@ -82,7 +83,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet|
+|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
 |sup_m2|Surface de l'objet "espace vert" exprimée en mètre carré|integer|valeur vide interdite (issu du calcul SIG)|
 |geom|Atrribut contenant la géométrie du polygone|geometry(polygon,2154)|valeur vide interdite|
 
@@ -90,11 +91,81 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet|
+|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
 |long_m|Longueur de l'objet "espace vert" exprimée en mètre|integer|valeur vide interdite (issu du calcul SIG et arrondit au mètre)|
 |larg_cm|Largeur de l'objet "espace vert" exprimée en centimètre|integer|valeur vide interdite et maximum de 100cm|
 |geom|Atrribut contenant la géométrie de la polyligne|geometry(linestring,2154)|valeur vide interdite|
 
+`an_ev_arbre` : table alphanumérique du patrimoine des objets des espaces verts correspond aux arbres.
+
+**Cette classe est issue de l'inventaire initié depuis 2014 et pourra faire l'objet d'une réadapation dans ce nouveau modèle. Le complément demandé lors de la production cartographique en 2020 sera uniquement de l'ordre du positionnement. Les attributs métiers seront renseignés par le service "espace vert" dans un second temps.**
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
+|nom|Libellé du nom de l'arbre en français|varchar(50)||
+|genre|Libellé du genre de l'arbre (en latin)|varchar(20)||
+|espece|Libellé d'espèce de l'arbre (en latin)|varchar(20)||
+|hauteur|Classe de hauteur de l'arbre|varchar(2)|00 (liste de valeurs `lt_ev_arbrehauteur`)|
+|circonf|Circonférence du tronc de l'arbre en centimètre|integer||
+|forme|Classe de forme de l'arbre|varchar(2)|00 (liste de valeurs `lt_ev_arbreforme`)|
+|etat_gen|Etat général l'arbre|varchar(2)|00 (non saisi à ce jour)|
+|implant|Type d'implantation de l'arbre|varchar(2)|00 (liste de valeurs `lt_ev_arbreimplant`)|
+|remarq|Arbre remarquable|boolean|false|
+|malad|Maladie observée|boolean|false|
+|malad|Maladie observée|boolean|false|
+|nom_malad|Libellé de la maladie observée si connue|varchar(50)||
+|danger|Information sur la dangeurisité de l'arbre|varchar(2)|00 (liste de valeurs `lt_ev_arbredanger`)|
+|natur_sol|Nature du sol de l'arbre|varchar(2)|00 (liste de valeurs `lt_ev_arbresol`)|
+|envnmt_obs|Observation environnementale diverse sur l'arbre|varchar(254)||
+|utilis_obs|Observation de l'opérateur diverse sur l'arbre|varchar(254)||
+
+`an_ev_ptleve` : table alphanumérique de précision des points levés par un inventaire GPS.
+
+|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
+|gnss_heigh|Hauteur du point saisie par un GPS|double precision||
+|vert_prec|Précision verticale du point saisie par un GPS|double precision||
+|horz_prec|Précision verticale du point saisie par un GPS|double precision||
+
+`an_ev_doc_media` : table alphanumérique des documents relatifs aux objets, aux sites des espaces verts (photos...).
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+|gid|Identifiant unique de l'objet concerné|integer|nextval('m_espace_vert.an_ev_doc_media_gid_seq'::regclass)|
+|id|Identifiant unique de l'objet concerné|integer|issu des classes d'objets|
+|media|Libellé du fichier avec son extension|text||
+|miniature|Miniature du média enregistré si celui-ci est une image|bytea||
+|n_fichier|Libellé du fichier avec son extension|text||
+|t_fichier|Type de fichier|text||
+|op_sai|Opérateur ayant intégré le fichier|character varying(100)||
+|date_sai|Date d'intégration du fichier|timestamp without time zone||
+|d_photo|Date de prise de vue pour une photographie|timestamp without time zone||
+|l_prec|Précision sur le document inséré|character varying(254)||
+
+
+`geo_ev_zonegestion` : table géographique délimitant les zones de gestion interne du service espace vert
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idzone|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
+
+
+|geom|Atrribut contenant la géométrie de la polyligne|geometry(linestring,2154)|valeur vide interdite|
+
+* Particularité : attention à ne pas confondre les zones de gestion du service espace vert sur la ville de Compiègne pour un usage interne de gestion d'équipe et la table géographique des zones de gestion entre la ville et l'Agglomération (`geo_amt_zone_gestion`) listée dans les dépendances.
+
+`geo_ev_site` : table géographique délimitant les sites de production cartographique
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idsite|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
+
+
+|geom|Atrribut contenant la géométrie de la polyligne|geometry(linestring,2154)|valeur vide interdite|
+
+
+
+**La liste des classes sera complétée en fonction des besoins du service des espaces verts.**
 
 ## Liste de valeurs
 
@@ -264,4 +335,5 @@ Sans objet
 ### Modèle conceptuel simplifié pour la gestion des espaces verts
 
 ![mcd]()
+
 
