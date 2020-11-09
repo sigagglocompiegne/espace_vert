@@ -18,7 +18,9 @@
 
 ## Principe fonctionnel
 
-Le principe de fonctionnement de la base de données de gestion des espaces verts s'appuie sur la production cartographique d'objets constituant un espace à vocation récréative ou d'embellissement de la ville (schéma 1). Ces objets peuvent être représentés de façon surfacique (espace enherbé, parterre, bois...), linéaire (haie, accotement...) ou ponctuel (arbre en alignement, pot...). Ils sont intégrés à la fois dans un site cohérent (équipements publics, ensemble urbain, voie...) et dans une zone de gestion et/ou intervention.
+Le principe de fonctionnement de la base de données de gestion des espaces verts s'appuie sur la production cartographique d'objets constituant cet espace définit comme un espace d'agrément planté de fleurs, d'arbustes, d'arbres ou engazonné. Il peut être, dans certains cas, complété par des parties minérales ou hydrographiques. Il doit être ouvert au public et facilement accessible par des modes doux (schéma 1). 
+
+Ces objets peuvent être représentés de façon surfacique (espace enherbé, parterre, bois...), linéaire (haie, accotement...) ou ponctuel (arbre en alignement, pot...). Ils sont intégrés à la fois dans un site cohérent (équipements publics, ensemble urbain, voie...) et dans une zone de gestion et/ou intervention.
 
 Le principe du modèle de données (schéma 2) prend ainsi en compte la production initiale cartographique des objets en y intégrant des notions d'appartenance cohérente à des zones de gestion, d'intervention ou de production cartographique d'ensemble (site...). Il rend également possible l'affectation d'éléments de gestion de ce patrimoine cartographique au besoin du service dans un temps plus long.
 
@@ -51,7 +53,7 @@ La saisie de ces objets doit permettre une restitution de l'ordre du 1 000ème.
 
 Chaque objet saisi devra être complété par des informations attributaires associées. Certains de ces attributs seront autogénérés par le gabarit, d'autres le seront à l'intégration de la production cartographique par le maître d'ouvrage et d'autres devront être saisis obligatoirement par le prestataire.
 
-
+La saisie des différents objets constituant les espaces verts doivent répondre 
 - Le tracé d'un linéaire est forcément positionné au centre de l'objet saisie avec un repport de sa largeur.
 - La saisie d'un ponctuel doit représenter le centre de l'objet saisi.
 
