@@ -67,8 +67,9 @@ La saisie des objets se fera donc :
 - soit par numérisation sur ces référentiels cartographiques,
 - soit par levé GPS sur le terrain.
 
-
-
+|Objets|Représentation|Définition|
+|:---|:---|:---|
+||||
 
 Tableau 1 : représentation des objets "espace vert" dans l'inventaire
 
