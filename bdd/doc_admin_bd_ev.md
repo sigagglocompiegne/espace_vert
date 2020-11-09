@@ -44,8 +44,8 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |insee|Code insee de la commune d'appartenance|varchar(5)|valeur vide interdite|
 |commune|Libellé de la commune d'appartenance|varchar(80)|valeur vide interdite|
 |quartier|Libellé du quartier de la ville de Compiègne d'appartenance|varchar(80)||
-|doma_d|Domanialité déduite|varchar(2)||
-|doma_r|Domanialité réelle|varchar(2)||
+|doma_d|Domanialité déduite|varchar(2)|00|
+|doma_r|Domanialité réelle|varchar(2)|00|
 |typ|Type d'espace vert|varchar(2)|valeur vide interdite|
 |sstyp|Sous-type d'espace vert|varchar(2)|valeur vide interdite|
 |srcgeom_sai|Référentiel de saisies utilisé pour la production initiale cartographique|varchar(2)|valeur vide interdite|
