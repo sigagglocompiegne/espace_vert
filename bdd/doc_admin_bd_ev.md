@@ -76,7 +76,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |qualglocxy|Qualité de la géolocalisation planimétrique (XY) du point saisi|varchar(2)|00 (liste de valeurs `lt_ev_qualglocxy`)|
 |x_l93|Coordonnée X du point saisi en Lambert 93|numeric(10,3)|valeur vide interdite|
 |y_l93|Coordonnée Y du point saisi en Lambert 93|numeric(10,3)|valeur vide interdite|
-|geom|Atrribut contenant la géométrie du point|geometry(point,2154)|valeur vide interdite|
+|geom|Attribut contenant la géométrie du point|geometry(point,2154)|valeur vide interdite|
 
 
 `geo_ev_surf` : table géographique des objets des espaces verts saisis sous forme de polygone
@@ -85,7 +85,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |:---|:---|:---|:---|
 |idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
 |sup_m2|Surface de l'objet "espace vert" exprimée en mètre carré|integer|valeur vide interdite (issu du calcul SIG)|
-|geom|Atrribut contenant la géométrie du polygone|geometry(polygon,2154)|valeur vide interdite|
+|geom|Attribut contenant la géométrie du polygone|geometry(polygon,2154)|valeur vide interdite|
 
 `geo_ev_tronc` : table géographique des objets des espaces verts saisis sous forme de polyligne
 
@@ -94,7 +94,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
 |long_m|Longueur de l'objet "espace vert" exprimée en mètre|integer|valeur vide interdite (issu du calcul SIG et arrondit au mètre)|
 |larg_cm|Largeur de l'objet "espace vert" exprimée en centimètre|integer|valeur vide interdite et maximum de 100cm|
-|geom|Atrribut contenant la géométrie de la polyligne|geometry(linestring,2154)|valeur vide interdite|
+|geom|Attribut contenant la géométrie de la polyligne|geometry(linestring,2154)|valeur vide interdite|
 
 `an_ev_arbre` : table alphanumérique du patrimoine des objets des espaces verts correspond aux arbres.
 
@@ -121,14 +121,14 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |utilis_obs|Observation de l'opérateur diverse sur l'arbre|varchar(254)||
 
 
-`geo_ev_zonegestion` : table géographique délimitant les zones de gestion interne du service espace vert
+`geo_ev_zonegestion` : table géographique délimitant les zones de gestion/entretien interne du service espace vert
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idzone|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
-
-
-|geom|Atrribut contenant la géométrie de la polyligne|geometry(linestring,2154)|valeur vide interdite|
+|idzone|Identifiant unique de la zone|integer||
+|nom|Libellé du responable de l'entretien de la zone |varchar(50)||
+|sup_m2|Surface de la zone exprimée en mètre carré|integer|valeur vide interdite (issu du calcul SIG)|
+|geom|Attribut contenant la géométrie de la zone|geometry(multipolygon,2154)|valeur vide interdite|
 
 * Particularité : attention à ne pas confondre les zones de gestion du service espace vert sur la ville de Compiègne pour un usage interne de gestion d'équipe et la table géographique des zones de gestion entre la ville et l'Agglomération (`geo_amt_zone_gestion`) listée dans les dépendances.
 
@@ -137,7 +137,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
 |idsite|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
-|geom|Atrribut contenant la géométrie de la polyligne|geometry(linestring,2154)|valeur vide interdite|
+|geom|Attribut contenant la géométrie de la polyligne|geometry(linestring,2154)|valeur vide interdite|
 
 `an_ev_ptleve` : table alphanumérique de précision des points levés par un inventaire GPS.
 
