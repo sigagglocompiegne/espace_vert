@@ -19,7 +19,7 @@ Pour rappel des grands principes :
 
 ## Schéma fonctionnel
 
-![schema_fonctionnel]()
+![schema_fonctionnel](/bdd/schema_fonctionnel_ev.png)
 
 
 ## Dépendances
