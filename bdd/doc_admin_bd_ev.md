@@ -121,6 +121,8 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |envnmt_obs|Observation environnementale diverse sur l'arbre|varchar(254)||
 |utilis_obs|Observation de l'opérateur diverse sur l'arbre|varchar(254)||
 
+**Il n'est pas prévu pour le moment une sous-classe métiers pour les objets ponctuels autre que les objets arbres.**
+
 `an_ev_surfplantee` : table alphanumérique du patrimoine des objets des espaces verts correspondant aux espaces plantés.
 
 **Cette classe est une proposition (dans l'attente d'un retour du service espace vert) pour la gestion du patrimoine des espaces dits plantés.**
