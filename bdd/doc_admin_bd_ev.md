@@ -120,6 +120,25 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |envnmt_obs|Observation environnementale diverse sur l'arbre|varchar(254)||
 |utilis_obs|Observation de l'opérateur diverse sur l'arbre|varchar(254)||
 
+
+`geo_ev_zonegestion` : table géographique délimitant les zones de gestion interne du service espace vert
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idzone|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
+
+
+|geom|Atrribut contenant la géométrie de la polyligne|geometry(linestring,2154)|valeur vide interdite|
+
+* Particularité : attention à ne pas confondre les zones de gestion du service espace vert sur la ville de Compiègne pour un usage interne de gestion d'équipe et la table géographique des zones de gestion entre la ville et l'Agglomération (`geo_amt_zone_gestion`) listée dans les dépendances.
+
+`geo_ev_site` : table géographique délimitant les sites de production cartographique
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idsite|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
+|geom|Atrribut contenant la géométrie de la polyligne|geometry(linestring,2154)|valeur vide interdite|
+
 `an_ev_ptleve` : table alphanumérique de précision des points levés par un inventaire GPS.
 
 |idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
@@ -141,28 +160,6 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |date_sai|Date d'intégration du fichier|timestamp without time zone||
 |d_photo|Date de prise de vue pour une photographie|timestamp without time zone||
 |l_prec|Précision sur le document inséré|character varying(254)||
-
-
-`geo_ev_zonegestion` : table géographique délimitant les zones de gestion interne du service espace vert
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|
-|idzone|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
-
-
-|geom|Atrribut contenant la géométrie de la polyligne|geometry(linestring,2154)|valeur vide interdite|
-
-* Particularité : attention à ne pas confondre les zones de gestion du service espace vert sur la ville de Compiègne pour un usage interne de gestion d'équipe et la table géographique des zones de gestion entre la ville et l'Agglomération (`geo_amt_zone_gestion`) listée dans les dépendances.
-
-`geo_ev_site` : table géographique délimitant les sites de production cartographique
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|
-|idsite|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
-
-
-|geom|Atrribut contenant la géométrie de la polyligne|geometry(linestring,2154)|valeur vide interdite|
-
 
 
 **La liste des classes sera complétée en fonction des besoins du service des espaces verts.**
