@@ -44,6 +44,9 @@ La saisie de ces objets doit permettre une restitution de l'ordre du 1 000ème.
 
 Chaque objet saisi devra être complété par des informations attributaires associées. Certains de ces attributs seront autogénérés par le gabarit, d'autres le seront à l'intégration de la production cartographique par le maître d'ouvrage et d'autres devront être saisis obligatoirement par le prestataire.
 
+**Cette production cartographique initiale des objets des espaces verts consiste en 3 points :**
+**-compléter l'inventaire existant concernant le positionnement des arbres isolés ou en alignement**
+
 - Le tracé d'un linéaire est forcément positionné au centre de l'objet saisie avec un repport de sa largeur.
 - La saisie d'un ponctuel doit représenter le centre de l'objet saisi.
 
