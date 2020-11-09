@@ -46,7 +46,7 @@ Chaque objet saisi devra être complété par des informations attributaires ass
 
 **Cette production cartographique initiale des objets des espaces verts consiste en 3 points :**
 
-**-compléter l'inventaire existant concernant le positionnement des arbres isolés ou en alignement**
+**- compléter l'inventaire existant concernant le positionnement des arbres isolés ou en alignement**
 
 - Le tracé d'un linéaire est forcément positionné au centre de l'objet saisie avec un repport de sa largeur.
 - La saisie d'un ponctuel doit représenter le centre de l'objet saisi.
