@@ -129,9 +129,10 @@ Valeurs possibles :
 |40|00|hydrographique|non renseigné|
 |40|01|hydrographique|fontaine|
 |40|02|hydrographique|point d'eau|
-|40|03|hydrographique|bassin artificiel|
-|40|04|hydrographique|étendue naturelle|
-|40|05|hydrographique|cours d'eau|
+|40|03|hydrographique|bassin d'agrément|
+|40|04|hydrographique|bassin d'orage|
+|40|05|hydrographique|étendue naturelle|
+|40|06|hydrographique|cours d'eau|
 |40|99|hydrographique|autre|
 |99|00|Autre|non renseigné|
 
