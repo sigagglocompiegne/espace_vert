@@ -24,7 +24,12 @@ Pour rappel des grands principes :
 
 ## Dépendances
 
-Sans objet
+La base de données des espaces verts s'appuie sur des référentiels préexistants constituant autant de dépendances nécessaires pour l'implémentation de la base PEI.
+
+|schéma | table | description | usage |
+|:---|:---|:---|:---|   
+|r_objet|lt_src_geom|domaine de valeur générique d'une table géographique|source du référentiel de saisies des objets|
+|r_objet|lt_contrat|liste et caractéristiques des contrats de délégation ou d'entretien|Gestion des différents données ou s'apparentant un contrat ou un type d'entretien (interne ou non)|
 
 ---
 
@@ -44,13 +49,13 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |insee|Code insee de la commune d'appartenance|varchar(5)|valeur vide interdite|
 |commune|Libellé de la commune d'appartenance|varchar(80)|valeur vide interdite|
 |quartier|Libellé du quartier de la ville de Compiègne d'appartenance|varchar(80)||
-|doma_d|Domanialité déduite|varchar(2)|00|
-|doma_r|Domanialité réelle|varchar(2)|00|
-|typ|Type d'espace vert|varchar(2)|valeur vide interdite|
-|sstyp|Sous-type d'espace vert|varchar(2)|valeur vide interdite|
-|srcgeom_sai|Référentiel de saisies utilisé pour la production initiale cartographique|varchar(2)|valeur vide interdite|
+|doma_d|Domanialité déduite|varchar(2)|00 (liste de valeurs `lt_ev_doma`)|
+|doma_r|Domanialité réelle|varchar(2)|00 (liste de valeurs `lt_ev_doma`)|
+|typ|Type d'espace vert|varchar(2)|valeur vide interdite (liste de valeurs `lt_ev_typ`)|
+|sstyp|Sous-type d'espace vert|varchar(2)|valeur vide interdite (liste de valeurs `lt_ev_sstyp`)|
+|srcgeom_sai|Référentiel de saisies utilisé pour la production initiale cartographique|varchar(2)|valeur vide interdite (liste de valeurs `lt_src_geom`)|
 |srcdate_sai|Année du référentiel de saisies utilisé pour la production initiale cartographique|integer||
-|srcgeom_maj|Référentiel de saisies utilisé pour la mise à jour de la production cartographique|varchar(2)|00|
+|srcgeom_maj|Référentiel de saisies utilisé pour la mise à jour de la production cartographique|varchar(2)|00 (liste de valeurs `lt_src_geom`)|
 |srcdate_maj|Année du référentiel de saisies utilisé pour la mise à jour de la production cartographique|integer||
 |op_sai|Opérateur de saisie initial de l'objet|varchar(50)|valeur vide interdite|
 |op_maj|Opérateur ayant mis à jour l'objet initial|varchar(50)||
