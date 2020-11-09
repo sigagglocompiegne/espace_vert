@@ -69,7 +69,8 @@ La saisie des objets se fera donc :
 
 |Objets|Représentation|Définition|
 |:---|:---|:---|
-||||
+|Arbre
+arbre|Point||
 
 Tableau 1 : représentation des objets "espace vert" dans l'inventaire
 
