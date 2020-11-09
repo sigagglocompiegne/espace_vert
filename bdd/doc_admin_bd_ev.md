@@ -51,8 +51,8 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |quartier|Libellé du quartier de la ville de Compiègne d'appartenance|varchar(80)||
 |doma_d|Domanialité déduite|varchar(2)|00 (liste de valeurs `lt_ev_doma`)|
 |doma_r|Domanialité réelle|varchar(2)|00 (liste de valeurs `lt_ev_doma`)|
-|typ|Type d'espace vert|varchar(2)|valeur vide interdite (liste de valeurs `lt_ev_typ`)|
-|sstyp|Sous-type d'espace vert|varchar(2)|valeur vide interdite (liste de valeurs `lt_ev_sstyp`)|
+|typ|Type d'espace vert|varchar(2)|valeur vide interdite (liste de valeurs `lt_ev_typ` attribut `code`)|
+|sstyp|Sous-type d'espace vert|varchar(2)|valeur vide interdite (liste de valeurs `lt_ev_typ` attribut `sous_code`)|
 |srcgeom_sai|Référentiel de saisies utilisé pour la production initiale cartographique|varchar(2)|valeur vide interdite (liste de valeurs `lt_src_geom`)|
 |srcdate_sai|Année du référentiel de saisies utilisé pour la production initiale cartographique|integer||
 |srcgeom_maj|Référentiel de saisies utilisé pour la mise à jour de la production cartographique|varchar(2)|00 (liste de valeurs `lt_src_geom`)|
@@ -82,35 +82,62 @@ Valeurs possibles :
 
 |code | valeur |
 |:---|:---|  
-|00|Indéterminée|
-|10|Public|
-|20|Privée (non déterminé)|
-|21|Privée (communale)|
-|22|Privée (autre organisme public)|
-|23|Privée|
+|00|indéterminée|
+|10|public|
+|20|privée (non déterminé)|
+|21|privée (communale)|
+|22|privée (autre organisme public)|
+|23|privée|
 
-`lt_ev_typ` : Liste permettant de décrire les types principaux d'espaces verts
+`lt_ev_typ` : Liste permettant de décrire les types principaux des objets d'espaces verts
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|    
-|code|code du |character varying(2)| |
-|valeur|libellé |character varying(30)| |
-
+|code|code du type générique de l'objet "espace vert" |character varying(2)| |
+|sous_code|code du sous type de l'objet "espace vert" |character varying(2)| |
+|valeur_t|libellé du type générique de l'objet "espace vert"|character varying(30)| |
+|valeur_st|libellé du sous type de l'objet "espace vert"|character varying(30)| |
 
 Particularité(s) à noter : aucune
 
 Valeurs possibles :
 
-|code | valeur |
-|:---|:---|  
-|00|Non renseigné|
-|01|floral|
-|02|végétal|
-|03|minéral|
-|04|hydrographique|
-|99|Autre|
+|code |sous_code|valeur_t|valeur_st|
+|:---|:---|:---|:---|
+|00|00|non renseigné|non renseigné|
+|10|00|floral|non renseigné|
+|10|01|floral|arbre|
+|10|02|floral|arbuste|
+|10|03|floral|bac, pot|
+|10|04|floral|fleurissement (en accotement ?)|
+|10|05|floral|massif|
+|10|99|floral|autre|
+|20|00|végétal|non renseigné|
+|20|01|végétal|boisement|
+|20|02|végétal|haie|
+|20|03|végétal|HLM (sûrement espace enherbé en domanialité privé (autre organisme privé) à reclasser en espace enherbé et supprimer cette valeur ?|
+|20|04|végétal|espace enherbé|
+|20|05|végétal|privé (sûrement espace enherbé en domanialité privéà reclasser en espace enherbé et supprimer cette valeur ?|
+|20|06|végétal|friche ou espace naturel|
+|20|99|végétal|autre|
+|30|00|minéral|non renseigné|
+|30|01|minéral|gravier|
+|30|02|minéral|enrobé bithumé ou béton|
+|30|03|minéral|pavé, dalle|
+|30|04|minéral|stabilisé, calcaire, terre...|
+|30|99|minéral|autre|
+|40|00|hydrographique|non renseigné|
+|40|01|hydrographique|fontaine|
+|40|02|hydrographique|point d'eau|
+|40|03|hydrographique|bassin artificiel|
+|40|04|hydrographique|étendue naturelle|
+|40|05|hydrographique|cours d'eau|
+|40|99|hydrographique|autre|
+|99|00|Autre|non renseigné|
 
 ---
+
+
 
 
 ### classes d'objets applicatives de gestion :
