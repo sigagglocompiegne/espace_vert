@@ -48,7 +48,8 @@ Schéma 3 : restitution conceptuelle dans la base de données
 
 ## Règle de modélisation
 
-Les objets constituant la production cartographique initiale sont organisés autour des 3 primitives géographiques de base : polygones, lignes et points.
+Les objets constituant la production cartographique initiale sont organisés autour des 3 primitives géographiques de base : polygones, lignes et points. **La saisie des objets de type multi n'est pas autorisé.**
+
 La saisie de ces objets doit permettre une restitution de l'ordre du 1 000ème.
 
 Chaque objet saisi devra être complété par des informations attributaires associées. Certains de ces attributs seront autogénérés par le gabarit, d'autres le seront à l'intégration de la production cartographique par le maître d'ouvrage et d'autres devront être saisis obligatoirement par le prestataire.
