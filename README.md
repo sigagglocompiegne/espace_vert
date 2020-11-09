@@ -7,9 +7,9 @@
 Spécification du fichier d’échange relatif aux données concernant la production cartographique des objets constituant les espaces verts sur le territoire de  l'Agglomération de la Région de Compiègne (ARC) et gérés par le service mutualisé de la ville de Compiègne et de l'Agglomération.
 
 - [Lire la documentation du standard](gabarit/livrables.md)
-- [Documentation d'administration de la base sur les déchets](bdd/doc_admin_bd_tri.md)
-- [Documentation d'administration de l'application ESPACE VERT](app/doc_admin_app_tri.md)
-- [Documentation utilisateur de l'application](app/doc_user_app_tri.md)
+- [Documentation d'administration de la base sur les espaces verts](bdd/doc_admin_bd_ev.md)
+- [Documentation d'administration de l'application ESPACE VERT](app/doc_admin_app_ev.md)
+- [Documentation utilisateur de l'application](app/doc_user_app_ev.md)
 - [Script d'initialisation de la base de données](bdd/script.md)
 
 
