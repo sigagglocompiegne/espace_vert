@@ -47,6 +47,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |idobjet|Identifiant unique de l'objet|integer|nextval('m_espace_vert.an_ev_objet_idobjet_seq'::regclass)|
 |idzone|Identifiant de la zone de gestion, intervention d'appartenance|integer||
 |idsite|Identifiant du site de production cartographique d'appartenance|integer||
+|idcontrat|Identifiant du contrat s'appliquant à l'objet|integer|(liste de valeurs `r_objet.lt_contrat`)|
 |insee|Code insee de la commune d'appartenance|varchar(5)|valeur vide interdite|
 |commune|Libellé de la commune d'appartenance|varchar(80)|valeur vide interdite|
 |quartier|Libellé du quartier de la ville de Compiègne d'appartenance|varchar(80)||
@@ -120,6 +121,24 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |envnmt_obs|Observation environnementale diverse sur l'arbre|varchar(254)||
 |utilis_obs|Observation de l'opérateur diverse sur l'arbre|varchar(254)||
 
+`an_ev_surfplantee` : table alphanumérique du patrimoine des objets des espaces verts correspondant aux espaces plantés.
+
+**Cette classe est une proposition (dans l'attente d'un retour du service espace vert) pour la gestion du patrimoine des espaces dits plantés.**
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
+|typ|Typologie des surfaces plantées|00 (liste de valeurs `lt_ev_typplante`)|
+
+
+`an_ev_surfenherbee` : table alphanumérique du patrimoine des objets des espaces verts correspondant aux espaces enherbés.
+
+**Cette classe est une proposition (dans l'attente d'un retour du service espace vert) pour la gestion du patrimoine des espaces dits enherbés.**
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
+|typ|Typologie des surfaces enherbées|00 (liste de valeurs `lt_ev_typenherb`)|
 
 `geo_ev_zonegestion` : table géographique délimitant les zones de gestion/entretien interne du service espace vert
 
@@ -137,7 +156,9 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
 |idsite|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
-|geom|Attribut contenant la géométrie de la polyligne|geometry(linestring,2154)|valeur vide interdite|
+|nom|Libellé du site|varchar(100)|00 (liste de valeurs `lt_ev_typsite`)|
+|typ|Typologie du site|varchar(2)||
+|geom|Attribut contenant la géométrie du site|geometry(polygon,2154)|valeur vide interdite|
 
 `an_ev_ptleve` : table alphanumérique de précision des points levés par un inventaire GPS.
 
@@ -165,26 +186,6 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 **La liste des classes sera complétée en fonction des besoins du service des espaces verts.**
 
 ## Liste de valeurs
-
-`lt_ev_doma` : Liste permettant de décrire les types domanialités
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|    
-|code|code du |character varying(2)| |
-|valeur|libellé |character varying(30)| |
-
-Particularité(s) à noter : aucune
-
-Valeurs possibles :
-
-|code | valeur |
-|:---|:---|  
-|00|indéterminée|
-|10|public|
-|20|privée (non déterminé)|
-|21|privée (communale)|
-|22|privée (autre organisme public)|
-|23|privée|
 
 `lt_ev_typ` : Liste permettant de décrire les types principaux des objets d'espaces verts.
 
@@ -234,6 +235,101 @@ Valeurs possibles :
 |40|06|hydrographique|cours d'eau|
 |40|99|hydrographique|autre|
 |99|00|Autre|non renseigné|
+|99|01|Autre|aire de jeux|
+|99|99|Autre|Autre|
+
+`lt_ev_typsite` : Liste permettant de décrire les types principaux des sites
+
+**Proposition de classement des sites de lévé cartographique d'après le classement établis par le standard GeoPal. Pourra être adapté en fonction des besoins du service espace vert**
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|code du type principal décrivant le site|character varying(2)| |
+|valeur|libellé du type principal décrivant le site|character varying(30)| |
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|  
+|00|indéterminé|
+|01|parc, jardin, square|
+|02|accotements de voies|
+|03|accompagnement de bâtiments publics|
+|04|accompagnement d'habitations|
+|05|accompagnement d'établissents industriels et commerciaux|
+|06|enceinte sportive|
+|07|Cimetière|
+|11|espace naturel aménagé|
+|12|arbre d'alignement|
+
+`lt_ev_typenherb` : Liste permettant de décrire les types des espaces enherbes
+
+**Proposition de classement des sites de lévé cartographique d'après le classement établis par le standard GeoPal. Pourra être adapté en fonction des besoins du service espace vert**
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|code du type d'espace enherbée|character varying(2)| |
+|valeur|libellé du type d'espace enherbée |character varying(30)| |
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|  
+|00|indéterminé|
+|01|pelouse|
+|02|prairie|
+|03|gazon fleurie|
+|04|jachère fleurie|
+
+`lt_ev_typeplante` : Liste permettant de décrire les types des espaces plantées
+
+**Proposition de classement des sites de lévé cartographique d'après le classement établis par le standard GeoPal. Pourra être adapté en fonction des besoins du service espace vert**
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|code du type d'espace planté|character varying(2)| |
+|valeur|libellé du type d'espace planté |character varying(30)| |
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|  
+|00|indéterminé|
+|01|fleurissement (massif changé au minimum 1 fois par an)|
+|02|massif de vivaces et/ou bulbes|
+|03|massif de vivaces arbustives|
+|04|massif arbustif|
+|05|bosquet|
+|06|verger|
+|07|espace boisé|
+|08|friche|
+
+
+`lt_ev_doma` : Liste permettant de décrire les types domanialités
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|code du |character varying(2)| |
+|valeur|libellé |character varying(30)| |
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|  
+|00|indéterminée|
+|10|public|
+|20|privée (non déterminé)|
+|21|privée (communale)|
+|22|privée (autre organisme public)|
+|23|privée|
 
 `lt_ev_qualglocxy` : Liste permettant de décrire les classes de qualité de géolocalisation des objets ponctuels
 
