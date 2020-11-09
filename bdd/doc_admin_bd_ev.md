@@ -13,7 +13,7 @@ Afin de répondre aux problématiques métiers et de gestions, interventions du 
  
 Pour rappel des grands principes :
 
-* les objets du patrimoine des espaces verts font l'objet de production extérieure
+* les objets du patrimoine des espaces verts font l'objet de productions extérieures intégrées par le service SIG
 * les zones de gestion, intervention ou de sites sont gérées par le service des espaces verts
 * les attributs métiers, complémentaire à l'inventaire, sont gérés par le service des espaces verts
 
@@ -34,10 +34,29 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 ### Classe d'objet géographique et patrimoniale
 
-`table` : table alphanumérique des métadonnées des objets des espaces verts.
+`an_ev_objet` : table alphanumérique des métadonnées des objets des espaces verts.
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
+|idobjet|Identifiant unique de l'objet|integer|nextval('m_espace_vert.an_ev_objet_idobjet_seq'::regclass)|
+|idzone|Identifiant de la zone de gestion, intervention d'appartenance|integer||
+|idsite|Identifiant du site de production cartographique d'appartenance|integer||
+|insee|Code insee de la commune d'appartenance|varchar(5)|valeur vide interdite|
+|commune|Libellé de la commune d'appartenance|varchar(80)|valeur vide interdite|
+|quartier|Libellé du quartier de la ville de Compiègne d'appartenance|varchar(80)||
+|doma_d|Domanialité déduite|varchar(2)||
+|doma_r|Domanialité réelle|varchar(2)||
+|typ|Type d'espace vert|varchar(2)|valeur vide interdite|
+|sstyp|Sous-type d'espace vert|varchar(2)|valeur vide interdite|
+|srcgeom_sai|Référentiel de saisies utilisé pour la production initiale cartographique|varchar(2)|valeur vide interdite|
+|srcdate_sai|Année du référentiel de saisies utilisé pour la production initiale cartographique|integer||
+|srcgeom_maj|Référentiel de saisies utilisé pour la mise à jour de la production cartographique|varchar(2)|00|
+|srcdate_maj|Année du référentiel de saisies utilisé pour la mise à jour de la production cartographique|integer||
+|op_sai|Opérateur de saisie initial de l'objet|varchar(50)|valeur vide interdite|
+|op_maj|Opérateur ayant mis à jour l'objet initial|varchar(50)||
+|dat_sai|Date de saisie de l'objet|timestamp without time zone|valeur vide interdite|
+|dat_maj|Date de mise à jour de l'objet|timestamp without time zone||
+|observ|Commentaires divers|varchar(254)||
 
 
 * triggers : sans objet
