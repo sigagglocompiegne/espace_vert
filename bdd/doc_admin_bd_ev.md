@@ -140,6 +140,16 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
 |typ|Typologie des surfaces enherbées|00 (liste de valeurs `lt_ev_typenherb`)|
 
+`an_ev_lineaireplanherbe` : table alphanumérique du patrimoine des objets des espaces verts correspondant aux linéaires plantés ou herbés.
+
+**Cette classe est une proposition (dans l'attente d'un retour du service espace vert) pour la gestion du patrimoine des espaces dits en linéaire planté et herbé selon les règles de modélisation.**
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
+|typ|Typologie des linéaires plantées|00 (liste de valeurs `lt_ev_lineaireplanteherbe`)|
+|accot|Linéaire correspondant à un accotement|boolean|false|
+
 `geo_ev_zonegestion` : table géographique délimitant les zones de gestion/entretien interne du service espace vert
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
@@ -183,7 +193,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |l_prec|Précision sur le document inséré|character varying(254)||
 
 
-**La liste des classes sera complétée en fonction des besoins du service des espaces verts.**
+**La liste des sous-classes métiers sera complétée en fonction des besoins du service des espaces verts. Les classes correspondantes aux objets "d'habillage" des espaces verts, à savoir les objets hydrographiques et minérals n'ont pas fait l'objet d'implémentation de sous-classes métiers. Nous considérons à ce stade qu'elles doivent rester des productions cartographiques.**
 
 ## Liste de valeurs
 
@@ -253,7 +263,7 @@ Valeurs possibles :
 
 |code | valeur |
 |:---|:---|  
-|00|indéterminé|
+|00|non renseigné|
 |01|parc, jardin, square|
 |02|accotements de voies|
 |03|accompagnement de bâtiments publics|
@@ -279,7 +289,7 @@ Valeurs possibles :
 
 |code | valeur |
 |:---|:---|  
-|00|indéterminé|
+|00|non renseigné|
 |01|pelouse|
 |02|prairie|
 |03|gazon fleurie|
@@ -300,7 +310,7 @@ Valeurs possibles :
 
 |code | valeur |
 |:---|:---|  
-|00|indéterminé|
+|00|non renseigné|
 |01|fleurissement (massif changé au minimum 1 fois par an)|
 |02|massif de vivaces et/ou bulbes|
 |03|massif de vivaces arbustives|
@@ -309,6 +319,32 @@ Valeurs possibles :
 |06|verger|
 |07|espace boisé|
 |08|friche|
+
+
+`lt_ev_lineaireplanteherbe` : Liste permettant de décrire les types de linéaire planté ou enherbé
+
+**Proposition de classement des sites de lévé cartographique inspiré du classement établis par le standard GeoPal. Pourra être adapté en fonction des besoins du service espace vert**
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|code du type d'accotement|character varying(2)| |
+|valeur|libellé du type d'accotement |character varying(30)| |
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|  
+|00|non renseigné|
+|01|haie|
+|02|arbuste|
+|03|espace enherbé|
+|04|fleurissement (en massif ou non)|
+|05|pied de mur|
+|06|clôture|
+|07|mur végétalisé|
+|99|autre|
 
 
 `lt_ev_doma` : Liste permettant de décrire les types domanialités
@@ -324,7 +360,7 @@ Valeurs possibles :
 
 |code | valeur |
 |:---|:---|  
-|00|indéterminée|
+|00|non renseigné|
 |10|public|
 |20|privée (non déterminé)|
 |21|privée (communale)|
@@ -344,14 +380,12 @@ Valeurs possibles :
 
 |code | valeur |
 |:---|:---|  
-|00|indéterminée|
+|00|non renseigné|
 |10|centimétrique|
 |20|décimétrique|
 |30|métrique|
 
 ---
-
-
 
 
 ### classes d'objets applicatives de gestion :
