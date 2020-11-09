@@ -53,17 +53,31 @@ La saisie de ces objets doit permettre une restitution de l'ordre du 1 000ème.
 
 Chaque objet saisi devra être complété par des informations attributaires associées. Certains de ces attributs seront autogénérés par le gabarit, d'autres le seront à l'intégration de la production cartographique par le maître d'ouvrage et d'autres devront être saisis obligatoirement par le prestataire.
 
-La saisie des différents objets constituant les espaces verts doivent répondre 
-- Le tracé d'un linéaire est forcément positionné au centre de l'objet saisie avec un repport de sa largeur.
+Le Maître d’ouvrage mettra à disposition du prestataire de l’opération de numérisation les référentiels cartographiques « institutionnels » en sa possession dans le gabarit de saisi, sous le logiciel SIG QGIS 3.x :
+
+- Prise de vue orthophotographique régionale de 2018,
+- filaire de voies,
+- le référentiel PCI Vecteur au 1er janvier 2020.
+
+D'autres fonds de plan peuvent être ajoutés si le prestataire en dispose. Dans ce cas il devra en informer le maître d'ouvrage et restituer ceux-ci dans le gabarit à la fin de la production cartographique.
+
+Les objets produits dans le cadre de cet inventaire devront être en cohérence topologique avec la précision des référentiels fournis y compris si le prestataire dispose de ces propres fonds de plan.
+
+La saisie des objets se fera donc :
+- soit par numérisation sur ces référentiels cartographiques,
+- soit par levé GPS sur le terrain.
+
+
+
+
+Tableau 1 : représentation des objets "espace vert" dans l'inventaire
+
+
+Compléments sur la saisie des différents objets constituant les espaces verts indiqués dans le tableau ci-dessus:
+
+- Le tracé d'un linéaire est forcément positionné au centre de l'objet saisie avec un repport de sa largeur,
 - La saisie d'un ponctuel doit représenter le centre de l'objet saisi.
 
-*Important :*
--	le gabarit Qgis proposé, 
-- le gabarit permet de créer ou 
--	l'attribut 
-- L'attribut 
-
-Un gabarit de saisi, sous le logiciel SIG QGIS 3.x, est disponible et permet de disposer des fonds de plan géographiques nécessaires à la localisation des espaces verts. D'autres fonds de plan peuvent être ajoutés si le prodcuteur en dispose.
 
 ### Système de coordonnées
 
