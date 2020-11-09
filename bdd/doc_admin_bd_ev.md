@@ -61,7 +61,32 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 * triggers : sans objet
 
-  
+
+## Liste de valeurs
+
+`lt_ev_typ` : Liste permettant de décrire les types principaux d'espaces verts
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|code du |character varying(2)| |
+|valeur|libellé |character varying(30)| |
+
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|  
+|00|Non renseigné|
+|01|floral|
+|02|végétal|
+|03|minéral|
+|04|hydrographique|
+|99|Autre|
+---
+
+
 ### classes d'objets applicatives de gestion :
 
 Sans objet
@@ -86,26 +111,6 @@ Sans objet
 Sans objet
 
 ---
-
-## Liste de valeurs
-
-`table` : Liste permettant 
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|    
-|code|code du |character varying(2)| |
-|valeur|libellé |character varying(30)| |
-
-
-Particularité(s) à noter : aucune
-
-Valeurs possibles :
-
-|code | valeur |
-|:---|:---|  
-
----
-
 
 ## Log
 
@@ -156,3 +161,4 @@ Sans objet
 ### Modèle conceptuel simplifié pour la gestion des espaces verts
 
 ![mcd]()
+
