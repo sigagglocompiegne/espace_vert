@@ -86,6 +86,7 @@ Tableau 1 : représentation des objets "espace vert" dans l'inventaire
 |Ponctuel hydrographique (fontaine, point d'eau)|Point|L'objet saisit doit représenter son centre si celui-ci ne dispose pas d'un bassin intégré|
 |Surface minérale|Polygone|Tout objet d'une largeur supérieure à 1 mètre|
 |Surface hydrographique (fontaine, bassin, rivière...)|Polygone|Tout objet disposant d'une surface en eau au sol (avec ou sans système hydraulique) d'une largeur supérieure à 1 mètre|
+|Linéaire minérale|Polyligne|Tout objet d'une largeur inférieure ou égale à 1 mètre|
 |Linéaire hydrographique|Polyligne|Tout objet disposant d'une surface en eau au sol (avec ou sans système hydraulique) d'une largeur inférieure ou égale à 1 mètre|
 
 Tableau 2 : représentation des objets d'habillage "espace vert" dans l'inventaire uniquement pour un site cohérent déterminé par un équipement public (parc,...)
