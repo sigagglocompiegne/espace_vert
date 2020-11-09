@@ -67,6 +67,8 @@ La saisie des objets se fera donc :
 - soit par numérisation sur ces référentiels cartographiques,
 - soit par GPS ou autre technique de levées sur le terrain, à mettre en cohérence avec les référentiels si nécessaire.
 
+Les objets de cette production cartographique doivent répondre aux conditions de saisies présent dans les 2 tableaux ci-après.
+
 |Objets|Représentation|Définition|
 |:---|:---|:---|
 |Ponctuel planté (arbre)|Point|L'objet saisit doit représenter le centre du tronc pour les arbres d'une circonférence supérieure à 50cm. Pour les autres un point saisit à proximité immédiate est suffisant. Ces objets correspondent à des arbres isolés, en aligement ou dans des espaces publics aménagés.|
