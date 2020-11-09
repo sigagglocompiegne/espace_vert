@@ -83,13 +83,18 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
 |idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet|
-
-|geom|Atrribut contenant la géométrie du polygone|geometry(multipolygon,2154)|valeur vide interdite|
+|sup_m2|Surface de l'objet "espace vert" exprimée en mètre carré|integer|valeur vide interdite (issu du calcul SIG)|
+|geom|Atrribut contenant la géométrie du polygone|geometry(polygon,2154)|valeur vide interdite|
 
 `geo_ev_tronc` : table géographique des objets des espaces verts saisis sous forme de polyligne
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
+|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet|
+|long_m|Longueur de l'objet "espace vert" exprimée en mètre|integer|valeur vide interdite (issu du calcul SIG et arrondit au mètre)|
+|larg_cm|Largeur de l'objet "espace vert" exprimée en centimètre|integer|valeur vide interdite et maximum de 100cm|
+|geom|Atrribut contenant la géométrie de la polyligne|geometry(linestring,2154)|valeur vide interdite|
+
 
 ## Liste de valeurs
 
