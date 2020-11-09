@@ -77,7 +77,7 @@ Les objets de cette production cartographique doivent répondre aux conditions d
 |Surface plantée|Polygone|Tout objet d'une largeur supérieure à 1 mètre.|
 |Friche végétale|Polygone|Tout objet laissé en développement naturel ou l'intervention humaine est exceptionnelle.|
 |Linéaire enherbée|Polyligne|Tout objet positionné sous forme d'accotement d'une largeur inférieure ou égale à 1 mètre. La ligne saisie représente le centre de l'accotement et la largeur est obligatoirement indiquée dans un attribut complémentaire.|
-|Linéaire plantée|Polyligne|Tout objet positionné sous forme d'alignement, de haie ou en accotement d'une largeur inférieure ou égale à 1 mètre. La ligne saisie représente le centre de cet esapce et la largeur est obligatoirement indiquée dans un attribut complémentaire.|
+|Linéaire plantée|Polyligne|Tout objet positionné sous forme d'alignement, de haie ou en accotement d'une largeur inférieure ou égale à 1 mètre. La ligne saisie représente le centre de cet espace et la largeur est obligatoirement indiquée dans un attribut complémentaire.|
 
 Tableau 1 : représentation des objets "espace vert" dans l'inventaire
 
