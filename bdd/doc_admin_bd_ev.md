@@ -69,6 +69,26 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 ## Liste de valeurs
 
+`lt_ev_doma` : Liste permettant de décrire les types domanialités
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|code du |character varying(2)| |
+|valeur|libellé |character varying(30)| |
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|  
+|00|Indéterminée|
+|10|Public|
+|20|Privée (non déterminé)|
+|21|Privée (communale)|
+|22|Privée (autre organisme public)|
+|23|Privée|
+
 `lt_ev_typ` : Liste permettant de décrire les types principaux d'espaces verts
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
@@ -89,6 +109,7 @@ Valeurs possibles :
 |03|minéral|
 |04|hydrographique|
 |99|Autre|
+
 ---
 
 
