@@ -464,6 +464,6 @@ Sans objet
 
 ### Modèle conceptuel simplifié pour la gestion des espaces verts
 
-![mcd]()
+(à venir après validation du modèle de données avec le service des espaces verts)
 
 
