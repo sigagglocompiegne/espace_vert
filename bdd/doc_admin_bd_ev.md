@@ -89,7 +89,9 @@ Valeurs possibles :
 |22|privée (autre organisme public)|
 |23|privée|
 
-`lt_ev_typ` : Liste permettant de décrire les types principaux des objets d'espaces verts
+`lt_ev_typ` : Liste permettant de décrire les types principaux des objets d'espaces verts.
+
+**Cette liste est issue d'un premier recensement en 2018 qui devra être adaptée au nouveau modèle.**
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|    
