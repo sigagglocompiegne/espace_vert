@@ -65,7 +65,7 @@ Les objets produits dans le cadre de cet inventaire devront être en cohérence 
 
 La saisie des objets se fera donc :
 - soit par numérisation sur ces référentiels cartographiques,
-- soit par levé GPS sur le terrain.
+- soit par GPS ou autre technique de levées sur le terrain, à mettre en cohérence avec les référentiels si nécessaire.
 
 |Objets|Représentation|Définition|
 |:---|:---|:---|
