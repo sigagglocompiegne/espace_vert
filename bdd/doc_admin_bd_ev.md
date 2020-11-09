@@ -71,12 +71,20 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
+|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet|
+|qualglocxy|Qualité de la géolocalisation planimétrique (XY) du point saisi|varchar(2)|00 (liste de valeurs `lt_ev_qualglocxy`)|
+|x_l93|Coordonnée X du point saisi en Lambert 93|numeric(10,3)|valeur vide interdite|
+|y_l93|Coordonnée Y du point saisi en Lambert 93|numeric(10,3)|valeur vide interdite|
+|geom|Atrribut contenant la géométrie du point|geometry(point,2154)|valeur vide interdite|
+
 
 `geo_ev_surf` : table géographique des objets des espaces verts saisis sous forme de polygone
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
+|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet|
 
+|geom|Atrribut contenant la géométrie du polygone|geometry(multipolygon,2154)|valeur vide interdite|
 
 `geo_ev_tronc` : table géographique des objets des espaces verts saisis sous forme de polyligne
 
@@ -153,6 +161,24 @@ Valeurs possibles :
 |40|06|hydrographique|cours d'eau|
 |40|99|hydrographique|autre|
 |99|00|Autre|non renseigné|
+
+`lt_ev_qualglocxy` : Liste permettant de décrire les classes de qualité de géolocalisation des objets ponctuels
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|code du |character varying(2)| |
+|valeur|libellé |character varying(30)| |
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|  
+|00|indéterminée|
+|10|centimétrique|
+|20|décimétrique|
+|30|métrique|
 
 ---
 
