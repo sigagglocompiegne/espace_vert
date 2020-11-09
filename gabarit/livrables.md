@@ -53,7 +53,7 @@ La saisie de ces objets doit permettre une restitution de l'ordre du 1 000ème.
 
 Chaque objet saisi devra être complété par des informations attributaires associées. Certains de ces attributs seront autogénérés par le gabarit, d'autres le seront à l'intégration de la production cartographique par le maître d'ouvrage et d'autres devront être saisis obligatoirement par le prestataire.
 
-Le Maître d’ouvrage mettra à disposition du prestataire de l’opération de numérisation les référentiels cartographiques « institutionnels » en sa possession dans le gabarit de saisi, sous le logiciel SIG QGIS 3.x :
+Le Maître d’ouvrage mettra à disposition du prestataire de l’opération de numérisation les référentiels cartographiques « institutionnels » en sa possession dans le gabarit de saisie, sous le logiciel SIG QGIS 3.x :
 
 - Prise de vue orthophotographique régionale de 2018,
 - filaire de voies,
