@@ -150,5 +150,5 @@ Les identifiants des objets des espaces verts sont des identifiants non signifia
 
 ### Liste de valeurs
 
-Le contenu des listes de valeurs est disponible dans la documentation complète de la base de données en cliquant [ici](/bdd/doc_admin_bd_tri.md) dans la rubrique `Liste de valeurs`.
+Le contenu des listes de valeurs est disponible dans la documentation complète de la base de données en cliquant [ici](/bdd/doc_admin_bd_ev.md) dans la rubrique `Liste de valeurs`.
 
