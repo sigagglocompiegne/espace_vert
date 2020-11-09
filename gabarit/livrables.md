@@ -69,17 +69,24 @@ La saisie des objets se fera donc :
 
 |Objets|Représentation|Définition|
 |:---|:---|:---|
-|Arbre
-arbre|Point||
+|Ponctuel planté (arbre)|Point|L'objet saisit doit représenter le centre du tronc pour les arbres d'une circonférence supérieure à 50cm. Pour les autres un point saisit à proximité immédiate est suffisant. Ces objets correspondent à des arbres isolés, en aligement ou dans des espaces publics aménagés.|
+|Surface plantée (arbre)|Polygone|Dans le cas d'un espace boisé naturel d'un seul tenant, un polygone sera saisit avec une estimation du nombre d'arbres le composant|
+|Surface enherbée|Polygone|Tout objet d'une largeur supérieure à 1 mètre.|
+|Surface plantée|Polygone|Tout objet d'une largeur supérieure à 1 mètre.|
+|Friche végétale|Polygone|Tout objet laissé en développement naturel ou l'intervention humaine est exceptionnelle.|
+|Linéaire enherbée|Polyligne|Tout objet positionné sous forme d'accotement d'une largeur inférieure ou égale à 1 mètre. La ligne saisie représente le centre de l'accotement et la largeur est obligatoirement indiquée dans un attribut complémentaire.|
+|Linéaire plantée|Polyligne|Tout objet positionné sous forme d'alignement, de haie ou en accotement d'une largeur inférieure ou égale à 1 mètre. La ligne saisie représente le centre de cet esapce et la largeur est obligatoirement indiquée dans un attribut complémentaire.|
 
 Tableau 1 : représentation des objets "espace vert" dans l'inventaire
 
+|Objets|Représentation|Définition|
+|:---|:---|:---|
+|Ponctuel hydrographique (fontaine, point d'eau)|Point|L'objet saisit doit représenter son centre si celui-ci ne dispose pas d'un bassin intégré|
+|Surface minérale|Polygone|Tout objet d'une largeur supérieure à 1 mètre|
+|Surface hydrographique (fontaine, bassin, rivière...)|Polygone|Tout objet disposant d'une surface en eau au sol (avec ou sans système hydraulique) d'une largeur supérieure à 1 mètre|
+|Linéaire hydrographique|Polyligne|Tout objet disposant d'une surface en eau au sol (avec ou sans système hydraulique) d'une largeur inférieure ou égale à 1 mètre|
 
-Compléments sur la saisie des différents objets constituant les espaces verts indiqués dans le tableau ci-dessus:
-
-- Le tracé d'un linéaire est forcément positionné au centre de l'objet saisie avec un repport de sa largeur,
-- La saisie d'un ponctuel doit représenter le centre de l'objet saisi.
-
+Tableau 2 : représentation des objets d'habillage "espace vert" dans l'inventaire uniquement pour un site cohérent déterminé par un équipement public (parc,...)
 
 ### Système de coordonnées
 
