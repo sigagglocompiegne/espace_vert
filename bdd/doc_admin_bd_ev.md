@@ -67,6 +67,22 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 * triggers : sans objet
 
 
+`geo_ev_noeud` : table géographique des objets des espaces verts saisis sous forme de ponctuel
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+
+`geo_ev_surf` : table géographique des objets des espaces verts saisis sous forme de polygone
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+
+
+`geo_ev_tronc` : table géographique des objets des espaces verts saisis sous forme de polyligne
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+
 ## Liste de valeurs
 
 `lt_ev_doma` : Liste permettant de décrire les types domanialités
