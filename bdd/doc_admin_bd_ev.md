@@ -131,6 +131,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |:---|:---|:---|:---|  
 |idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
 |typ|Typologie des surfaces plantées|00 (liste de valeurs `lt_ev_typplante`)|
+|nbarbre|Nombre d'arbres approchant|integer|renseigné si type est égal à la valeur `07` (espace boisé)|
 
 
 `an_ev_surfenherbee` : table alphanumérique du patrimoine des objets des espaces verts correspondant aux espaces enherbés.
