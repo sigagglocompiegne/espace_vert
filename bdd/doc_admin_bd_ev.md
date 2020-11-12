@@ -2,8 +2,7 @@
 
 # Documentation d'administration de la base de données des espaces verts #
 
-## Principes
- ### Généralité
+## Généralité
  
 La démarche s'organise en 3 temps :
 . inventaire cartrographique des espaces verts
