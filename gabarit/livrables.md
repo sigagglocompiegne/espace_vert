@@ -49,7 +49,7 @@ Les objets produits dans le cadre de cet inventaire devront être en cohérence 
 
 L'invetaire cartographique se fera préférentiellement :
 - soit par numérisation sur des référentiels cartographiques,
-- soit par GPS ou autre technique de levées sur le terrain, à mettre en cohérence avec des référentiels.
+- soit par un levé de terrain.
 
 Les objets de cette production cartographique doivent répondre aux conditions de saisies présent dans les 2 tableaux ci-après.
 
