@@ -41,25 +41,15 @@ Schéma 3 : restitution conceptuelle dans la base de données
 
 ## Règle de modélisation
 
-Les objets constituant la production cartographique initiale sont organisés autour des 3 primitives géographiques de base : polygones, lignes et points. **La saisie des objets de type multi n'est pas autorisé.**
+Les objets constituant l'inventaire cartographique initial sont organisés autour des 3 primitives géographiques de base : polygones, lignes et points. **La saisie des objets de type multi n'est pas autorisée.**
 
 La saisie de ces objets doit permettre une restitution de l'ordre du 1 000ème.
 
-Chaque objet saisi devra être complété par des informations attributaires associées. Certains de ces attributs seront autogénérés par le gabarit, d'autres le seront à l'intégration de la production cartographique par le maître d'ouvrage et d'autres devront être saisis obligatoirement par le prestataire.
+Les objets produits dans le cadre de cet inventaire devront être en cohérence topologique avec la précision des référentiels utilisés.
 
-Le Maître d’ouvrage mettra à disposition du prestataire de l’opération de numérisation les référentiels cartographiques « institutionnels » en sa possession dans le gabarit de saisie, sous le logiciel SIG QGIS 3.x :
-
-- Prise de vue orthophotographique régionale de 2018,
-- filaire de voies,
-- le référentiel PCI Vecteur au 1er janvier 2020.
-
-D'autres fonds de plan peuvent être ajoutés si le prestataire en dispose. Dans ce cas il devra en informer le maître d'ouvrage et restituer ceux-ci dans le gabarit à la fin de la production cartographique.
-
-Les objets produits dans le cadre de cet inventaire devront être en cohérence topologique avec la précision des référentiels fournis y compris si le prestataire dispose de ces propres fonds de plan.
-
-La saisie des objets se fera donc :
-- soit par numérisation sur ces référentiels cartographiques,
-- soit par GPS ou autre technique de levées sur le terrain, à mettre en cohérence avec les référentiels si nécessaire.
+L'invetaire cartographique se fera préférentiellement :
+- soit par numérisation sur des référentiels cartographiques,
+- soit par GPS ou autre technique de levées sur le terrain, à mettre en cohérence avec des référentiels.
 
 Les objets de cette production cartographique doivent répondre aux conditions de saisies présent dans les 2 tableaux ci-après.
 
