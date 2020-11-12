@@ -10,6 +10,7 @@
 
 # Livrables
 
+Ce gabarit a été réalisé dans le cadre d'un inventaire cartographique pour la ville de Compiègne en 2020.
 
 ## Gabarits
 
@@ -37,14 +38,6 @@ Schéma 2 : principe de modélisation autour de 3 blocs de production
 (à venir après validation du modèle de données)
 
 Schéma 3 : restitution conceptuelle dans la base de données
-
-## Production cartographique initiale attendue en 2020 
-
-**Cette production cartographique initiale des objets des espaces verts consiste en 3 points :**
-
-- compléter l'inventaire initié par le service "Espace Vert" existant concernant le positionnement des arbres isolés ou en alignement sur la commune de Compiègne,
-- compléter et mettre à jour une production cartographique initiée en 2018 sur la commune de Compiègne (hors arbre). Cette donnée pourra être reprise par le prestataire afin d'en améliorer la qualité de précision des objets recensés,
-- produire les objets des espaces verts sur les zones d'aménagements (ZAE) gérées par l'Agglomération de la Région de Compiègne.
 
 ## Règle de modélisation
 
