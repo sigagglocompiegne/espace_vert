@@ -84,9 +84,9 @@ Sur le territoire métropolitain s'applique le système géodésique français l
 
 - Tous les objets sont nécessairement inclu dans une emprise communale, 
 - Ils sont également inclus dans un site (équipement public, une voie...),
-- Les objets devront être découpés avec les limites communales et les zones de gestion.
+- Les objets devront être découpés avec les limites communales et les zones de gestion existantes.
 
-Ces deux derniers éléments seront intégrés dans une phase ultérieure à la production cartographique initiale.
+Ces deux derniers éléments seront intégrés dans une phase ultérieure à l'inventaire cartographique initial.
 
 - Tous les objets de type "surface" sont des polygones fermés, et si ils sont adjacents, ils devront être topologique (absence de chevauchements et de micro-trous). 
 
@@ -96,11 +96,11 @@ Ces deux derniers éléments seront intégrés dans une phase ultérieure à la 
 
 ![picto](topo_poly_2.png)
 
-- Les linéraires doivent être connnectés entre eux si ils sont contiguës dans la réalité du dessin saisi.
+- Les linéraires doivent être connectés entre eux si ils sont contiguës dans la réalité du dessin saisi.
 
 ![picto](topo_line_1.png)
 
-- Les arcs de cercle ou ellipse devront être numérisés sous forme de polyligne suffisamment détaillée pour en reproduire le forme.
+- Les arcs de cercle ou ellipse devront être numérisés sous forme de polyligne suffisamment détaillée pour en reproduire la forme.
 
 ## Format des fichiers
 
