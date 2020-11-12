@@ -5,17 +5,12 @@
 ## Principes
  ### Généralité
  
-Depuis 2014, le service des espaces verts a initié une démarche d'inventaire du patrimoine arboré de la ville de Compiègne. Cette démarche, toujours en cours en 2020, s'est accompagnée d'un premier inventaire cartographique en 2018.
+La démarche s'organise en 3 temps :
+. inventaire cartrographique des espaces verts
+. détaillé ces objets d'un point de vue métier
+. optique d'engagement de gestions des espaces verts (tableau de bord, gestion et intervention).
 
-Afin de répondre aux problématiques métiers et de gestions, interventions du service, un nouvel inventaire cartographique a été initié fin 2020 s'appuyant sur les inventaires passés. Cette démarche s'appuie sur une vision en triptique partant d'un inventaire d'objets, sur lequel viendra se greffer des éléments de gestion, intervention d'un côté et de gestion patrimoniale des objets de l'autre. Le modèle de données produit en début de démarche a été construit dans ce sens, l'évolutivité.
- 
- ### Résumé fonctionnel
- 
-Pour rappel des grands principes :
 
-* les objets du patrimoine des espaces verts font l'objet de productions extérieures intégrées par le service SIG
-* les zones de gestion, intervention ou de sites sont gérées par le service des espaces verts
-* les attributs métiers, complémentaire à l'inventaire, sont gérés par le service des espaces verts
 
 ## Schéma fonctionnel
 
