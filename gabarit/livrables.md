@@ -155,15 +155,22 @@ L'encodage des caractères est en UTF8. Les différents supports sont téléchar
 
 ### Patrimoine
 
-Ensemble des données décrivant les objets composant l'inventaire cartographique des espaces verts.
+Ensemble des données décrivant les objets composant l'inventaire cartographique des espaces verts. 
 
-`geo_v_ev_point` : nom du fichier
+`geo_v_ev_point` : fichier contenant les objets "espace vert" de type ponctuel
 
-|Nom attribut|Définition|Type|Valeurs|Contraintes|
-|:---|:---|:---|:---|:---|
-|idlieu|Identifiant unique du positionnement|character varying(8)||valeur vide interdite|
-|maj_aaaa|Evolution par rapport au dernier recensement|character varying(8)|lt_pav_maj|valeur vide interdite|
-|insee|Code insee de la commune|character varying(5)||valeur vide interdite|
+|Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
+|:---|:---|:---|:---|:---|:---|
+|idobjet|Identifiant unique des objets|integer|Incrémentation automatique valeur max(idobjet)+1|NOT NULL||
+|typev1|Nomenclature de niveau 1 identifiant le type d'espace vert|character varying(2)|Liste de valeurs lt_ev_typev1|NOT NULL||
+|typev2|Nomenclature de niveau 2 identifiant le type d'espace vert|character varying(2)|Liste de valeurs lt_ev_typev2|NOT NULL||
+|srcgeom_sai|Référentiel de saisie|character varying(2)|Liste de valeurs lt_src_geom|NOT NULL||
+|srcdate_sai|Année du référentiel de saisie|integer||NOT NULL||
+|qualglocxy|Qalité de la géolocalisation planimétrique |character varying(2)|Liste de valeurs lt_ev_qualglocxy|NOT NULL||
+|op_sai|Opérateur de saisie |character varying(50)||NOT NULL||
+|dat_sai|Date de saisie |Date|now()|NOT NULL||
+|observ|Commentaires divers |character varying(254)||||
+|surf_e|Surface d'empriser au sol en m²|integer|||(en fonction des choix de modélisation retenue)|
 
 
 ### Liste de valeurs
@@ -203,6 +210,17 @@ Cependant, pour des questions de compréhension, la nomenclature définissant le
 |131|Loisirs|
 |132|Bâtiment|
 |990|Référence non classée|
+
+`lt_ev_qualglocxy` : liste des valeurs de la qualité de la géolocalisation planimétrique des objets "espace vert"
+
+|Code|Valeur|
+|:---|:---|
+|10|moins de 2cm|
+|20|de 2 à 5cm|
+|30|de 5 à 10cm|
+|40|de 10 à 40cm|
+|50|de 40 à 150cm|
+|60|au délà de 150cm|
 
 ### Les identifiants
 
