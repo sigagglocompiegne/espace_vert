@@ -32,6 +32,7 @@ Il peut être, dans certains cas, complété par des parties minérales ou hydro
 
 Ces objets peuvent être représentés de façon surfacique (espace enherbé, planté...), linéaire (haie...) ou ponctuel (arbre...). Ils sont intégrés à la fois dans un site cohérent (équipements publics, ensemble urbain, voie...) et dans une zone de gestion et/ou intervention.
 
+Tous les objets saisis sont typés à partir d'une nomenclature métier d'objets "espace vert" afin de les définir individuellement.
 
 ![picto](objets_pro_carto.png)
 
