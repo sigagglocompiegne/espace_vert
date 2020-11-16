@@ -10,7 +10,7 @@
 
 # Livrables
 
-Le gabarit présenté ci-après s'organise autour de la production d'un inventaire cartographique. 
+Le gabarit présenté ci-après s'organise autour de la production d'un inventaire cartographique des espaces verts géré par la collectivité. 
 L'objectif principal est bien de recenser l'ensemble des objets participant à la structuration 
 des espaces verts. En les typant par une nomenclature simple et compréhensible, cet inventaire peut-être
 produit par un nom spécialiste.
@@ -162,15 +162,15 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 |Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
 |:---|:---|:---|:---|:---|:---|
 |idobjet|Identifiant unique des objets|integer|Incrémentation automatique valeur max(idobjet)+1|NOT NULL||
-|typev1|Nomenclature de niveau 1 identifiant le type d'espace vert|character varying(2)|Liste de valeurs lt_ev_typev1|NOT NULL||
-|typev2|Nomenclature de niveau 2 identifiant le type d'espace vert|character varying(2)|Liste de valeurs lt_ev_typev2|NOT NULL||
+|typev1|Nomenclature de niveau 1 identifiant le type d'espace vert|character varying(1)|Liste de valeurs lt_ev_typev1|NOT NULL||
+|typev2|Nomenclature de niveau 2 identifiant le type d'espace vert|character varying(3)|Liste de valeurs lt_ev_typev2|NOT NULL||
 |srcgeom_sai|Référentiel de saisie|character varying(2)|Liste de valeurs lt_src_geom|NOT NULL||
 |srcdate_sai|Année du référentiel de saisie|integer||NOT NULL||
-|qualglocxy|Qalité de la géolocalisation planimétrique |character varying(2)|Liste de valeurs lt_ev_qualglocxy|NOT NULL||
+|qualglocxy|Incertitude maximale de la précision de saisie en cm|integer||NOT NULL||
 |op_sai|Opérateur de saisie |character varying(50)||NOT NULL||
-|dat_sai|Date de saisie |Date|now()|NOT NULL||
+|dat_sai|Date de saisie |Date|now()|NOT NULL|Valeur calculée automatiquement à la saisie|
 |observ|Commentaires divers |character varying(254)||||
-|surf_e|Surface d'empriser au sol en m²|integer|||(en fonction des choix de modélisation retenue)|
+|surf_e|Surface d'emprise au sol en m²|integer|||(en fonction des choix de modélisation retenue)|
 
 
 `geo_v_ev_polygon` : fichier contenant les objets "espace vert" de type surfacique
@@ -178,11 +178,11 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 |Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
 |:---|:---|:---|:---|:---|:---|
 |idobjet|Identifiant unique des objets|integer|Incrémentation automatique valeur max(idobjet)+1|NOT NULL||
-|typev1|Nomenclature de niveau 1 identifiant le type d'espace vert|character varying(2)|Liste de valeurs lt_ev_typev1|NOT NULL||
-|typev2|Nomenclature de niveau 2 identifiant le type d'espace vert|character varying(2)|Liste de valeurs lt_ev_typev2|NOT NULL||
+|typev1|Nomenclature de niveau 1 identifiant le type d'espace vert|character varying(1)|Liste de valeurs lt_ev_typev1|NOT NULL||
+|typev2|Nomenclature de niveau 2 identifiant le type d'espace vert|character varying(3)|Liste de valeurs lt_ev_typev2|NOT NULL||
 |srcgeom_sai|Référentiel de saisie|character varying(2)|Liste de valeurs lt_src_geom|NOT NULL||
 |srcdate_sai|Année du référentiel de saisie|integer||NOT NULL||
-|qualglocxy|Qalité de la géolocalisation planimétrique |character varying(2)|Liste de valeurs lt_ev_qualglocxy|NOT NULL||
+|qualglocxy|Incertitude maximale de la précision de saisie en cm|integer||NOT NULL||
 |op_sai|Opérateur de saisie |character varying(50)||NOT NULL||
 |dat_sai|Date de saisie |Date|now()|NOT NULL||
 |observ|Commentaires divers |character varying(254)||||
@@ -194,11 +194,11 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 |Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
 |:---|:---|:---|:---|:---|:---|
 |idobjet|Identifiant unique des objets|integer|Incrémentation automatique valeur max(idobjet)+1|NOT NULL||
-|typev1|Nomenclature de niveau 1 identifiant le type d'espace vert|character varying(2)|Liste de valeurs lt_ev_typev1|NOT NULL||
-|typev2|Nomenclature de niveau 2 identifiant le type d'espace vert|character varying(2)|Liste de valeurs lt_ev_typev2|NOT NULL||
+|typev1|Nomenclature de niveau 1 identifiant le type d'espace vert|character varying(1)|Liste de valeurs lt_ev_typev1|NOT NULL||
+|typev2|Nomenclature de niveau 2 identifiant le type d'espace vert|character varying(3)|Liste de valeurs lt_ev_typev2|NOT NULL||
 |srcgeom_sai|Référentiel de saisie|character varying(2)|Liste de valeurs lt_src_geom|NOT NULL||
 |srcdate_sai|Année du référentiel de saisie|integer||NOT NULL||
-|qualglocxy|Qalité de la géolocalisation planimétrique |character varying(2)|Liste de valeurs lt_ev_qualglocxy|NOT NULL||
+|qualglocxy|Incertitude maximale de la précision de saisie en cm|integer||NOT NULL||
 |op_sai|Opérateur de saisie |character varying(50)||NOT NULL||
 |dat_sai|Date de saisie |Date|now()|NOT NULL||
 |observ|Commentaires divers |character varying(254)||||
@@ -216,11 +216,10 @@ Cependant, pour des questions de compréhension, la nomenclature définissant le
 
 |Code|Valeur|
 |:---|:---|
-|10|Végétal|
-|11|Minéral|
-|12|Hydrographie|
-|13|Equipement|
-|99|Référence non classée|
+|1|Végétal|
+|2|Minéral|
+|3|Hydrographie|
+|9|Référence non classée|
 
 `lt_ev_typev2` : liste des valeurs de la nomenclature de niveau 2 permettant de décrire les objets de l'inventaire cartographique des espaces verts
 
@@ -242,17 +241,6 @@ Cependant, pour des questions de compréhension, la nomenclature définissant le
 |131|Loisirs|
 |132|Bâtiment|
 |990|Référence non classée|
-
-`lt_ev_qualglocxy` : liste des valeurs de la qualité de la géolocalisation planimétrique des objets "espace vert"
-
-|Code|Valeur|
-|:---|:---|
-|10|moins de 2cm|
-|20|de 2 à 5cm|
-|30|de 5 à 10cm|
-|40|de 10 à 40cm|
-|50|de 40 à 150cm|
-|60|au délà de 150cm|
 
 `lt_src_geom` : liste des valeurs des référentiels de saisis disponibles
 |Code|Valeur|
