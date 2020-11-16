@@ -47,14 +47,7 @@ CREATE SEQUENCE m_espace_vert.an_ev_objet_idobjet_seq
     MAXVALUE 9223372036854775807
     CACHE 1;
 
-ALTER SEQUENCE m_espace_vert.an_ev_objet_idobjet_seq
-    OWNER TO sig_create;
 
-GRANT ALL ON SEQUENCE m_espace_vert.an_ev_objet_idobjet_seq TO PUBLIC;
-
-GRANT ALL ON SEQUENCE m_espace_vert.an_ev_objet_idobjet_seq TO create_sig;
-
-GRANT ALL ON SEQUENCE m_espace_vert.an_ev_objet_idobjet_seq TO sig_create;
 
     
  -- ####################################################################################################################################################
@@ -96,17 +89,6 @@ WITH (
 )
 TABLESPACE pg_default;
 
-ALTER TABLE m_espace_vert.lt_ev_doma 
-    OWNER to sig_create;
-
-GRANT SELECT ON TABLE m_espace_vert.lt_ev_doma  TO read_sig;
-
-GRANT ALL ON TABLE m_espace_vert.lt_ev_doma  TO sig_create;
-
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.lt_ev_doma  TO edit_sig;
-
-GRANT ALL ON TABLE m_espace_vert.lt_ev_doma  TO create_sig;
-
 COMMENT ON TABLE m_espace_vert.lt_ev_doma 
     IS 'Domaine de valeur de la domanialité';
 
@@ -141,16 +123,6 @@ WITH (
 )
 TABLESPACE pg_default;
 
-ALTER TABLE m_espace_vert.lt_ev_typev1
-    OWNER to sig_create;
-
-GRANT SELECT ON TABLE m_espace_vert.lt_ev_typev1 TO read_sig;
-
-GRANT ALL ON TABLE m_espace_vert.lt_ev_typev1 TO sig_create;
-
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.lt_ev_typev1 TO edit_sig;
-
-GRANT ALL ON TABLE m_espace_vert.lt_ev_typev1 TO create_sig;
 
 COMMENT ON TABLE m_espace_vert.lt_ev_typev1
     IS 'Domaine de valeur de l''attribut code nomenclature de l''inventaire cartographique des espaces verts niveau 1';
@@ -184,16 +156,6 @@ WITH (
 )
 TABLESPACE pg_default;
 
-ALTER TABLE m_espace_vert.lt_ev_typev2
-    OWNER to sig_create;
-
-GRANT SELECT ON TABLE m_espace_vert.lt_ev_typev2 TO read_sig;
-
-GRANT ALL ON TABLE m_espace_vert.lt_ev_typev2 TO sig_create;
-
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.lt_ev_typev2 TO edit_sig;
-
-GRANT ALL ON TABLE m_espace_vert.lt_ev_typev2 TO create_sig;
 
 COMMENT ON TABLE m_espace_vert.lt_ev_typev2
     IS 'Domaine de valeur de l''attribut code nomenclature de l''inventaire cartographique des espaces verts niveau 2';
@@ -217,7 +179,7 @@ INSERT INTO m_espace_vert.lt_ev_typev2(
 	('202','Clôture'),
 	('203','Zone de rencontre'),
 	('204','Accès'),
-  ('205','Equipement'),
+  	('205','Equipement'),
 	('301','Bassin'),
 	('302','Points d''eau'),
 	('303','Cours d''eau'),
@@ -239,16 +201,7 @@ WITH (
 )
 TABLESPACE pg_default;
 
-ALTER TABLE m_espace_vert.lt_ev_typev3
-    OWNER to sig_create;
 
-GRANT SELECT ON TABLE m_espace_vert.lt_ev_typev3 TO read_sig;
-
-GRANT ALL ON TABLE m_espace_vert.lt_ev_typev3 TO sig_create;
-
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.lt_ev_typev3 TO edit_sig;
-
-GRANT ALL ON TABLE m_espace_vert.lt_ev_typev3 TO create_sig;
 
 COMMENT ON TABLE m_espace_vert.lt_ev_typev3
     IS 'Domaine de valeur de l''attribut code nomenclature de l''inventaire cartographique des espaces verts niveau 3';
@@ -283,14 +236,6 @@ WITH (
 )
 TABLESPACE pg_default;
 
-ALTER TABLE m_espace_vert.lt_ev_typsite
-    OWNER to sig_create;
-
-GRANT SELECT ON TABLE m_espace_vert.lt_ev_typsite TO read_sig;
-
-GRANT ALL ON TABLE m_espace_vert.lt_ev_typsite TO sig_create;
-
-GRANT ALL ON TABLE m_espace_vert.lt_ev_typsite TO create_sig;
 
 COMMENT ON TABLE m_espace_vert.lt_ev_typsite
     IS 'Liste de valeurs des codes du type de site intégrant les objets des espaces verts';
@@ -318,11 +263,11 @@ INSERT INTO m_espace_vert.lt_ev_typsite(
   ('02','Accotements de voies'),
   ('03','Accompagnement de bâtiments publics'),
   ('04','Accompagnement d''habitations'),
-	('05','Accompagnement d''établissements industriels et commerciaux'),
-	('06','Enceinte sportive'),
-	('07','Cimetière'),
-	('11','Espace naturel aménagé'),
-	('12','Arbre l''alignement');
+  ('05','Accompagnement d''établissements industriels et commerciaux'),
+  ('06','Enceinte sportive'),
+  ('07','Cimetière'),
+  ('11','Espace naturel aménagé'),
+  ('12','Arbre l''alignement');
 
 
 -- ####################################################################################################################################################
@@ -625,7 +570,7 @@ Sans objet
 -- ###                                                                                                                                              ###
 -- ####################################################################################################################################################
 
-
+Sans objet (les triggers pour la gestion sont intégrés au niveau des vues de gestion)
 
 
 
