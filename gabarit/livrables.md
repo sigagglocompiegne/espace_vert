@@ -73,7 +73,7 @@ Des règles de modélisation peuvent ainsi être édictées pour ce scénario (e
 - les objets surfaciques sont représentés si leur emprise au sol est supérieure à x m².
 
 
-Conclusion : cette option a l'avantage de présenter les espaces verts dans une réalité certaine et de produire des plans d'occupation réaliste. Cependant, dans une optique de gestion ou de mise à jour interne, cette solution semble moins "abordable" du fait de multiplicité d'objets détourés se prêtant moins à l'usage recherché de gestion et d'intervention.
+**Conclusion** : cette option a l'avantage de présenter les espaces verts dans une réalité certaine et de produire des plans d'occupation réaliste. Cependant, dans une optique de gestion ou de mise à jour interne, cette solution semble moins "abordable" du fait de multiplicité d'objets détourés se prêtant moins à l'usage recherché de gestion et d'intervention.
 
 * **OPTION 2 : réaliser un inventaire cartographique représentant des entités cohérentes surfaciques** d'objets "espace vert". 
 
@@ -87,7 +87,7 @@ Des règles de modélisation peuvent ainsi être édictées pour ce scénario (e
 - un objet représenté par un polygone, pour une surface identifiée sur le terrain, celle-ci doit être supérieure à x m² et d’une largeur supérieure à x1 m.
 - un objet représenté par un linéaire, pour une surface identifiée sur le terrain, celle-ci doit être de forme linéaire et de largeur inférieure à x1 m. Un linéaire saisit est un ensemble homogène dans sa nomenclature et sa largeur. Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet. Une information de largeur est obligatoirement saisie.
 
-Conclusion : cette option est plus proche d'une gestion de service mais ne permet pas une restitution graphique exacte des objets "espace vert". La production d'un inventaire cartographique et de sa mise à jour (interne ou non) est jugée plus rapide. A contrario, l'exploitation des données devra prendre en compte les particularités de cette modélisation pour restituer au mieux une réalité en terme de surfaces.
+**Conclusion** : cette option est plus proche d'une gestion de service mais ne permet pas une restitution graphique exacte des objets "espace vert". La production d'un inventaire cartographique et de sa mise à jour (interne ou non) est jugée plus rapide. A contrario, l'exploitation des données devra prendre en compte les particularités de cette modélisation pour restituer au mieux une réalité en terme de surfaces.
 Pour rappel, c'est cette approche qui a été utilisée pour un premier inventaire réalisé en 2018 mais sans intégrer cette notion d'attributs complémentaires. Celui-ci devant être ré-intégré à la nouvelle base de données, cette option est la moins impactante. Seuls les attributs qualitatifs de longueurs ou de largeurs devront être complétés, ce qui pourra être réalisés par le service métier.
 
 
