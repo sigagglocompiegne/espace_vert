@@ -170,7 +170,36 @@ Le contenu des listes de valeurs est disponible dans la documentation complète 
 Cependant, pour des questions de compréhension, la nomenclature définissant le type des objets "espace vert" est présentée ci-dessous. Pour l'inventaire cartographique, seuls les 2 premiers niveaux de nomenclature sont imposés.
 
 
+`lt_ev_typev1` : liste des valeurs de la nomenclature de niveau 1 permettant de décrire les objets de l'inventaire cartographique des espaces verts
 
+|Code|Valeur|
+|:---|:---|
+|10|Végétal|
+|11|Minéral|
+|12|Hydrographie|
+|13|Equipement|
+|99|Référence non classée|
+
+`lt_ev_typev2` : liste des valeurs de la nomenclature de niveau 2 permettant de décrire les objets de l'inventaire cartographique des espaces verts
+
+|Code|Valeur|
+|:---|:---|
+|101|Arbre|
+|102|Espace enherbé|
+|103|Espace planté|
+|104|Ponctuel fleuri|
+|105|Haie, mur|
+|106|Friche|
+|111|Allée|
+|112|Clôture|
+|113|Zone de rencontre|
+|115|Accès|
+|121|Bassin|
+|122|Points d'eau|
+|123|Cours d'eau|
+|131|Loisirs|
+|132|Bâtiment|
+|990|Référence non classée|
 
 ### Les identifiants
 
