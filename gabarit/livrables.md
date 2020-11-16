@@ -157,11 +157,13 @@ L'encodage des caractères est en UTF8. Les différents supports sont téléchar
 
 Ensemble des données décrivant les objets composant l'inventaire cartographique des espaces verts.
 
-`geo_ev_point` : nom
+`geo_v_ev_point` : nom du fichier
 
 |Nom attribut|Définition|Type|Valeurs|Contraintes|
 |:---|:---|:---|:---|:---|
-|attribut|||||
+|idlieu|Identifiant unique du positionnement|character varying(8)||valeur vide interdite|
+|maj_aaaa|Evolution par rapport au dernier recensement|character varying(8)|lt_pav_maj|valeur vide interdite|
+|insee|Code insee de la commune|character varying(5)||valeur vide interdite|
 
 
 ### Liste de valeurs
