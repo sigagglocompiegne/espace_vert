@@ -36,7 +36,7 @@ Tous les objets saisis sont typés à partir d'une nomenclature métier d'objets
 
 ![picto](objets_pro_carto.png)
 
-Schéma 1 : les objets de l'inventaire cartographique
+Schéma 1 : une représentation des objets d'un inventaire cartographique
 
 
 ## Règle de modélisation
@@ -253,6 +253,17 @@ Cependant, pour des questions de compréhension, la nomenclature définissant le
 |40|de 10 à 40cm|
 |50|de 40 à 150cm|
 |60|au délà de 150cm|
+
+`lt_src_geom` : liste des valeurs des référentiels de saisis disponibles
+|Code|Valeur|
+|:---|:---|
+|00|Non renseigné|
+|20|Ortho-images|
+|22|Orthophotoplan partenaire|
+|50|Lever|
+|51|Plan topographique|
+|53|Trace GPS|
+|99|Autre|
 
 ### Les identifiants
 
