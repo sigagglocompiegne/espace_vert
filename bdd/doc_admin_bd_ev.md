@@ -47,8 +47,9 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |quartier|Libellé du quartier de la ville de Compiègne d'appartenance|varchar(80)||
 |doma_d|Domanialité déduite|varchar(2)|00 (liste de valeurs `lt_ev_doma`)|
 |doma_r|Domanialité réelle|varchar(2)|00 (liste de valeurs `lt_ev_doma`)|
-|typ|Type d'espace vert|varchar(2)|valeur vide interdite (liste de valeurs `lt_ev_typ` attribut `code`)|
-|sstyp|Sous-type d'espace vert|varchar(2)|valeur vide interdite (liste de valeurs `lt_ev_typ` attribut `sous_code`)|
+|typev1|Valeur de la nomenclature de niveau 1 décrivent l'objet "espace vert"|varchar(1)|valeur vide interdite (liste de valeurs `lt_ev_typev1` attribut `code`)|
+|typev2|Valeur de la nomenclature de niveau 1 décrivent l'objet "espace vert"|varchar(3)|valeur vide interdite (liste de valeurs `lt_ev_typev2` attribut `code`)|
+|typev3|Valeur de la nomenclature de niveau 3 décrivent l'objet "espace vert"|varchar(5)|valeur vide interdite (liste de valeurs `lt_ev_typev3` attribut `code`)|
 |srcgeom_sai|Référentiel de saisies utilisé pour la production initiale cartographique|varchar(2)|valeur vide interdite (liste de valeurs `lt_src_geom`)|
 |srcdate_sai|Année du référentiel de saisies utilisé pour la production initiale cartographique|integer||
 |srcgeom_maj|Référentiel de saisies utilisé pour la mise à jour de la production cartographique|varchar(2)|00 (liste de valeurs `lt_src_geom`)|
