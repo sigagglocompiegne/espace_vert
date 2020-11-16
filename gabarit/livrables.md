@@ -58,7 +58,7 @@ Les règles de modélisation consiste à présenter la façon dont les objets do
 
 2 options se présentent en terme de modélisation, après l'analyse d'autres standards ou de productions cartographiques (Cannes, GéoVendée, Dunkerque).
 
-* OPTION 1 : réaliser un inventaire cartographique en respectant l'emprise exacte de chaque objet en terme d'occupation du sol à l'exception des objets ponctuels (arbre, pot, suspension...).
+* **OPTION 1 : réaliser un inventaire cartographique en respectant l'emprise exacte de chaque objet** en terme d'occupation du sol à l'exception des objets ponctuels (arbre, pot, suspension...).
 
 Cette solution consiste à détourer chaque emprise des objets "espace vert" au sol et à respecter les ruptures. Ces ruptures peuvent être d'usages variées et appartenir ou non à la thématique "espace vert" : mode doux aménagé, allée, haie, bassin...
 Dans un site cohérent, tel un parc urbain par exemple, tous les objets doivent être intégrés à l'inventaire pour une meilleure compréhension et anlayse. Ainsi les objets de ruptures sont également détourés. Cette modélisation, sous forme de polygone, revient à réaliser une mini-occupation du sol.
@@ -74,7 +74,7 @@ Des règles de modélisation peuvent ainsi être édictées pour ce scénario (e
 
 Conclusion : cette option a l'avantage de présenter les espaces verts dans une réalité certaine et de produire des plans d'occupation réaliste. Cependant, dans une optique de gestion ou de mise à jour interne, cette solution semble moins "abordable" du fait de multiplicité d'objets détourés se prêtant moins à l'usage recherché de gestion et d'intervention.
 
-* OPTION 2 : réaliser un inventaire cartographique représentant des entités cohérentes surfaciques d'objets "espace vert". 
+* **OPTION 2 : réaliser un inventaire cartographique représentant des entités cohérentes surfaciques** d'objets "espace vert". 
 
 La différence avec l'option 1, est la non prise en compte des ruptures sous forme surfacique pour conserver l'homogénéisation d'usages des objets.
 Ces ruptures, dans un site cohérent ou non, venant interrompres cette homogénéisation sont représentées sous forme linéaires avec des attributs les qualifiants (longueur, largeur...). 
