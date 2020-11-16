@@ -147,9 +147,9 @@ L'encodage des caractères est en UTF8. Les différents supports sont téléchar
 
 |Nom fichier|Définition|Catégorie|Géométrie|
 |:---|:---|:---|:---|
-|geo_ev_point|Localisation des objets "espace vert" de représentation ponctuelle|Patrimoine|Ponctuel|
-|geo_ev_polygon|def|Délimitation des objets "espace vert" de représentation surfacique|Polygone|
-|geo_ev_line|Tracé des objets "espace vert" de représentation rectiligne|Patrimoine|Linéaire|
+|geo_v_ev_point|Localisation des objets "espace vert" de représentation ponctuelle|Patrimoine|Ponctuel|
+|geo_v_ev_polygon|def|Délimitation des objets "espace vert" de représentation surfacique|Polygone|
+|geo_v_ev_line|Tracé des objets "espace vert" de représentation rectiligne|Patrimoine|Linéaire|
 
 ## Implémentation informatique
 
@@ -172,6 +172,38 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 |observ|Commentaires divers |character varying(254)||||
 |surf_e|Surface d'empriser au sol en m²|integer|||(en fonction des choix de modélisation retenue)|
 
+
+`geo_v_ev_polygon` : fichier contenant les objets "espace vert" de type surfacique
+
+|Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
+|:---|:---|:---|:---|:---|:---|
+|idobjet|Identifiant unique des objets|integer|Incrémentation automatique valeur max(idobjet)+1|NOT NULL||
+|typev1|Nomenclature de niveau 1 identifiant le type d'espace vert|character varying(2)|Liste de valeurs lt_ev_typev1|NOT NULL||
+|typev2|Nomenclature de niveau 2 identifiant le type d'espace vert|character varying(2)|Liste de valeurs lt_ev_typev2|NOT NULL||
+|srcgeom_sai|Référentiel de saisie|character varying(2)|Liste de valeurs lt_src_geom|NOT NULL||
+|srcdate_sai|Année du référentiel de saisie|integer||NOT NULL||
+|qualglocxy|Qalité de la géolocalisation planimétrique |character varying(2)|Liste de valeurs lt_ev_qualglocxy|NOT NULL||
+|op_sai|Opérateur de saisie |character varying(50)||NOT NULL||
+|dat_sai|Date de saisie |Date|now()|NOT NULL||
+|observ|Commentaires divers |character varying(254)||||
+|sup_m²|Surface du polygone saisie en mètre carré|integer|$area|NOT NULL|Valeur calculée automatiquement à la saisie|
+|perimetre|Périmètre du polygone saisie en mètre|integer|$perimetre|NOT NULL|Valeur calculée automatiquement à la saisie|
+
+`geo_v_ev_line` : fichier contenant les objets "espace vert" de type linéaire
+
+|Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
+|:---|:---|:---|:---|:---|:---|
+|idobjet|Identifiant unique des objets|integer|Incrémentation automatique valeur max(idobjet)+1|NOT NULL||
+|typev1|Nomenclature de niveau 1 identifiant le type d'espace vert|character varying(2)|Liste de valeurs lt_ev_typev1|NOT NULL||
+|typev2|Nomenclature de niveau 2 identifiant le type d'espace vert|character varying(2)|Liste de valeurs lt_ev_typev2|NOT NULL||
+|srcgeom_sai|Référentiel de saisie|character varying(2)|Liste de valeurs lt_src_geom|NOT NULL||
+|srcdate_sai|Année du référentiel de saisie|integer||NOT NULL||
+|qualglocxy|Qalité de la géolocalisation planimétrique |character varying(2)|Liste de valeurs lt_ev_qualglocxy|NOT NULL||
+|op_sai|Opérateur de saisie |character varying(50)||NOT NULL||
+|dat_sai|Date de saisie |Date|now()|NOT NULL||
+|observ|Commentaires divers |character varying(254)||||
+|long_m|Longueur du tracé saisie en mètre|integer|$length|NOT NULL|Valeur calculée automatiquement à la saisie|
+|larg_cm|Largeur du tracé saisie en centimètre|integer||NOT NULL||
 
 ### Liste de valeurs
 
