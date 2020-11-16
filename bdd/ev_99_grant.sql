@@ -82,3 +82,53 @@ ALTER TABLE m_espace_vert.lt_ev_typsite
 GRANT SELECT ON TABLE m_espace_vert.lt_ev_typsite TO read_sig;
 GRANT ALL ON TABLE m_espace_vert.lt_ev_typsite TO sig_create;
 GRANT ALL ON TABLE m_espace_vert.lt_ev_typsite TO create_sig;
+
+-- #################################################################### VUE DES GESTION  ####################################################################
+
+ALTER TABLE m_espace_vert.geo_v_ev_line
+    OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert.geo_v_ev_line TO read_sig;
+GRANT ALL ON TABLE m_espace_vert.geo_v_ev_line TO sig_create;
+GRANT ALL ON TABLE m_espace_vert.geo_v_ev_line TO create_sig;
+
+ALTER TABLE m_espace_vert.geo_v_ev_point
+    OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert.geo_v_ev_point TO read_sig;
+GRANT ALL ON TABLE m_espace_vert.geo_v_ev_point TO sig_create;
+GRANT ALL ON TABLE m_espace_vert.geo_v_ev_point TO create_sig;
+
+ALTER TABLE m_espace_vert.geo_v_ev_polygon
+    OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert.geo_v_ev_polygon TO read_sig;
+GRANT ALL ON TABLE m_espace_vert.geo_v_ev_polygon TO sig_create;
+GRANT ALL ON TABLE m_espace_vert.geo_v_ev_polygon TO create_sig;
+
+-- #################################################################### FONCTION TRIGGER  ####################################################################
+
+ALTER FUNCTION m_espace_vert.ft_m_insert_update_ev_line()
+    OWNER TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_line() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_line() TO sig_create;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_line() TO edit_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_line() TO create_sig;
+
+ALTER FUNCTION m_espace_vert.ft_m_insert_update_ev_point()
+    OWNER TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_point() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_point() TO sig_create;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_point() TO edit_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_point() TO create_sig;
+
+
+ALTER FUNCTION m_espace_vert.ft_m_insert_update_ev_polygon()
+    OWNER TO sig_create;
+
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_polygon() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_polygon() TO sig_create;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_polygon() TO edit_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_polygon() TO create_sig;
