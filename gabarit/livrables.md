@@ -61,7 +61,7 @@ Les règles de modélisation consiste à présenter la façon dont les objets do
 * **OPTION 1 : réaliser un inventaire cartographique en respectant l'emprise exacte de chaque objet** en terme d'occupation du sol à l'exception des objets ponctuels (arbre, pot, suspension...).
 
 Cette solution consiste à détourer chaque emprise des objets "espace vert" au sol et à respecter les ruptures. Ces ruptures peuvent être d'usages variées et appartenir ou non à la thématique "espace vert" : mode doux aménagé, allée, haie, bassin...
-Dans un site cohérent, tel un parc urbain par exemple, tous les objets doivent être intégrés à l'inventaire pour une meilleure compréhension et anlayse. Ainsi les objets de ruptures sont également détourés. Cette modélisation, sous forme de polygone, revient à réaliser une mini-occupation du sol.
+Dans un site cohérent, tel un parc urbain par exemple, tous les objets doivent être intégrés à l'inventaire pour une meilleure compréhension et analyse. Ainsi les objets de ruptures sont également détourés. Cette modélisation, sous forme de polygone, revient à réaliser une mini-occupation du sol.
 En dehors de ces sites, seuls les objets spécifiques "espace vert" doivent être intégrés. Il sont toujours représentés sous forme polygone.
 
 Des règles de modélisation peuvent ainsi être édictées pour ce scénario (exemple ici ) :
