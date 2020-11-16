@@ -4,7 +4,7 @@
 
 [ ] à rédiger [x] en cours de rédaction [ ] finaliser
 
-Spécification du fichier d’échange relatif aux données concernant l'inventaire cartographique des objets constituant les espaces verts sur l'Agglomération de la Région de Compoiègne et gérées par la collectivité. La description patrimoniale des objets dans la perspective d'une gestion de service a été exclue de ce standard. 
+Spécification du fichier d’échange relatif aux données concernant l'inventaire cartographique des objets constituant les espaces verts sur l'Agglomération de la Région de Compiègne et gérées par la collectivité. La description patrimoniale des objets dans la perspective d'une gestion de service a été exclue de ce standard. 
 
 - [Lire la documentation du standard](gabarit/livrables.md)
 - [Documentation d'administration de la base sur les espaces verts](bdd/doc_admin_bd_ev.md)
