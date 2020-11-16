@@ -233,7 +233,18 @@ Valeurs possibles :
 
 ### classes d'objets applicatives de gestion :
 
-Sans objet
+`geo_v_ev_line` : vue de gestion permettant la saisie des objets "espace vert" de type ligne
+
+* Fonction triggers `ft_m_insert_update_ev_line()` : permet l'intégration dans la table des objets `an_objet_ev` et dans la table des géométries de type ligne `geo_ev_line` des valeurs saisies. L'automatisation 
+
+`geo_v_ev_point` : vue de gestion permettant la saisie des objets "espace vert" de type ponctuel
+
+* Fonction triggers `ft_m_insert_update_ev_point()` : permet l'intégration dans la table des objets `an_objet_ev` et dans la table des géométries de type point `geo_ev_point` des valeurs saisies. 
+
+`geo_v_ev_polygon` : vue de gestion permettant la saisie des objets "espace vert" de type polygone
+
+
+* Fonction triggers `ft_m_insert_update_ev_polygon()` : permet l'intégration dans la table des objets `an_objet_ev` et dans la table des géométries de type polygone `geo_ev_polygon` des valeurs saisies.
 
 ---
 
