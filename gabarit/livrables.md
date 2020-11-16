@@ -147,9 +147,9 @@ L'encodage des caractères est en UTF8. Les différents supports sont téléchar
 
 |Nom fichier|Définition|Catégorie|Géométrie|
 |:---|:---|:---|:---|
-|geo_v_ev_point|Localisation des objets "espace vert" de représentation ponctuelle|Patrimoine|Ponctuel|
-|geo_v_ev_polygon|def|Délimitation des objets "espace vert" de représentation surfacique|Polygone|
-|geo_v_ev_line|Tracé des objets "espace vert" de représentation rectiligne|Patrimoine|Linéaire|
+|geo_v_ev_point|Localisation des objets "espace vert" de représentation ponctuelle|Inventaire cartographique|Ponctuel|
+|geo_v_ev_polygon|Délimitation des objets "espace vert" de représentation surfacique|Inventaire cartographique|Polygone|
+|geo_v_ev_line|Tracé des objets "espace vert" de représentation rectiligne|Inventaire cartographique|Linéaire|
 
 ## Implémentation informatique
 
