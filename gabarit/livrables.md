@@ -231,16 +231,15 @@ Cependant, pour des questions de compréhension, la nomenclature définissant le
 |104|Ponctuel fleuri|
 |105|Haie, mur|
 |106|Friche|
-|111|Allée|
-|112|Clôture|
-|113|Zone de rencontre|
-|115|Accès|
-|121|Bassin|
-|122|Points d'eau|
-|123|Cours d'eau|
-|131|Loisirs|
-|132|Bâtiment|
-|990|Référence non classée|
+|201|Allée|
+|202|Clôture|
+|203|Zone de rencontre|
+|204|Accès|
+|205|Equipement|
+|301|Bassin|
+|302|Points d'eau|
+|303|Cours d'eau|
+|999|Référence non classée|
 
 `lt_src_geom` : liste des valeurs des référentiels de saisis disponibles
 |Code|Valeur|
