@@ -115,7 +115,7 @@ La saisie des objets linéaires répond à des particularités décrites ci-dess
 
 
 
-Les objets de cet inventaire cartographique doivent répondre aux conditions de saisies présent ci-après.
+Les objets de cet inventaire cartographique doivent répondre également aux règles topologiques présentées ci-après.
 
 
 ### Topologie
