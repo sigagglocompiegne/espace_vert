@@ -7,10 +7,15 @@
 Spécification du fichier d’échange relatif aux données concernant l'inventaire cartographique des objets constituant les espaces verts sur l'Agglomération de la Région de Compiègne et gérées par la collectivité. La description patrimoniale des objets dans la perspective d'une gestion de service a été exclue de ce standard. 
 
 - [Lire la documentation du standard](gabarit/livrables.md)
-- [Documentation d'administration de la base sur les espaces verts](bdd/doc_admin_bd_ev.md)
-- [Documentation d'administration de l'application ESPACE VERT](app/doc_admin_app_ev.md)
-- [Documentation utilisateur de l'application](app/doc_user_app_ev.md)
-- [Script d'initialisation de la base de données](bdd/script.md)
+- Script d'initialisation de la base de données
+  * [Suivi des modifications](bdd/ev_00_trace.sql)
+  * [Création  de la structure initiale](bdd/ev_10_squelette.sql)
+  * [Création des vues de gestion](bdd/ev_20_vues_gestion.sql)
+  * [Création des vues applicatives](bdd/ev_21_vues_xapps.sql)
+  * [Création des privilèges](bdd/ev_99_grant.sql)
+- [Documentation d'administration de la base](bdd/doc_admin_bd_ev.md)
+- [Documentation d'administration de l'application](app/doc_admin_app_ev.md)
+- Ressources pour la sémiologie graphique AVAP
 
 
 ## Contexte
