@@ -67,9 +67,9 @@ Pour rappel, c'est cette approche qui a été utilisée pour un premier inventai
 
 Des règles de modélisation de base peuvent ainsi être édictées :
 
-- les objets ponctuels de compositions sont représentés sous forme de point sans limite d'emprise au sol. Les arbres en alignement doivent être également représentés sous forme de ponctuel.
+- les objets ponctuels de compositions sont représentés sous forme de point sans limite d'emprise au sol. Les arbres en alignement ou dans un secteur boisé aménagé doivent être également représentés sous forme de ponctuel.
 
-- un objet représenté par un polygone, pour une surface identifiée sur le terrain. Toute surface doit être saisie.
+- un objet représenté par un polygone, pour une surface identifiée sur le terrain. Toute surface doit être saisie. Pour les zones boisées denses (uniquement dans des sites cohérents de type parc), celles-ci doivent être identifiées sous forme de polygone et comme pour les alignements d'arbres accompagnés d'une représentation ponctuelle de chaque arbre. Les secteurs boisés naturels sont représentés uniquement par un polygone.
 
 - un objet représenté par un linéaire, pour une surface identifiée sur le terrain, celle-ci doit être de forme linéaire et de largeur inférieure à 5 m. Un linéaire saisit est un ensemble homogène dans sa nomenclature et sa largeur. Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement saisie. Pour rappel, la saisit d'un alignement d'arbres (à partir de 4 arbres continus) doit être complété par la saisie d'un objet ponctuel pour chaque arbre.
 
@@ -77,10 +77,6 @@ La saisie des objets linéaires répond à des particularités décrites ci-dess
 
 ![picto](regle_lineaire.png)
 
-Le tableau ci-après présente les types d'objets à saisir dans le cadre de cet inventaire par type de représentation géométrique.
-
-|Ponctuel|Polygone|Linéaire|
-|:---|:---|:---|
 
 
 **Synthèses**
