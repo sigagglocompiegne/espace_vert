@@ -74,9 +74,9 @@ Des règles de modélisation de base peuvent ainsi être édictées :
 
 **Synthèses**
 
-**Dans un site cohérent :** 
+**Dans un site cohérent (parc, square... :** 
 
-![picto](options_sites.png)
+![picto](sites_coherent_v2.png)
 
 
 **En dehors d'un site cohérent :** 
