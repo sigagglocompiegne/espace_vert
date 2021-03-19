@@ -67,10 +67,15 @@ Pour rappel, c'est cette approche qui a été utilisée pour un premier inventai
 
 Des règles de modélisation de base peuvent ainsi être édictées :
 
-- les objets ponctuels de compositions (arbre, pot, suspension, bac, fontaine...) sont représentés sous forme de point sans limite d'emprise au sol,
-- un objet représenté par un polygone, pour une surface identifiée sur le terrain, celle-ci doit être supérieure à x m² et d’une largeur supérieure à x1 m.
-- un objet représenté par un linéaire, pour une surface identifiée sur le terrain, celle-ci doit être de forme linéaire et de largeur inférieure à 5 m. Un linéaire saisit est un ensemble homogène dans sa nomenclature et sa largeur. Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement saisie.
+- les objets ponctuels de compositions sont représentés sous forme de point sans limite d'emprise au sol. Les arbres en alignement doivent être également représentés sous forme de ponctuel.
 
+- un objet représenté par un polygone, pour une surface identifiée sur le terrain. Toute surface doit être saisie.
+
+- un objet représenté par un linéaire, pour une surface identifiée sur le terrain, celle-ci doit être de forme linéaire et de largeur inférieure à 5 m. Un linéaire saisit est un ensemble homogène dans sa nomenclature et sa largeur. Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement saisie. Pour rappel, la saisit d'un alignement d'arbres (à partir de 4 arbres continus) doit être complété par la saisie d'un objet ponctuel pour chaque arbre.
+
+La saisie des objets linéaires répond à des particularités décrites ci-dessous.
+
+![picto](regle_lineaire.png)
 
 **Synthèses**
 
