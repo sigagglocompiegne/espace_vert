@@ -85,24 +85,20 @@ Des règles de modélisation plus fines peuvent être décrites :
 |LINEAIRE Espace vert|Accotement fleuri|LINEAIRE|L'objet identifié sur le terrain est un massif fleuri sous forme de bande d'un seul tenant d'une largeur ingérieur à 5m sinon il s'agit d'un espace fleuri (massif). |Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement saisie. Les ruptures de voirie ou d'entrées dans l'espace privé (garage, entrée ...) devront être respectées si celles-ci sont supérieures à 5 mètres. Dans le cas contraire ces espaces sont intégrés dans le linéaire.Se référer au schéma ci-dessous.|
 |LINEAIRE Minéral|Circulation douce|LINEAIRE|L'objet identifié sur le terrain est un axe de circulation doux (piéton ou 2 roues) décomposant un espace enherbé ou planté homogène d'une largeur inférieure à 5 mètres, sinon il s'agit d'un espace minéral. |Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement saisie. Se référer au schéma ci-dessous.|
 |SURFACE Espace vert|Zone boisée|POLYGONE|L'objet identifié sur le terrain est un ensemble d'arbres dense, aménagé et faisant l'objet d'un entretien courant. |Celles-ci doivent être identifiées sous forme de polygone et comme pour les alignements d'arbres accompagnés d'une représentation ponctuelle de chaque arbre. Les secteurs boisés naturels sont représentés uniquement par un polygone. |
-|SURFACE Espace vert|Espace enherbé|POLYGONE|L'objet identifié sur le terrain est un ensemble enherbé, homogène, entretenu et de même type, d'une largeur supérieure à 5m et non linéaire sinon il s'agit d'un accotement.|Les objets intégrant cet espace, de forme linéaire, d'une largeur inférieure à 5 mètres en sont exclus pour représenter une forme homogèen (cf règle de modélisation édictées en introduction). Se référer au schéma ci-dessous.|
-
-
-
+|SURFACE Espace vert|Espace enherbé|POLYGONE|L'objet identifié sur le terrain est un ensemble enherbé, homogène, entretenu et de même type, d'une largeur supérieure à 5m et non linéaire sinon il s'agit d'un accotement.|Les objets intégrant cet espace, de forme linéaire, d'une largeur inférieure à 5 mètres en sont exclus pour représenter une forme homogène (cf règle de modélisation édictées en introduction). Se référer au schéma ci-dessous.|
+|SURFACE Espace vert|Espace planté|POLYGONE|L'objet identifié sur le terrain est un espace fleuri ou un massif au sol.|Pas de surface minimum, tout objet doit-être saisi.
+Pour rappel Les accotements fleuris sont saisis comme des linéaires si leur largeur est inférieure à 5m et disposé de façon linéaire.|
+|SURFACE Espace minéral|Espace minéral|POLYGONE|L'objet identifié sur le terrain est une zone minérale intégrant un espace cohérent d'espace vert (type parc).|Pas de surface minimum, tout objet doit-être saisi. Pour rappel les éléments minérals de rupture (circulation douce) inférieure à 5m sont saisis en linéaire.|
 
 (1) Les arbres en alignement font l'objet d'une double saisie, ponctuel et linéaire
 (2) niveau de la nomenclature
 
-OLD
-
-Pour les zones boisées denses (uniquement dans des sites cohérents de type parc), celles-ci doivent être identifiées sous forme de polygone et comme pour les alignements d'arbres accompagnés d'une représentation ponctuelle de chaque arbre. Les secteurs boisés naturels sont représentés uniquement par un polygone. Il est rappelé que seuls les surfaces non végétalisées sont à saisir dans les sites cohérents de type parc.
-
-Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement saisie. . Il est rappelé également que seuls les objets de rupture d'un espace végétalisé de type allée, piste cyclable, ... sont à saisir. Pour la saisie des linéaires correspondant aux accotements, les ruptures de voirie ou d'entrées dans l'espace privé (garage, entrée ...) devront être respectées si celles-ci sont supérieures à 5 mètres. Dans le cas contraire ces espaces sont intégrés dans le linéaire. 
 
 La saisie des objets linéaires répond à des particularités décrites ci-dessous.
 
 ![picto](regle_lineaire.png)
 
+![picto](regle_lineaire_2.png)
 
 
 **Synthèses**
