@@ -27,11 +27,13 @@ Cet inventaire sera ainsi intégré à la base de données de la collectivité e
 ## Principe fonctionnel
 
 Le principe de fonctionnement de la base de données devant intégrer l'inventaire des espaces verts s'appuie sur la production cartographique d'objets métiers définit comme un espace d'agrément planté de fleurs, d'arbustes, d'arbres ou engazonné. 
-Il peut être, dans certains cas, complété par des parties minérales ou hydrographiques. Il doit être ouvert au public et facilement accessible par des modes doux. 
+Il peut être, dans certains cas, complété par des parties minérales ou hydrographiques. Il doit être ouvert au public et facilement accessible par des modes doux.
+
+Tous les objets sont à saisir si ils se trouvent dans l'espace public ou dans des zones spécifiques appartenant et gérées par la collectivité (parc, square, cimetière ...). pouvant 
 
 Ces objets peuvent être représentés de façon surfacique (espace enherbé, planté...), linéaire (haie, chemin,...) ou ponctuel (arbre...). Ils sont intégrés à la fois dans un site cohérent (équipements publics, ensemble urbain, voie...) et dans une zone de gestion et/ou intervention.
 
-L'inventaire cartographique ne s'attachera pas à ce stade à la défintion des sites cohérents et aux zones de gestion.
+L'inventaire cartographique ne s'attachera pas à ce stade à la définition des sites cohérents et aux zones de gestion.
 
 Tous les objets saisis sont typés à partir d'une nomenclature métier d'objets "espace vert" afin de les définir individuellement.
 
