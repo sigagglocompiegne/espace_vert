@@ -6,16 +6,16 @@
 
 # Changelog
 
+- 19/03/2021 : finalisation du gabarit et de la modélisation pour un inventaire cartographique
 - 16/11/2020 : description initiale du gabarit de production des espaces verts
 
 # Livrables
 
 Le gabarit présenté ci-après s'organise autour de la production d'un inventaire cartographique des espaces verts géré par la collectivité. 
-L'objectif principal est bien de recenser l'ensemble des objets participant à la structuration 
-des espaces verts. En les typant par une nomenclature simple et compréhensible, cet inventaire peut-être
-produit par un nom spécialiste.
-Néanmoins pour les besoins d'un service gérant les espaces verts, ce gabarit a été pensé pour deux autres usages : l'un permettant
-de détailler ces objets d'un point de vue métier et un autre dans une optique d'engagement de gestion des espaces verts (tableau de bord, intervention....).
+L'objectif principal est bien de recenser l'ensemble des objets participant à la structuration des espaces verts. En les typant par une nomenclature simple et compréhensible, cet inventaire peut-être produit par un nom spécialiste.
+
+Néanmoins pour les besoins d'un service gérant les espaces verts, ce gabarit a été pensé pour deux autres usages : l'un permettant de détailler ces objets d'un point de vue métier et un autre dans une optique d'engagement de gestion des espaces verts (tableau de bord, intervention....).
+
 Cet inventaire sera ainsi intégré à la base de données de la collectivité et pourra être également complété et mis à jour par le service métier à moyen et long terme.
 
 
@@ -26,11 +26,12 @@ Cet inventaire sera ainsi intégré à la base de données de la collectivité e
 
 ## Principe fonctionnel
 
-Le principe de fonctionnement de la base de données devant intégrer l'inventaire des espaces verts s'appuie sur la production cartographique
-d'objets métiers définit comme un espace d'agrément planté de fleurs, d'arbustes, d'arbres ou engazonné. 
+Le principe de fonctionnement de la base de données devant intégrer l'inventaire des espaces verts s'appuie sur la production cartographique d'objets métiers définit comme un espace d'agrément planté de fleurs, d'arbustes, d'arbres ou engazonné. 
 Il peut être, dans certains cas, complété par des parties minérales ou hydrographiques. Il doit être ouvert au public et facilement accessible par des modes doux. 
 
-Ces objets peuvent être représentés de façon surfacique (espace enherbé, planté...), linéaire (haie...) ou ponctuel (arbre...). Ils sont intégrés à la fois dans un site cohérent (équipements publics, ensemble urbain, voie...) et dans une zone de gestion et/ou intervention.
+Ces objets peuvent être représentés de façon surfacique (espace enherbé, planté...), linéaire (haie, chemin,...) ou ponctuel (arbre...). Ils sont intégrés à la fois dans un site cohérent (équipements publics, ensemble urbain, voie...) et dans une zone de gestion et/ou intervention.
+
+L'inventaire cartographique ne s'attachera pas à ce stade à la défintion des sites cohérents et aux zones de gestion.
 
 Tous les objets saisis sont typés à partir d'une nomenclature métier d'objets "espace vert" afin de les définir individuellement.
 
