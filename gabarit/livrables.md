@@ -101,8 +101,8 @@ Les objets de cet inventaire cartographique doivent répondre aux conditions de 
 
 La cohérence topologique impose le partage de géométrie et donc l’utilisation des outils « d’accroches ».
 
-- Tous les objets sont nécessairement inclu dans une emprise communale, 
-- Ils sont également inclus dans un site (équipement public, une voie...),
+- Tous les objets sont nécessairement inclu dans une emprise communale.
+- Ils sont également inclus dans un site (équipement public, une voie...). 
 - Les objets devront être découpés avec les limites communales et les zones de gestion existantes.
 
 Ces deux derniers éléments seront intégrés dans une phase ultérieure à l'inventaire cartographique initial.
