@@ -67,13 +67,27 @@ Pour rappel, c'est cette approche qui a été utilisée pour un premier inventai
 
 Des règles de modélisation de base peuvent ainsi être édictées :
 
-- les objets ponctuels de compositions sont représentés sous forme de point sans limite d'emprise au sol. Les arbres en alignement ou dans un secteur boisé aménagé doivent être également représentés sous forme de ponctuel.
+- les objets ponctuels de compositions sont représentés sous forme de point sans limite d'emprise au sol. 
 
-- un objet représenté par un polygone, pour une surface identifiée sur le terrain. Toute surface végétalisée doit être saisie. Pour les zones boisées denses (uniquement dans des sites cohérents de type parc), celles-ci doivent être identifiées sous forme de polygone et comme pour les alignements d'arbres accompagnés d'une représentation ponctuelle de chaque arbre. Les secteurs boisés naturels sont représentés uniquement par un polygone. Il est rappelé que seuls les surfaces non végétalisées sont à saisir dans les sites cohérents de type parc.
+- un objet représenté par un polygone, pour une surface identifiée sur le terrain. Toute surface végétalisée doit être saisie.
 
-- un objet représenté par un linéaire, pour une surface identifiée sur le terrain, celle-ci doit être de forme linéaire et de largeur inférieure à 5 m. Un linéaire saisit est un ensemble homogène dans sa nomenclature et sa largeur. Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement saisie. Pour rappel, la saisit d'un alignement d'arbres (à partir de 4 arbres continus) doit être complété par la saisie d'un objet ponctuel pour chaque arbre. Il est rappelé également que seuls les objets de rupture d'un espace végétalisé de type allée, piste cyclable, ... sont à saisir. Pour la saisie des linéaires correspondant aux accotements, les ruptures de voirie ou d'entrées dans l'espace privé (garage, entrée ...) devront être respectées si celles-ci sont supérieures à 5 mètres. Dans le cas contraire ces espaces sont intégrés dans le linéaire. 
+- un objet représenté par un linéaire, pour une surface identifiée sur le terrain, celle-ci doit être de forme linéaire et de largeur inférieure à 5 m. Un linéaire saisit est un ensemble homogène dans sa nomenclature et sa largeur. 
 
-La liste des objets à saisir est disponible dans la nomenclature (rappelé ici où elle est).
+Des règles de modélisation plus fines peuvent être décrites :
+
+|Classe d'objets|Type d'objets|Représentation|Définition|Règle de modélisation particulière|
+|:---|:---|:---|:---|:---|
+|PONCTUEL|Arbre(1)|POINT|L'objet identifié sur le terrain est un arbre entretenu, localisé en diffus, en alignement ou dans une zone boisée aménagée et entretenu.|Le point de saisie ou sa reconstruction (par au moins 3 points de levés) doit représenter le centre de l'objet identifié. A défaut, le bord du tronc peut-être accepté en indiquant le diamètre du tronc. |
+
+
+(1) Les arbres en alignement font l'objet d'une double saisie, ponctuel et linéaire
+(2) niveau de la nomenclature
+
+OLD
+
+Pour les zones boisées denses (uniquement dans des sites cohérents de type parc), celles-ci doivent être identifiées sous forme de polygone et comme pour les alignements d'arbres accompagnés d'une représentation ponctuelle de chaque arbre. Les secteurs boisés naturels sont représentés uniquement par un polygone. Il est rappelé que seuls les surfaces non végétalisées sont à saisir dans les sites cohérents de type parc.
+
+Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement saisie. Pour rappel, la saisit d'un alignement d'arbres (à partir de 4 arbres continus) doit être complété par la saisie d'un objet ponctuel pour chaque arbre. Il est rappelé également que seuls les objets de rupture d'un espace végétalisé de type allée, piste cyclable, ... sont à saisir. Pour la saisie des linéaires correspondant aux accotements, les ruptures de voirie ou d'entrées dans l'espace privé (garage, entrée ...) devront être respectées si celles-ci sont supérieures à 5 mètres. Dans le cas contraire ces espaces sont intégrés dans le linéaire. 
 
 La saisie des objets linéaires répond à des particularités décrites ci-dessous.
 
