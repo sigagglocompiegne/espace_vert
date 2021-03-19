@@ -74,20 +74,18 @@ Des règles de modélisation de base peuvent ainsi être édictées :
 
 **Synthèses**
 
-**Dans un site cohérent (parc, square... :** 
+**Dans un site cohérent (parc, square ...) :** 
 
 ![picto](sites_coherent_v2.png)
 
 
-**En dehors d'un site cohérent :** 
+**En dehors d'un site cohérent (espace végétalisé diffus, trottoir végétalisé, accotement ...) :** 
 
-![picto](options_diffus.png)
+![picto](diffus_v2.png)
 
-**Quelque soit l'option retenue, des choix de numérisation devront être opérés concernant des emprises minimums d'objets à prendre en compte, en surface ou en largeur.**
 
 
 Les objets de cet inventaire cartographique doivent répondre aux conditions de saisies présent ci-après.
-(à rédiger après l'option retenue).
 
 
 ### Topologie
