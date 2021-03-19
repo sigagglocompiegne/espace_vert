@@ -35,7 +35,7 @@ L'inventaire cartographique ne s'attachera pas à ce stade à la défintion des 
 
 Tous les objets saisis sont typés à partir d'une nomenclature métier d'objets "espace vert" afin de les définir individuellement.
 
-![picto](objets_pro_carto_v2.png)
+![picto](objets_pro_carto_v3.png)
 
 Schéma 1 : une représentation des objets d'un inventaire cartographique
 
