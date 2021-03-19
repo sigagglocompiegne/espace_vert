@@ -77,6 +77,12 @@ La saisie des objets linéaires répond à des particularités décrites ci-dess
 
 ![picto](regle_lineaire.png)
 
+Le tableau ci-après présente les types d'objets à saisir dans le cadre de cet inventaire par type de représentation géométrique.
+
+|Ponctuel|Polygone|Linéaire|
+|:---|:---|:---|
+
+
 **Synthèses**
 
 **Dans un site cohérent (parc, square ...) :** 
