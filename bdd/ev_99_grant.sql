@@ -1,12 +1,12 @@
 /*ESPACE VERT V1.0*/
-/*Creation des droits sur l'ensemble des objets */
-/* ev_99_grant.sql */
+/*Creation droits sur l'ensemble des objets */
+/*EV_99_GRANT.sql */
 /*PostGIS*/
+/*GeoCompiegnois - http://geo.compiegnois.fr/ */
+/*Auteur : Grégory Bodet */
 
-/* Propriétaire : GeoCompiegnois - http://geo.compiegnois.fr/ */
-/* Auteur : Grégory Bodet */
-
-
+-- ICI SONT PRESENTES LES DROITS DE MANIERES GENERIQUES COMME ILS DOIVENT ETRE INTEGRES POUR CHAQUE CLASSE D'OBJETS. SI DES PARTICULARITES SONT
+-- INTRODUITES ELLES SONT DETAILLEES CI-DESSOUS
 
 -- ####################################################################################################################################################
 -- ###                                                                                                                                              ###
@@ -15,120 +15,61 @@
 -- ####################################################################################################################################################
 
 
-
--- #################################################################### SCHEMA  ####################################################################
-
-GRANT ALL ON SCHEMA m_espace_vert TO create_sig;
-
-GRANT USAGE ON SCHEMA m_espace_vert TO edit_sig;
-
-GRANT USAGE ON SCHEMA m_espace_vert TO read_sig;
-
-GRANT ALL ON SCHEMA m_espace_vert TO sig_create;
-
-ALTER DEFAULT PRIVILEGES IN SCHEMA m_espace_vert
-GRANT SELECT ON TABLES TO read_sig;
-
-ALTER DEFAULT PRIVILEGES IN SCHEMA m_espace_vert
-GRANT ALL ON TABLES TO create_sig;
-
 -- #################################################################### SEQUENCE  ####################################################################
 
-ALTER SEQUENCE m_espace_vert.an_ev_objet_idobjet_seq
-    OWNER TO sig_create;
+ALTER SEQUENCE [schema].[sequence]
+    OWNER TO create_sig;
 
-GRANT ALL ON SEQUENCE m_espace_vert.an_ev_objet_idobjet_seq TO PUBLIC;
-GRANT ALL ON SEQUENCE m_espace_vert.an_ev_objet_idobjet_seq TO create_sig;
-GRANT ALL ON SEQUENCE m_espace_vert.an_ev_objet_idobjet_seq TO sig_create;
+GRANT ALL ON SEQUENCE [schema].[sequence] TO create_sig;
+    
+-- #################################################################### DOMAINE DE VALEUR  ####################################################################
 
--- #################################################################### TABLE  ####################################################################
+ALTER TABLE [schema].[table]
+    OWNER to create_sig;
 
-ALTER TABLE m_espace_vert.lt_ev_doma 
-    OWNER to sig_create;
+GRANT ALL ON TABLE [schema].[table] TO sig_create;
+GRANT SELECT ON TABLE [schema].[table] TO sig_read;
+GRANT ALL ON TABLE [schema].[table] TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE [schema].[table] TO sig_edit;
 
-GRANT SELECT ON TABLE m_espace_vert.lt_ev_doma  TO read_sig;
-GRANT ALL ON TABLE m_espace_vert.lt_ev_doma  TO sig_create;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.lt_ev_doma  TO edit_sig;
-GRANT ALL ON TABLE m_espace_vert.lt_ev_doma  TO create_sig;
-
-ALTER TABLE m_espace_vert.lt_ev_typev1
-    OWNER to sig_create;
-
-GRANT SELECT ON TABLE m_espace_vert.lt_ev_typev1 TO read_sig;
-GRANT ALL ON TABLE m_espace_vert.lt_ev_typev1 TO sig_create;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.lt_ev_typev1 TO edit_sig;
-GRANT ALL ON TABLE m_espace_vert.lt_ev_typev1 TO create_sig;
-
-ALTER TABLE m_espace_vert.lt_ev_typev2
-    OWNER to sig_create;
-
-GRANT SELECT ON TABLE m_espace_vert.lt_ev_typev2 TO read_sig;
-GRANT ALL ON TABLE m_espace_vert.lt_ev_typev2 TO sig_create;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.lt_ev_typev2 TO edit_sig;
-GRANT ALL ON TABLE m_espace_vert.lt_ev_typev2 TO create_sig;
-
-ALTER TABLE m_espace_vert.lt_ev_typev3
-    OWNER to sig_create;
-
-GRANT SELECT ON TABLE m_espace_vert.lt_ev_typev3 TO read_sig;
-GRANT ALL ON TABLE m_espace_vert.lt_ev_typev3 TO sig_create;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.lt_ev_typev3 TO edit_sig;
-GRANT ALL ON TABLE m_espace_vert.lt_ev_typev3 TO create_sig;
+-- #################################################################### CLASSE D'OBJET ####################################################################
 
 
-ALTER TABLE m_espace_vert.lt_ev_typsite
-    OWNER to sig_create;
+ALTER TABLE [schema].[table]
+    OWNER to create_sig;
 
-GRANT SELECT ON TABLE m_espace_vert.lt_ev_typsite TO read_sig;
-GRANT ALL ON TABLE m_espace_vert.lt_ev_typsite TO sig_create;
-GRANT ALL ON TABLE m_espace_vert.lt_ev_typsite TO create_sig;
-
--- #################################################################### VUE DES GESTION  ####################################################################
-
-ALTER TABLE m_espace_vert.geo_v_ev_line
-    OWNER TO sig_create;
-
-GRANT SELECT ON TABLE m_espace_vert.geo_v_ev_line TO read_sig;
-GRANT ALL ON TABLE m_espace_vert.geo_v_ev_line TO sig_create;
-GRANT ALL ON TABLE m_espace_vert.geo_v_ev_line TO create_sig;
-
-ALTER TABLE m_espace_vert.geo_v_ev_point
-    OWNER TO sig_create;
-
-GRANT SELECT ON TABLE m_espace_vert.geo_v_ev_point TO read_sig;
-GRANT ALL ON TABLE m_espace_vert.geo_v_ev_point TO sig_create;
-GRANT ALL ON TABLE m_espace_vert.geo_v_ev_point TO create_sig;
-
-ALTER TABLE m_espace_vert.geo_v_ev_polygon
-    OWNER TO sig_create;
-
-GRANT SELECT ON TABLE m_espace_vert.geo_v_ev_polygon TO read_sig;
-GRANT ALL ON TABLE m_espace_vert.geo_v_ev_polygon TO sig_create;
-GRANT ALL ON TABLE m_espace_vert.geo_v_ev_polygon TO create_sig;
-
--- #################################################################### FONCTION TRIGGER  ####################################################################
-
-ALTER FUNCTION m_espace_vert.ft_m_insert_update_ev_line()
-    OWNER TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_line() TO PUBLIC;
-GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_line() TO sig_create;
-GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_line() TO edit_sig;
-GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_line() TO create_sig;
-
-ALTER FUNCTION m_espace_vert.ft_m_insert_update_ev_point()
-    OWNER TO sig_create;
-
-GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_point() TO PUBLIC;
-GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_point() TO sig_create;
-GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_point() TO edit_sig;
-GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_point() TO create_sig;
+GRANT ALL ON TABLE [schema].[table] TO sig_create;
+GRANT SELECT ON TABLE [schema].[table] TO sig_read;
+GRANT ALL ON TABLE [schema].[table] TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE [schema].[table] TO sig_edit;
 
 
-ALTER FUNCTION m_espace_vert.ft_m_insert_update_ev_polygon()
-    OWNER TO sig_create;
+-- ########################################################### FONCTION  ####################################################################
 
-GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_polygon() TO PUBLIC;
-GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_polygon() TO sig_create;
-GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_polygon() TO edit_sig;
-GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_insert_update_ev_polygon() TO create_sig;
+ALTER FUNCTION [schema].[fonction]()
+    OWNER TO create_sig;
+
+GRANT EXECUTE ON FUNCTION [schema].[fonction]() TO PUBLIC;
+GRANT EXECUTE ON FUNCTION [schema].[fonction]() TO create_sig;
+
+
+-- ########################################################### VUE DE GESTION  ####################################################################
+
+ALTER TABLE [schema].[vue]
+OWNER TO create_sig;
+
+GRANT ALL ON TABLE [schema].[vue] TO sig_create;
+GRANT SELECT ON TABLE [schema].[vue] TO sig_read;
+GRANT ALL ON TABLE [schema].[vue] TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE [schema].[vue] TO sig_edit;
+
+
+-- ########################################################### VUE APPLICATIVE ou OPEN DATA ####################################################################
+
+ALTER TABLE [schema].[vue]
+    OWNER TO create_sig;
+
+GRANT SELECT ON TABLE [schema].[vue] TO sig_create;
+GRANT SELECT ON TABLE [schema].[vue] TO sig_read;
+GRANT SELECT ON TABLE [schema].[vue] TO sig_edit;
+GRANT SELECT ON TABLE [schema].[vue] TO create_sig;
