@@ -12,6 +12,7 @@ Spécification du fichier d’échange relatif aux données concernant l'inventa
   * [Création  de la structure initiale](bdd/ev_10_squelette.sql)
   * [Création des vues de gestion](bdd/ev_20_vues_gestion.sql)
   * [Création des vues applicatives](bdd/ev_21_vues_xapps.sql)
+  * [Création des vues OpenData](bdd/ev_23_vues_xopendata.sql)
   * [Création des privilèges](bdd/ev_99_grant.sql)
 - [Documentation d'administration de la base](bdd/doc_admin_bd_ev.md)
 - [Documentation d'administration de l'application](app/doc_admin_app_ev.md)
