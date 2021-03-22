@@ -10,10 +10,13 @@ La démarche s'organise en 3 temps :
 . optique d'engagement de gestions des espaces verts (tableau de bord, gestion et intervention).
 
 
+## Modèle relationnel simplifié
+
+(à venir)
 
 ## Schéma fonctionnel
 
-![schema_fonctionnel]
+(à venir)
 
 
 ## Dépendances
@@ -472,12 +475,8 @@ Sans objet
 
 Sans objet
 
----
 
-## Schéma fonctionnel
 
-### Modèle conceptuel simplifié pour la gestion des espaces verts
 
-(à venir)
 
 
