@@ -16,7 +16,6 @@ Spécification du fichier d’échange relatif aux données concernant l'inventa
   * [Création des privilèges](bdd/ev_99_grant.sql)
 - [Documentation d'administration de la base](bdd/doc_admin_bd_ev.md)
 - [Documentation d'administration de l'application](app/doc_admin_app_ev.md)
-- Ressources pour la sémiologie graphique AVAP
 
 
 ## Contexte
@@ -33,11 +32,3 @@ L’ARC privilégie donc une organisation dans laquelle l’Interface Homme Mach
 
 Aucun jeu de données consolidé n'est disponible pour le moment. Le patrimoine des données espace vert est en cours de constitution.
 
-
-
-
-
-
-# OLD
-- [Script d'initialisation des éléments espaces verts](sql/init_bd_ev.sql) 
-- [Documentation d'administration des données espaces verts](doc/doc_admin_bd_ev.md) 
