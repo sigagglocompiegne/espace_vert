@@ -329,7 +329,8 @@ Valeurs possibles :
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-
+|code|Code de la classe de hauteur des objets ponctuels arbre|character varying(2)| |
+|valeur|Valeur de la classe de hauteur des objets ponctuels arbre|character varying(80)| |
 
 Particularité(s) à noter : aucune
 
@@ -337,12 +338,21 @@ Valeurs possibles :
 
 |code | valeur |
 |:---|:---|  
+|00|Non renseigné|
+|01|Moins de 1 mètre|
+|02|1 à 2 mètres|
+|03|2 à 5 mètres|
+|04|5 à 10 mètres|
+|05|10 à 15 mètres|
+|06|15 à 20 mètres|
+|07|Plus de 20 mètres|
 
 `lt_ev_arbreforme` : Liste permettant de décrire la classe de forme de chaque objet arbre
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-
+|code|Code de la classe de forme des objets ponctuels arbre|character varying(2)| |
+|valeur|Valeur de la classe de forme des objets ponctuels arbre|character varying(80)| |
 
 Particularité(s) à noter : aucune
 
@@ -350,12 +360,19 @@ Valeurs possibles :
 
 |code | valeur |
 |:---|:---| 
+|00|Non renseigné|
+|01|Rideau|
+|02|Taille de contrainte|
+|03|Taille douce|
+|04|Libre|
+|05|Tête de chat|
 
 `lt_ev_arbreimplant` : Liste permettant de décrire la classe d'implantation de chaque objet arbre
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-
+|code|Code de la classe d'implantation des objets ponctuels arbre|character varying(2)| |
+|valeur|Valeur de la classe d'implantation des objets ponctuels arbre|character varying(80)| |
 
 Particularité(s) à noter : aucune
 
@@ -363,12 +380,17 @@ Valeurs possibles :
 
 |code | valeur |
 |:---|:---|
+|00|Non renseigné|
+|01|Alignement|
+|02|Groupe/Bosquet|
+|03|Solitaire|
 
 `lt_ev_arbredanger` : Liste permettant de décrire la classe de dangerosité de chaque objet arbre
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-
+|code|Code de la classe de dangerosité des objets ponctuels arbre|character varying(2)| |
+|valeur|Valeur de la classe de dangerosité des objets ponctuels arbre|character varying(80)| |
 
 Particularité(s) à noter : aucune
 
@@ -376,12 +398,18 @@ Valeurs possibles :
 
 |code | valeur |
 |:---|:---|
+|00|Non renseigné|
+|01|Aucun|
+|02|Dangereux|
+|03|Moyenne dangereux|
+|04|Faiblement dangereux|
 
 `lt_ev_arbresol` : Liste permettant de décrire la classe de nature de sol de chaque objet arbre
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-
+|code|Code de la classe de nature de sol des objets ponctuels arbre|character varying(2)| |
+|valeur|Valeur de la classe de nature de sol des objets ponctuels arbre|character varying(80)| |
 
 Particularité(s) à noter : aucune
 
@@ -389,7 +417,14 @@ Valeurs possibles :
 
 |code | valeur |
 |:---|:---|
-
+|00|Non renseigné|
+|01|Gazon|
+|02|Minéral|
+|03|Paillage|
+|04|Synthétique|
+|05|Terre|
+|06|Végétalisé|
+|07|Autre|
 
 ---
 
