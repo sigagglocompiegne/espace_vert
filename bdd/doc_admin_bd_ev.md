@@ -424,7 +424,7 @@ Valeurs possibles :
 |04|Synthétique|
 |05|Terre|
 |06|Végétalisé|
-|07|Autre|
+|99|Autre|
 
 ---
 
