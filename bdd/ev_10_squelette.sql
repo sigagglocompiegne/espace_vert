@@ -75,6 +75,11 @@ DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_sstype;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_typsite;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_gestion;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_entretien;
+DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_arbrehauteur;
+DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_arbreforme;
+DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_arbreimplant;
+DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_arbredanger;
+DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_arbresol;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_objet;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_arbre;
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_point;
@@ -147,10 +152,10 @@ COMMENT ON TABLE m_espace_vert_v2.lt_ev_type
     IS 'Domaine de valeur de l''attribut code nomenclature de l''inventaire cartographique des espaces verts niveau 1';
 
 COMMENT ON COLUMN m_espace_vert_v2.lt_ev_type.code
-    IS 'code';
+    IS 'Code du type principal des objets espaces verts';
 
 COMMENT ON COLUMN m_espace_vert_v2.lt_ev_type.valeur
-    IS 'valeur';
+    IS 'Valeur du type principal des objets espaces vertsleur';
 
 INSERT INTO m_espace_vert_v2.lt_ev_type(
             code, valeur)
@@ -184,10 +189,10 @@ COMMENT ON TABLE m_espace_vert_v2.lt_ev_sstype
     IS 'Domaine de valeur de l''attribut code nomenclature de l''inventaire cartographique des espaces verts niveau 2';
 
 COMMENT ON COLUMN m_espace_vert_v2.lt_ev_sstype.code
-    IS 'code';
+    IS 'Code du sous-type principal des objets espaces verts';
 
 COMMENT ON COLUMN m_espace_vert_v2.lt_ev_sstype.valeur
-    IS 'valeur';
+    IS 'Valeur du sous-type principal des objets espaces verts';
 
 INSERT INTO m_espace_vert_v2.lt_ev_sstype(
             code, valeur)
@@ -384,6 +389,216 @@ INSERT INTO m_espace_vert_v2.lt_ev_entretien(
 ('03-XX','Aucun'),
 ('03-ZZ','Non concerné');
   
+-- ################################################################# lt_ev_arbrehauteur ###############################################
+
+-- Table: m_espace_vert_v2.lt_ev_arbrehauteur
+
+-- DROP TABLE m_espace_vert_v2.lt_ev_arbrehauteur;
+
+CREATE TABLE m_espace_vert_v2.lt_ev_arbrehauteur
+(
+    code character varying(2) COLLATE pg_catalog."default" NOT NULL,
+    valeur character varying(80) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT lt_ev_arbrehauteur_pkey PRIMARY KEY (code)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE m_espace_vert_v2.lt_ev_arbrehauteur
+    OWNER to create_sig;
+
+
+COMMENT ON TABLE m_espace_vert_v2.lt_ev_arbrehauteur
+    IS 'Liste permettant de décrire la classe de hauteur des objets ponctuels arbre';
+
+COMMENT ON COLUMN m_espace_vert_v2.lt_ev_arbrehauteur.code
+    IS 'Code de la classe de hauteur des objets ponctuels arbre';
+
+COMMENT ON COLUMN m_espace_vert_v2.lt_ev_arbrehauteur.valeur
+    IS 'Valeur de la classe de hauteur des objets ponctuels arbre';
+
+COMMENT ON CONSTRAINT lt_ev_arbrehauteur_pkey ON m_espace_vert_v2.lt_ev_arbrehauteur IS 'Clé primaire de la table lt_ev_arbrehauteur';
+
+INSERT INTO m_espace_vert_v2.lt_ev_arbrehauteur(
+            code, valeur)
+    VALUES
+  ('00','Non renseigné'),
+  ('01','Moins de 1 mètre'),
+  ('02','1 à 2 mètres'),
+  ('03','2 à 5 mètres'),
+  ('04','5 à 10 mètres'),
+  ('05','10 à 15 mètres'),
+  ('06','15 à 20 mètres'),
+  ('07','Plus de 20 mètres');
+
+-- ################################################################# lt_ev_arbreforme ###############################################
+
+-- Table: m_espace_vert_v2.lt_ev_arbreforme
+
+-- DROP TABLE m_espace_vert_v2.lt_ev_arbreforme;
+
+CREATE TABLE m_espace_vert_v2.lt_ev_arbreforme
+(
+    code character varying(2) COLLATE pg_catalog."default" NOT NULL,
+    valeur character varying(80) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT lt_ev_arbreforme_pkey PRIMARY KEY (code)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE m_espace_vert_v2.lt_ev_arbreforme
+    OWNER to create_sig;
+
+
+COMMENT ON TABLE m_espace_vert_v2.lt_ev_arbreforme
+    IS 'Liste permettant de décrire la classe de forme des objets ponctuels arbre';
+
+COMMENT ON COLUMN m_espace_vert_v2.lt_ev_arbreforme.code
+    IS 'Code de la classe de forme des objets ponctuels arbre';
+
+COMMENT ON COLUMN m_espace_vert_v2.lt_ev_arbreforme.valeur
+    IS 'Valeur de la classe de forme des objets ponctuels arbre';
+
+COMMENT ON CONSTRAINT lt_ev_arbreforme_pkey ON m_espace_vert_v2.lt_ev_arbreforme IS 'Clé primaire de la table lt_ev_arbreforme';
+
+INSERT INTO m_espace_vert_v2.lt_ev_arbreforme(
+            code, valeur)
+    VALUES
+  ('00','Non renseigné'),
+  ('01','Rideau'),
+  ('02','Taille de contrainte'),
+  ('03','Taille douce'),
+  ('04','Libre'),
+  ('05','Tête de chat');
+  
+  -- ################################################################# lt_ev_arbreimplant ###############################################
+
+-- Table: m_espace_vert_v2.lt_ev_arbreimplant
+
+-- DROP TABLE m_espace_vert_v2.lt_ev_arbreimplant;
+
+CREATE TABLE m_espace_vert_v2.lt_ev_arbreimplant
+(
+    code character varying(2) COLLATE pg_catalog."default" NOT NULL,
+    valeur character varying(80) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT lt_ev_arbreimplant_pkey PRIMARY KEY (code)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE m_espace_vert_v2.lt_ev_arbreimplant
+    OWNER to create_sig;
+
+
+COMMENT ON TABLE m_espace_vert_v2.lt_ev_arbreimplant
+    IS 'Liste permettant de décrire la classe d''implantation des objets ponctuels arbre';
+
+COMMENT ON COLUMN m_espace_vert_v2.lt_ev_arbreimplant.code
+    IS 'Code de la classe d''implantation des objets ponctuels arbre';
+
+COMMENT ON COLUMN m_espace_vert_v2.lt_ev_arbreimplant.valeur
+    IS 'Valeur de la classe d''implantation des objets ponctuels arbre';
+
+COMMENT ON CONSTRAINT lt_ev_arbreimplant_pkey ON m_espace_vert_v2.lt_ev_arbreimplant IS 'Clé primaire de la table lt_ev_arbreimplant';
+
+INSERT INTO m_espace_vert_v2.lt_ev_arbreimplant(
+            code, valeur)
+    VALUES
+  ('00','Non renseigné'),
+  ('01','Alignement'),
+  ('02','Groupe/Bosquet'),
+  ('03','Solitaire');
+  
+  -- ################################################################# lt_ev_arbredanger ###############################################
+
+-- Table: m_espace_vert_v2.lt_ev_arbredanger
+
+-- DROP TABLE m_espace_vert_v2.lt_ev_arbredanger;
+
+CREATE TABLE m_espace_vert_v2.lt_ev_arbredanger
+(
+    code character varying(2) COLLATE pg_catalog."default" NOT NULL,
+    valeur character varying(80) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT lt_ev_arbredanger_pkey PRIMARY KEY (code)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE m_espace_vert_v2.lt_ev_arbredanger
+    OWNER to create_sig;
+
+
+COMMENT ON TABLE m_espace_vert_v2.lt_ev_arbredanger
+    IS 'Liste permettant de décrire la classe de dangerosité des objets ponctuels arbre';
+
+COMMENT ON COLUMN m_espace_vert_v2.lt_ev_arbredanger.code
+    IS 'Code de la classe de dangerosité des objets ponctuels arbre';
+
+COMMENT ON COLUMN m_espace_vert_v2.lt_ev_arbredanger.valeur
+    IS 'Valeur de la classe de dangerosité des objets ponctuels arbre';
+
+COMMENT ON CONSTRAINT lt_ev_arbredanger_pkey ON m_espace_vert_v2.lt_ev_arbredanger IS 'Clé primaire de la table lt_ev_arbredanger';
+
+INSERT INTO m_espace_vert_v2.lt_ev_arbredanger(
+            code, valeur)
+    VALUES
+  ('00','Non renseigné'),
+  ('01','Aucun'),
+  ('02','Dangereux'),
+  ('03','Moyenne dangereux'),
+  ('04','Faiblement dangereux');
+  
+ -- ################################################################# lt_ev_arbresol ###############################################
+
+-- Table: m_espace_vert_v2.lt_ev_arbresol
+
+-- DROP TABLE m_espace_vert_v2.lt_ev_arbresol;
+
+CREATE TABLE m_espace_vert_v2.lt_ev_arbresol
+(
+    code character varying(2) COLLATE pg_catalog."default" NOT NULL,
+    valeur character varying(80) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT lt_ev_arbresol_pkey PRIMARY KEY (code)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE m_espace_vert_v2.lt_ev_arbresol
+    OWNER to create_sig;
+
+
+COMMENT ON TABLE m_espace_vert_v2.lt_ev_arbresol
+    IS 'Liste permettant de décrire la classe de nature de sol des objets ponctuels arbre';
+
+COMMENT ON COLUMN m_espace_vert_v2.lt_ev_arbresol.code
+    IS 'Code de la classe de nature de sol des objets ponctuels arbre';
+
+COMMENT ON COLUMN m_espace_vert_v2.lt_ev_arbresol.valeur
+    IS 'Valeur de la classe de nature de sol des objets ponctuels arbre';
+
+COMMENT ON CONSTRAINT lt_ev_arbresol_pkey ON m_espace_vert_v2.lt_ev_arbresol IS 'Clé primaire de la table lt_ev_arbresol';
+
+INSERT INTO m_espace_vert_v2.lt_ev_arbresol(
+            code, valeur)
+    VALUES
+  ('00','Non renseigné'),
+  ('01','Gazon'),
+  ('02','Minéral'),
+  ('03','Paillage'),
+  ('04','Synthétique'),
+  ('05','Terre'),
+  ('06','Végétalisé'),
+  ('07','Autre');
   
 -- ####################################################################################################################################################
 -- ###                                                                                                                                              ###
@@ -659,22 +874,22 @@ COMMENT ON COLUMN m_espace_vert_v2.geo_ev_zone_gestion.sup_m2
 CREATE TABLE m_espace_vert_v2.an_ev_arbre
 (
     idobjet bigint NOT NULL,
-    genre character(20) COLLATE pg_catalog."default",
-    espece character(20) COLLATE pg_catalog."default",
-    hauteur character(20) COLLATE pg_catalog."default",
+    genre character varying(20) COLLATE pg_catalog."default",
+    espece character varying(20) COLLATE pg_catalog."default",
+    hauteur character varying(2) COLLATE pg_catalog."default",
     circonf double precision,
-    forme character(20) COLLATE pg_catalog."default",
-    etat_gen character(30) COLLATE pg_catalog."default",
-    implant character(20) COLLATE pg_catalog."default",
-    remarq character(3) COLLATE pg_catalog."default",
-    malad_obs character(3) COLLATE pg_catalog."default",
-    malad_nom character(80) COLLATE pg_catalog."default",
-    danger character(20) COLLATE pg_catalog."default",
-    natur_sol character(20) COLLATE pg_catalog."default",
-    envnmt_obs character(230) COLLATE pg_catalog."default",
-    utilis_obs character(230) COLLATE pg_catalog."default",
-    cplt_fic_1 character(230) COLLATE pg_catalog."default",
-    cplt_fic_2 character(230) COLLATE pg_catalog."default",
+    forme character varying(2) COLLATE pg_catalog."default",
+    etat_gen character varying(30) COLLATE pg_catalog."default",
+    implant character varying(2) COLLATE pg_catalog."default",
+    remarq character varying(3) COLLATE pg_catalog."default",
+    malad_obs character varying(3) COLLATE pg_catalog."default",
+    malad_nom character varying(80) COLLATE pg_catalog."default",
+    danger character varying(2) COLLATE pg_catalog."default",
+    natur_sol character varying(2) COLLATE pg_catalog."default",
+    envnmt_obs character varying(254) COLLATE pg_catalog."default",
+    utilis_obs character varying(254) COLLATE pg_catalog."default",
+    cplt_fic_1 character varying(254) COLLATE pg_catalog."default",
+    cplt_fic_2 character varying(254) COLLATE pg_catalog."default",
     gps_date date,
     gnss_heigh double precision,
     vert_prec double precision,
@@ -694,7 +909,43 @@ ALTER TABLE m_espace_vert_v2.an_ev_arbre
 
 COMMENT ON TABLE m_espace_vert_v2.an_ev_arbre
     IS 'Donnée issue du levé terrain réalisé à l''aide du GPS par les apprentis du service Espaces verts de la Ville de Compiègne et complété par l''inventaire cartographique en 2021';
- 
+
+ALTER TABLE m_espace_vert_v2.an_ev_arbre
+    ADD CONSTRAINT lt_ev_arbrehauteur_fkey FOREIGN KEY (hauteur)
+    REFERENCES m_espace_vert_v2.lt_ev_arbrehauteur (code) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+	
+	ALTER TABLE m_espace_vert_v2.an_ev_arbre
+    ADD CONSTRAINT lt_ev_arbreforme_fkey FOREIGN KEY (forme)
+    REFERENCES m_espace_vert_v2.lt_ev_arbreforme (code) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+	
+		ALTER TABLE m_espace_vert_v2.an_ev_arbre
+    ADD CONSTRAINT lt_ev_arbreimplant_fkey FOREIGN KEY (implant)
+    REFERENCES m_espace_vert_v2.lt_ev_arbreimplant (code) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+	
+			ALTER TABLE m_espace_vert_v2.an_ev_arbre
+    ADD CONSTRAINT lt_ev_arbredanger_fkey FOREIGN KEY (danger)
+    REFERENCES m_espace_vert_v2.lt_ev_arbredanger (code) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+	
+				ALTER TABLE m_espace_vert_v2.an_ev_arbre
+    ADD CONSTRAINT lt_ev_arbresol_fkey FOREIGN KEY (natur_sol)
+    REFERENCES m_espace_vert_v2.lt_ev_arbresol (code) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
 -- ################################################################ TABLE an_ev_entretien #####################################
  
  -- Table: m_espace_vert_v2.an_ev_entretien
