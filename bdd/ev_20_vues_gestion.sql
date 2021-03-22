@@ -77,7 +77,7 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_line
     l.long_m,
     l.larg_cm,
     l.geom
-   FROM m_espace_vert_v2.an_objet_ev o
+   FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_line l ON o.idobjet = l.idobjet;
 
 
@@ -110,7 +110,7 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_point
     p.x_l93,
     p.y_l93,
     p.geom
-   FROM m_espace_vert_v2.an_objet_ev o
+   FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_point p ON o.idobjet = p.idobjet
    WHERE o.sstyp <> '01-01';
 
@@ -165,7 +165,7 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_arbre
     p.x_l93,
     p.y_l93,
     p.geom
-   FROM m_espace_vert_v2.an_objet_ev o
+   FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_point p ON o.idobjet = p.idobjet
 	 JOIN m_espace_vert_v2.an_ev_arbre a ON o.idobjet = a.idobjet
    WHERE o.sstyp = '01-01';			      
@@ -199,7 +199,7 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_polygon
     p.sup_m2,
     p.perimetre,
     p.geom
-   FROM m_espace_vert_v2.an_objet_ev o
+   FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet;
 
 
