@@ -23,8 +23,7 @@ La base de données des espaces verts s'appuie sur des référentiels préexista
 |schéma | table | description | usage |
 |:---|:---|:---|:---|   
 |r_objet|lt_src_geom|domaine de valeur générique d'une table géographique|source du référentiel de saisies des objets|
-|r_objet|lt_contrat|liste et caractéristiques des contrats de délégation ou d'entretien|Gestion des différents données ou s'apparentant un contrat ou un type d'entretien (interne ou non)|
-|m_amenagement|geo_amt_zone_gestion|Table géographique délimitant les différentes zones de gestion entre la ville de Compiègne et l'Agglomération de la Région de Compigne|Déterminbation des zones d'aménagements et de gestion plus ou moins adaptées en fonction des types d'objets gérés permettant un rattachement à la table alphanumérique des contrats ou des services d'intervention|
+|r_objet|lt_contrat|liste et caractéristiques des contrats de délégation ou d'entretien (non opérationnel à ce jour)|Gestion des différents données ou s'apparentant un contrat ou un type d'entretien (interne ou non)|
 
 ---
 
@@ -38,28 +37,26 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-|idobjet|Identifiant unique de l'objet|integer|nextval('m_espace_vert.an_ev_objet_idobjet_seq'::regclass)|
+|idobjet|Identifiant unique de l'objet|bigint|nextval('m_espace_vert.an_ev_objet_idobjet_seq'::regclass)|
 |idzone|Identifiant de la zone de gestion, intervention d'appartenance|integer||
 |idsite|Identifiant du site de production cartographique d'appartenance|integer||
-|idcontrat|Identifiant du contrat s'appliquant à l'objet|integer|(liste de valeurs `r_objet.lt_contrat`)|
-|insee|Code insee de la commune d'appartenance|varchar(5)|valeur vide interdite|
-|commune|Libellé de la commune d'appartenance|varchar(80)|valeur vide interdite|
-|quartier|Libellé du quartier de la ville de Compiègne d'appartenance|varchar(80)||
-|doma_d|Domanialité déduite|varchar(2)|00 (liste de valeurs `lt_ev_doma`)|
-|doma_r|Domanialité réelle|varchar(2)|00 (liste de valeurs `lt_ev_doma`)|
-|typev1|Valeur de la nomenclature de niveau 1 décrivent l'objet "espace vert"|varchar(1)|valeur vide interdite (liste de valeurs `lt_ev_typev1` attribut `code`)|
-|typev2|Valeur de la nomenclature de niveau 1 décrivent l'objet "espace vert"|varchar(3)|valeur vide interdite (liste de valeurs `lt_ev_typev2` attribut `code`)|
-|typev3|Valeur de la nomenclature de niveau 3 décrivent l'objet "espace vert"|varchar(5)|valeur vide interdite (liste de valeurs `lt_ev_typev3` attribut `code`)|
-|srcgeom_sai|Référentiel de saisies utilisé pour la production initiale cartographique|varchar(2)|valeur vide interdite (liste de valeurs `lt_src_geom`)|
+|idcontrat|Identifiant du contrat s'appliquant à l'objet (non encore opérationnel à ce jour)|integer|(liste de valeurs `r_objet.lt_contrat`)|
+|insee|Code insee de la commune d'appartenance|character varying(5)|valeur vide interdite|
+|commune|Libellé de la commune d'appartenance|character varying(80)|valeur vide interdite|
+|quartier|Libellé du quartier de la ville de Compiègne d'appartenance|character varying(80)||
+|doma_d|Domanialité déduite|character varying(2)|00 (liste de valeurs `lt_ev_doma`)|
+|doma_r|Domanialité réelle|character varying(2)|00 (liste de valeurs `lt_ev_doma`)|
+|typ|Valeur de la nomenclature de niveau 1 décrivent l'objet "espace vert"|character varying(2)|valeur vide interdite (liste de valeurs `lt_ev_typ` attribut `code`)|
+|sstyp|Valeur de la nomenclature de niveau 2 décrivent l'objet "espace vert"|character varying(5)|valeur vide interdite (liste de valeurs `lt_ev_sstyp` attribut `code`)|
+|srcgeom_sai|Référentiel de saisies utilisé pour la production initiale cartographique|character varying(2)|valeur vide interdite (liste de valeurs `lt_src_geom`)|
 |srcdate_sai|Année du référentiel de saisies utilisé pour la production initiale cartographique|integer||
-|srcgeom_maj|Référentiel de saisies utilisé pour la mise à jour de la production cartographique|varchar(2)|00 (liste de valeurs `lt_src_geom`)|
+|srcgeom_maj|Référentiel de saisies utilisé pour la mise à jour de la production cartographique|character varying(2)|00 (liste de valeurs `lt_src_geom`)|
 |srcdate_maj|Année du référentiel de saisies utilisé pour la mise à jour de la production cartographique|integer||
-|qualglocxy|Incertitude maximale de la précision de saisie en cm|integer|valeur vide interdite|
-|op_sai|Opérateur de saisie initial de l'objet|varchar(50)|valeur vide interdite|
-|op_maj|Opérateur ayant mis à jour l'objet initial|varchar(50)||
+|op_sai|Opérateur de saisie initial de l'objet|character varying(50)|valeur vide interdite|
+|op_maj|Opérateur ayant mis à jour l'objet initial|character varying(50)||
 |dat_sai|Date de saisie de l'objet|timestamp without time zone|valeur vide interdite|
 |dat_maj|Date de mise à jour de l'objet|timestamp without time zone||
-|observ|Commentaires divers|varchar(254)||
+|observ|Commentaires divers|character varying(254)||
 
 
 * triggers : sans objet
@@ -69,7 +66,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
+|idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
 |x_l93|Coordonnée X du point saisi en Lambert 93|numeric(10,3)|valeur vide interdite|
 |y_l93|Coordonnée Y du point saisi en Lambert 93|numeric(10,3)|valeur vide interdite|
 |surf_e|Surface d'emprise au sol en m²|integer|(en fonction des choix de modélisation retenue)|
@@ -80,7 +77,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
+|idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
 |sup_m2|Surface de l'objet "espace vert" exprimée en mètre carré|integer|valeur vide interdite (issu du calcul SIG)|
 |perimetre|Périmètre du polygone saisie en mètre|integer|valeur vide interdite (issu du calcul SIG)|
 |geom|Attribut contenant la géométrie du polygone|geometry(polygon,2154)|valeur vide interdite|
@@ -89,7 +86,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
+|idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
 |long_m|Longueur de l'objet "espace vert" exprimée en mètre|integer|valeur vide interdite (issu du calcul SIG et arrondit au mètre)|
 |larg_cm|Largeur de l'objet "espace vert" exprimée en centimètre|integer|valeur vide interdite et maximum de 100cm|
 |geom|Attribut contenant la géométrie de la polyligne|geometry(linestring,2154)|valeur vide interdite|
@@ -100,24 +97,32 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
-|nom|Libellé du nom de l'arbre en français|varchar(50)||
-|genre|Libellé du genre de l'arbre (en latin)|varchar(20)||
-|espece|Libellé d'espèce de l'arbre (en latin)|varchar(20)||
-|hauteur|Classe de hauteur de l'arbre|varchar(2)|00 (liste de valeurs `lt_ev_arbrehauteur`)|
+|idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
+|nom|Libellé du nom de l'arbre en français|character varying(50)||
+|genre|Libellé du genre de l'arbre (en latin)|character varying(20)||
+|espece|Libellé d'espèce de l'arbre (en latin)|character varying(20)||
+|hauteur|Classe de hauteur de l'arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbrehauteur`)|
 |circonf|Circonférence du tronc de l'arbre en centimètre|integer||
-|forme|Classe de forme de l'arbre|varchar(2)|00 (liste de valeurs `lt_ev_arbreforme`)|
-|etat_gen|Etat général l'arbre|varchar(2)|00 (non saisi à ce jour)|
-|implant|Type d'implantation de l'arbre|varchar(2)|00 (liste de valeurs `lt_ev_arbreimplant`)|
+|forme|Classe de forme de l'arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbreforme`)|
+|etat_gen|Etat général l'arbre|character varying(2)|00 (non saisi à ce jour)|
+|implant|Type d'implantation de l'arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbreimplant`)|
 |remarq|Arbre remarquable|boolean|false|
 |malad|Maladie observée|boolean|false|
 |malad|Maladie observée|boolean|false|
-|nom_malad|Libellé de la maladie observée si connue|varchar(50)||
-|danger|Information sur la dangeurisité de l'arbre|varchar(2)|00 (liste de valeurs `lt_ev_arbredanger`)|
-|natur_sol|Nature du sol de l'arbre|varchar(2)|00 (liste de valeurs `lt_ev_arbresol`)|
-|envnmt_obs|Observation environnementale diverse sur l'arbre|varchar(254)||
-|utilis_obs|Observation de l'opérateur diverse sur l'arbre|varchar(254)||
-
+|nom_malad|Libellé de la maladie observée si connue|character varying(50)||
+|danger|Information sur la dangeurisité de l'arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbredanger`)|
+|natur_sol|Nature du sol de l'arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbresol`)|
+|envnmt_obs|Observation environnementale diverse sur l'arbre|character varying(254)||
+|utilis_obs|Observation de l'opérateur diverse sur l'arbre|character varying(254)||
+|plt_fic_1|| character(230)||
+|cplt_fic_2|| character(230)||
+|gps_date|Date du levé GPS| date||
+|gnss_heigh||double precision||
+|vert_prec|| double precision||
+|horz_prec|| double precision||
+|northing|| double precision||
+|easting|| double precision||
+    
 **Il n'est pas prévu pour le moment une sous-classe métiers pour les objets ponctuels autre que les objets arbres.**
 
 
@@ -141,44 +146,64 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |typ|Typologie du site|varchar(2)||
 |geom|Attribut contenant la géométrie du site|geometry(polygon,2154)|valeur vide interdite|
 
-`an_ev_ptleve` : table alphanumérique de précision des points levés par un inventaire GPS (à garder ?)
-
-|idobjet|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
-|gnss_heigh|Hauteur du point saisie par un GPS|double precision||
-|vert_prec|Précision verticale du point saisie par un GPS|double precision||
-|horz_prec|Précision verticale du point saisie par un GPS|double precision||
-
-`an_ev_doc_media` : table alphanumérique des documents relatifs aux objets, aux sites des espaces verts (photos...).
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|  
-|gid|Identifiant unique de l'objet concerné|integer|nextval('m_espace_vert.an_ev_doc_media_gid_seq'::regclass)|
-|id|Identifiant unique de l'objet concerné|integer|issu des classes d'objets|
-|media|Libellé du fichier avec son extension|text||
-|miniature|Miniature du média enregistré si celui-ci est une image|bytea||
-|n_fichier|Libellé du fichier avec son extension|text||
-|t_fichier|Type de fichier|text||
-|op_sai|Opérateur ayant intégré le fichier|character varying(100)||
-|date_sai|Date d'intégration du fichier|timestamp without time zone||
-|d_photo|Date de prise de vue pour une photographie|timestamp without time zone||
-|l_prec|Précision sur le document inséré|character varying(254)||
-
-
-**La liste des sous-classes métiers sera complétée en fonction des besoins du service des espaces verts. Les classes correspondantes aux objets "d'habillage" des espaces verts, à savoir les objets hydrographiques et minérals n'ont pas fait l'objet d'implémentation de sous-classes métiers. Nous considérons à ce stade qu'elles doivent rester des productions cartographiques.**
 
 ## Liste de valeurs
 
-`lt_ev_typev1` : Liste permettant de décrire la nomenclature de niveau 1 des objets d'espaces verts.
+`lt_ev_type` : Liste permettant de décrire la nomenclature de niveau 1 des objets d'espaces verts.
 
-(en attente retour du service espace vert)
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code du type principal des objets espaces verts|character varying(2)| |
+|valeur|Valeur du type principal des objets espaces vertsleur|character varying(50)| |
 
-`lt_ev_typev3` : Liste permettant de décrire la nomenclature de niveau 1 des objets d'espaces verts.
+|code | valeur |
+|:---|:---| 
+|00|Non renseigné|
+|01|Floral|
+|02|Végétal|
+|03|Minéral|
+|04|Hydrographie|
+|99|Référence non classée|
 
-(en attente retour du service espace vert)
+`lt_ev_sstype` : Liste permettant de décrire la nomenclature de niveau 1 des objets d'espaces verts.
 
-`lt_ev_typev3` : Liste permettant de décrire la nomenclature de niveau 1 des objets d'espaces verts.
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code du sous-type principal des objets espaces verts|character varying(5)| |
+|valeur|Valeur du sous-type principal des objets espaces verts|character varying(100)| |
 
-(en attente retour du service espace vert)
+|code | valeur |
+|:---|:---| 
+|00-00|Non renseigné|
+|01-00|Non renseigné|
+|01-01|Arbre|
+|01-02|Arbuste|
+|01-03|Contenant artificiel (bac, pot, suspension, jardinière ...)|
+|01-04|Fleurissement|
+|01-05|Massif|
+|01-99|Autre|
+|02-00|Non renseigné|
+|02-01|Zone boisée|
+|02-02|Haie|
+|02-04|Pelouse, herbe|
+|02-05|Privé|
+|02-06|Zone naturelle|
+|02-99|Autre|
+|03-00|Non renseigné|
+|03-01|Bicouche gravier|
+|03-02|Enrobé abimé|
+|03-03|Enrobé, béton, pavé|
+|03-04|Pavé autobloquant, dalle|
+|03-05|Pavé autre|
+|03-06|Stabilisé, calcaire, gravier, terre, schiste|
+|03-99|Autre|
+|04-00|Non renseigné|
+|04-01|Fontaine|
+|04-02|Bassin|
+|04-99|Autre|
+|99-00|Non renseigné|
+|99-99|Autre|
+
 
 `lt_ev_typsite` : Liste permettant de décrire les types principaux des sites
 
@@ -227,6 +252,141 @@ Valeurs possibles :
 |22|privée (autre organisme public)|
 |23|privée|
 
+`lt_ev_entretien` : Liste permettant de décrire la pratique d''entretien des espaces verts
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+|code|Code de la liste énumérée relative à la pratique d'entretien des espaces verts|character varying(5)| |
+|valeur|Valeur de la liste énumérée relative à la pratique d'entretien des espaces verts|character varying(80)| |
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|  
+|00-00|Non renseigné|
+|01-00|Non renseigné|
+|01-01|Annuel|
+|01-02|Arbustif|
+|01-03|Couvre-sol|
+|01-04|Herbe|
+|01-05|Mixte|
+|01-06|Paillage|
+|01-07|Terre à nue|
+|01-08|Vivace|
+|01-09|Vivace, couvre-sol, paillage|
+|01-99|Autre|
+|01-XX|Aucun|
+|01-ZZ|Non concerné|
+|02-00|Non renseigné|
+|02-01|Ecopaturage|
+|02-02|Entretien écologique|
+|02-03|Fauche tardive|
+|02-04|Tonte 2x/semaine|
+|02-05|Tonte différenciée|
+|02-06|Tonte régulière|
+|02-07|Tonte très régulière|
+|02-99|Autre|
+|02-XX|Aucun|
+|02-ZZ|Non concerné|
+|03-00|Non renseigné|
+|03-01|Chimique|
+|03-02|Débroussaillage, tonte|
+|03-03|Enherbement|
+|03-04|Manuel|
+|03-05|Mécanique|
+|03-06|Nettoyeur haute pression|
+|03-07|Thermique|
+|03-08|Tolérance et gestion de la flore spontanée|
+|03-99|autre|
+|03-XX|Aucun|
+|03-ZZ|Non concerné|
+
+`lt_ev_gestion` : Liste permettant de décrire la maitrise d''oeuvre de l''entretien des espaces verts
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+|code|Code de la liste énumérée relative à la maitrise d'oeuvre de l'entretien des espaces verts|character varying(2)| |
+|valeur|Valeur de la liste énumérée relative à la maitrise d'oeuvre de l'entretien des espaces verts|character varying(80)| |
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|  
+|00|Non renseigné|
+|01|Régie|
+|02|Sous-traitance|
+|99|Autre|
+
+
+`lt_ev_arbrehauteur` : Liste permettant de décrire la classe de hauteur de chaque objet arbre
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|  
+
+`lt_ev_arbreforme` : Liste permettant de décrire la classe de forme de chaque objet arbre
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---| 
+
+`lt_ev_arbreimplant` : Liste permettant de décrire la classe d'implantation de chaque objet arbre
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|
+
+`lt_ev_arbredanger` : Liste permettant de décrire la classe de dangerosité de chaque objet arbre
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|
+
+`lt_ev_arbresol` : Liste permettant de décrire la classe de nature de sol de chaque objet arbre
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|
+
 
 ---
 
@@ -235,16 +395,19 @@ Valeurs possibles :
 
 `geo_v_ev_line` : vue de gestion permettant la saisie des objets "espace vert" de type ligne
 
-* Fonction triggers `ft_m_insert_update_ev_line()` : permet l'intégration dans la table des objets `an_objet_ev` et dans la table des géométries de type ligne `geo_ev_line` des valeurs saisies. L'automatisation des valeurs liées aux géométries (longueur) sera intégrée après l'intégration de l'inventaire cartographique dans une optique de gestion interne des objets par le service métier.
+* Fonction triggers : sans objet
 
-`geo_v_ev_point` : vue de gestion permettant la saisie des objets "espace vert" de type ponctuel
+`geo_v_ev_point` : vue de gestion permettant la saisie des objets "espace vert" de type ponctuel (hors arbre)
 
-* Fonction triggers `ft_m_insert_update_ev_point()` : permet l'intégration dans la table des objets `an_objet_ev` et dans la table des géométries de type point `geo_ev_point` des valeurs saisies. 
+* Fonction triggers : sans objet
+
+`geo_v_ev_arbre` : vue de gestion permettant la saisie des objets "espace vert" der nature arbre
+
+* Fonction triggers : sans objet
 
 `geo_v_ev_polygon` : vue de gestion permettant la saisie des objets "espace vert" de type polygone. L'automatisation des valeurs liées aux géométries (surface et périmètre) sera intégrée après l'intégration de l'inventaire cartographique dans une optique de gestion interne des objets par le service métier.
 
-
-* Fonction triggers `ft_m_insert_update_ev_polygon()` : permet l'intégration dans la table des objets `an_objet_ev` et dans la table des géométries de type polygone `geo_ev_polygon` des valeurs saisies.
+* Fonction triggers : sans objet
 
 ---
 
@@ -279,7 +442,7 @@ Sans objet
 
 ## Projet QGIS pour la gestion
 
-Sans objet (uniquement un projet QGis pour le gabarit de mise à jour)
+Sans objet (uniquement un projet QGis pour le gabarit de mise à jour de l'inventaire cartographique [rubrique Gabarit du standard](https://github.com/sigagglocompiegne/espace_vert/blob/master/gabarit/livrables.md)
 
 ---
 
@@ -315,6 +478,6 @@ Sans objet
 
 ### Modèle conceptuel simplifié pour la gestion des espaces verts
 
-(à venir après validation du modèle de données avec le service des espaces verts)
+(à venir)
 
 
