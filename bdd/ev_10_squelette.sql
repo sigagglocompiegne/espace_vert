@@ -16,7 +16,7 @@
 
 -- Schema: m_espace_vert_v2
 
--- DROP SCHEMA m_espace_vert_v2;
+DROP SCHEMA IF EXISTS m_espace_vert_v2 CASCADE;
 
 CREATE SCHEMA m_espace_vert_v2
   AUTHORIZATION create_sig;
@@ -75,7 +75,7 @@ DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_sstype;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_typsite;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_gestion;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_entretien;
-DROP TABLE IF EXISTS m_espace_vert_v2.an_objet_ev;
+DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_objet;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_arbre;
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_point;
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_line;
@@ -392,13 +392,13 @@ INSERT INTO m_espace_vert_v2.lt_ev_entretien(
 -- ####################################################################################################################################################
 
 
--- ################################################################# TABLE an_objet_ev ###############################################
+-- ################################################################# TABLE an_ev_objet ###############################################
 
--- Table: m_espace_vert_v2.an_objet_ev
+-- Table: m_espace_vert_v2.an_ev_objet
 
--- DROP TABLE m_espace_vert_v2.an_objet_ev;
+-- DROP TABLE m_espace_vert_v2.an_ev_objet;
 
-CREATE TABLE m_espace_vert_v2.an_objet_ev
+CREATE TABLE m_espace_vert_v2.an_ev_objet
 (
   idobjet bigint NOT NULL,
   idzone integer,
@@ -420,7 +420,7 @@ CREATE TABLE m_espace_vert_v2.an_objet_ev
   dat_sai timestamp without time zone,
   dat_maj timestamp without time zone,
   observ character varying(255),
-  CONSTRAINT an_objet_ev_pkey PRIMARY KEY (idobjet)
+  CONSTRAINT an_ev_objet_pkey PRIMARY KEY (idobjet)
   -- mettre clé étrangère sur lt_src_geom
 )
 WITH (
@@ -428,32 +428,32 @@ WITH (
 )
 TABLESPACE pg_default;
 
-ALTER TABLE m_espace_vert_v2.an_objet_ev
+ALTER TABLE m_espace_vert_v2.an_ev_objet
     OWNER to sig_create;
 
 
-ALTER TABLE m_espace_vert_v2.an_objet_ev
+ALTER TABLE m_espace_vert_v2.an_ev_objet
     ADD CONSTRAINT lt_ev_type_fkey FOREIGN KEY (typ)
     REFERENCES m_espace_vert_v2.lt_ev_type (code) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
-COMMENT ON CONSTRAINT lt_ev_type_fkey ON m_espace_vert_v2.an_objet_ev
+COMMENT ON CONSTRAINT lt_ev_type_fkey ON m_espace_vert_v2.an_ev_objet
     IS 'Clé étrangère sur la nomenclature des espaces verts de niveau 1';
     
-ALTER TABLE m_espace_vert_v2.an_objet_ev
+ALTER TABLE m_espace_vert_v2.an_ev_objet
     ADD CONSTRAINT lt_ev_sstyp_fkey FOREIGN KEY (sstyp)
     REFERENCES m_espace_vert_v2.lt_ev_sstype (code) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
-COMMENT ON CONSTRAINT lt_ev_sstyp_fkey ON m_espace_vert_v2.an_objet_ev
+COMMENT ON CONSTRAINT lt_ev_sstyp_fkey ON m_espace_vert_v2.an_ev_objet
     IS 'Clé étrangère sur la nomenclature des espaces verts de niveau 2';
 
  
- ALTER TABLE m_espace_vert_v2.an_objet_ev
+ ALTER TABLE m_espace_vert_v2.an_ev_objet
     ADD CONSTRAINT lt_src_geomsai_fkey FOREIGN KEY (srcgeom_sai)
     REFERENCES r_objet.lt_src_geom (code) MATCH SIMPLE
     ON UPDATE NO ACTION
@@ -461,17 +461,17 @@ COMMENT ON CONSTRAINT lt_ev_sstyp_fkey ON m_espace_vert_v2.an_objet_ev
     NOT VALID;
 
      
-COMMENT ON CONSTRAINT lt_src_geomsai_fkey ON m_espace_vert_v2.an_objet_ev
+COMMENT ON CONSTRAINT lt_src_geomsai_fkey ON m_espace_vert_v2.an_ev_objet
     IS 'Clé étrangère sur la nomenclature des référentiels géographiques de saisis'; 
     
- ALTER TABLE m_espace_vert_v2.an_objet_ev
+ ALTER TABLE m_espace_vert_v2.an_ev_objet
     ADD CONSTRAINT lt_src_geommaj_fkey FOREIGN KEY (srcgeom_maj)
     REFERENCES r_objet.lt_src_geom (code) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
-COMMENT ON CONSTRAINT lt_src_geommaj_fkey ON m_espace_vert_v2.an_objet_ev
+COMMENT ON CONSTRAINT lt_src_geommaj_fkey ON m_espace_vert_v2.an_ev_objet
     IS 'Clé étrangère sur la nomenclature des référentiels géographiques de mise à jour';
 
 
@@ -479,28 +479,28 @@ COMMENT ON CONSTRAINT lt_src_geommaj_fkey ON m_espace_vert_v2.an_objet_ev
 
 -- ALTER TABLE m_espace_vert_v2.an_objet_ev DROP CONSTRAINT lt_ev_doma_fkey;
 
-ALTER TABLE m_espace_vert_v2.an_objet_ev
+ALTER TABLE m_espace_vert_v2.an_ev_objet
     ADD CONSTRAINT lt_ev_domad_fkey FOREIGN KEY (doma_d)
     REFERENCES m_espace_vert_v2.lt_ev_doma (code) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
-COMMENT ON CONSTRAINT lt_ev_domad_fkey ON m_espace_vert_v2.an_objet_ev
+COMMENT ON CONSTRAINT lt_ev_domad_fkey ON m_espace_vert_v2.an_ev_objet
     IS 'Clé étrangère sur la valeur de la domanialité déduite';
 
  -- Constraint: lt_ev_domar_fkey
 
 -- ALTER TABLE m_espace_vert_v2.an_objet_ev DROP CONSTRAINT lt_ev_doma_fkey;
 
-	ALTER TABLE m_espace_vert_v2.an_objet_ev
+	ALTER TABLE m_espace_vert_v2.an_ev_objet
     ADD CONSTRAINT lt_ev_domar_fkey FOREIGN KEY (doma_r)
     REFERENCES m_espace_vert_v2.lt_ev_doma (code) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
-COMMENT ON CONSTRAINT lt_ev_domar_fkey ON m_espace_vert_v2.an_objet_ev
+COMMENT ON CONSTRAINT lt_ev_domar_fkey ON m_espace_vert_v2.an_ev_objet
     IS 'Clé étrangère sur la valeur de la domanialité réelle';
 
 -- ################################################################# TABLE geo_ev_point ###############################################
@@ -681,7 +681,6 @@ CREATE TABLE m_espace_vert_v2.an_ev_arbre
     horz_prec double precision,
     northing double precision,
     easting double precision,
-    geom geometry(MultiPoint,2154),
     CONSTRAINT geo_ev_arbres_pkey_idobjet PRIMARY KEY (idobjet)
 )
 WITH (
