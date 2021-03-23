@@ -20,7 +20,7 @@
 --VUES
 
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_line;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_point;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_pct;
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_polygon;
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_arbre;
 
@@ -81,11 +81,11 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_line
      JOIN m_espace_vert_v2.geo_ev_line l ON o.idobjet = l.idobjet;
 
 
--- View: m_espace_vert_v2.geo_v_ev_point
+-- View: m_espace_vert_v2.geo_v_ev_pct
 
--- DROP VIEW m_espace_vert_v2.geo_v_ev_point;
+-- DROP VIEW m_espace_vert_v2.geo_v_ev_pct;
 
-CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_point
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_pct
  AS
  SELECT o.idobjet,
     o.idzone,
@@ -111,7 +111,7 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_point
     p.y_l93,
     p.geom::geometry(point,2154) AS geom
    FROM m_espace_vert_v2.an_ev_objet o
-     JOIN m_espace_vert_v2.geo_ev_point p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
    WHERE o.sstyp <> '01-01';
 
 -- View: m_espace_vert_v2.geo_v_ev_arbre
@@ -166,7 +166,7 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_arbre
     p.y_l93,
     p.geom::geometry(multipolygon,2154) AS geom
    FROM m_espace_vert_v2.an_ev_objet o
-     JOIN m_espace_vert_v2.geo_ev_point p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
 	 JOIN m_espace_vert_v2.an_ev_arbre a ON o.idobjet = a.idobjet
    WHERE o.sstyp = '01-01';			      
 
