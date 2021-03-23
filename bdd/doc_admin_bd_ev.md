@@ -425,6 +425,23 @@ Valeurs possibles :
 |06|Végétalisé|
 |99|Autre|
 
+`lt_contrat` : Liste permettant de décrire les contrats pour les objets métiers
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+|code|Code de la liste énumérée relative au numéro de contrat pour l'entretien et/ou le contrôle de réseau public par la ville ou l'ARC|character varying(2)| |
+|valeur|Valeur de la référence du marché du contrat pour l'entretien et/ou le contrôle de réseau public par la ville ou l'ARC|character varying(80)| |
+|presta|Nom du prestataire retenu par le contrat pour l'entretien et/ou le contrôle de réseau public par la ville ou l'ARC|character varying(254)| |
+|ddebut|Date de début du contrat|timestamp without time zone| |
+|dfin|Date de fin du contrat|timestamp without time zone| |
+|definition|Definition du contrat pour l'entretien et/ou le contrôle de réseau public par la ville ou l'ARC|character varying(254)| |
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+Pour des raisons de confidentialités la liste des valeurs n'est pas disponible dans cette documentation.
+
 ---
 
 
