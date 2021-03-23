@@ -646,6 +646,68 @@ TABLESPACE pg_default;
 ALTER TABLE m_espace_vert_v2.an_ev_objet
     OWNER to sig_create;
 
+COMMENT ON TABLE m_espace_vert_v2.an_ev_objet
+    IS 'Classe des métadonnées des objets espaces verts';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.idobjet
+    IS 'Identifiant unique de l''objet espace vert';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.idzone
+    IS 'identifiant de la zone de gestion';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.idsite
+    IS 'Identifiant du site cohérent';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.idcontrat
+    IS 'Identifiant du contrat';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.insee
+    IS 'Code insee de la commune d''appartenance';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.commune
+    IS 'Libellé de la commune d''appartenance';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.quartier
+    IS 'Libellé du quartier';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.doma_d
+    IS 'Domanialité déduite';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.doma_r
+    IS 'Domanialité réelle';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.typ
+    IS 'Type d''espace vert';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.sstyp
+    IS 'Sous-Type d''espace vert';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.srcgeom_sai
+    IS 'Source du référentiel géographique ayant servi à l''inventaire cartographique initial';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.srcdate_sai
+    IS 'Année du référentiel géographique ayant servi à l''inventaire cartographique initial';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.srcgeom_maj
+    IS 'Source du référentiel géographique ayant servi pour la mise à jour de l''inventaire cartographique initial';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.srcdate_maj
+    IS 'Année du référentiel géographique ayant servi à la mise à jour de l''inventaire cartographique initial';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.op_sai
+    IS 'Opérateur de saisie';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.op_maj
+    IS 'Opérateur de mise à jour';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.dat_sai
+    IS 'Date de saisie';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.dat_maj
+    IS 'Date de mise à jour';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.observ
+    IS 'Observations diverses';
 
 ALTER TABLE m_espace_vert_v2.an_ev_objet
     ADD CONSTRAINT lt_ev_type_fkey FOREIGN KEY (typ)
@@ -740,7 +802,20 @@ TABLESPACE pg_default;
 ALTER TABLE m_espace_vert_v2.geo_ev_point
     OWNER to sig_create;
 
+COMMENT ON TABLE m_espace_vert_v2.geo_ev_point
+    IS 'Table géographique de la classe des objets points des espaces verts';
 
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_point.idobjet
+    IS 'Identifiant des objets espaces verts';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_point.x_l93
+    IS 'Coordonnées X en lambert 93';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_point.y_l93
+    IS 'Coordonnées Y en Lambert 93';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_point.geom
+    IS 'Géométrie des objets espaces verts ponctuel';
 
 -- ################################################################# TABLE geo_ev_line ###############################################
 
@@ -765,7 +840,20 @@ TABLESPACE pg_default;
 ALTER TABLE m_espace_vert_v2.geo_ev_line
     OWNER to sig_create;
 
+COMMENT ON TABLE m_espace_vert_v2.geo_ev_line
+    IS 'Table géographique de la classe des objets linéaires des espaces verts';
 
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_line.idobjet
+    IS 'Identifiant des objets espaces verts';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_line.long_m
+    IS 'Longueur en mètres';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_line.larg_cm
+    IS 'Largeur en centimètre';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_line.geom
+    IS 'Géométrie des objets espace vert linéaire';
 
 -- ################################################################# TABLE geo_ev_polygon ###############################################
 
@@ -789,7 +877,20 @@ TABLESPACE pg_default;
 ALTER TABLE m_espace_vert_v2.geo_ev_polygon
     OWNER to sig_create;
 
+COMMENT ON TABLE m_espace_vert_v2.geo_ev_polygon
+    IS 'Table géographique de la classe des objets polygones des espaces verts';
 
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_polygon.idobjet
+    IS 'Identifiant des objets espaces verts';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_polygon.sup_m2
+    IS 'Surface en m²';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_polygon.perimetre
+    IS 'Périmètre des objets surfaciques en mètre';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_polygon.geom
+    IS 'Géométrie des objets espace vert surfacique';
 
 -- ################################################################# TABLE geo_ev_site ###############################################
 
@@ -814,7 +915,24 @@ TABLESPACE pg_default;
 ALTER TABLE m_espace_vert_v2.geo_ev_site
     OWNER to sig_create;
 
+COMMENT ON TABLE m_espace_vert_v2.geo_ev_site
+    IS 'Table géographique de la classe des objets des sites cohérents';
 
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_site.idsite
+    IS 'Identifiant des sites cohérent';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_site.nom
+    IS 'Libellé du site cohérent';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_site.typ
+    IS 'Type de site cohérent';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_site.geom
+    IS 'Géométrie des objets site cohérent surfacique';
+
+COMMENT ON CONSTRAINT geo_ev_site_typ_fkey ON m_espace_vert_v2.geo_ev_site
+    IS 'Clé étrangère sur le liste des valeurs d''un type de site';
+    
 -- Constraint: geo_ev_site_fkey
 
 -- ALTER TABLE m_espace_vert_v2.geo_ev_site DROP CONSTRAINT geo_ev_site_fkey;
