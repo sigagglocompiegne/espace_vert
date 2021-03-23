@@ -140,7 +140,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_arbre
     o.dat_sai,
     o.dat_maj,
     o.observ,
-	a.genre,
+    a.nom,
+    a.genre,
     a.espece,
     a.hauteur,
     a.circonf,
@@ -164,7 +165,7 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_arbre
     a.easting,
     p.x_l93,
     p.y_l93,
-    p.geom::geometry(multipolygon,2154) AS geom
+    p.geom::geometry(point,2154) AS geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
 	 JOIN m_espace_vert_v2.an_ev_arbre a ON o.idobjet = a.idobjet
@@ -198,7 +199,7 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_polygon
     o.observ,
     p.sup_m2,
     p.perimetre,
-    p.geom
+    p.geom::geometry(multipolygon,2154) AS geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet;
 
