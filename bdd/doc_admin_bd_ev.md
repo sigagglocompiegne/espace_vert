@@ -109,10 +109,9 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |forme|Classe de forme de l'arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbreforme`)|
 |etat_gen|Etat général l'arbre|character varying(2)|00 (non saisi à ce jour)|
 |implant|Type d'implantation de l'arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbreimplant`)|
-|remarq|Arbre remarquable|boolean|false|
-|malad|Maladie observée|boolean|false|
-|malad|Maladie observée|boolean|false|
-|nom_malad|Libellé de la maladie observée si connue|character varying(50)||
+|remarq|Arbre remarquable|character varying(3)||
+|malad_obs|Maladie observée|character varying(3)||
+|malad_nom|Libellé de la maladie observée si connue|character varying(80)||
 |danger|Information sur la dangeurisité de l'arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbredanger`)|
 |natur_sol|Nature du sol de l'arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbresol`)|
 |envnmt_obs|Observation environnementale diverse sur l'arbre|character varying(254)||
