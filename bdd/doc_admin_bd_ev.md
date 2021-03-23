@@ -128,7 +128,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 **Il n'est pas prévu pour le moment une sous-classe métiers pour les objets ponctuels autre que les objets arbres.**
 
 
-`geo_ev_zonegestion` : table géographique délimitant les zones de gestion/entretien interne du service espace vert
+`geo_ev_zone_gestion` : table géographique délimitant les zones de gestion/entretien interne du service espace vert
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
