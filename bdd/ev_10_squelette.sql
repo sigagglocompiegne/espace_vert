@@ -787,6 +787,48 @@ COMMENT ON CONSTRAINT lt_ev_domad_fkey ON m_espace_vert_v2.an_ev_objet
 COMMENT ON CONSTRAINT lt_ev_domar_fkey ON m_espace_vert_v2.an_ev_objet
     IS 'Clé étrangère sur la valeur de la domanialité réelle';
 
+-- Constraint: an_ev_objet_polygon_fkey
+
+-- ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT an_ev_objet_polygon_fkey;
+
+ALTER TABLE m_espace_vert_v2.an_ev_objet
+    ADD CONSTRAINT an_ev_objet_polygon_fkey FOREIGN KEY (idobjet)
+    REFERENCES m_espace_vert_v2.geo_ev_polygon (idobjet) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+COMMENT ON CONSTRAINT an_ev_objet_polygon_fkey ON m_espace_vert_v2.an_ev_objet
+    IS 'Clé étrangère sur la classe des objets polygon des espaces verts';
+    
+-- Constraint: an_ev_objet_pct_fkey
+
+-- ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT an_ev_objet_pct_fkey;
+
+ALTER TABLE m_espace_vert_v2.an_ev_objet
+    ADD CONSTRAINT an_ev_objet_pct_fkey FOREIGN KEY (idobjet)
+    REFERENCES m_espace_vert_v2.geo_ev_pct (idobjet) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+COMMENT ON CONSTRAINT an_ev_objet_pct_fkey ON m_espace_vert_v2.an_ev_objet
+    IS 'Clé étrangère sur la classe des objets ponctuels des espaces verts';
+    
+-- Constraint: an_ev_objet_line_fkey
+
+-- ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT an_ev_objet_line_fkey;
+
+ALTER TABLE m_espace_vert_v2.an_ev_objet
+    ADD CONSTRAINT an_ev_objet_line_fkey FOREIGN KEY (idobjet)
+    REFERENCES m_espace_vert_v2.geo_ev_line (idobjet) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+COMMENT ON CONSTRAINT an_ev_objet_line_fkey ON m_espace_vert_v2.an_ev_objet
+    IS 'Clé étrangère sur la classe des objets linéaires des espaces verts';
+
 -- ################################################################# TABLE geo_ev_point ###############################################
 
 -- Table: m_espace_vert_v2.geo_ev_point
