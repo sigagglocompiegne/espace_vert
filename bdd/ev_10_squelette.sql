@@ -910,7 +910,7 @@ COMMENT ON COLUMN m_espace_vert_v2.geo_ev_polygon.geom
   idsite integer NOT NULL,
   nom character varying(100),
   typ character varying(2), -- liste valeur lt_ev_typsite
-  geom geometry(polygon,2154),
+  geom geometry(multipolygon,2154),
   CONSTRAINT geo_ev_site_pkey PRIMARY KEY (idsite)
   
 )
