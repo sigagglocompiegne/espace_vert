@@ -632,8 +632,8 @@ CREATE TABLE m_espace_vert_v2.an_ev_objet
   srcdate_maj integer,
   op_sai character varying(50),
   op_maj character varying(50),
-  dat_sai timestamp without time zone,
-  dat_maj timestamp without time zone,
+  date_sai timestamp without time zone,
+  date_maj timestamp without time zone,
   observ character varying(255),
   CONSTRAINT an_ev_objet_pkey PRIMARY KEY (idobjet)
   -- mettre clé étrangère sur lt_src_geom
@@ -700,10 +700,10 @@ COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.op_sai
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.op_maj
     IS 'Opérateur de mise à jour';
 
-COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.dat_sai
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.date_sai
     IS 'Date de saisie';
 
-COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.dat_maj
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.date_maj
     IS 'Date de mise à jour';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.observ
