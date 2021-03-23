@@ -82,7 +82,7 @@ DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_arbredanger;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_arbresol;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_objet;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_arbre;
-DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_point;
+DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_pct;
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_line;
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_polygon;
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_site; 
@@ -829,41 +829,41 @@ ALTER TABLE m_espace_vert_v2.an_ev_objet
 COMMENT ON CONSTRAINT an_ev_objet_line_fkey ON m_espace_vert_v2.an_ev_objet
     IS 'Clé étrangère sur la classe des objets linéaires des espaces verts';
 
--- ################################################################# TABLE geo_ev_point ###############################################
+-- ################################################################# TABLE geo_ev_pct ###############################################
 
--- Table: m_espace_vert_v2.geo_ev_point
+-- Table: m_espace_vert_v2.geo_ev_pct
 
--- DROP TABLE m_espace_vert_v2.geo_ev_point;
+-- DROP TABLE m_espace_vert_v2.geo_ev_pct;
   
-CREATE TABLE m_espace_vert_v2.geo_ev_point
+CREATE TABLE m_espace_vert_v2.geo_ev_pct
 (
   idobjet bigint NOT NULL,
   x_l93 numeric(10,3),
   y_l93 numeric(10,3),
   geom geometry(point,2154),
-  CONSTRAINT geo_ev_point_pkey PRIMARY KEY (idobjet)
+  CONSTRAINT geo_ev_pct_pkey PRIMARY KEY (idobjet)
                     )
 WITH (
     OIDS = FALSE
 )
 TABLESPACE pg_default;
 
-ALTER TABLE m_espace_vert_v2.geo_ev_point
+ALTER TABLE m_espace_vert_v2.geo_ev_pct
     OWNER to sig_create;
 
-COMMENT ON TABLE m_espace_vert_v2.geo_ev_point
+COMMENT ON TABLE m_espace_vert_v2.geo_ev_pct
     IS 'Table géographique de la classe des objets points des espaces verts';
 
-COMMENT ON COLUMN m_espace_vert_v2.geo_ev_point.idobjet
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_pct.idobjet
     IS 'Identifiant des objets espaces verts';
 
-COMMENT ON COLUMN m_espace_vert_v2.geo_ev_point.x_l93
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_pct.x_l93
     IS 'Coordonnées X en lambert 93';
 
-COMMENT ON COLUMN m_espace_vert_v2.geo_ev_point.y_l93
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_pct.y_l93
     IS 'Coordonnées Y en Lambert 93';
 
-COMMENT ON COLUMN m_espace_vert_v2.geo_ev_point.geom
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_pct.geom
     IS 'Géométrie des objets espaces verts ponctuel';
 
 -- ################################################################# TABLE geo_ev_line ###############################################
