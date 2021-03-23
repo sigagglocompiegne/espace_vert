@@ -835,7 +835,7 @@ COMMENT ON COLUMN m_espace_vert_v2.geo_ev_point.geom
   idobjet bigint NOT NULL,
   long_m integer,
   larg_cm integer,
-  geom geometry(linestring,2154),
+  geom geometry(multilinestring,2154),
   CONSTRAINT geo_ev_line_pkey PRIMARY KEY (idobjet)
   
 )
@@ -872,7 +872,7 @@ COMMENT ON COLUMN m_espace_vert_v2.geo_ev_line.geom
   idobjet bigint NOT NULL,
   sup_m2 integer,
   perimetre integer,
-  geom geometry(polygon,2154),
+  geom geometry(multipolygon,2154),
   CONSTRAINT geo_ev_polygon_pkey PRIMARY KEY (idobjet)
   
 )
