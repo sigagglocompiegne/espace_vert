@@ -618,7 +618,7 @@ CREATE TABLE m_espace_vert_v2.an_ev_objet
   idobjet bigint NOT NULL,
   idzone integer,
   idsite integer,
-  idcontrat integer,
+  idcontrat character varying(2),
   insee character varying(5),
   commune character varying(80),
   quartier character varying(80),
@@ -708,6 +708,13 @@ COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.date_maj
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.observ
     IS 'Observations diverses';
+
+ALTER TABLE m_espace_vert_v2.an_ev_objet
+    ADD CONSTRAINT lt_contrat_fkey FOREIGN KEY (idcontrat)
+    REFERENCES r_objet.lt_contrat (code) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
 
 ALTER TABLE m_espace_vert_v2.an_ev_objet
     ADD CONSTRAINT lt_ev_type_fkey FOREIGN KEY (typ)
