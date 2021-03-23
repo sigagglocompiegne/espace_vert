@@ -43,7 +43,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |idobjet|Identifiant unique de l'objet|bigint|nextval('m_espace_vert.an_ev_objet_idobjet_seq'::regclass)|
 |idzone|Identifiant de la zone de gestion, intervention d'appartenance|integer||
 |idsite|Identifiant du site de production cartographique d'appartenance|integer||
-|idcontrat|Identifiant du contrat s'appliquant à l'objet (non encore opérationnel à ce jour)|integer|(liste de valeurs `r_objet.lt_contrat`)|
+|idcontrat|Identifiant du contrat s'appliquant à l'objet (non encore opérationnel à ce jour)|character varying(2)|(liste de valeurs `r_objet.lt_contrat`)|
 |insee|Code insee de la commune d'appartenance|character varying(5)|valeur vide interdite|
 |commune|Libellé de la commune d'appartenance|character varying(80)|valeur vide interdite|
 |quartier|Libellé du quartier de la ville de Compiègne d'appartenance|character varying(80)||
