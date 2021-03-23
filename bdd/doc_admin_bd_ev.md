@@ -65,7 +65,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 * triggers : sans objet
 
 
-`geo_ev_point` : table géographique des objets des espaces verts saisis sous forme de ponctuel
+`geo_ev_pct` : table géographique des objets des espaces verts saisis sous forme de ponctuel
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
@@ -83,7 +83,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
 |sup_m2|Surface de l'objet "espace vert" exprimée en mètre carré|integer|valeur vide interdite (issu du calcul SIG)|
 |perimetre|Périmètre du polygone saisie en mètre|integer|valeur vide interdite (issu du calcul SIG)|
-|geom|Attribut contenant la géométrie du polygone|geometry(polygon,2154)|valeur vide interdite|
+|geom|Attribut contenant la géométrie du polygone|geometry(multipolygon,2154)|valeur vide interdite|
 
 `geo_ev_line` : table géographique des objets des espaces verts saisis sous forme de polyligne
 
@@ -92,7 +92,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
 |long_m|Longueur de l'objet "espace vert" exprimée en mètre|integer|valeur vide interdite (issu du calcul SIG et arrondit au mètre)|
 |larg_cm|Largeur de l'objet "espace vert" exprimée en centimètre|integer|valeur vide interdite et maximum de 100cm|
-|geom|Attribut contenant la géométrie de la polyligne|geometry(linestring,2154)|valeur vide interdite|
+|geom|Attribut contenant la géométrie de la polyligne|geometry(multilinestring,2154)|valeur vide interdite|
 
 `an_ev_arbre` : table alphanumérique du patrimoine des objets des espaces verts correspond aux arbres.
 
