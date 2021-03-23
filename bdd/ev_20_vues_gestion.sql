@@ -76,7 +76,7 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_line
     o.observ,
     l.long_m,
     l.larg_cm,
-    l.geom
+    l.geom::geometry(multilinestring,2154) AS geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_line l ON o.idobjet = l.idobjet;
 
@@ -109,7 +109,7 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_point
     o.observ,
     p.x_l93,
     p.y_l93,
-    p.geom
+    p.geom::geometry(point,2154) AS geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_point p ON o.idobjet = p.idobjet
    WHERE o.sstyp <> '01-01';
@@ -164,7 +164,7 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_arbre
     a.easting,
     p.x_l93,
     p.y_l93,
-    p.geom
+    p.geom::geometry(multipolygon,2154) AS geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_point p ON o.idobjet = p.idobjet
 	 JOIN m_espace_vert_v2.an_ev_arbre a ON o.idobjet = a.idobjet
