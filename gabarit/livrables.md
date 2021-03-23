@@ -11,10 +11,10 @@
 
 # Livrables
 
-Le gabarit présenté ci-après s'organise autour de la production d'un inventaire cartographique des espaces verts géré par la collectivité. 
-L'objectif principal est bien de recenser l'ensemble des objets participant à la structuration des espaces verts. En les typant par une nomenclature simple et compréhensible, cet inventaire peut-être produit par un nom spécialiste.
+Le gabarit présenté ci-après s'organise autour de la production d'un inventaire cartographique des espaces verts gérés par la collectivité. 
+L'objectif principal est bien de recenser l'ensemble des objets participant à la structuration des espaces verts. En les typant par une nomenclature simple et compréhensible, cet inventaire peut-être produit par un non spécialiste.
 
-Néanmoins pour les besoins d'un service gérant les espaces verts, ce gabarit a été pensé pour deux autres usages : l'un permettant de détailler ces objets d'un point de vue métier et un autre dans une optique d'engagement de gestion des espaces verts (tableau de bord, intervention....).
+Néanmoins pour les besoins d'un service gérant les espaces verts, ce gabarit a été pensé pour deux autres usages : l'un permettant de détailler ces objets d'un point de vue métier et l'autre dans une optique d'engagement de gestion des espaces verts (tableau de bord, interventions....).
 
 Cet inventaire sera ainsi intégré à la base de données de la collectivité et pourra être également complété et mis à jour par le service métier à moyen et long terme.
 
@@ -26,10 +26,10 @@ Cet inventaire sera ainsi intégré à la base de données de la collectivité e
 
 ## Principe fonctionnel
 
-Le principe de fonctionnement de la base de données devant intégrer l'inventaire des espaces verts s'appuie sur la production cartographique d'objets métiers définit comme un espace d'agrément planté de fleurs, d'arbustes, d'arbres ou engazonné. 
+Le principe de fonctionnement de la base de données devant intégrer l'inventaire des espaces verts s'appuie sur la production cartographique d'objets métiers définis comme un espace d'agrément planté de fleurs, d'arbustes, d'arbres ou engazonné. 
 Il peut être, dans certains cas, complété par des parties minérales ou hydrographiques. Il doit être ouvert au public et facilement accessible par des modes doux.
 
-Tous les objets sont à saisir si ils se trouvent dans l'espace public ou dans des zones spécifiques appartenant et gérées par la collectivité (parc, square, cimetière ...). pouvant 
+Tous les objets sont à saisir s'ils se trouvent dans l'espace public ou dans des zones spécifiques appartenant et gérées par la collectivité (parc, square, cimetière ...). pouvant 
 
 Ces objets peuvent être représentés de façon surfacique (espace enherbé, planté...), linéaire (haie, chemin,...) ou ponctuel (arbre...). Ils sont intégrés à la fois dans un site cohérent (équipements publics, ensemble urbain, voie...) et dans une zone de gestion et/ou intervention.
 
@@ -48,48 +48,48 @@ Schéma 1 : une représentation des objets d'un inventaire cartographique
 
 Les objets constituant l'inventaire cartographique initial sont organisés autour des 3 primitives géographiques de base : polygones, lignes et points. **La saisie des objets de type multi n'est pas autorisée.**
 
-La saisie de ces objets doit permettre une restitution de l'ordre du 1 000ème.
+La saisie de ces objets doit permettre une restitution de l'ordre du 1/1000e.
 
 Les objets produits dans le cadre de cet inventaire devront être en cohérence topologique avec la précision des référentiels utilisés.
 
 L'inventaire cartographique se fera préférentiellement :
-- soit par numérisation sur des référentiels cartographiques (intégré aux gabarits),
+- soit par numérisation sur des référentiels cartographiques (intégrés aux gabarits),
 - soit par un levé de terrain.
 
 ### La modélisation
 
 Les règles de modélisation consiste à présenter la façon dont les objets doivent être saisis et restitués dans le gabarit.
 
-La modélisation choisie est la non prise en compte des ruptures sous forme surfacique pour conserver l'homogénéisation d'usages des objets.
-Ces ruptures, dans un site cohérent ou non, venant interrompres cette homogénéisation sont représentées sous forme linéaires avec des attributs les qualifiants (longueur, largeur...). 
-Ces attributs complémentaires permettent ainsi de réaliser plus facilement des calculs d'exploitation (linéaire de haies, ...)
+La modélisation choisie est la non prise en compte des ruptures sous forme surfacique pour conserver l'homogénéisation d'usage des objets.
+Ces ruptures, dans un site cohérent ou non, venant interrompre cette homogénéisation sont représentées sous forme linéaire avec des attributs les qualifiant (longueur, largeur...). 
+Ces attributs complémentaires permettent ainsi de réaliser plus facilement des calculs d'exploitation (linéaire de haies, ...).
 
-Cette orientation assumée, est censée être plus proche d'une gestion de service mais ne permet pas une restitution graphique exacte des objets "espace vert". La production d'un inventaire cartographique et de sa mise à jour (interne ou non) est jugée plus rapide. A contrario, l'exploitation des données devra prendre en compte les particularités de cette modélisation pour restituer au mieux une réalité en terme de surfaces.
-Pour rappel, c'est cette approche qui a été utilisée pour un premier inventaire réalisé en 2018 mais sans intégrer cette notion d'attributs complémentaires. Celui-ci devant être ré-intégré à la nouvelle base de données, cette option est la moins impactante. Seuls les attributs qualitatifs de longueurs ou de largeurs devront être complétés, ce qui pourra être réalisés par le service métier.
+Cette orientation assumée, est censée être plus proche d'une gestion de service mais ne permet pas une restitution graphique exacte des objets "espace vert". La production d'un inventaire cartographique et de sa mise à jour (interne ou non) est jugée plus rapide. A contrario, l'exploitation des données devra prendre en compte les particularités de cette modélisation pour restituer au mieux une réalité en terme de surface.
+Pour rappel, c'est cette approche qui a été utilisée pour un premier inventaire réalisé en 2018 mais sans intégrer cette notion d'attributs complémentaires. Celui-ci devant être ré-intégré à la nouvelle base de données, cette option est la moins impactante. Seuls les attributs qualitatifs de longueur ou de largeur devront être complétés, ce qui pourra être réalisé par le service métier.
 
 Des règles de modélisation de base peuvent ainsi être édictées :
 
-- les objets ponctuels de compositions sont représentés sous forme de point sans limite d'emprise au sol. 
+- les objets ponctuels de composition sont représentés sous forme de point sans limite d'emprise au sol. 
 
 - un objet représenté par un polygone, pour une surface identifiée sur le terrain. Toute surface végétalisée doit être saisie.
 
-- un objet représenté par un linéaire, pour une surface identifiée sur le terrain, celle-ci doit être de forme linéaire et de largeur inférieure à 5 m. Un linéaire saisit est un ensemble homogène dans sa nomenclature et sa largeur. 
+- un objet représenté par un linéaire, pour une surface identifiée sur le terrain, celle-ci doit être de forme linéaire et de largeur inférieure à 5 m. Un linéaire saisi est un ensemble homogène dans sa nomenclature et sa largeur. 
 
 Des règles de modélisation plus fines peuvent être décrites :
 
 |Classe d'objets|Type d'objets|Représentation|Définition|Règle de modélisation particulière|
 |:---|:---|:---|:---|:---|
-|PONCTUEL Espace vert|Arbre(1)|POINT|L'objet identifié sur le terrain est un arbre entretenu, localisé en diffus, en alignement, dans un contenant artificiel ou dans une zone boisée aménagée et entretenu.|Le point de saisie ou sa reconstruction (par au moins 3 points de levés) doit représenter le centre de l'objet identifié. A défaut, le bord du tronc peut-être accepté en indiquant le diamètre du tronc.|
+|PONCTUEL Espace vert|Arbre(1)|POINT|L'objet identifié sur le terrain est un arbre entretenu, localisé en diffus, en alignement, dans un contenant artificiel ou dans une zone boisée aménagée et entretenue.|Le point de saisie ou sa reconstruction (par au moins 3 points de levés) doit représenter le centre de l'objet identifié. A défaut, le bord du tronc peut-être accepté en indiquant le diamètre du tronc.|
 |PONCTUEL Espace vert|Ponctuel fleuri|POINT|L'objet identifié sur le terrain est un espace fleuri hors sol dans un contenant artificiel (jardinière, pot, suspension ...).|Le point de saisie ou sa reconstruction (par au moins 3 points de levés) doit représenter le centre de l'objet identifié.|
-|LINEAIRE Espace vert|Alignement d'arbres(1)|LINEAIRE|L'objet identifié sur le terrain est une bande arborée, composé d'une série d'arbres entretenus continus (au moins 4), le long d'un axe routier ou piéton.|Le linéaire saisit correspond au centre de l'emprise de l'alignement. Les ruptures de voirie ou d'entrées dans l'espace privé (garage, entrée ...) devront être respectées si celles-ci sont supérieures à 5 mètres. Dans le cas contraire ces espaces sont intégrés dans le linéaire. Chaque alignement doit être identifié. Se référer au schéma ci-dessous.|
-|LINEAIRE Espace vert|Haie|LINEAIRE|L'objet identifié sur le terrain est une bande arbustive d'un seul tenant intégrée ou non à une espace enherbé d'une largeur ingérieur à 5m sinon il s'agit d'un espace planté (massif). |Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement saisie. Les ruptures de voirie ou d'entrées dans l'espace privé (garage, entrée ...) devront être respectées si celles-ci sont supérieures à 5 mètres. Dans le cas contraire ces espaces sont intégrés dans le linéaire.Se référer au schéma ci-dessous.|
-|LINEAIRE Espace vert|Accotement enherbé|LINEAIRE|L'objet identifié sur le terrain est une bande enherbé d'un seul tenant d'une largeur ingérieur à 5m sinon il s'agit d'un espace enherbé (type pelouse). |Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement saisie. Les ruptures de voirie ou d'entrées dans l'espace privé (garage, entrée ...) devront être respectées si celles-ci sont supérieures à 5 mètres. Dans le cas contraire ces espaces sont intégrés dans le linéaire.Se référer au schéma ci-dessous.|
-|LINEAIRE Espace vert|Accotement fleuri|LINEAIRE|L'objet identifié sur le terrain est un massif fleuri sous forme de bande d'un seul tenant d'une largeur ingérieur à 5m sinon il s'agit d'un espace fleuri (massif). |Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement saisie. Les ruptures de voirie ou d'entrées dans l'espace privé (garage, entrée ...) devront être respectées si celles-ci sont supérieures à 5 mètres. Dans le cas contraire ces espaces sont intégrés dans le linéaire.Se référer au schéma ci-dessous.|
-|LINEAIRE Minéral|Circulation douce|LINEAIRE|L'objet identifié sur le terrain est un axe de circulation doux (piéton ou 2 roues) décomposant un espace enherbé ou planté homogène d'une largeur inférieure à 5 mètres, sinon il s'agit d'un espace minéral. |Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement saisie. Se référer au schéma ci-dessous.|
-|SURFACE Espace vert|Zone boisée|POLYGONE|L'objet identifié sur le terrain est un ensemble d'arbres dense, aménagé et faisant l'objet d'un entretien courant. |Celles-ci doivent être identifiées sous forme de polygone et comme pour les alignements d'arbres accompagnés d'une représentation ponctuelle de chaque arbre. Les secteurs boisés naturels sont représentés uniquement par un polygone et identifiés comme zone naturelle. |
-|SURFACE Espace vert|Espace enherbé|POLYGONE|L'objet identifié sur le terrain est un ensemble enherbé, homogène, entretenu et de même type, d'une largeur supérieure à 5m et non linéaire sinon il s'agit d'un accotement.|Les objets intégrant cet espace, de forme linéaire, d'une largeur inférieure à 5 mètres en sont exclus pour représenter une forme homogène (cf règle de modélisation édictées en introduction). Se référer au schéma ci-dessous.|
-|SURFACE Espace vert|Espace planté|POLYGONE|L'objet identifié sur le terrain est un espace fleuri ou un massif au sol.|Pas de surface minimum, tout objet doit-être saisi. Pour rappel Les accotements fleuris sont saisis comme des linéaires si leur largeur est inférieure à 5m et disposé de façon linéaire.|
-|SURFACE Espace minéral|Espace minéral|POLYGONE|L'objet identifié sur le terrain est une zone minérale intégrant un espace cohérent d'espace vert (type parc).|Pas de surface minimum, tout objet doit-être saisi. Pour rappel les éléments minérals de rupture (circulation douce) inférieure à 5m sont saisis en linéaire.|
+|LINEAIRE Espace vert|Alignement d'arbres(1)|LINEAIRE|L'objet identifié sur le terrain est une bande arborée, composée d'une série d'arbres entretenus continus (au moins 4), le long d'un axe routier ou piéton.|Le linéaire saisi correspond au centre de l'emprise de l'alignement. Les ruptures de voirie ou d'entrées dans l'espace privé (garage, entrée ...) devront être respectées si celles-ci sont supérieures à 5 mètres. Dans le cas contraire ces espaces sont intégrés dans le linéaire. Chaque alignement doit être identifié. Se référer au schéma ci-dessous.|
+|LINEAIRE Espace vert|Haie|LINEAIRE|L'objet identifié sur le terrain est une bande arbustive d'un seul tenant intégrée ou non à une espace enherbé d'une largeur inférieure à 5m sinon il s'agit d'un espace planté (massif). |Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement renseignée. Les ruptures de voirie ou d'entrées dans l'espace privé (garage, entrée ...) devront être respectées si celles-ci sont supérieures à 5 mètres. Dans le cas contraire ces espaces sont intégrés dans le linéaire. Se référer au schéma ci-dessous.|
+|LINEAIRE Espace vert|Accotement enherbé|LINEAIRE|L'objet identifié sur le terrain est une bande enherbée d'un seul tenant d'une largeur inférieure à 5m sinon il s'agit d'un espace enherbé (type pelouse). |Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement renseignée. Les ruptures de voirie ou d'entrées dans l'espace privé (garage, entrée ...) devront être respectées si celles-ci sont supérieures à 5 mètres. Dans le cas contraire ces espaces sont intégrés dans le linéaire. Se référer au schéma ci-dessous.|
+|LINEAIRE Espace vert|Accotement fleuri|LINEAIRE|L'objet identifié sur le terrain est un massif fleuri sous forme de bande d'un seul tenant d'une largeur inférieure à 5m sinon il s'agit d'un espace fleuri (massif). |Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement saisie. Les ruptures de voirie ou d'entrées dans l'espace privé (garage, entrée ...) devront être respectées si celles-ci sont supérieures à 5 mètres. Dans le cas contraire ces espaces sont intégrés dans le linéaire.Se référer au schéma ci-dessous.|
+|LINEAIRE Minéral|Circulation douce|LINEAIRE|L'objet identifié sur le terrain est un axe de circulation doux (piéton ou 2 roues) décomposant un espace enherbé ou planté homogène d'une largeur inférieure à 5 mètres, sinon il s'agit d'un espace minéral. |Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement renseignée. Se référer au schéma ci-dessous.|
+|SURFACE Espace vert|Zone boisée|POLYGONE|L'objet identifié sur le terrain est un ensemble d'arbres dense, aménagé et faisant l'objet d'un entretien courant. |Celles-ci doivent être identifiées sous forme de polygone et, comme pour les alignements d'arbres, accompagnées d'une représentation ponctuelle de chaque arbre. Les secteurs boisés naturels sont représentés uniquement par un polygone et identifiés comme zone naturelle.|
+|SURFACE Espace vert|Espace enherbé|POLYGONE|L'objet identifié sur le terrain est un ensemble enherbé, homogène, entretenu et de même type, d'une largeur supérieure à 5m et non linéaire sinon il s'agit d'un accotement.|Les objets intégrant cet espace, de forme linéaire, d'une largeur inférieure à 5 mètres en sont exclu pour représenter une forme homogène (cf. règles de modélisation édictées en introduction). Se référer au schéma ci-dessous.|
+|SURFACE Espace vert|Espace planté|POLYGONE|L'objet identifié sur le terrain est un espace fleuri ou un massif au sol.|Pas de surface minimum, tout objet doit-être saisi. Pour rappel les accotements fleuris sont saisis comme des linéaires si leur largeur est inférieure à 5m et disposés de façon linéaire.|
+|SURFACE Espace minéral|Espace minéral|POLYGONE|L'objet identifié sur le terrain est une zone minérale intégrant un espace cohérent d'espace vert (type parc). |Pas de surface minimum, tout objet doit-être saisi. Pour rappel les éléments minéraux de rupture (circulation douce) inférieurs à 5m sont saisi en linéaire.|
 
 (1) Les arbres en alignement font l'objet d'une double saisie, ponctuel et linéaire
 (2) niveau de la nomenclature
@@ -122,13 +122,13 @@ Les objets de cet inventaire cartographique doivent répondre également aux rè
 
 La cohérence topologique impose le partage de géométrie et donc l’utilisation des outils « d’accroches ».
 
-- Tous les objets sont nécessairement inclu dans une emprise communale.
-- Ils sont également inclus dans un site (équipement public, une voie...). 
+- Tous les objets sont nécessairement inclus dans une emprise communale.
+- Ils sont également inclus dans un site (équipement public, voie...). 
 - Les objets devront être découpés avec les limites communales et les zones de gestion existantes.
 
 Ces deux derniers éléments seront intégrés dans une phase ultérieure à l'inventaire cartographique initial.
 
-- Tous les objets de type "surface" sont des polygones fermés, et si ils sont adjacents, ils devront être topologique (absence de chevauchements et de micro-trous). 
+- Tous les objets de type "surface" sont des polygones fermés, et s'ils sont adjacents, ils devront être topologiques (absence de chevauchements et de micro-trous). 
 
 ![picto](topo_poly_1.png) ![picto](topo_poly_3.png)
 
@@ -136,15 +136,15 @@ Ces deux derniers éléments seront intégrés dans une phase ultérieure à l'i
 
 ![picto](topo_poly_2.png)
 
-- Les linéraires doivent être connectés entre eux si ils sont contiguës dans la réalité du dessin saisi.
+- Les linéraires doivent être connectés entre eux s'ils sont contiguës dans la réalité du dessin saisi.
 
 ![picto](topo_line_1.png)
 
-- Les arcs de cercle ou ellipse devront être numérisés sous forme de polyligne suffisamment détaillée pour en reproduire la forme.
+- Les arcs de cercle ou ellipses devront être numérisés sous forme de polyligne suffisamment détaillée pour en reproduire la forme.
 
 ### Système de coordonnées
 
-Les coordonnées seront exprimées en mètre avec trois chiffres après la virgule dans le système national en vigueur.
+Les coordonnées seront exprimées en mètres avec trois chiffres après la virgule dans le système national en vigueur.
 Sur le territoire métropolitain s'applique le système géodésique français légal RGF93 associé au système altimétrique IGN69. La projection associée Lambert 93 France (epsg:2154) sera à utiliser pour la livraison des données.
 
 ## Format des fichiers
