@@ -451,7 +451,7 @@ Pour des raisons de confidentialités la liste des valeurs n'est pas disponible 
 
 * Fonction triggers : sans objet
 
-`geo_v_ev_point` : vue de gestion permettant la saisie des objets "espace vert" de type ponctuel (hors arbre)
+`geo_v_ev_pct` : vue de gestion permettant la saisie des objets "espace vert" de type ponctuel (hors arbre)
 
 * Fonction triggers : sans objet
 
@@ -502,17 +502,14 @@ Sans objet (uniquement un projet QGis pour le gabarit de mise à jour de l'inven
 
 ## Traitement automatisé mis en place (Workflow de l'ETL FME)
 
-### Initialisation des données - Etat 0
+### Migration des données V1 à V2 - Etat 0
 
-(FME en préparation pour migrer les données existantes dans le nouveau modèle et gabarit de production.)
+Un traitement FME a été réalisé, il se situe dans le dossier du proejt métier.
 
-### Migration des données - Etat 1
 
-(FME en préparation pour migrer les données existantes dans le nouveau modèle et gabarit de production.)
+### Intégration d'un nouvel inventaire
 
-### Mise à jour des données
-
-(FME à produire pour intégrer la production cartographique à venir)
+(FME à produire pour intégrer la production cartographique à venir en fonction ou non de la reprise de l'existant ?)
 
 ---
 
