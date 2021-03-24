@@ -73,15 +73,18 @@ DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_doma;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_type;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_sstype;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_typsite;
-DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_gestion;
-DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_entretien;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_arbrehauteur;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_arbreforme;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_arbreimplant;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_arbredanger;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_arbresol;
+DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_typsaihaie;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_objet;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_arbre;
+
+DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_geohaie;
+DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_geocircudouce;
+
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_pct;
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_line;
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_polygon;
@@ -277,117 +280,7 @@ INSERT INTO m_espace_vert_v2.lt_ev_typsite(
   ('11','Espace naturel aménagé'),
   ('12','Arbre l''alignement');
 
--- ################################################################# lt_ev_gestion ###############################################
 
--- Table: m_espace_vert_v2.lt_ev_gestion
-
--- DROP TABLE m_espace_vert_v2.lt_ev_gestion;
-
-CREATE TABLE m_espace_vert_v2.lt_ev_gestion
-(
-    code character varying(2) COLLATE pg_catalog."default" NOT NULL,
-    valeur character varying(80) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT lt_ev_gestion_pkey PRIMARY KEY (code)
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE m_espace_vert_v2.lt_ev_gestion
-    OWNER to create_sig;
-
-
-COMMENT ON TABLE m_espace_vert_v2.lt_ev_gestion
-    IS 'Code permettant de décrire la maitrise d''oeuvre de l''entretien des espaces verts';
-
-COMMENT ON COLUMN m_espace_vert_v2.lt_ev_gestion.code
-    IS 'Code de la liste énumérée relative à la maitrise d''oeuvre de l''entretien des espaces verts';
-
-COMMENT ON COLUMN m_espace_vert_v2.lt_ev_gestion.valeur
-    IS 'Valeur de la liste énumérée relative à la maitrise d''oeuvre de l''entretien des espaces verts';
-
-COMMENT ON CONSTRAINT lt_ev_gestion_pkey ON m_espace_vert_v2.lt_ev_gestion IS 'Clé primaire de la table lt_ev_gestion';
-
-INSERT INTO m_espace_vert_v2.lt_ev_gestion(
-            code, valeur)
-    VALUES
-  ('00','Non renseigné'),
-  ('01','Régie'),
-  ('02','Sous-traitance'),
-  ('99','Autre');
-
--- ################################################################# lt_ev_entretien ###############################################
-
--- Table: m_espace_vert_v2.lt_ev_entretien
-
--- DROP TABLE m_espace_vert_v2.lt_ev_entretien;
-
-CREATE TABLE m_espace_vert_v2.lt_ev_entretien
-(
-    code character varying(5) COLLATE pg_catalog."default" NOT NULL,
-    valeur character varying(80) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT lt_ev_entretien_pkey PRIMARY KEY (code)
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE m_espace_vert_v2.lt_ev_entretien
-    OWNER to create_sig;
-
-COMMENT ON TABLE m_espace_vert_v2.lt_ev_entretien
-    IS 'Code permettant de décrire la pratique d''entretien des espaces verts';
-
-COMMENT ON COLUMN m_espace_vert_v2.lt_ev_entretien.code
-    IS 'Code de la liste énumérée relative à la pratique d''entretien des espaces verts';
-
-COMMENT ON COLUMN m_espace_vert_v2.lt_ev_entretien.valeur
-    IS 'Valeur de la liste énumérée relative à la pratique d''entretien des espaces verts';
-	
-COMMENT ON CONSTRAINT lt_ev_entretien_pkey ON m_espace_vert_v2.lt_ev_entretien IS 'Clé primaire de la table lt_ev_entretien';
-
-INSERT INTO m_espace_vert_v2.lt_ev_entretien(
-            code, valeur)
-    VALUES
-('00-00','Non renseigné'),
-('01-00','Non renseigné'),
-('01-01','Annuel'),
-('01-02','Arbustif'),
-('01-03','Couvre-sol'),
-('01-04','Herbe'),
-('01-05','Mixte'),
-('01-06','Paillage'),
-('01-07','Terre à nue'),
-('01-08','Vivace'),
-('01-09','Vivace, couvre-sol, paillage'),
-('01-99','Autre'),
-('01-XX','Aucun'),
-('01-ZZ','Non concerné'),
-('02-00','Non renseigné'),
-('02-01','Ecopaturage'),
-('02-02','Entretien écologique'),
-('02-03','Fauche tardive'),
-('02-04','Tonte 2x/semaine'),
-('02-05','Tonte différenciée'),
-('02-06','Tonte régulière'),
-('02-07','Tonte très régulière'),
-('02-99','Autre'),
-('02-XX','Aucun'),
-('02-ZZ','Non concerné'),
-('03-00','Non renseigné'),
-('03-01','Chimique'),
-('03-02','Débroussaillage, tonte'),
-('03-03','Enherbement'),
-('03-04','Manuel'),
-('03-05','Mécanique'),
-('03-06','Nettoyeur haute pression'),
-('03-07','Thermique'),
-('03-08','Tolérance et gestion de la flore spontanée'),
-('03-99','autre'),
-('03-XX','Aucun'),
-('03-ZZ','Non concerné');
   
 -- ################################################################# lt_ev_arbrehauteur ###############################################
 
@@ -600,6 +493,45 @@ INSERT INTO m_espace_vert_v2.lt_ev_arbresol(
   ('06','Végétalisé'),
   ('99','Autre');
   
+-- ################################################################# lt_ev_typsaihaie ###############################################
+
+-- Table: m_espace_vert_v2.lt_ev_typsaihaie
+
+-- DROP TABLE m_espace_vert_v2.lt_ev_typsaihaie;
+
+CREATE TABLE m_espace_vert_v2.lt_ev_typsaihaie
+(
+    code character varying(2) COLLATE pg_catalog."default" NOT NULL,
+    valeur character varying(80) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT lt_ev_typsaihaie_pkey PRIMARY KEY (code)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE m_espace_vert_v2.lt_ev_typsaihaie
+    OWNER to create_sig;
+
+
+COMMENT ON TABLE m_espace_vert_v2.lt_ev_typsaihaie
+    IS 'Liste permettant de décrire le type de saisie de la sous-classe de précision des objets espace vert de type haie';
+
+COMMENT ON COLUMN m_espace_vert_v2.lt_ev_typsaihaie.code
+    IS 'Code de la classe du type de saisie de la sous-classe de précision des objets espace vert de type haie';
+
+COMMENT ON COLUMN m_espace_vert_v2.lt_ev_typsaihaie.valeur
+    IS 'Valeur de la classe du type de saisie de la sous-classe de précision des objets espace vert de type haie';
+
+COMMENT ON CONSTRAINT lt_ev_typsaihaie_pkey ON m_espace_vert_v2.lt_ev_typsaihaie IS 'Clé primaire de la table lt_ev_typsaihaie';
+
+INSERT INTO m_espace_vert_v2.lt_ev_typsaihaie(
+            code, valeur)
+    VALUES
+  ('10','Largeur à appliquer au centre du linéaire'),
+  ('20','Largeur à appliquer dans le sens de saisie'),
+  ('30','Largeur à appliquer dans le sens inverse de saisie');
+  
 -- ####################################################################################################################################################
 -- ###                                                                                                                                              ###
 -- ###                                                                TABLE                                                           		    ###
@@ -636,7 +568,7 @@ CREATE TABLE m_espace_vert_v2.an_ev_objet
   date_maj timestamp without time zone,
   observ character varying(255),
   CONSTRAINT an_ev_objet_pkey PRIMARY KEY (idobjet)
-  -- mettre clé étrangère sur lt_src_geom
+  
 )
 WITH (
     OIDS = FALSE
@@ -709,12 +641,6 @@ COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.date_maj
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.observ
     IS 'Observations diverses';
 
-ALTER TABLE m_espace_vert_v2.an_ev_objet
-    ADD CONSTRAINT lt_contrat_fkey FOREIGN KEY (idcontrat)
-    REFERENCES r_objet.lt_contrat (code) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
 
 ALTER TABLE m_espace_vert_v2.an_ev_objet
     ADD CONSTRAINT lt_ev_type_fkey FOREIGN KEY (typ)
@@ -787,47 +713,72 @@ COMMENT ON CONSTRAINT lt_ev_domad_fkey ON m_espace_vert_v2.an_ev_objet
 COMMENT ON CONSTRAINT lt_ev_domar_fkey ON m_espace_vert_v2.an_ev_objet
     IS 'Clé étrangère sur la valeur de la domanialité réelle';
 
--- Constraint: an_ev_objet_polygon_fkey
+-- ################################################################# TABLE an_ev_geohaie ###############################################
 
--- ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT an_ev_objet_polygon_fkey;
+-- Table: m_espace_vert_v2.an_ev_geohaie
 
-ALTER TABLE m_espace_vert_v2.an_ev_objet
-    ADD CONSTRAINT an_ev_objet_polygon_fkey FOREIGN KEY (idobjet)
-    REFERENCES m_espace_vert_v2.geo_ev_polygon (idobjet) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
+-- DROP TABLE m_espace_vert_v2.an_ev_geohaie;
 
-COMMENT ON CONSTRAINT an_ev_objet_polygon_fkey ON m_espace_vert_v2.an_ev_objet
-    IS 'Clé étrangère sur la classe des objets polygon des espaces verts';
-    
--- Constraint: an_ev_objet_pct_fkey
+CREATE TABLE m_espace_vert_v2.an_ev_geohaie
+(
+  idobjet bigint NOT NULL,
+  larg_cm integer,
+  typsai character varying(2),
+  CONSTRAINT an_ev_geohaie_pkey PRIMARY KEY (idobjet)
+  
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
 
--- ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT an_ev_objet_pct_fkey;
+ALTER TABLE m_espace_vert_v2.an_ev_geohaie
+    OWNER to sig_create;
 
-ALTER TABLE m_espace_vert_v2.an_ev_objet
-    ADD CONSTRAINT an_ev_objet_pct_fkey FOREIGN KEY (idobjet)
-    REFERENCES m_espace_vert_v2.geo_ev_pct (idobjet) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
+COMMENT ON TABLE m_espace_vert_v2.an_ev_geohaie
+    IS 'Classe de précision des objets de l''inventaire des objets haies';
 
-COMMENT ON CONSTRAINT an_ev_objet_pct_fkey ON m_espace_vert_v2.an_ev_objet
-    IS 'Clé étrangère sur la classe des objets ponctuels des espaces verts';
-    
--- Constraint: an_ev_objet_line_fkey
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_geohaie.idobjet
+    IS 'Identifiant unique de l''objet haie';
 
--- ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT an_ev_objet_line_fkey;
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_geohaie.larg_cm
+    IS 'Largeur de la haie';
 
-ALTER TABLE m_espace_vert_v2.an_ev_objet
-    ADD CONSTRAINT an_ev_objet_line_fkey FOREIGN KEY (idobjet)
-    REFERENCES m_espace_vert_v2.geo_ev_line (idobjet) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_geohaie.typsai
+    IS 'Type de saisie de l''objet linéaire haie';
 
-COMMENT ON CONSTRAINT an_ev_objet_line_fkey ON m_espace_vert_v2.an_ev_objet
-    IS 'Clé étrangère sur la classe des objets linéaires des espaces verts';
+ 
+-- ################################################################# TABLE an_ev_geocircudouce ###############################################
+
+-- Table: m_espace_vert_v2.an_ev_geocircudouce
+
+-- DROP TABLE m_espace_vert_v2.an_ev_geocircudouce;
+
+CREATE TABLE m_espace_vert_v2.an_ev_geocircudouce
+(
+  idobjet bigint NOT NULL,
+  larg_cm integer,
+  CONSTRAINT an_ev_geocircudouce_pkey PRIMARY KEY (idobjet)
+  
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE m_espace_vert_v2.an_ev_geocircudouce
+    OWNER to sig_create;
+
+COMMENT ON TABLE m_espace_vert_v2.an_ev_geocircudouce
+    IS 'Classe de précision des objets de l''inventaire des objets circulations douces (allée, piste cyclabes, ...)';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_geocircudouce.idobjet
+    IS 'Identifiant unique de l''objet circulation douce';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_geocircudouce.larg_cm
+    IS 'Largeur de la circulation douce';
+
+
 
 -- ################################################################# TABLE geo_ev_pct ###############################################
 
@@ -866,6 +817,22 @@ COMMENT ON COLUMN m_espace_vert_v2.geo_ev_pct.y_l93
 COMMENT ON COLUMN m_espace_vert_v2.geo_ev_pct.geom
     IS 'Géométrie des objets espaces verts ponctuel';
 
+    
+-- Constraint: an_ev_objet_pct_fkey
+
+-- ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT an_ev_objet_pct_fkey;
+
+ALTER TABLE m_espace_vert_v2.geo_ev_pct
+    ADD CONSTRAINT geo_ev_pct_fkey FOREIGN KEY (idobjet)
+    REFERENCES m_espace_vert_v2.an_ev_objet (idobjet) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+COMMENT ON CONSTRAINT geo_ev_pct_fkey ON m_espace_vert_v2.geo_ev_pct
+    IS 'Clé étrangère sur la classe des objets ponctuels des espaces verts';
+    
+
 -- ################################################################# TABLE geo_ev_line ###############################################
 
 -- Table: m_espace_vert_v2.geo_ev_line
@@ -876,7 +843,6 @@ COMMENT ON COLUMN m_espace_vert_v2.geo_ev_pct.geom
 (
   idobjet bigint NOT NULL,
   long_m integer,
-  larg_cm integer,
   geom geometry(multilinestring,2154),
   CONSTRAINT geo_ev_line_pkey PRIMARY KEY (idobjet)
   
@@ -898,12 +864,50 @@ COMMENT ON COLUMN m_espace_vert_v2.geo_ev_line.idobjet
 COMMENT ON COLUMN m_espace_vert_v2.geo_ev_line.long_m
     IS 'Longueur en mètres';
 
-COMMENT ON COLUMN m_espace_vert_v2.geo_ev_line.larg_cm
-    IS 'Largeur en centimètre';
-
 COMMENT ON COLUMN m_espace_vert_v2.geo_ev_line.geom
     IS 'Géométrie des objets espace vert linéaire';
 
+-- Constraint: an_ev_objet_line_fkey
+
+-- ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT an_ev_objet_line_fkey;
+
+ALTER TABLE m_espace_vert_v2.geo_ev_line
+    ADD CONSTRAINT geo_ev_line_fkey FOREIGN KEY (idobjet)
+    REFERENCES m_espace_vert_v2.an_ev_objet (idobjet) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+COMMENT ON CONSTRAINT geo_ev_line_fkey ON m_espace_vert_v2.geo_ev_line
+    IS 'Clé étrangère sur la classe des objets linéaires des espaces verts';
+
+
+-- Constraint: an_ev_geohaie_fkey
+
+-- ALTER TABLE m_espace_vert_v2.an_ev_geohaie DROP CONSTRAINT an_ev_geohaie_fkey;
+
+ALTER TABLE m_espace_vert_v2.an_ev_geohaie
+    ADD CONSTRAINT an_ev_geohaie_fkey FOREIGN KEY (idobjet)
+    REFERENCES m_espace_vert_v2.geo_ev_line (idobjet) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+-- Constraint: an_ev_geocircudouce_fkey
+
+-- ALTER TABLE m_espace_vert_v2.an_ev_geocircudouce DROP CONSTRAINT an_ev_geocircudouce_fkey;
+
+ALTER TABLE m_espace_vert_v2.an_ev_geocircudouce
+    ADD CONSTRAINT an_ev_geocircudouce_fkey FOREIGN KEY (idobjet)
+    REFERENCES m_espace_vert_v2.geo_ev_line (idobjet) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+COMMENT ON CONSTRAINT an_ev_geocircudouce_fkey ON m_espace_vert_v2.an_ev_geocircudouce
+    IS 'Clé étrangère sur la classe objet des lignes';
+	
 -- ################################################################# TABLE geo_ev_polygon ###############################################
 
 -- Table: m_espace_vert_v2.geo_ev_polygon
@@ -940,6 +944,20 @@ COMMENT ON COLUMN m_espace_vert_v2.geo_ev_polygon.perimetre
 
 COMMENT ON COLUMN m_espace_vert_v2.geo_ev_polygon.geom
     IS 'Géométrie des objets espace vert surfacique';
+
+-- Constraint: an_ev_objet_polygon_fkey
+
+-- ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT an_ev_objet_polygon_fkey;
+
+ALTER TABLE m_espace_vert_v2.geo_ev_polygon
+    ADD CONSTRAINT geo_ev_polygon_fkey FOREIGN KEY (idobjet)
+    REFERENCES m_espace_vert_v2.an_ev_objet (idobjet) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+COMMENT ON CONSTRAINT geo_ev_polygon_fkey ON m_espace_vert_v2.geo_ev_polygon
+    IS 'Clé étrangère sur la classe des objets polygon des espaces verts';
 
 -- ################################################################# TABLE geo_ev_site ###############################################
 
@@ -978,9 +996,6 @@ COMMENT ON COLUMN m_espace_vert_v2.geo_ev_site.typ
 
 COMMENT ON COLUMN m_espace_vert_v2.geo_ev_site.geom
     IS 'Géométrie des objets site cohérent surfacique';
-
-COMMENT ON CONSTRAINT geo_ev_site_typ_fkey ON m_espace_vert_v2.geo_ev_site
-    IS 'Clé étrangère sur le liste des valeurs d''un type de site';
     
 -- Constraint: geo_ev_site_fkey
 
@@ -1113,55 +1128,7 @@ ALTER TABLE m_espace_vert_v2.an_ev_arbre
     NOT VALID;
 
 
--- ################################################################ TABLE an_ev_entretien #####################################
- 
- -- Table: m_espace_vert_v2.an_ev_entretien
 
--- DROP TABLE m_espace_vert_v2.an_ev_entretien;
-
-CREATE TABLE m_espace_vert_v2.an_ev_entretien
-(
-    idobjet bigint NOT NULL,
-    prat_ini character varying(5) COLLATE pg_catalog."default",
-    preco character varying(5) COLLATE pg_catalog."default",
-    gestion character varying(2) COLLATE pg_catalog."default",
-    CONSTRAINT an_ev_entretien_pkey PRIMARY KEY (idobjet),
-    CONSTRAINT lt_ev_entretien_prat_ini_fkey FOREIGN KEY (prat_ini)
-        REFERENCES m_espace_vert_v2.lt_ev_entretien (code) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT lt_ev_entretien_preco_fkey FOREIGN KEY (preco)
-        REFERENCES m_espace_vert_v2.lt_ev_entretien (code) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT lt_ev_gestion_fkey FOREIGN KEY (gestion)
-        REFERENCES m_espace_vert_v2.lt_ev_gestion (code) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE m_espace_vert_v2.an_ev_entretien
-    OWNER to create_sig;
-
-
-COMMENT ON TABLE m_espace_vert_v2.an_ev_entretien
-    IS 'Table alphanumérique contenant les informations d''entretien et de gestion des espaces verts';
-
-COMMENT ON COLUMN m_espace_vert_v2.an_ev_entretien.idobjet
-    IS 'Identifiant unique de l''objet espace vert';
-
-COMMENT ON COLUMN m_espace_vert_v2.an_ev_entretien.prat_ini
-    IS 'Pratique d''entretien initial appliquée lors du diagnostic';
-
-COMMENT ON COLUMN m_espace_vert_v2.an_ev_entretien.preco
-    IS 'Préconisation d''entretien conseillé à l''avenir';
-
-COMMENT ON COLUMN m_espace_vert_v2.an_ev_entretien.gestion
-    IS 'Maitrise d''oeuvre de l''entretien';
 
     
 -- ####################################################################################################################################################
