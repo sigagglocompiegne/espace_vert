@@ -12,7 +12,7 @@ La démarche s'organise en 3 temps :
 
 ## Modèle relationnel simplifié
 
-![picto](mcd_ev.png)
+![picto](mcd_ev_v2.png)
 
 ## Schéma fonctionnel
 
