@@ -115,10 +115,10 @@ COMMENT ON TABLE m_espace_vert_v2.lt_ev_doma
     IS 'Domaine de valeur de la domanialité';
 
 COMMENT ON COLUMN m_espace_vert_v2.lt_ev_doma .code
-    IS 'code';
+    IS 'code du type de domanialité';
 
 COMMENT ON COLUMN m_espace_vert_v2.lt_ev_doma .valeur
-    IS 'valeur';
+    IS 'valeur du type de domanialité';
 
 INSERT INTO m_espace_vert_v2.lt_ev_doma (
             code, valeur)
