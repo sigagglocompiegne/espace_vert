@@ -39,7 +39,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-|idobjet|Identifiant unique de l'objet|bigint|nextval('m_espace_vert.an_ev_objet_idobjet_seq'::regclass)|
+|idobjet|Identifiant unique de l'objet|bigint||
 |idzone|Identifiant de la zone de gestion, intervention d'appartenance|integer||
 |idsite|Identifiant du site de production cartographique d'appartenance|integer||
 |idcontrat|Identifiant du contrat s'appliquant à l'objet (non encore opérationnel à ce jour)|character varying(2)||
