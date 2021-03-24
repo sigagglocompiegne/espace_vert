@@ -24,18 +24,18 @@ CREATE SCHEMA m_espace_vert_v2
 COMMENT ON SCHEMA m_espace_vert_v2
   IS 'Données métiers sur le thème des espaces verts';
 
-GRANT ALL ON SCHEMA m_espace_vert TO create_sig;
+GRANT ALL ON SCHEMA m_espace_vert_v2 TO create_sig;
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA m_espace_vert
+ALTER DEFAULT PRIVILEGES IN SCHEMA m_espace_vert_v2
 GRANT ALL ON TABLES TO sig_create;
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA m_espace_vert
+ALTER DEFAULT PRIVILEGES IN SCHEMA m_espace_vert_v2
 GRANT SELECT ON TABLES TO sig_read;
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA m_espace_vert
+ALTER DEFAULT PRIVILEGES IN SCHEMA m_espace_vert_v2
 GRANT ALL ON TABLES TO create_sig;
 
-ALTER DEFAULT PRIVILEGES IN SCHEMA m_espace_vert
+ALTER DEFAULT PRIVILEGES IN SCHEMA m_espace_vert_v2
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLES TO sig_edit;
 
 
