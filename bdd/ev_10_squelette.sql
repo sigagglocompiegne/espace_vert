@@ -1056,6 +1056,7 @@ COMMENT ON COLUMN m_espace_vert_v2.geo_ev_zone_gestion.sup_m2
 CREATE TABLE m_espace_vert_v2.an_ev_arbre
 (
     idobjet bigint NOT NULL,
+	nom character varyong(50) COLLATE pg_catalog."default",
     genre character varying(20) COLLATE pg_catalog."default",
     espece character varying(20) COLLATE pg_catalog."default",
     hauteur character varying(2) COLLATE pg_catalog."default",
