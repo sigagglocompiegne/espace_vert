@@ -156,8 +156,8 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
 |idsite|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
-|nom|Libellé du site|varchar(100)|00 (liste de valeurs `lt_ev_typsite`)|
-|typ|Typologie du site|varchar(2)||
+|nom|Libellé du site|varchar(100)||
+|typ|Typologie du site|varchar(2)|00 (liste de valeurs `lt_ev_typsite`)|
 |geom|Attribut contenant la géométrie du site|geometry(polygon,2154)|valeur vide interdite|
 
 
