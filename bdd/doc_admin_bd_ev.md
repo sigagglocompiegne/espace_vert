@@ -26,7 +26,6 @@ La base de données des espaces verts s'appuie sur des référentiels préexista
 |schéma | table | description | usage |
 |:---|:---|:---|:---|   
 |r_objet|lt_src_geom|domaine de valeur générique d'une table géographique|source du référentiel de saisies des objets|
-|r_objet|lt_contrat|liste et caractéristiques des contrats de délégation ou d'entretien (non opérationnel à ce jour)|Gestion des différents données ou s'apparentant un contrat ou un type d'entretien (interne ou non)|
 
 ---
 
@@ -72,7 +71,6 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
 |x_l93|Coordonnée X du point saisi en Lambert 93|numeric(10,3)|valeur vide interdite|
 |y_l93|Coordonnée Y du point saisi en Lambert 93|numeric(10,3)|valeur vide interdite|
-|surf_e|Surface d'emprise au sol en m²|integer|(en fonction des choix de modélisation retenue)|
 |geom|Attribut contenant la géométrie du point|geometry(point,2154)|valeur vide interdite|
 
 
@@ -91,8 +89,22 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |:---|:---|:---|:---|
 |idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
 |long_m|Longueur de l'objet "espace vert" exprimée en mètre|integer|valeur vide interdite (issu du calcul SIG et arrondit au mètre)|
-|larg_cm|Largeur de l'objet "espace vert" exprimée en centimètre|integer|valeur vide interdite et maximum de 100cm|
 |geom|Attribut contenant la géométrie de la polyligne|geometry(multilinestring,2154)|valeur vide interdite|
+
+`an_ev_geohaie` : sous-table géographique des objets linéaires de type haie
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
+|larg_cm|Largeur de l'objet "espace vert" exprimée en centimètre|integer|valeur vide interdite et maximum de 100cm|
+|typsai|Largeur de l'objet "espace vert" exprimée en centimètre|character varying(2)|valeur vide interdite (liste de valeurs `lt_ev_typsaihaie`)|
+
+`an_ev_geocircudouce` : sous-table géographique des objets linéaires de type circulation douce (allée, piste, cyclable, ...)
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
+|larg_cm|Largeur de l'objet "espace vert" exprimée en centimètre|integer|valeur vide interdite et maximum de 100cm|
 
 `an_ev_arbre` : table alphanumérique du patrimoine des objets des espaces verts correspond aux arbres.
 
@@ -160,12 +172,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |code | valeur |
 |:---|:---| 
-|00|Non renseigné|
-|01|Floral|
-|02|Végétal|
-|03|Minéral|
-|04|Hydrographie|
-|99|Référence non classée|
+
 
 `lt_ev_sstype` : Liste permettant de décrire la nomenclature de niveau 1 des objets d'espaces verts.
 
@@ -176,35 +183,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |code | valeur |
 |:---|:---| 
-|00-00|Non renseigné|
-|01-00|Non renseigné|
-|01-01|Arbre|
-|01-02|Arbuste|
-|01-03|Contenant artificiel (bac, pot, suspension, jardinière ...)|
-|01-04|Fleurissement|
-|01-05|Massif|
-|01-99|Autre|
-|02-00|Non renseigné|
-|02-01|Zone boisée|
-|02-02|Haie|
-|02-04|Pelouse, herbe|
-|02-05|Privé|
-|02-06|Zone naturelle|
-|02-99|Autre|
-|03-00|Non renseigné|
-|03-01|Bicouche gravier|
-|03-02|Enrobé abimé|
-|03-03|Enrobé, béton, pavé|
-|03-04|Pavé autobloquant, dalle|
-|03-05|Pavé autre|
-|03-06|Stabilisé, calcaire, gravier, terre, schiste|
-|03-99|Autre|
-|04-00|Non renseigné|
-|04-01|Fontaine|
-|04-02|Bassin|
-|04-99|Autre|
-|99-00|Non renseigné|
-|99-99|Autre|
+
 
 
 `lt_ev_typsite` : Liste permettant de décrire les types principaux des sites
@@ -253,76 +232,6 @@ Valeurs possibles :
 |21|privée (communale)|
 |22|privée (autre organisme public)|
 |23|privée|
-
-`lt_ev_entretien` : Liste permettant de décrire la pratique d''entretien des espaces verts
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|  
-|code|Code de la liste énumérée relative à la pratique d'entretien des espaces verts|character varying(5)| |
-|valeur|Valeur de la liste énumérée relative à la pratique d'entretien des espaces verts|character varying(80)| |
-
-Particularité(s) à noter : aucune
-
-Valeurs possibles :
-
-|code | valeur |
-|:---|:---|  
-|00-00|Non renseigné|
-|01-00|Non renseigné|
-|01-01|Annuel|
-|01-02|Arbustif|
-|01-03|Couvre-sol|
-|01-04|Herbe|
-|01-05|Mixte|
-|01-06|Paillage|
-|01-07|Terre à nue|
-|01-08|Vivace|
-|01-09|Vivace, couvre-sol, paillage|
-|01-99|Autre|
-|01-XX|Aucun|
-|01-ZZ|Non concerné|
-|02-00|Non renseigné|
-|02-01|Ecopaturage|
-|02-02|Entretien écologique|
-|02-03|Fauche tardive|
-|02-04|Tonte 2x/semaine|
-|02-05|Tonte différenciée|
-|02-06|Tonte régulière|
-|02-07|Tonte très régulière|
-|02-99|Autre|
-|02-XX|Aucun|
-|02-ZZ|Non concerné|
-|03-00|Non renseigné|
-|03-01|Chimique|
-|03-02|Débroussaillage, tonte|
-|03-03|Enherbement|
-|03-04|Manuel|
-|03-05|Mécanique|
-|03-06|Nettoyeur haute pression|
-|03-07|Thermique|
-|03-08|Tolérance et gestion de la flore spontanée|
-|03-99|autre|
-|03-XX|Aucun|
-|03-ZZ|Non concerné|
-
-`lt_ev_gestion` : Liste permettant de décrire la maitrise d''oeuvre de l''entretien des espaces verts
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|  
-|code|Code de la liste énumérée relative à la maitrise d'oeuvre de l'entretien des espaces verts|character varying(2)| |
-|valeur|Valeur de la liste énumérée relative à la maitrise d'oeuvre de l'entretien des espaces verts|character varying(80)| |
-
-Particularité(s) à noter : aucune
-
-Valeurs possibles :
-
-|code | valeur |
-|:---|:---|  
-|00|Non renseigné|
-|01|Régie|
-|02|Sous-traitance|
-|99|Autre|
-
 
 `lt_ev_arbrehauteur` : Liste permettant de décrire la classe de hauteur de chaque objet arbre
 
@@ -425,22 +334,22 @@ Valeurs possibles :
 |06|Végétalisé|
 |99|Autre|
 
-`lt_contrat` : Liste permettant de décrire les contrats pour les objets métiers
+`lt_ev_typsaihaie` : Liste permettant de décrire le type de saisie de la sous-classe de précision des objets espace vert de type haie
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-|code|Code de la liste énumérée relative au numéro de contrat pour l'entretien et/ou le contrôle de réseau public par la ville ou l'ARC|character varying(2)| |
-|valeur|Valeur de la référence du marché du contrat pour l'entretien et/ou le contrôle de réseau public par la ville ou l'ARC|character varying(80)| |
-|presta|Nom du prestataire retenu par le contrat pour l'entretien et/ou le contrôle de réseau public par la ville ou l'ARC|character varying(254)| |
-|ddebut|Date de début du contrat|timestamp without time zone| |
-|dfin|Date de fin du contrat|timestamp without time zone| |
-|definition|Definition du contrat pour l'entretien et/ou le contrôle de réseau public par la ville ou l'ARC|character varying(254)| |
+|code|Code de la classe du type de saisie de la sous-classe de précision des objets espace vert de type haie|character varying(2)| |
+|valeur|Valeur de la classe du type de saisie de la sous-classe de précision des objets espace vert de type haie|character varying(80)| |
 
 Particularité(s) à noter : aucune
 
 Valeurs possibles :
 
-Pour des raisons de confidentialités la liste des valeurs n'est pas disponible dans cette documentation.
+|code | valeur |
+|:---|:---|
+|10|Largeur à appliquer au centre du linéaire|
+|20|Largeur à appliquer dans le sens de saisie|
+|30|Largeur à appliquer dans le sens inverse de saisie|
 
 ---
 
