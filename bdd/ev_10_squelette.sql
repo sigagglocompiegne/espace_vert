@@ -291,7 +291,7 @@ INSERT INTO m_espace_vert_v2.lt_ev_typsite(
 CREATE TABLE m_espace_vert_v2.lt_ev_arbrehauteur
 (
     code character varying(2) COLLATE pg_catalog."default" NOT NULL,
-    valeur character varying(80) COLLATE pg_catalog."default" NOT NULL,
+    valeur character varying(80) COLLATE pg_catalog."default",
     CONSTRAINT lt_ev_arbrehauteur_pkey PRIMARY KEY (code)
 )
 WITH (
@@ -335,7 +335,7 @@ INSERT INTO m_espace_vert_v2.lt_ev_arbrehauteur(
 CREATE TABLE m_espace_vert_v2.lt_ev_arbreforme
 (
     code character varying(2) COLLATE pg_catalog."default" NOT NULL,
-    valeur character varying(80) COLLATE pg_catalog."default" NOT NULL,
+    valeur character varying(80) COLLATE pg_catalog."default",
     CONSTRAINT lt_ev_arbreforme_pkey PRIMARY KEY (code)
 )
 WITH (
@@ -377,7 +377,7 @@ INSERT INTO m_espace_vert_v2.lt_ev_arbreforme(
 CREATE TABLE m_espace_vert_v2.lt_ev_arbreimplant
 (
     code character varying(2) COLLATE pg_catalog."default" NOT NULL,
-    valeur character varying(80) COLLATE pg_catalog."default" NOT NULL,
+    valeur character varying(80) COLLATE pg_catalog."default",
     CONSTRAINT lt_ev_arbreimplant_pkey PRIMARY KEY (code)
 )
 WITH (
@@ -417,7 +417,7 @@ INSERT INTO m_espace_vert_v2.lt_ev_arbreimplant(
 CREATE TABLE m_espace_vert_v2.lt_ev_arbredanger
 (
     code character varying(2) COLLATE pg_catalog."default" NOT NULL,
-    valeur character varying(80) COLLATE pg_catalog."default" NOT NULL,
+    valeur character varying(80) COLLATE pg_catalog."default",
     CONSTRAINT lt_ev_arbredanger_pkey PRIMARY KEY (code)
 )
 WITH (
@@ -458,7 +458,7 @@ INSERT INTO m_espace_vert_v2.lt_ev_arbredanger(
 CREATE TABLE m_espace_vert_v2.lt_ev_arbresol
 (
     code character varying(2) COLLATE pg_catalog."default" NOT NULL,
-    valeur character varying(80) COLLATE pg_catalog."default" NOT NULL,
+    valeur character varying(80) COLLATE pg_catalog."default",
     CONSTRAINT lt_ev_arbresol_pkey PRIMARY KEY (code)
 )
 WITH (
@@ -502,7 +502,7 @@ INSERT INTO m_espace_vert_v2.lt_ev_arbresol(
 CREATE TABLE m_espace_vert_v2.lt_ev_typsaihaie
 (
     code character varying(2) COLLATE pg_catalog."default" NOT NULL,
-    valeur character varying(80) COLLATE pg_catalog."default" NOT NULL,
+    valeur character varying(80) COLLATE pg_catalog."default",
     CONSTRAINT lt_ev_typsaihaie_pkey PRIMARY KEY (code)
 )
 WITH (
