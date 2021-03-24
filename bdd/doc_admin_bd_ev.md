@@ -42,7 +42,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |idobjet|Identifiant unique de l'objet|bigint|nextval('m_espace_vert.an_ev_objet_idobjet_seq'::regclass)|
 |idzone|Identifiant de la zone de gestion, intervention d'appartenance|integer||
 |idsite|Identifiant du site de production cartographique d'appartenance|integer||
-|idcontrat|Identifiant du contrat s'appliquant à l'objet (non encore opérationnel à ce jour)|character varying(2)|(liste de valeurs `r_objet.lt_contrat`)|
+|idcontrat|Identifiant du contrat s'appliquant à l'objet (non encore opérationnel à ce jour)|character varying(2)||
 |insee|Code insee de la commune d'appartenance|character varying(5)|valeur vide interdite|
 |commune|Libellé de la commune d'appartenance|character varying(80)|valeur vide interdite|
 |quartier|Libellé du quartier de la ville de Compiègne d'appartenance|character varying(80)||
@@ -50,7 +50,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |doma_r|Domanialité réelle|character varying(2)|00 (liste de valeurs `lt_ev_doma`)|
 |typ|Valeur de la nomenclature de niveau 1 décrivent l'objet "espace vert"|character varying(2)|valeur vide interdite (liste de valeurs `lt_ev_typ` attribut `code`)|
 |sstyp|Valeur de la nomenclature de niveau 2 décrivent l'objet "espace vert"|character varying(5)|valeur vide interdite (liste de valeurs `lt_ev_sstyp` attribut `code`)|
-|srcgeom_sai|Référentiel de saisies utilisé pour la production initiale cartographique|character varying(2)|valeur vide interdite (liste de valeurs `lt_src_geom`)|
+|srcgeom_sai|Référentiel de saisies utilisé pour la production initiale cartographique|character varying(2)|00 (liste de valeurs `lt_src_geom`)|
 |srcdate_sai|Année du référentiel de saisies utilisé pour la production initiale cartographique|integer||
 |srcgeom_maj|Référentiel de saisies utilisé pour la mise à jour de la production cartographique|character varying(2)|00 (liste de valeurs `lt_src_geom`)|
 |srcdate_maj|Année du référentiel de saisies utilisé pour la mise à jour de la production cartographique|integer||
