@@ -216,6 +216,13 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 |30-99|Autre hydrographique|
 |99-99|Référence non classée|
 
+`lt_ev_typsaihaie` : liste des valeurs décrivant le type de saisie de la sous-classe de précision des objets espace vert de type haie
+
+|Code|Valeur|
+|:---|:---|
+|10|Largeur à appliquer au centre du linéaire|
+|20|Largeur à appliquer dans le sens de saisie|
+|30|Largeur à appliquer dans le sens inverse de saisie|
 
 `lt_src_geom` : liste des valeurs des référentiels de saisis disponibles
 |Code|Valeur|
@@ -228,13 +235,7 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 |53|Trace GPS|
 |99|Autre|
 
-`lt_ev_typsaihaie` : liste des valeurs décrivant le type de saisie de la sous-classe de précision des objets espace vert de type haie
 
-|Code|Valeur|
-|:---|:---|
-|10|Largeur à appliquer au centre du linéaire|
-|20|Largeur à appliquer dans le sens de saisie|
-|30|Largeur à appliquer dans le sens inverse de saisie|
 
 ### Les identifiants
 
