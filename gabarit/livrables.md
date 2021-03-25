@@ -29,7 +29,7 @@ Le principe de fonctionnement de la base de données devant intégrer l'inventai
 
 Ces objets peuvent être représentés de façon surfacique (espace enherbé, planté ...), linéaire (haie, chemin ...) ou ponctuel (arbre, pot ...). 
 
-Ils sont saisis uniquement si ils sont entretenus et gérés par la collectivité. Dans les sites cohérents (parc, square, coulée verte urbaine ...), les objets "espace vert" sont complétés par des parties minérales ou hydrographiques. En dehors, seuls les objets spécifiques aux espaces verts sont saisis.
+Ils sont saisis uniquement si ils sont entretenus et gérés par la collectivité y compris dans certaines secteurs privatifs. Dans les sites cohérents (parc, square, coulée verte urbaine ...), les objets "espace vert" sont complétés par des parties minérales ou hydrographiques. En dehors, seuls les objets spécifiques aux espaces verts sont saisis.
 
 L'inventaire cartographique ne s'attachera pas à la définition des sites cohérents et aux zones de gestion.
 
@@ -71,24 +71,23 @@ Les règles de modélisation peuvent être décrites ainsi :
 |Classe d'objets|Type d'objets|Représentation|Définition|Règle de modélisation particulière|
 |:---|:---|:---|:---|:---|
 |PONCTUEL Espace vert|Arbre(1)|POINT|L'objet identifié sur le terrain est un arbre entretenu, localisé en diffus, en alignement, dans un contenant artificiel ou dans une zone boisée aménagée et entretenue.|L'objet restitué doit correspondre au centre de celui-ci.|
-|PONCTUEL Espace vert|Bacs, pots, jardinière|POINT|L'objet identifié sur le terrain est un espace fleuri hors sol dans un contenant artificiel (jardinière, pot, suspension ...).|L'objet restitué doit correspondre au centre de celui-ci.|
-|PONCTUEL Espace vert|Ponctuel fleuri|POINT|L'objet identifié sur le terrain est un massif fleuri inférieur à 5m².|L'objet restitué doit correspondre au centre du polygone non saisie inférieur à 5m².|
-|PONCTUEL Hydrographique|Ponctuel points d'eau|POINT|L'objet identifié sur le terrain est un équipement hydrographique (fontaine, points d'eau ...) contenus dans un site cohérent (parc, square, ...). Les bassins ou étendus d'eau sont représentés ici si ils sont inférieurs à 5m²|L'objet restitué doit correspondre au centre de celui-ci.|
+|PONCTUEL Espace vert|Bacs, pots, jardinière|POINT|L'objet identifié sur le terrain est un espace fleuri hors sol dans un contenant artificiel (jardinière, pot, suspension ...) inférieur à 5m².|L'objet restitué doit correspondre au centre de celui-ci.|
+|PONCTUEL Espace vert|Ponctuel fleuri|POINT|L'objet identifié sur le terrain est un massif fleuri ou arbustif inférieur à 5m².|L'objet restitué doit correspondre au centre du polygone non saisie.|
+|PONCTUEL Hydrographique|Ponctuel points d'eau|POINT|L'objet identifié sur le terrain est un équipement hydrographique (fontaine, points d'eau ...) contenus dans un site cohérent (parc, square ...). Les bassins ou étendues d'eau sont représentés ici si ils sont inférieurs à 5m². |L'objet restitué doit correspondre au centre de celui-ci.|
 |LINEAIRE Espace vert|Alignement d'arbres(1)|LINEAIRE|L'objet identifié sur le terrain est une bande arborée, composée d'une série d'arbres entretenus continus (au moins 4), le long d'un axe routier ou piéton.|Le linéaire saisi correspond au centre de l'emprise de l'alignement. Les ruptures de voirie devront être respectées. Chaque alignement doit être identifié. Se référer au schéma n°1 ci-dessous.|
 |LINEAIRE Espace vert|Haie|LINEAIRE|L'objet identifié sur le terrain est une bande arbustive d'un seul tenant intégrée ou non à une espace enherbé d'une largeur inférieure à 5m sinon il s'agit d'un espace planté. Les ruptures de cohérence devront être respectées (se référer au schéma n°3). Une largeur est obligatoirement renseignée.|Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement renseignée. Les ruptures de voirie devront être respectées. Se référer au schéma n°2 ci-dessous.|
 |LINEAIRE Minéral|Circulation douce|LINEAIRE|L'objet identifié sur le terrain est un axe de circulation doux (allée, piste cyclable ...) homogène (piéton ou 2 roues) décomposant un espace enherbé ou planté d'une largeur inférieure à 5 mètres en moyenne, sinon il s'agit d'un espace minéral. Une largeur est obligatoirement renseignée.|Le tracé de la ligne est obligatoirement saisi au centre de l'emprise au sol de l'objet.|
+|LINEAIRE Minéral|Clôture|LINEAIRE|L'objet identifié sur le terrain est une délimitation non naturelle (mur, grillage, palissade ...) fermant un site cohérent (parc, square ...) ou un sous-ensemble (aire de jeux dans un parc ...) . |Le tracé de la ligne est obligatoirement au pied de l'emprise au sol de l'objet.|
+|SURFACE Espace vert|Zone boisée|POLYGONE|L'objet identifié sur le terrain est un ensemble d'arbres naturels sur un espace ne faisant pas l'objet d'un entretien.|Pour rappel, Les boisements denses dans un site cohérent sont entretenus donc la modélisation des arbres doit s'appliquer sur un espace enherbé délimité.|
+|SURFACE Espace vert|Espace enherbé|POLYGONE|L'objet identifié sur le terrain est un ensemble enherbé, homogène, entretenu et de même type, d'une surface supérieure à 25m².|Pour rappel, Les objets intégrant cet espace (circulation douce, haie ...) de forme linéaire, créant ainsi des ruptures, sont saisis sous forme de linéaire.|
+|SURFACE Espace vert|Espace planté|POLYGONE|L'objet identifié sur le terrain est un massif fleuri ou arbustif au sol ou hors sol supérieur à 5m².|Pour rappel, si la surfaces est inféreure à 5m², cet espace est représenté par un ponctuel fleuri.|
+|SURFACE Espace vert|Espace naturel|POLYGONE|L'objet identifié sur le terrain est un ensemble non arboré naturel correspondant à une friche végétale supérieur à 25m².||
+|SURFACE Espace minéral|Espace minéral|POLYGONE|L'objet identifié sur le terrain est une zone minérale (parking, parvis/place, aire de jeux ...) intégrant un espace cohérent d'espace vert (parc, square ...). |Pas de surface minimum, tout objet doit-être saisi. Pour rappel les éléments minéraux de rupture (circulation douce ...) sont saisi en linéaire.|
+|SURFACE Espace hydrographique|Etendue d'eau|POLYGONE|L'objet identifié sur le terrain est une surface en eau supérieure à 5m² (bassin, marre, étang ...) intégrant un espace cohérent d'espace vert (parc, square ...). |Pour rappel, si leur surface est inférieure à 5m², ils sont représentés en ponctuel.|
 
-|SURFACE Espace vert|Zone boisée|POLYGONE|L'objet identifié sur le terrain est un ensemble d'arbres dense, aménagé et faisant l'objet d'un entretien courant. |Celles-ci doivent être identifiées sous forme de polygone et, comme pour les alignements d'arbres, accompagnées d'une représentation ponctuelle de chaque arbre. Les secteurs boisés naturels sont représentés uniquement par un polygone et identifiés comme zone naturelle.|
-
-|SURFACE Espace vert|Espace enherbé|POLYGONE|L'objet identifié sur le terrain est un ensemble enherbé, homogène, entretenu et de même type, d'une largeur supérieure à 5m et non linéaire sinon il s'agit d'un accotement.|Les objets intégrant cet espace, de forme linéaire, d'une largeur inférieure à 5 mètres en sont exclu pour représenter une forme homogène (cf. règles de modélisation édictées en introduction). Se référer au schéma ci-dessous.|
-
-|SURFACE Espace vert|Espace planté|POLYGONE|L'objet identifié sur le terrain est un espace fleuri ou un massif au sol.|Pas de surface minimum, tout objet doit-être saisi. Pour rappel les accotements fleuris sont saisis comme des linéaires si leur largeur est inférieure à 5m et disposés de façon linéaire.|
-
-|SURFACE Espace minéral|Espace minéral|POLYGONE|L'objet identifié sur le terrain est une zone minérale intégrant un espace cohérent d'espace vert (type parc). |Pas de surface minimum, tout objet doit-être saisi. Pour rappel les éléments minéraux de rupture (circulation douce) inférieurs à 5m sont saisi en linéaire.|
 
 (1) Les arbres en alignement font l'objet d'une double saisie, ponctuel et linéaire
 (2) niveau de la nomenclature
-
 
 La saisie des objets linéaires répond à des particularités décrites ci-dessous.
 
