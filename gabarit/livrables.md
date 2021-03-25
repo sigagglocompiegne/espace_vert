@@ -31,7 +31,7 @@ Ces objets peuvent être représentés de façon surfacique (espace enherbé, pl
 
 Ils sont saisis uniquement si ils sont entretenus et gérés par la collectivité y compris dans certaines secteurs privatifs. Dans les sites cohérents (parc, square, coulée verte urbaine ...), les objets "espace vert" sont complétés par des parties minérales ou hydrographiques. En dehors, seuls les objets spécifiques aux espaces verts sont saisis.
 
-L'inventaire cartographique ne s'attachera pas à la définition des sites cohérents et aux zones de gestion.
+L'inventaire cartographique ne s'attachera pas à la définition des sites cohérents et des zones de gestion, et ne devra pas tenir compte des règles topologiques liées à ces données.
 
 Tous les objets saisis sont typés à partir d'une nomenclature métier d'objets "espace vert" afin de les définir individuellement.
 
@@ -71,9 +71,9 @@ Les règles de modélisation peuvent être décrites ainsi :
 |Classe d'objets|Type d'objets|Représentation|Définition|Règle de modélisation particulière|
 |:---|:---|:---|:---|:---|
 |PONCTUEL Espace vert|Arbre(1)|POINT|L'objet identifié sur le terrain est un arbre entretenu, localisé en diffus, en alignement, dans un contenant artificiel ou dans une zone boisée aménagée et entretenue.|L'objet restitué doit correspondre au centre de celui-ci.|
-|PONCTUEL Espace vert|Bacs, pots, jardinière|POINT|L'objet identifié sur le terrain est un espace fleuri hors sol dans un contenant artificiel (jardinière, pot, suspension ...) inférieur à 5m².|L'objet restitué doit correspondre au centre de celui-ci.|
-|PONCTUEL Espace vert|Ponctuel fleuri|POINT|L'objet identifié sur le terrain est un massif fleuri ou arbustif inférieur à 5m².|L'objet restitué doit correspondre au centre du polygone non saisie.|
-|PONCTUEL Hydrographique|Ponctuel points d'eau|POINT|L'objet identifié sur le terrain est un équipement hydrographique (fontaine, points d'eau ...) contenus dans un site cohérent (parc, square ...). Les bassins ou étendues d'eau sont représentés ici si ils sont inférieurs à 5m². |L'objet restitué doit correspondre au centre de celui-ci.|
+|PONCTUEL Espace vert|Ponctuel fleuri hors sol|POINT|L'objet identifié sur le terrain est un espace fleuri hors sol dans un contenant artificiel (Bacs, pots, jardinière, suspension ...) inférieur à 5m².|L'objet restitué doit correspondre au centre de celui-ci.|
+|PONCTUEL Espace vert|Ponctuel fleuri au sol|POINT|L'objet identifié sur le terrain est un massif fleuri ou arbustif inférieur à 5m².|L'objet restitué doit correspondre au centre du polygone non saisie.|
+|PONCTUEL Hydrographique|Ponctuel points d'eau|POINT|L'objet identifié sur le terrain est un équipement hydrographique (fontaine, point d'eau ...) contenus dans un site cohérent (parc, square ...). Les bassins ou étendues d'eau sont représentés ici si ils sont inférieurs à 5m². |L'objet restitué doit correspondre au centre de celui-ci.|
 |LINEAIRE Espace vert|Alignement d'arbres(1)|LINEAIRE|L'objet identifié sur le terrain est une bande arborée, composée d'une série d'arbres entretenus continus (au moins 4), le long d'un axe routier ou piéton.|Le linéaire saisi correspond au centre de l'emprise de l'alignement. Les ruptures de voirie devront être respectées. Chaque alignement doit être identifié. Se référer au schéma n°1 ci-dessous.|
 |LINEAIRE Espace vert|Haie|LINEAIRE|L'objet identifié sur le terrain est une bande arbustive d'un seul tenant intégrée ou non à une espace enherbé d'une largeur inférieure à 5m sinon il s'agit d'un espace planté. Les ruptures de cohérence devront être respectées (se référer au schéma n°3). Une largeur est obligatoirement renseignée.|Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement renseignée. Les ruptures de voirie devront être respectées. Se référer au schéma n°2 ci-dessous.|
 |LINEAIRE Minéral|Circulation douce|LINEAIRE|L'objet identifié sur le terrain est un axe de circulation doux (allée, piste cyclable ...) homogène (piéton ou 2 roues) décomposant un espace enherbé ou planté d'une largeur inférieure à 5 mètres en moyenne, sinon il s'agit d'un espace minéral. Une largeur est obligatoirement renseignée.|Le tracé de la ligne est obligatoirement saisi au centre de l'emprise au sol de l'objet.|
@@ -99,16 +99,16 @@ Schéma n°1 : Règle de saisie des alignements d'arbres
 
 Schéma n°2 : Règle de saisie des haies
 
-**Synthèses**
+**Exemples d'applications de la modélisation**
 
 **Dans un site cohérent (parc, square ...) :** 
 
-![picto](sites_coherent_v2.png)
+![picto](à refaire)
 
 
 **En dehors d'un site cohérent (espace végétalisé diffus, trottoir végétalisé, accotement ...) :** 
 
-![picto](diffus_v2.png)
+![picto](à refaire)
 
 
 Les objets de cet inventaire cartographique doivent répondre également aux règles topologiques présentées ci-après.
@@ -119,7 +119,7 @@ Les objets de cet inventaire cartographique doivent répondre également aux rè
 La cohérence topologique impose le partage de géométrie et donc l’utilisation des outils « d’accroches ».
 
 - Tous les objets sont nécessairement inclus dans une emprise communale.
-- Tous les objets sont inclus dans un site (équipement public, voie...). 
+- Tous les objets sont inclus dans un site cohérent ou non (équipement public, voie ...). 
 - Les objets devront être découpés avec les limites communales et les zones de gestion existantes.
 
 - Tous les objets de type "surface" sont des polygones fermés, et s'ils sont adjacents, ils devront être topologiques (absence de chevauchements et de micro-trous). 
@@ -150,9 +150,8 @@ L'encodage des caractères est en UTF8. Les différents supports sont téléchar
 
 |Nom fichier|Définition|Catégorie|Géométrie|
 |:---|:---|:---|:---|
-|geo_v_ev_point|Localisation des objets "espace vert" de représentation ponctuelle|Inventaire cartographique|Ponctuel|
-|geo_v_ev_polygon|Délimitation des objets "espace vert" de représentation surfacique|Inventaire cartographique|Polygone|
-|geo_v_ev_line|Tracé des objets "espace vert" de représentation rectiligne|Inventaire cartographique|Linéaire|
+|||Inventaire cartographique|Ponctuel|
+
 
 ## Implémentation informatique
 
@@ -160,89 +159,63 @@ L'encodage des caractères est en UTF8. Les différents supports sont téléchar
 
 Ensemble des données décrivant les objets composant l'inventaire cartographique des espaces verts. 
 
-`geo_v_ev_point` : fichier contenant les objets "espace vert" de type ponctuel
+`[SHAPE NAME]` : fichier contenant les objets "[NAME]" de type [GEOM]
 
 |Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
 |:---|:---|:---|:---|:---|:---|
-|idobjet|Identifiant unique des objets|integer|Incrémentation automatique valeur max(idobjet)+1|NOT NULL||
-|typev1|Nomenclature de niveau 1 identifiant le type d'espace vert|character varying(1)|Liste de valeurs lt_ev_typev1|NOT NULL||
-|typev2|Nomenclature de niveau 2 identifiant le type d'espace vert|character varying(3)|Liste de valeurs lt_ev_typev2|NOT NULL||
-|srcgeom_sai|Référentiel de saisie|character varying(2)|Liste de valeurs lt_src_geom|NOT NULL||
-|srcdate_sai|Année du référentiel de saisie|integer||NOT NULL||
-|qualglocxy|Incertitude maximale de la précision de saisie en cm|integer||NOT NULL||
-|op_sai|Opérateur de saisie |character varying(50)||NOT NULL||
-|dat_sai|Date de saisie |Date|now()|NOT NULL|Valeur calculée automatiquement à la saisie|
-|observ|Commentaires divers |character varying(254)||||
-|surf_e|Surface d'emprise au sol en m²|integer|||(en fonction des choix de modélisation retenue)|
 
-
-`geo_v_ev_polygon` : fichier contenant les objets "espace vert" de type surfacique
-
-|Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
-|:---|:---|:---|:---|:---|:---|
-|idobjet|Identifiant unique des objets|integer|Incrémentation automatique valeur max(idobjet)+1|NOT NULL||
-|typev1|Nomenclature de niveau 1 identifiant le type d'espace vert|character varying(1)|Liste de valeurs lt_ev_typev1|NOT NULL||
-|typev2|Nomenclature de niveau 2 identifiant le type d'espace vert|character varying(3)|Liste de valeurs lt_ev_typev2|NOT NULL||
-|srcgeom_sai|Référentiel de saisie|character varying(2)|Liste de valeurs lt_src_geom|NOT NULL||
-|srcdate_sai|Année du référentiel de saisie|integer||NOT NULL||
-|qualglocxy|Incertitude maximale de la précision de saisie en cm|integer||NOT NULL||
-|op_sai|Opérateur de saisie |character varying(50)||NOT NULL||
-|dat_sai|Date de saisie |Date|now()|NOT NULL||
-|observ|Commentaires divers |character varying(254)||||
-|sup_m²|Surface du polygone saisie en mètre carré|integer|$area|NOT NULL|Valeur calculée automatiquement à la saisie|
-|perimetre|Périmètre du polygone saisie en mètre|integer|$perimetre|NOT NULL|Valeur calculée automatiquement à la saisie|
-
-`geo_v_ev_line` : fichier contenant les objets "espace vert" de type linéaire
-
-|Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
-|:---|:---|:---|:---|:---|:---|
-|idobjet|Identifiant unique des objets|integer|Incrémentation automatique valeur max(idobjet)+1|NOT NULL||
-|typev1|Nomenclature de niveau 1 identifiant le type d'espace vert|character varying(1)|Liste de valeurs lt_ev_typev1|NOT NULL||
-|typev2|Nomenclature de niveau 2 identifiant le type d'espace vert|character varying(3)|Liste de valeurs lt_ev_typev2|NOT NULL||
-|srcgeom_sai|Référentiel de saisie|character varying(2)|Liste de valeurs lt_src_geom|NOT NULL||
-|srcdate_sai|Année du référentiel de saisie|integer||NOT NULL||
-|qualglocxy|Incertitude maximale de la précision de saisie en cm|integer||NOT NULL||
-|op_sai|Opérateur de saisie |character varying(50)||NOT NULL||
-|dat_sai|Date de saisie |Date|now()|NOT NULL||
-|observ|Commentaires divers |character varying(254)||||
-|long_m|Longueur du tracé saisie en mètre|integer|$length|NOT NULL|Valeur calculée automatiquement à la saisie|
-|larg_cm|Largeur du tracé saisie en centimètre|integer||NOT NULL||
 
 ### Liste de valeurs
 
-Le contenu des listes de valeurs est disponible dans la documentation complète de la base de données en cliquant [ici](/bdd/doc_admin_bd_ev.md) dans la rubrique `Liste de valeurs`.
-
-Cependant, pour des questions de compréhension, la nomenclature définissant le type des objets "espace vert" est présentée ci-dessous. Pour l'inventaire cartographique, seuls les 2 premiers niveaux de nomenclature sont imposés.
-
-
-`lt_ev_typev1` : liste des valeurs de la nomenclature de niveau 1 permettant de décrire les objets de l'inventaire cartographique des espaces verts
+`lt_ev_type` : liste des valeurs de la nomenclature de niveau 1 permettant de décrire les objets de l'inventaire cartographique des espaces verts
 
 |Code|Valeur|
 |:---|:---|
-|1|Végétal|
-|2|Minéral|
-|3|Hydrographie|
-|9|Référence non classée|
+|10|Végétal|
+|20|Minéral|
+|30|Hydrographique|
+|99|Référence non classée|
 
-`lt_ev_typev2` : liste des valeurs de la nomenclature de niveau 2 permettant de décrire les objets de l'inventaire cartographique des espaces verts
+`lt_ev_sstype` : liste des valeurs de la nomenclature de niveau 2 permettant de décrire les objets de l'inventaire cartographique des espaces verts
 
 |Code|Valeur|
 |:---|:---|
-|101|Arbre|
-|102|Espace enherbé|
-|103|Espace planté|
-|104|Ponctuel fleuri|
-|105|Haie, mur|
-|106|Friche|
-|201|Allée|
-|202|Clôture|
-|203|Zone de rencontre|
-|204|Accès|
-|205|Equipement|
-|301|Bassin|
-|302|Points d'eau|
-|303|Cours d'eau|
-|999|Référence non classée|
+|10-00|Arbre isolé|
+|10-10|Arbre en alignement|
+|10-20|Zone boisée|
+|10-30|Espace enherbé|
+|10-40|Espace planté|
+|10-50|Ponctuel fleuri|
+|10-51|Bacs|
+|10-52|Pots|
+|10-53|Jardinière|
+|10-54|Suspension|
+|10-59|Autre contenant artificiel|
+|10-60|Espace naturel|
+|10-99|Autre végétal|
+|20-10|Circulation douce|
+|20-11|Piste cyclable|
+|20-12|Allée|
+|20-20|Espace minéral|
+|20-21|Place/Parvis|
+|20-22|Stationnement|
+|20-30|Clôture|
+|20-31|Mur|
+|20-32|Grillage|
+|20-33|Palissade|
+|20-40|Equipements|
+|20-41|Aire de jeux|
+|20-99|Autre minéral|
+|30-10|Ponctuel hydrographique|
+|30-11|Fontaine|
+|30-12|Point d'eau|
+|30-20|Etendue d'eau|
+|30-21|Bassin|
+|30-22|Marre|
+|30-23|Etang|
+|30-99|Autre hydrographique|
+|99-99|Référence non classée|
+
 
 `lt_src_geom` : liste des valeurs des référentiels de saisis disponibles
 |Code|Valeur|
@@ -254,6 +227,14 @@ Cependant, pour des questions de compréhension, la nomenclature définissant le
 |51|Plan topographique|
 |53|Trace GPS|
 |99|Autre|
+
+`lt_ev_typsaihaie` : liste des valeurs décrivant le type de saisie de la sous-classe de précision des objets espace vert de type haie
+
+|Code|Valeur|
+|:---|:---|
+|10|Largeur à appliquer au centre du linéaire|
+|20|Largeur à appliquer dans le sens de saisie|
+|30|Largeur à appliquer dans le sens inverse de saisie|
 
 ### Les identifiants
 
