@@ -219,9 +219,11 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 ||10111|Arbre isolé|
 ||10112|Arbre en alignement|
 ||10113|Zone boisée|
+||10119|Autre|
 ||10211|Arbuste isolé|
 ||10212|Haie arbustive|
 ||10213|Massif arbustif|
+||10219|Autre|
 ||10311|Pot|
 ||10312|Bac|
 ||10313|Jardinière|
@@ -242,7 +244,17 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 ||20319|Autre|
 ||20411|Aire de jeux|
 ||20419|Autre|
-||30111||
+||30111|Fontaine|
+||30112|Point d'accès à l'eau|
+||30119|Autre|
+||30211|Rivière|
+||30213|Ru|
+||30219|Autre|
+||30311|Bassin|
+||30312|Marre|
+||30313|Etang|
+||30319|Autre|
+||99000|Référence non classée|
 
 
 `lt_src_geom` : liste des valeurs des référentiels de saisis disponibles
@@ -282,7 +294,7 @@ Ci-dessous sont listées les classes de valeurs des attributs complémentaires p
 
 |Illustration|Code|Valeur|
 |:---|:---|:---|
-||10|Espace entretenu|
+|![picto](ev_entretenu.png)|10|Espace entretenu|
 ||20|Espace rustique|
 ||30|Espace naturel|
 
