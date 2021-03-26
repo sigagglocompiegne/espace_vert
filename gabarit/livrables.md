@@ -283,11 +283,11 @@ Ci-dessous sont listées les classes de valeurs des attributs complémentaires p
 |Illustration|Code|Valeur|
 |:---|:---|:---|
 ||10|Sol|
-||20|Hors-sol|
-||21|Pot|
-||22|Bac|
-||23|Jardinière|
-||24|Suspension|
+||20|Hors-sol (non précisé)|
+|![picto](pot.png)|21|Pot|
+|![picto](bac.png)|22|Bac|
+|![picto](jardinière.png)|23|Jardinière|
+|![picto](suspension.png)|24|Suspension|
 ||29|Autre|
 
 `lt_ev_typespace` : liste des valeurs décrivant le niveau d'entretien des objets "espace vert" de type végétal
