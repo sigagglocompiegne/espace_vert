@@ -98,11 +98,27 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 
 (1) Les arbres en alignement font l'objet d'une double saisie, ponctuel et linéaire
 
-#### Classes d'attribut complémentaire à certains objets
+#### Classes d'attributs complémentaires à certains objets
+
+Certains classes d'objets doivent faire l'objet de complétude par des attributs complémentaires qualitatifs. Le tableau ci-dessous indique les classes d'objets du gabarit qui sont concernées et les attributs à saisir (les valeurs possibles sont listées à la suite du tableau).
+
+|Classe d'objets|Type de saisie (1)|Position (2)|Niveau d'entretien (3)|Largeur|
+|:---|:---|:---|:---|:---|
+|Arbre isolé||X|X||
+|Alignement d'arbres||X|X||
+|Zone boisée||X|X||
+|Arbuste isolé||X|X||
+|Haie|X|X|X|X|
+|Massif arbustif||X|X||
+|Fleuri isolé||X|X||
+|Massif fleuri||X|X||
+|Espace enherbé||X|X||
+|Circulation voie||||X|
+|Cours d'eau||||X|
 
 Ci-dessous sont listées les classes de valeurs des attributs complémentaires propres à certains objets.
 
-`lt_ev_typsaihaie` : liste des valeurs décrivant le type de saisie de la sous-classe de précision des objets espace vert de type haie
+(1) `lt_ev_typsaihaie` : liste des valeurs décrivant le type de saisie de la sous-classe de précision des objets espace vert de type haie
 
 |Code|Valeur|
 |:---|:---|
@@ -110,7 +126,7 @@ Ci-dessous sont listées les classes de valeurs des attributs complémentaires p
 |20|Largeur à appliquer dans le sens de saisie|
 |30|Largeur à appliquer dans le sens inverse de saisie|
 
-`lt_ev_position` : liste des valeurs décrivant la position des objets "espace vert" de type végétal
+(2) `lt_ev_position` : liste des valeurs décrivant la position des objets "espace vert" de type végétal
 
 |Illustration|Code|Valeur|
 |:---|:---|:---|
@@ -122,7 +138,7 @@ Ci-dessous sont listées les classes de valeurs des attributs complémentaires p
 |![picto](suspension.png)|24|Suspension|
 ||29|Autre|
 
-`lt_ev_typespace` : liste des valeurs décrivant le niveau d'entretien des objets "espace vert" de type végétal
+(3) `lt_ev_niventretien` : liste des valeurs décrivant le niveau d'entretien des objets "espace vert" de type végétal
 
 |Illustration|Code|Valeur|Définition et exemple|
 |:---|:---|:---|:---|
