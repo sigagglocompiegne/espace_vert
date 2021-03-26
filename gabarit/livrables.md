@@ -85,7 +85,7 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 |Classe d'objets|Représentation|Définition et règle|Type d'objets saisis|Schéma de principe|
 |:---|:---|:---|:---|:---|
 |Arbre isolé (1)|POINT|L'objet identifié sur le terrain est un arbre entretenu, localisé en diffus, en alignement, dans un contenant artificiel ou dans une zone boisée aménagée et entretenue. L'objet restitué doit correspondre au centre de celui-ci.|arbre|![picto]|
-|Alignement d'arbres (1)|LINEAIRE|L'objet identifié sur le terrain est une bande arborée, composée d'une série d'arbres entretenus continus (au moins 4), le long d'un axe routier ou piéton. Le linéaire saisi correspond au centre de l'emprise de l'alignement. Les ruptures de voirie devront être respectées (se référer au schéma n°1 ci-dessous=. Chaque alignement doit être identifié.|arbre|![picto]|
+|Alignement d'arbres (1)|LINEAIRE|L'objet identifié sur le terrain est une bande arborée, composée d'une série d'arbres entretenus continus (au moins 4), le long d'un axe routier ou piéton. Le linéaire saisi correspond au centre de l'emprise de l'alignement. Les ruptures de voirie devront être respectées (se référer au schéma n°1 ci-dessous=. Chaque alignement doit être identifié.|arbre|![picto](regle_lineaire_v1.png)|
 |Zone boisée|POLYGONE|L'objet identifié sur le terrain est un ensemble d'arbres naturels sur un espace ne faisant pas l'objet d'un entretien. Pour rappel, Les boisements denses dans un site cohérent sont entretenus, la modélisation des arbres doit s'appliquer sur un espace enherbé délimité.|boisement naturel|![picto]|
 |Arbuste isolé|POINT|L'objet identifié sur le terrain est un arbuste entretenu, localisé en diffus, dans un contenant artificiel ou non. L'objet restitué doit correspondre au centre de celui-ci.|arbuste|![picto]|
 |Haie|LINEAIRE|L'objet identifié sur le terrain est une bande arbustive d'un seul tenant intégrée ou non à un espace enherbé d'une largeur inférieure à 5m sinon il s'agit d'un massif arbustif. Les ruptures de cohérence devront être respectées (se référer au schéma n°3). Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement renseignée. Les ruptures de voirie devront être respectées (se référer au schéma n°2 ci-dessous).|arbuste|![picto]|
@@ -108,7 +108,7 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 
 La saisie des objets linéaires répond à des particularités décrites ci-dessous.
 
-![picto](regle_lineaire_v1.png)
+
 
 Schéma n°1 : Règle de saisie des alignements d'arbres
 
