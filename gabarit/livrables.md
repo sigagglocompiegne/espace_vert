@@ -32,7 +32,7 @@ Le principe de fonctionnement de la base de données devant intégrer l'inventai
 
 Ces objets peuvent être représentés de façon surfacique (espace enherbé, planté ...), linéaire (haie, chemin ...) ou ponctuel (arbre, pot ...). 
 
-Dans les sites cohérents (parc, square, coulée verte urbaine ...), les objets "espace vert" sont complétés par des parties minérales ou hydrographiques. En dehors, seuls les objets spécifiques aux espaces verts sont saisis.
+**Dans les sites cohérents (parc, square, coulée verte urbaine ...), les objets "espace vert" sont complétés par des parties minérales ou hydrographiques. En dehors, seuls les objets spécifiques aux espaces verts sont saisis.**
 
 L'inventaire cartographique ne s'attachera pas à la définition des sites cohérents et des zones de gestion, et ne devra pas tenir compte des règles topologiques liées à ces données.
 
@@ -230,7 +230,19 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 ||10319|Autre|
 ||10411|Pelouse, gazon|
 ||10419|Autre|
-||20111||
+||20111|Allée|
+||20112|Piste cyclable|
+||20119|Autre|
+||20211|Mur|
+||20212|Grillage|
+||20213|Palissage|
+||20219|Autre|
+||20311|Parking matérialisé|
+||20312|Espace de stationnement libre|
+||20319|Autre|
+||20411|Aire de jeux|
+||20419|Autre|
+||30111||
 
 
 `lt_src_geom` : liste des valeurs des référentiels de saisis disponibles
