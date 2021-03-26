@@ -97,9 +97,10 @@ Les objets d'espaces verts disposent d'attributs complémentaires. Ils sont indi
 #### Modélisation détaillée des objets à saisir
 
 
-|Classe d'objets|Type d'objets|Représentation|Définition|Règle de modélisation particulière|
+|Classe d'objets|Représentation|Définition et règle|Type d'objets saisis|Schéma de principe|
 |:---|:---|:---|:---|:---|
-|PONCTUEL Espace vert|Arbre(1)|POINT|L'objet identifié sur le terrain est un arbre entretenu, localisé en diffus, en alignement, dans un contenant artificiel ou dans une zone boisée aménagée et entretenue.|L'objet restitué doit correspondre au centre de celui-ci.|
+|Arbre isolé (1)|POINT|L'objet identifié sur le terrain est un arbre entretenu, localisé en diffus, en alignement, dans un contenant artificiel ou dans une zone boisée aménagée et entretenue. L'objet restitué doit correspondre au centre de celui-ci.|arbre|![picto]|
+
 |PONCTUEL Espace vert|Ponctuel fleuri hors sol|POINT|L'objet identifié sur le terrain est un espace fleuri hors sol dans un contenant artificiel (Bacs, pots, jardinière, suspension ...) inférieur à 5m².|L'objet restitué doit correspondre au centre de celui-ci.|
 |PONCTUEL Espace vert|Ponctuel fleuri au sol|POINT|L'objet identifié sur le terrain est un massif fleuri ou arbustif inférieur à 5m².|L'objet restitué doit correspondre au centre du polygone non saisie.|
 |PONCTUEL Hydrographique|Ponctuel points d'eau|POINT|L'objet identifié sur le terrain est un équipement hydrographique (fontaine, point d'eau ...) contenus dans un site cohérent (parc, square ...). Les bassins ou étendues d'eau sont représentés ici si ils sont inférieurs à 5m². |L'objet restitué doit correspondre au centre de celui-ci.|
