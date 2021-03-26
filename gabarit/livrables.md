@@ -239,10 +239,10 @@ Code|Valeur|
 |![picto](parking.png)|20311|Parking matérialisé|
 |![picto](espace_stationnement.png)|20312|Espace de stationnement libre|
 ||20319|Autre|
-||20411|Aire de jeux|
+|![picto](aire_jeux.png)|20411|Aire de jeux|
 ||20419|Autre|
-||30111|Fontaine|
-||30112|Point d'accès à l'eau|
+|![picto](fontaine.png)|30111|Fontaine|
+|![picto](point_eau.png)|30112|Point d'accès à l'eau|
 ||30119|Autre|
 ||30211|Rivière|
 ||30213|Ru|
