@@ -196,20 +196,20 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 
 `lt_ev_type2` : liste des valeurs de la nomenclature de niveau 2 permettant de décrire les objets de l'inventaire cartographique des espaces verts
 
-|Illustration|Code|Valeur|
-|:---|:---|:---|
-||101|Arbre|
-||102|Arbuste|
-||103|Fleuri|
-||104|Enherbé|
-||201|Circulation|
-||202|Clôture|
-||203|Stationnement|
-||204|Equipement|
-||301|Point d'eau|
-||302|Cours d'eau|
-||303|Etendue d'eau|
-||990|Référence non classée|
+Code|Valeur|
+|:---|:---|
+|101|Arbre|
+|102|Arbuste|
+|103|Fleuri|
+|104|Enherbé|
+|201|Circulation|
+|202|Clôture|
+|203|Stationnement|
+|204|Equipement|
+|301|Point d'eau|
+|302|Cours d'eau|
+|303|Etendue d'eau|
+|990|Référence non classée|
 
 
 `lt_ev_type3` : liste des valeurs de la nomenclature de niveau 3 permettant de décrire les objets de l'inventaire cartographique des espaces verts
