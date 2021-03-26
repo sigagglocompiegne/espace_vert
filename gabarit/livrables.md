@@ -66,7 +66,7 @@ Ces ruptures, dans un site cohérent ou non, venant interrompre cette homogéné
 Ces attributs complémentaires propres aux objets des espaces verts permettent ainsi de réaliser plus facilement des calculs d'exploitation (linéaire de haies, ...).
 
 Cette orientation assumée, est censée être plus proche d'une gestion de service mais ne permet pas une restitution graphique exacte des objets "espace vert". La production d'un inventaire cartographique et de sa mise à jour (interne ou non) est jugée plus rapide. A contrario, l'exploitation des données devra prendre en compte les particularités de cette modélisation pour restituer au mieux une réalité en terme de surface.
-Pour rappel, c'est cette approche qui a été utilisée pour un premier inventaire réalisé en 2018 mais sans intégrer cette notion d'attributs complémentaires. Celui-ci devant être corrigé pour être intégré à la nouvelle base de données, cette option est la moins impactante.
+
 
 #### Présentation simplifiée de la nomenclature 
 
@@ -175,7 +175,7 @@ L'encodage des caractères est en UTF8. Les différents supports sont téléchar
 
 ### Patrimoine
 
-Ensemble des données décrivant les objets composant l'inventaire cartographique des espaces verts. 
+Ensemble des données décrivant les objets composant l'inventaire cartographique des espaces verts ainsi que les attrobits complémentaires spécifiques à certaines classes d'attributs. 
 
 `[SHAPE NAME]` : fichier contenant les objets "[NAME]" de type [GEOM]
 
@@ -185,7 +185,7 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 
 ### Liste de valeurs
 
-`lt_ev_type` : liste des valeurs de la nomenclature de niveau 1 permettant de décrire les objets de l'inventaire cartographique des espaces verts
+`lt_ev_type1` : liste des valeurs de la nomenclature de niveau 1 permettant de décrire les objets de l'inventaire cartographique des espaces verts
 
 |Code|Valeur|
 |:---|:---|
@@ -194,7 +194,7 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 |30|Hydrographique|
 |99|Référence non classée|
 
-`lt_ev_sstype` : liste des valeurs de la nomenclature de niveau 2 permettant de décrire les objets de l'inventaire cartographique des espaces verts
+`lt_ev_type2` : liste des valeurs de la nomenclature de niveau 2 permettant de décrire les objets de l'inventaire cartographique des espaces verts
 
 |Illustration|Code|Valeur|
 |:---|:---|:---|
@@ -234,7 +234,7 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 ||30-99|Autre hydrographique|
 ||99-99|Référence non classée|
 
-`lt_ev_sstype` : liste des valeurs de la nomenclature de niveau 3 permettant de décrire les objets de l'inventaire cartographique des espaces verts
+`lt_ev_type3` : liste des valeurs de la nomenclature de niveau 3 permettant de décrire les objets de l'inventaire cartographique des espaces verts
 
 
 `lt_src_geom` : liste des valeurs des référentiels de saisis disponibles
