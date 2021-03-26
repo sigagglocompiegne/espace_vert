@@ -9,6 +9,9 @@ La démarche s'organise en 3 temps :
 . détaillé ces objets d'un point de vue métier
 . optique d'engagement de gestions des espaces verts (tableau de bord, gestion et intervention).
 
+## Principe de la modélisation des classes d'objets
+
+![picto](à faire)
 
 ## Modèle relationnel simplifié
 
