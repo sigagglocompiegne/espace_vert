@@ -197,7 +197,7 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 `lt_ev_sstype` : liste des valeurs de la nomenclature de niveau 2 permettant de décrire les objets de l'inventaire cartographique des espaces verts
 
 |Illustration|Code|Valeur|
-|:---|:---|
+|:---|:---|:---|
 ||10-00|Arbre isolé|
 ||10-10|Arbre en alignement|
 ||10-20|Zone boisée|
