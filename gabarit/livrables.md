@@ -11,13 +11,16 @@
 
 # Livrables
 
-Le gabarit présenté ci-après s'organise autour de la production d'un inventaire cartographique des espaces verts gérés par la collectivité. 
-L'objectif principal est bien de recenser l'ensemble des objets participant à la structuration des espaces verts. En les typant par une nomenclature simple et compréhensible, cet inventaire peut-être produit par un non spécialiste.
+Le gabarit présenté ci-après s'organise autour de la production d'un inventaire cartographique des espaces verts. Il peut être utilisé pour la saisie :
+ * des espaces verts situés dans le domaine public,
+ * des espaces verts compris dans des espaces privés fermés relevant de la propriété de la collectivité, 
+ * des espaces verts compris dans des espaces privés ouverts et accessibles depuis l'espace public.
+ 
+En les typant par une nomenclature simple et compréhensible, cet inventaire peut-être produit par un non spécialiste.
 
 Néanmoins pour les besoins d'un service gérant les espaces verts, ce gabarit a été pensé pour deux autres usages : l'un permettant de détailler ces objets d'un point de vue métier et l'autre dans une optique d'engagement de gestion des espaces verts (tableau de bord, interventions....).
 
 Cet inventaire sera ainsi intégré à la base de données de la collectivité et pourra être également complété et mis à jour par le service métier à moyen et long terme.
-
 
 ## Gabarits
 
@@ -29,7 +32,7 @@ Le principe de fonctionnement de la base de données devant intégrer l'inventai
 
 Ces objets peuvent être représentés de façon surfacique (espace enherbé, planté ...), linéaire (haie, chemin ...) ou ponctuel (arbre, pot ...). 
 
-Ils sont saisis uniquement si ils sont entretenus et gérés par la collectivité y compris dans certaines secteurs privatifs. Dans les sites cohérents (parc, square, coulée verte urbaine ...), les objets "espace vert" sont complétés par des parties minérales ou hydrographiques. En dehors, seuls les objets spécifiques aux espaces verts sont saisis.
+Dans les sites cohérents (parc, square, coulée verte urbaine ...), les objets "espace vert" sont complétés par des parties minérales ou hydrographiques. En dehors, seuls les objets spécifiques aux espaces verts sont saisis.
 
 L'inventaire cartographique ne s'attachera pas à la définition des sites cohérents et des zones de gestion, et ne devra pas tenir compte des règles topologiques liées à ces données.
 
@@ -59,14 +62,20 @@ L'inventaire cartographique se fera préférentiellement :
 Les règles de modélisation consiste à présenter la façon dont les objets doivent être saisis et restitués dans le gabarit.
 
 La modélisation choisie est la non prise en compte des ruptures sous forme surfacique pour conserver l'homogénéisation d'usage des objets.
-Ces ruptures, dans un site cohérent ou non, venant interrompre cette homogénéisation sont représentées sous forme linéaire avec des attributs les qualifiant (longueur, largeur...). 
-Ces attributs complémentaires permettent ainsi de réaliser plus facilement des calculs d'exploitation (linéaire de haies, ...).
+Ces ruptures, dans un site cohérent ou non, venant interrompre cette homogénéisation sont représentées sous forme linéaire avec des attributs les qualifiant ( largeur, type de saisie ...). 
+Ces attributs complémentaires propres aux objets des espaces verts permettent ainsi de réaliser plus facilement des calculs d'exploitation (linéaire de haies, ...).
 
 Cette orientation assumée, est censée être plus proche d'une gestion de service mais ne permet pas une restitution graphique exacte des objets "espace vert". La production d'un inventaire cartographique et de sa mise à jour (interne ou non) est jugée plus rapide. A contrario, l'exploitation des données devra prendre en compte les particularités de cette modélisation pour restituer au mieux une réalité en terme de surface.
 Pour rappel, c'est cette approche qui a été utilisée pour un premier inventaire réalisé en 2018 mais sans intégrer cette notion d'attributs complémentaires. Celui-ci devant être corrigé pour être intégré à la nouvelle base de données, cette option est la moins impactante.
 
+#### Présentation simplifiée de la nomenclature 
 
-Les règles de modélisation peuvent être décrites ainsi :
+
+#### Modélisation simplifiée des objets à saisir
+
+
+#### Modélisation détaillée des objets à saisir
+
 
 |Classe d'objets|Type d'objets|Représentation|Définition|Règle de modélisation particulière|
 |:---|:---|:---|:---|:---|
