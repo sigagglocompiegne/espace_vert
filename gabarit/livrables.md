@@ -102,8 +102,40 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 |Cours d'eau|POINT|L'objet identifié sur le terrain est un cours d'eau naturel ou non décomposant un espace enherbé ou planté d'une largeur inférieure à 5 mètres en moyenne, sinon il s'agit d'une étendue d'eau. Une largeur est obligatoirement renseignée. Le tracé de la ligne est obligatoirement saisi au centre de l'emprise au sol de l'objet.|ru, rivière|![picto]|
 |Etendue d'eau|POLYGONE|L'objet identifié sur le terrain est une surface en eau supérieure à 5m² intégrant un espace cohérent d'espace vert (parc, square ...). Pour rappel, si leur surface est inférieure à 5m², ils sont représentés en ponctuel.|bassin, marre, étang ...|![picto]|
 
-
 (1) Les arbres en alignement font l'objet d'une double saisie, ponctuel et linéaire
+
+#### Classes d'attribut complémentaire à certains objets
+
+Ci-dessous sont listées les classes de valeurs des attributs complémentaires propres à certains objets.
+
+`lt_ev_typsaihaie` : liste des valeurs décrivant le type de saisie de la sous-classe de précision des objets espace vert de type haie
+
+|Code|Valeur|
+|:---|:---|
+|10|Largeur à appliquer au centre du linéaire|
+|20|Largeur à appliquer dans le sens de saisie|
+|30|Largeur à appliquer dans le sens inverse de saisie|
+
+`lt_ev_position` : liste des valeurs décrivant la position des objets "espace vert" de type végétal
+
+|Illustration|Code|Valeur|
+|:---|:---|:---|
+|![picto](sol.png)|10|Sol|
+||20|Hors-sol (non précisé)|
+|![picto](pot.png)|21|Pot|
+|![picto](bac_a.png)|22|Bac|
+|![picto](jardiniere.png)|23|Jardinière|
+|![picto](suspension.png)|24|Suspension|
+||29|Autre|
+
+`lt_ev_typespace` : liste des valeurs décrivant le niveau d'entretien des objets "espace vert" de type végétal
+
+|Illustration|Code|Valeur|Définition et exemple|
+|:---|:---|:---|:---|
+|![picto](ev_entretenu_v2.png)|10|Espace entretenu, jardiné|Espace faisant l'objet d'un aménagement et d'un entretien courant : parc, square, massif ...|
+|![picto](ev_rustique_v2.png)|20|Espace rustique|Naturelle ou libre, la flore est laissée en place mais elle est cadrée par quelques interventions de l’équipe d’entretien. Elle peut aussi être associée à des espaces plantés ou semés. Ces espaces sont d’une taille importante et ils sont essentiels à la trame verte et bleue : liaison douce, bassin d’orage, coulée verte, prairie fleurie ...|
+|![picto](ev_naturel_v2.png)|30|Espace naturel| Développement de la flore spontanée avec peu voir pas d'interventions : berge, zone humide, zone boisée, friche ....|
+
 
 
 #### Exemples d'applications de la modélisation
@@ -254,35 +286,6 @@ Code|Valeur|
 |53|Trace GPS|
 |99|Autre|
 
-Ci-dessous sont listées les classes de valeurs des attributs complémentaires propres à certains objets.
-
-`lt_ev_typsaihaie` : liste des valeurs décrivant le type de saisie de la sous-classe de précision des objets espace vert de type haie
-
-|Code|Valeur|
-|:---|:---|
-|10|Largeur à appliquer au centre du linéaire|
-|20|Largeur à appliquer dans le sens de saisie|
-|30|Largeur à appliquer dans le sens inverse de saisie|
-
-`lt_ev_position` : liste des valeurs décrivant la position des objets "espace vert" de type végétal
-
-|Illustration|Code|Valeur|
-|:---|:---|:---|
-|![picto](sol.png)|10|Sol|
-||20|Hors-sol (non précisé)|
-|![picto](pot.png)|21|Pot|
-|![picto](bac_a.png)|22|Bac|
-|![picto](jardiniere.png)|23|Jardinière|
-|![picto](suspension.png)|24|Suspension|
-||29|Autre|
-
-`lt_ev_typespace` : liste des valeurs décrivant le niveau d'entretien des objets "espace vert" de type végétal
-
-|Illustration|Code|Valeur|Définition et exemple|
-|:---|:---|:---|:---|
-|![picto](ev_entretenu_v2.png)|10|Espace entretenu, jardiné|Espace faisant l'objet d'un aménagement et d'un entretien courant : parc, square, massif ...|
-|![picto](ev_rustique_v2.png)|20|Espace rustique|Naturelle ou libre, la flore est laissée en place mais elle est cadrée par quelques interventions de l’équipe d’entretien. Elle peut aussi être associée à des espaces plantés ou semés. Ces espaces sont d’une taille importante et ils sont essentiels à la trame verte et bleue : liaison douce, bassin d’orage, coulée verte, prairie fleurie ...|
-|![picto](ev_naturel_v2.png)|30|Espace naturel| Développement de la flore spontanée avec peu voir pas d'interventions : berge, zone humide, zone boisée, friche ....|
 
 ### Les identifiants
 
