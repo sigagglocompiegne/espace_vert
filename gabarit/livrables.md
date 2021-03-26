@@ -224,11 +224,8 @@ Code|Valeur|
 ||10212|Haie arbustive|
 ||10213|Massif arbustif|
 ||10219|Autre|
-||10311|Pot|
-||10312|Bac|
-||10313|Jardinière|
-||10314|Suspension|
-||10315|Massif fleuri|
+||10311|Point fleuri|
+||10312|Massif fleuri|
 ||10319|Autre|
 ||10411|Pelouse, gazon|
 ||10419|Autre|
