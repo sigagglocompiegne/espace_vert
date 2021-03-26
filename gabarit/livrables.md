@@ -70,7 +70,7 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 
 #### Présentation simplifiée de la nomenclature 
 
-![picto](à refaire)
+![picto](nomenclature_ev.png)
 
 #### Modélisation simplifiée des objets à saisir
 
