@@ -236,8 +236,8 @@ Code|Valeur|
 |![picto](grillage.png)|20212|Grillage|
 |![picto](palissade.png)|20213|Palissage|
 ||20219|Autre|
-||20311|Parking matérialisé|
-||20312|Espace de stationnement libre|
+|![picto](parking.png)|20311|Parking matérialisé|
+|![picto](espace_stationnement.png)|20312|Espace de stationnement libre|
 ||20319|Autre|
 ||20411|Aire de jeux|
 ||20419|Autre|
