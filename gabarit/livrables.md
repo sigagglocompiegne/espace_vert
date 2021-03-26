@@ -116,8 +116,6 @@ Certains classes d'objets doivent faire l'objet de complétude par des attributs
 |Circulation voie||||X|
 |Cours d'eau||||X|
 
-Ci-dessous sont listées les classes de valeurs des attributs complémentaires propres à certains objets.
-
 (1)  Type de saisie : liste des valeurs décrivant le type de saisie de la sous-classe de précision des objets espace vert de type haie
 
 |Code|Valeur|
