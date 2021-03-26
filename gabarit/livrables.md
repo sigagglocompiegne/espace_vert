@@ -70,7 +70,7 @@ Pour rappel, c'est cette approche qui a été utilisée pour un premier inventai
 
 #### Présentation simplifiée de la nomenclature 
 
-
+![picto](nomenclature_ev.png)
 
 #### Modélisation simplifiée des objets à saisir
 
