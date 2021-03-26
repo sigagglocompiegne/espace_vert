@@ -72,29 +72,50 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 
 ![picto](nomenclature_ev.png)
 
+#### Modélisation simplifiée des classes d'objets du gabarit par type de géométrie permis
+
+|Classe d'objets|Point|Ligne|Polygone|
+|:---|:---|:---|:---|
+|Arbre isolé|X|||
+|Alignement d'arbres||X||
+|Zone boisée|||X|
+|Arbuste isolé|X|||
+|Haie||X||
+|Massif arbustif|X||X|
+|Fleuri isolé|X|||
+|Massif fleuri|X||X|
+|Espace enherbé|||X|
+|Circulation voie||X||
+|Circulation espace|||X|
+|Clôture||X||
+|Stationnement|||X|
+|Equipement récréatif|||X|
+|Points d'eau|X|||
+|Cours d'eau||X||
+|Etendue d'eau|X||X|
 
 #### Modélisation détaillée des objets du gabarit à saisir
 
 
 |Classe d'objets|Représentation|Définition et règle|Type d'objets saisis|Schéma de principe|
 |:---|:---|:---|:---|:---|
-|Arbre isolé (1)|POINT|L'objet identifié sur le terrain est un arbre entretenu, localisé en diffus, en alignement, dans un contenant artificiel ou dans une zone boisée aménagée et entretenue. L'objet restitué doit correspondre au centre de celui-ci.|arbre|![picto](arbre_saisi.png)|
+|Arbre isolé (1)|POINT|L'objet identifié sur le terrain est un arbre entretenu, localisé en diffus, en alignement, dans un contenant artificiel ou dans une zone boisée aménagée et entretenue. L'objet restitué doit correspondre au centre de celui-ci.|arbre||
 |Alignement d'arbres (1)|LINEAIRE|L'objet identifié sur le terrain est une bande arborée, composée d'une série d'arbres entretenus continus (au moins 4), le long d'un axe routier ou piéton. Le linéaire saisi correspond au centre de l'emprise de l'alignement. Les ruptures de voirie devront être respectées. Chaque alignement doit être identifié.|arbre|![picto](regle_lineaire_v1.png)|
-|Zone boisée|POLYGONE|L'objet identifié sur le terrain est un ensemble d'arbres naturels sur un espace ne faisant pas l'objet d'un entretien. Pour rappel, Les boisements denses dans un site cohérent sont entretenus, la modélisation des arbres doit s'appliquer sur un espace enherbé délimité.|boisement naturel|![picto](saisi_zone_boisee.png)|
+|Zone boisée|POLYGONE|L'objet identifié sur le terrain est un ensemble d'arbres naturels sur un espace ne faisant pas l'objet d'un entretien. Pour rappel, Les boisements denses dans un site cohérent sont entretenus, la modélisation des arbres doit s'appliquer sur un espace enherbé délimité.|boisement naturel||
 |Arbuste isolé|POINT|L'objet identifié sur le terrain est un arbuste entretenu, localisé en diffus, dans un contenant artificiel ou non. L'objet restitué doit correspondre au centre de celui-ci.|arbuste|Même principe que les arbres isolés|
 |Haie|LINEAIRE|L'objet identifié sur le terrain est une bande arbustive d'un seul tenant intégrée ou non à un espace enherbé d'une largeur inférieure à 5m sinon il s'agit d'un massif arbustif. Les ruptures de cohérence devront être respectées. Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement renseignée. Les ruptures de voirie devront être respectées.|arbuste|![picto](saisie_haie.png)|
-|Massif arbustif|POLYGONE|L'objet identifié sur le terrain est un massif arbustif au sol ou hors sol d'une surface supérieure à 5m².|Pour rappel, si la surface est inféreure à 5m², cet espace est représenté par dans la classe un arbuste isolé.|![picto](regle_massif_arbustif.png)|
-|Fleuri isolé|POINT|L'objet identifié sur le terrain est un espace fleuri hors sol dans un contenant artificiel (Bacs, pots, jardinière, suspension ...) inférieur à 5m². L'objet restitué doit correspondre au centre de celui-ci.|fleur en pot, en bac, en jardinière|Même principe que les arbres isolés|
-|Massif fleuri|POLYGONE|L'objet identifié sur le terrain est un massif fleuri au sol ou hors sol supérieur à 5m². Pour rappel, si la surface est inféreure à 5m², cet espace est représenté par dans la classe fleuri isolé.|fleur en massif, jardinière|Même principe que le massif arbustif|
-|Espace enherbé|POLYGONE|L'objet identifié sur le terrain est un ensemble enherbé, homogène, entretenu et de même type, d'une surface supérieure à 25m². Pour rappel, les objets intégrant cet espace (circulation douce, haie ...) de forme linéaire, créant ainsi des ruptures, sont saisis sous forme de linéaire.|pelouse, gazon ...|![picto](saisie_herbace.png)|
-|Circulation voie|LINEAIRE|L'objet identifié sur le terrain est un axe de circulation doux, homogène décomposant un espace enherbé ou planté d'une largeur inférieure à 5 mètres en moyenne, sinon il s'agit d'un espace de circulation. Une largeur est obligatoirement renseignée. Le tracé de la ligne est obligatoirement saisi au centre de l'emprise au sol de l'objet.|allée, piste cyclable ...|![picto](saisie_douce.png)|
-|Circulation espace|POLYGONE|L'objet identifié sur le terrain est une zone minérale de rencontre intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi. Pour rappel les éléments minéraux de rupture (allée, circulation douce ...) sont saisi dans la classe "Circulation voie".|place, parvis ...|![picto](saise_parvis.png)|
-|Clôture|LINEAIRE|L'objet identifié sur le terrain est une délimitation non naturelle fermant un site cohérent (parc, square ...) ou un sous-ensemble (aire de jeux dans un parc ...) . Le tracé de la ligne est obligatoirement au pied de l'emprise au sol de l'objet.|mur, grillage, palissade ...)|![picto](saisie_cloture.png)|
-|Stationnement|POLYGONE|L'objet identifié sur le terrain est une zone de stationnement identifiée intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi.|parking, aire de stationement ...|Même principe que les espaces de circulation, détourer les zones de stationnement identifiées.|
-|Equipement récréatif|POLYGONE|L'objet identifié sur le terrain est une zone récréative intégrée ou non à un site cohérent. Pas de surface minimum, tout objet doit-être saisi. Pour rappel si cet espace est clôturé, la clôture doit être saisie dans la classe d'objet "Clôture".|aire de jeux|Même principe que les espaces de circulation, détourer les équipements récréatifs identifiés.|
-|Points d'eau|POINT|L'objet identifié sur le terrain est un équipement hydrographique contenus dans un site cohérent (parc, square ...). Les bassins ou étendues d'eau sont représentés ici si ils sont inférieurs à 5m². L'objet restitué doit correspondre au centre de celui-ci.|fontaine, point d'eau, marre de moins de 5m² ...|Même principe que les arbres isolés|
-|Cours d'eau|POINT|L'objet identifié sur le terrain est un cours d'eau naturel ou non décomposant un espace enherbé ou planté d'une largeur inférieure à 5 mètres en moyenne, sinon il s'agit d'une étendue d'eau. Une largeur est obligatoirement renseignée. Le tracé de la ligne est obligatoirement saisi au centre de l'emprise au sol de l'objet.|ru, rivière|Même principe que les circulations voies|
-|Etendue d'eau|POLYGONE|L'objet identifié sur le terrain est une surface en eau supérieure à 5m² intégrant un espace cohérent d'espace vert (parc, square ...). Pour rappel, si leur surface est inférieure à 5m², ils sont représentés en ponctuel.|bassin, marre, étang ...|Même principe que les espaces de circulation, détourer les étendues d'eau identifiées.|
+|Massif arbustif|POLYGONE|L'objet identifié sur le terrain est un massif arbustif au sol ou hors sol d'une surface supérieure à 5m².|Pour rappel, si la surface est inféreure à 5m², cet espace est représenté par dans la classe un arbuste isolé.||
+|Fleuri isolé|POINT|L'objet identifié sur le terrain est un espace fleuri hors sol dans un contenant artificiel (Bacs, pots, jardinière, suspension ...) inférieur à 5m². L'objet restitué doit correspondre au centre de celui-ci.|fleur en pot, en bac, en jardinière||
+|Massif fleuri|POLYGONE|L'objet identifié sur le terrain est un massif fleuri au sol ou hors sol supérieur à 5m². Pour rappel, si la surface est inféreure à 5m², cet espace est représenté par dans la classe fleuri isolé.|fleur en massif, jardinière||
+|Espace enherbé|POLYGONE|L'objet identifié sur le terrain est un ensemble enherbé, homogène, entretenu et de même type, d'une surface supérieure à 25m². Pour rappel, les objets intégrant cet espace (circulation douce, haie ...) de forme linéaire, créant ainsi des ruptures, sont saisis sous forme de linéaire.|pelouse, gazon ...||
+|Circulation voie|LINEAIRE|L'objet identifié sur le terrain est un axe de circulation doux, homogène décomposant un espace enherbé ou planté d'une largeur inférieure à 5 mètres en moyenne, sinon il s'agit d'un espace de circulation. Une largeur est obligatoirement renseignée. Le tracé de la ligne est obligatoirement saisi au centre de l'emprise au sol de l'objet.|allée, piste cyclable ...||
+|Circulation espace|POLYGONE|L'objet identifié sur le terrain est une zone minérale de rencontre intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi. Pour rappel les éléments minéraux de rupture (allée, circulation douce ...) sont saisi dans la classe "Circulation voie".|place, parvis ...||
+|Clôture|LINEAIRE|L'objet identifié sur le terrain est une délimitation non naturelle fermant un site cohérent (parc, square ...) ou un sous-ensemble (aire de jeux dans un parc ...) . Le tracé de la ligne est obligatoirement au pied de l'emprise au sol de l'objet.|mur, grillage, palissade ...)||
+|Stationnement|POLYGONE|L'objet identifié sur le terrain est une zone de stationnement identifiée intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi.|parking, aire de stationement ...||
+|Equipement récréatif|POLYGONE|L'objet identifié sur le terrain est une zone récréative intégrée ou non à un site cohérent. Pas de surface minimum, tout objet doit-être saisi. Pour rappel si cet espace est clôturé, la clôture doit être saisie dans la classe d'objet "Clôture".|aire de jeux||
+|Points d'eau|POINT|L'objet identifié sur le terrain est un équipement hydrographique contenus dans un site cohérent (parc, square ...). Les bassins ou étendues d'eau sont représentés ici si ils sont inférieurs à 5m². L'objet restitué doit correspondre au centre de celui-ci.|fontaine, point d'eau, marre de moins de 5m² ...||
+|Cours d'eau|POINT|L'objet identifié sur le terrain est un cours d'eau naturel ou non décomposant un espace enherbé ou planté d'une largeur inférieure à 5 mètres en moyenne, sinon il s'agit d'une étendue d'eau. Une largeur est obligatoirement renseignée. Le tracé de la ligne est obligatoirement saisi au centre de l'emprise au sol de l'objet.|ru, rivière||
+|Etendue d'eau|POLYGONE|L'objet identifié sur le terrain est une surface en eau supérieure à 5m² intégrant un espace cohérent d'espace vert (parc, square ...). Pour rappel, si leur surface est inférieure à 5m², ils sont représentés en ponctuel.|bassin, marre, étang ...||
 
 (1) Les arbres en alignement font l'objet d'une double saisie, ponctuel et linéaire
 
