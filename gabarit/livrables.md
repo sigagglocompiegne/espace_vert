@@ -244,12 +244,12 @@ Code|Valeur|
 |![picto](fontaine.png)|30111|Fontaine|
 |![picto](point_eau.png)|30112|Point d'accès à l'eau|
 ||30119|Autre|
-||30211|Rivière|
-||30213|Ru|
+|![picto](riviere.png)|30211|Rivière|
+|![picto](ru.png)|30213|Ru|
 ||30219|Autre|
-||30311|Bassin|
-||30312|Marre|
-||30313|Etang|
+|![picto](bassin.png)|30311|Bassin|
+|![picto](marre.png)|30312|Marre|
+|![picto](etang.png)|30313|Etang|
 ||30319|Autre|
 ||99000|Référence non classée|
 
