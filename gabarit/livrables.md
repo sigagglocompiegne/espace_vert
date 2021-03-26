@@ -108,7 +108,7 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 
 La saisie des objets linéaires répond à des particularités décrites ci-dessous.
 
-![picto] à refaire
+![picto](regle_lineaire_v1.png)
 
 Schéma n°1 : Règle de saisie des alignements d'arbres
 
