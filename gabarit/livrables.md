@@ -198,43 +198,39 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 
 |Illustration|Code|Valeur|
 |:---|:---|:---|
-||10-00|Arbre isolé|
-||10-10|Arbre en alignement|
-||10-20|Zone boisée|
-||10-30|Espace enherbé|
-||10-40|Espace planté|
-||10-50|Ponctuel fleuri|
-||10-51|Bacs|
-||10-52|Pots|
-||10-53|Jardinière|
-||10-54|Suspension|
-||10-59|Autre contenant artificiel|
-||10-60|Espace naturel|
-||10-99|Autre végétal|
-||20-10|Circulation douce|
-||20-11|Piste cyclable|
-||20-12|Allée|
-||20-20|Espace minéral|
-||20-21|Place/Parvis|
-||20-22|Stationnement|
-||20-30|Clôture|
-||20-31|Mur|
-||20-32|Grillage|
-||20-33|Palissade|
-||20-40|Equipements|
-||20-41|Aire de jeux|
-||20-99|Autre minéral|
-||30-10|Ponctuel hydrographique|
-||30-11|Fontaine|
-||30-12|Point d'eau|
-||30-20|Etendue d'eau|
-||30-21|Bassin|
-||30-22|Marre|
-||30-23|Etang|
-||30-99|Autre hydrographique|
-||99-99|Référence non classée|
+||101|Arbre|
+||102|Arbuste|
+||103|Fleuri|
+||104|Enherbé|
+||201|Circulation|
+||202|Clôture|
+||203|Stationnement|
+||204|Equipement|
+||301|Point d'eau|
+||302|Cours d'eau|
+||303|Etendue d'eau|
+||990|Référence non classée|
+
 
 `lt_ev_type3` : liste des valeurs de la nomenclature de niveau 3 permettant de décrire les objets de l'inventaire cartographique des espaces verts
+
+|Illustration|Code|Valeur|
+|:---|:---|:---|
+||10111|Arbre isolé|
+||10112|Arbre en alignement|
+||10113|Zone boisée|
+||10211|Arbuste isolé|
+||10212|Haie arbustive|
+||10213|Massif arbustif|
+||10311|Pot|
+||10312|Bac|
+||10313|Jardinière|
+||10314|Suspension|
+||10315|Massif fleuri|
+||10319|Autre|
+||10411|Pelouse, gazon|
+||10419|Autre|
+||20111||
 
 
 `lt_src_geom` : liste des valeurs des référentiels de saisis disponibles
