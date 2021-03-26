@@ -224,8 +224,8 @@ Code|Valeur|
 |![picto](haie.png)|10212|Haie arbustive|
 |![picto](massif_arbustif.png)|10213|Massif arbustif|
 ||10219|Autre|
-||10311|Point fleuri|
-||10312|Massif fleuri|
+|![picto](point_fleuri.png)|10311|Point fleuri|
+|![picto](massif_fleuri.png)|10312|Massif fleuri|
 ||10319|Autre|
 ||10411|Pelouse, gazon|
 ||10419|Autre|
