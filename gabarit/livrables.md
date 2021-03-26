@@ -229,12 +229,12 @@ Code|Valeur|
 ||10319|Autre|
 |![picto](herbace.png)|10411|Pelouse, gazon|
 ||10419|Autre|
-||20111|Allée|
-||20112|Piste cyclable|
+|![picto](allee.png)|20111|Allée|
+|![picto](piste_cyclable.png)|20112|Piste cyclable|
 ||20119|Autre|
-||20211|Mur|
-||20212|Grillage|
-||20213|Palissage|
+|![picto](mur.png)|20211|Mur|
+|![picto](grillage.png)|20212|Grillage|
+|![picto](palissade.png)|20213|Palissage|
 ||20219|Autre|
 ||20311|Parking matérialisé|
 ||20312|Espace de stationnement libre|
