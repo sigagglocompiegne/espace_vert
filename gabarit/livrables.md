@@ -74,6 +74,25 @@ Pour rappel, c'est cette approche qui a été utilisée pour un premier inventai
 
 #### Modélisation simplifiée des objets à saisir
 
+Les objets d'espaces verts disposent d'attributs complémentaires. Ils sont indiqués dans les colonnes A+ du tableau ci-dessous pour chaque type de géométrie.
+
+|Objets|Point|A+|Ligne|A+|Surface|A+|
+|:---|:---|:---|:---|:---|:---|:---|
+|arbre|arbre isolé|position,entretien|alignement d'arbres|position,entretien|zone boisée|entretien|
+|arbuste|arbuste isolé|position,entretien|haie|position,entretien,largeur,type de saisie|massif arbustif|position,entretien|
+|fleur|pot, bac, jardinière|position,entretien|||massif fleuri|position,entretien|
+|pelouse|||||espace enherbé|position,entretien|
+|allée|||voie|largeur|||
+|piste cyclable|||voie|largeur|||
+|place/parvis|||||espace de circulation||
+|clôture, mur|||clôture||||
+|parking|||||stationnement||
+|aire de jeux|||||équipement||
+|bassin|point d'eau||||étendue d'eau||
+|fontaine|point d'eau||||||
+|arrivée d'eau|point d'eau||||||
+|ru, rivière|||cours d'eau|largeur|||
+
 
 #### Modélisation détaillée des objets à saisir
 
