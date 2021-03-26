@@ -216,8 +216,8 @@ Code|Valeur|
 
 |Illustration|Code|Valeur|
 |:---|:---|:---|
-||10111|Arbre isolé|
-||10112|Arbre en alignement|
+|![picto](arbre_isole.png)|10111|Arbre isolé|
+|![picto](alignement_arbre.png)|10112|Arbre en alignement|
 ||10113|Zone boisée|
 ||10119|Autre|
 ||10211|Arbuste isolé|
