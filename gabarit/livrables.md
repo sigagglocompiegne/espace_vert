@@ -118,7 +118,7 @@ Certains classes d'objets doivent faire l'objet de complétude par des attributs
 
 Ci-dessous sont listées les classes de valeurs des attributs complémentaires propres à certains objets.
 
-(1) `lt_ev_typsaihaie` : liste des valeurs décrivant le type de saisie de la sous-classe de précision des objets espace vert de type haie
+(1)  Type de saisie : liste des valeurs décrivant le type de saisie de la sous-classe de précision des objets espace vert de type haie
 
 |Code|Valeur|
 |:---|:---|
@@ -126,7 +126,7 @@ Ci-dessous sont listées les classes de valeurs des attributs complémentaires p
 |20|Largeur à appliquer dans le sens de saisie|
 |30|Largeur à appliquer dans le sens inverse de saisie|
 
-(2) `lt_ev_position` : liste des valeurs décrivant la position des objets "espace vert" de type végétal
+(2) Position : liste des valeurs décrivant la position des objets "espace vert" de type végétal
 
 |Illustration|Code|Valeur|
 |:---|:---|:---|
@@ -138,7 +138,7 @@ Ci-dessous sont listées les classes de valeurs des attributs complémentaires p
 |![picto](suspension.png)|24|Suspension|
 ||29|Autre|
 
-(3) `lt_ev_niventretien` : liste des valeurs décrivant le niveau d'entretien des objets "espace vert" de type végétal
+(3) Niveau d'entretien : liste des valeurs décrivant le niveau d'entretien des objets "espace vert" de type végétal
 
 |Illustration|Code|Valeur|Définition et exemple|
 |:---|:---|:---|:---|
