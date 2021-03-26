@@ -71,6 +71,7 @@ Pour rappel, c'est cette approche qui a été utilisée pour un premier inventai
 #### Présentation simplifiée de la nomenclature 
 
 
+
 #### Modélisation simplifiée des objets à saisir
 
 
