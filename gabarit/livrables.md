@@ -218,7 +218,7 @@ L'encodage des caractères est en UTF8. Les différents supports sont téléchar
 
 |Nom fichier|Définition|Catégorie|Géométrie|
 |:---|:---|:---|:---|
-|||Inventaire cartographique|Ponctuel|
+|geo_ev_vegetal_arbreisole|Classe d'objets des arbres isolés|Inventaire cartographique|Ponctuel|
 
 
 ## Implémentation informatique
