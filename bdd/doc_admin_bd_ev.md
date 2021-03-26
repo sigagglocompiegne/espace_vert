@@ -12,7 +12,7 @@ La démarche s'organise en 3 temps :
 
 ## Modèle relationnel simplifié
 
-![picto](mcd_ev_v2.png)
+![picto](à refaire)
 
 ## Schéma fonctionnel
 
@@ -48,8 +48,9 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |quartier|Libellé du quartier de la ville de Compiègne d'appartenance|character varying(80)||
 |doma_d|Domanialité déduite|character varying(2)|00 (liste de valeurs `lt_ev_doma`)|
 |doma_r|Domanialité réelle|character varying(2)|00 (liste de valeurs `lt_ev_doma`)|
-|typ|Valeur de la nomenclature de niveau 1 décrivent l'objet "espace vert"|character varying(2)|valeur vide interdite (liste de valeurs `lt_ev_typ` attribut `code`)|
-|sstyp|Valeur de la nomenclature de niveau 2 décrivent l'objet "espace vert"|character varying(5)|valeur vide interdite (liste de valeurs `lt_ev_sstyp` attribut `code`)|
+|typ1|Valeur de la nomenclature de niveau 1 décrivent l'objet "espace vert"|character varying(2)|valeur vide interdite (liste de valeurs `lt_ev_typ1` attribut `code`)|
+|typ2|Valeur de la nomenclature de niveau 2 décrivent l'objet "espace vert"|character varying(3)|valeur vide interdite (liste de valeurs `lt_ev_typ3` attribut `code`)|
+|typ3|Valeur de la nomenclature de niveau 3 décrivent l'objet "espace vert"|character varying(5)|valeur vide interdite (liste de valeurs `lt_ev_typ3` attribut `code`)|
 |srcgeom_sai|Référentiel de saisies utilisé pour la production initiale cartographique|character varying(2)|00 (liste de valeurs `lt_src_geom`)|
 |srcdate_sai|Année du référentiel de saisies utilisé pour la production initiale cartographique|integer||
 |srcgeom_maj|Référentiel de saisies utilisé pour la mise à jour de la production cartographique|character varying(2)|00 (liste de valeurs `lt_src_geom`)|
@@ -91,20 +92,28 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |long_m|Longueur de l'objet "espace vert" exprimée en mètre|integer|valeur vide interdite (issu du calcul SIG et arrondit au mètre)|
 |geom|Attribut contenant la géométrie de la polyligne|geometry(multilinestring,2154)|valeur vide interdite|
 
-`an_ev_geohaie` : sous-table géographique des objets linéaires de type haie
+`an_ev_geohaie` : classe d'attributs complémentaires des objets linéaires de type "Végétal" haie
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
+|typsai|Type de saisie|character varying(2)|valeur vide interdite (liste de valeurs `lt_ev_typsaihaie`)|
+
+`an_ev_geoline` : classe d'attributs complémentaires des objets linéaires nécessitant une information de largeur
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
 |idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
 |larg_cm|Largeur de l'objet "espace vert" exprimée en centimètre|integer|valeur vide interdite et maximum de 100cm|
-|typsai|Largeur de l'objet "espace vert" exprimée en centimètre|character varying(2)|valeur vide interdite (liste de valeurs `lt_ev_typsaihaie`)|
 
-`an_ev_geocircudouce` : sous-table géographique des objets linéaires de type circulation douce (allée, piste, cyclable, ...)
+
+`an_ev_geovegetal` : classe d'attributs complémentaires des objets "espace vert" de type végétal
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
 |idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
-|larg_cm|Largeur de l'objet "espace vert" exprimée en centimètre|integer|valeur vide interdite et maximum de 100cm|
+|position|position  de l'objet |Character varying(2)|liste de valeurs `lt_ev_position`)|
+|niventretien|niveau d'entretien de l'objet |Character varying(2)|liste de valeurs `lt_ev_niventretien`)|
 
 `an_ev_arbre` : table alphanumérique du patrimoine des objets des espaces verts correspond aux arbres.
 
@@ -163,28 +172,88 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 ## Liste de valeurs
 
-`lt_ev_type` : Liste permettant de décrire la nomenclature de niveau 1 des objets d'espaces verts.
+`lt_ev_typ1` : Liste permettant de décrire la nomenclature de niveau 1 des objets d'espaces verts.
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|    
-|code|Code du type principal des objets espaces verts|character varying(2)| |
-|valeur|Valeur du type principal des objets espaces vertsleur|character varying(50)| |
+|code|Code du type principal des objets espaces verts de niveau 1|character varying(2)| |
+|valeur|Valeur du type principal des objets espaces verts de niveau 1|character varying(50)| |
 
 |code | valeur |
 |:---|:---| 
+|10|Floral|
+|20|Végétal|
+|30|Minéral|
+|40|Hydrographie|
+|99|Référence non classée|
 
-
-`lt_ev_sstype` : Liste permettant de décrire la nomenclature de niveau 1 des objets d'espaces verts.
+`lt_ev_typ2` : Liste permettant de décrire la nomenclature de niveau 2 des objets d'espaces verts.
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|    
-|code|Code du sous-type principal des objets espaces verts|character varying(5)| |
-|valeur|Valeur du sous-type principal des objets espaces verts|character varying(100)| |
+|code|Code du sous-type principal des objets espaces verts de niveau 2|character varying(5)| |
+|valeur|Valeur du sous-type principal des objets espaces verts de niveau 2|character varying(100)| |
 
 |code | valeur |
 |:---|:---| 
+|101|Arbre|
+|102|Arbuste|
+|103|Fleuri|
+|104|Enherbé|
+|201|Circulation|
+|202|Clôture|
+|203|Stationnement|
+|204|Equipement|
+|301|Point d'eau|
+|302|Cours d'eau|
+|303|Etendue d'eau|
+|990|Référence non classée|
 
+`lt_ev_typ3` : Liste permettant de décrire la nomenclature de niveau 3 des objets d'espaces verts.
 
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code du sous-type principal des objets espaces verts de niveau 3|character varying(5)| |
+|valeur|Valeur du sous-type principal des objets espaces verts de niveau 3|character varying(100)| |
+
+|code | valeur |
+|:---|:---| 
+|10111|Arbre isolé|
+|10112|Arbre en alignement|
+|10113|Zone boisée|
+|10119|Autre|
+|10211|Arbuste isolé|
+|10212|Haie arbustive|
+|10213|Massif arbustif|
+|10219|Autre|
+|10311|Point fleuri|
+|10312|Massif fleuri|
+|10319|Autre|
+|10411|Pelouse, gazon|
+|10419|Autre|
+|20111|Allée|
+|20112|Piste cyclable|
+|20119|Autre|
+|20211|Mur|
+|20212|Grillage|
+|20213|Palissage|
+|20219|Autre|
+|20311|Parking matérialisé|
+|20312|Espace de stationnement libre|
+|20319|Autre|
+|20411|Aire de jeux|
+|20419|Autre|
+|30111|Fontaine|
+|30112|Point d'accès à l'eau|
+|30119|Autre|
+|30211|Rivière|
+|30213|Ru|
+|30219|Autre|
+|30311|Bassin|
+|30312|Marre|
+|30313|Etang|
+|30319|Autre|
+|99000|Référence non classée|
 
 `lt_ev_typsite` : Liste permettant de décrire les types principaux des sites
 
@@ -351,6 +420,44 @@ Valeurs possibles :
 |20|Largeur à appliquer dans le sens de saisie|
 |30|Largeur à appliquer dans le sens inverse de saisie|
 
+`lt_ev_position` : Liste permettant de décrire le type de saisie de la sous-classe de précision des objets espace vert de type haie
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+|code|Code de la classe décrivant la position des objets espace vert de type végétal|character varying(2)| |
+|valeur|Valeur de la classe décrivant la position des objets espace vert de type végétal|character varying(80)| |
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|
+|10|Sol|
+|20|Hors-sol (non précisé)|
+|21|Pot|
+|22|Bac|
+|23|Jardinière|
+|24|Suspension|
+|29|Autre|
+
+`lt_ev_niventretien` : Liste des valeurs décrivant le niveau d''entretien des objets "espace vert" de type végétal
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+|code|Code de la classe décrivant le niveau d'entretien des objets espace vert de type végétal|character varying(2)| |
+|valeur|Valeur de la classe décrivant le niveau d'entretien des objets espace vert de type végétal|character varying(80)| |
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|
+|10|Espace entretenu, jardiné|
+|20|Espace rustique|
+|30|Espace naturel|
+
 ---
 
 
@@ -371,6 +478,8 @@ Valeurs possibles :
 `geo_v_ev_polygon` : vue de gestion permettant la saisie des objets "espace vert" de type polygone. L'automatisation des valeurs liées aux géométries (surface et périmètre) sera intégrée après l'intégration de l'inventaire cartographique dans une optique de gestion interne des objets par le service métier.
 
 * Fonction triggers : sans objet
+
+(mettre ici les classes d'objets du gabarit)
 
 ---
 
