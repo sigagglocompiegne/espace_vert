@@ -218,11 +218,11 @@ Code|Valeur|
 |:---|:---|:---|
 |![picto](arbre_isole.png)|10111|Arbre isolé|
 |![picto](alignement_arbre.png)|10112|Arbre en alignement|
-||10113|Zone boisée|
+|![picto](zone_boisee.png)|10113|Zone boisée|
 ||10119|Autre|
-||10211|Arbuste isolé|
-||10212|Haie arbustive|
-||10213|Massif arbustif|
+|![picto](arbuste_isole.png)|10211|Arbuste isolé|
+|![picto](haie.png)|10212|Haie arbustive|
+|![picto](massif_arbustif.png)|10213|Massif arbustif|
 ||10219|Autre|
 ||10311|Point fleuri|
 ||10312|Massif fleuri|
