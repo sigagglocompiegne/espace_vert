@@ -285,8 +285,8 @@ Ci-dessous sont listées les classes de valeurs des attributs complémentaires p
 ||10|Sol|
 ||20|Hors-sol (non précisé)|
 |![picto](pot.png)|21|Pot|
-|![picto](bac.png)|22|Bac|
-|![picto](jardinière.png)|23|Jardinière|
+|![picto](bac_a.png)|22|Bac|
+|![picto](jardiniere.png)|23|Jardinière|
 |![picto](suspension.png)|24|Suspension|
 ||29|Autre|
 
