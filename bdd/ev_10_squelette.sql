@@ -173,7 +173,7 @@ INSERT INTO m_espace_vert_v2.lt_ev_typ1(
     ('40','Hydrographie'),
     ('99','Référence non classée');
 
-COMMENT ON CONSTRAINT lt_ev_typ1_pkkey ON m_espace_vert_v2.lt_ev_typ1 IS 'Clé primaire de la table lt_ev_typ1';
+COMMENT ON CONSTRAINT lt_ev_typ1_pkey ON m_espace_vert_v2.lt_ev_typ1 IS 'Clé primaire de la table lt_ev_typ1';
 
 -- ################################################################# lt_ev_typ2 ###############################################
 
@@ -218,7 +218,7 @@ INSERT INTO m_espace_vert_v2.lt_ev_typ2(
 ('303','Etendue d''eau'),
 ('990','Référence non classée');
 
-COMMENT ON CONSTRAINT lt_ev_typ2_pkkey ON m_espace_vert_v2.lt_ev_typ2 IS 'Clé primaire de la table lt_ev_typ2';
+COMMENT ON CONSTRAINT lt_ev_typ2_pkey ON m_espace_vert_v2.lt_ev_typ2 IS 'Clé primaire de la table lt_ev_typ2';
 
 -- ################################################################# lt_ev_typ3 ###############################################
 
@@ -275,7 +275,7 @@ INSERT INTO m_espace_vert_v2.lt_ev_typ3(
 ('20319','Autre'),
 ('20411','Aire de jeux'),
 ('20419','Autre'),
-('30111','Fontaine'),|
+('30111','Fontaine'),
 ('30112','Point d''accès à l''eau'),
 ('30119','Autre'),
 ('30211','Rivière'),
@@ -287,7 +287,7 @@ INSERT INTO m_espace_vert_v2.lt_ev_typ3(
 ('30319','Autre'),
 ('99000','Référence non classée');
 
-COMMENT ON CONSTRAINT lt_ev_typ3_pkkey ON m_espace_vert_v2.lt_ev_typ3 IS 'Clé primaire de la table lt_ev_typ3';
+COMMENT ON CONSTRAINT lt_ev_typ3_pkey ON m_espace_vert_v2.lt_ev_typ3 IS 'Clé primaire de la table lt_ev_typ3';
 
 -- ################################################################# lt_ev_typsite ###############################################
   
@@ -672,7 +672,7 @@ INSERT INTO m_espace_vert_v2.lt_ev_position(
 ('22','Bac'),
 ('23','Jardinière'),
 ('24','Suspension'),
-('29','Autre'):
+('29','Autre');
   
 -- ####################################################################################################################################################
 -- ###                                                                                                                                              ###
@@ -790,7 +790,7 @@ COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.observ
 
 
 ALTER TABLE m_espace_vert_v2.an_ev_objet
-    ADD CONSTRAINT lt_ev_type_fkey FOREIGN KEY (typ1)
+    ADD CONSTRAINT lt_ev_typ1_fkey FOREIGN KEY (typ1)
     REFERENCES m_espace_vert_v2.lt_ev_typ1 (code) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
@@ -934,7 +934,7 @@ TABLESPACE pg_default;
 ALTER TABLE m_espace_vert_v2.an_ev_geoline
     OWNER to sig_create;
 
-COMMENT ON TABLE m_espace_vert_v2.an_ev_gan_ev_geolineeocircudouce
+COMMENT ON TABLE m_espace_vert_v2.an_ev_geoline
     IS 'Classe de précision des objets de l''inventaire de type linéaire nécessitant des précisions de largeur';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_geoline.idobjet
@@ -982,7 +982,7 @@ COMMENT ON COLUMN m_espace_vert_v2.an_ev_geovegetal.niventretien
 -- ALTER TABLE m_espace_vert_v2.an_ev_geovegetal DROP CONSTRAINT lt_ev_niventretien_fkey;
 
 ALTER TABLE m_espace_vert_v2.an_ev_geovegetal
-    ADD CONSTRAINT lt_ev_niventretien_fkey FOREIGN KEY (entretien)
+    ADD CONSTRAINT lt_ev_niventretien_fkey FOREIGN KEY (niventretien)
     REFERENCES m_espace_vert_v2.lt_ev_niventretien (code) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
@@ -1258,7 +1258,7 @@ COMMENT ON COLUMN m_espace_vert_v2.geo_ev_zone_gestion.sup_m2
 CREATE TABLE m_espace_vert_v2.an_ev_arbre
 (
     idobjet bigint NOT NULL,
-	nom character varyong(50) COLLATE pg_catalog."default",
+    nom character varying(50) COLLATE pg_catalog."default",
     genre character varying(20) COLLATE pg_catalog."default",
     espece character varying(20) COLLATE pg_catalog."default",
     hauteur character varying(2) COLLATE pg_catalog."default",
