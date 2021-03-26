@@ -227,7 +227,7 @@ Code|Valeur|
 |![picto](point_fleuri.png)|10311|Point fleuri|
 |![picto](massif_fleuri.png)|10312|Massif fleuri|
 ||10319|Autre|
-||10411|Pelouse, gazon|
+|![picto](herbace.png)|10411|Pelouse, gazon|
 ||10419|Autre|
 ||20111|Allée|
 ||20112|Piste cyclable|
