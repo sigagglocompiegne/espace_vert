@@ -293,7 +293,7 @@ Ci-dessous sont listées les classes de valeurs des attributs complémentaires p
 `lt_ev_typespace` : liste des valeurs décrivant le niveau d'entretien des objets "espace vert" de type végétal
 
 |Illustration|Code|Valeur|Définition et exemple|
-|:---|:---|:---|
+|:---|:---|:---|:---|
 |![picto](ev_entretenu.png)|10|Espace entretenu, jardiné|Espace faisant l'objet d'un aménagement et d'un entretien courant : parc, square, massif ...|
 |![picto](ev_rustique.png)|20|Espace rustique|Naturelle ou libre, la flore est laissée en place mais elle est
 cadrée par quelques interventions de l’équipe d’entretien. Elle peut aussi être associée à des espaces plantés ou semés. Ces espaces sont d’une
