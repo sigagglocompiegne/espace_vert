@@ -80,11 +80,11 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 |Alignement d'arbres||X||
 |Zone boisée|||X|
 |Arbuste isolé|X|||
-|Haie||X||
-|Massif arbustif|X||X|
+|Haie||X <5m de large||
+|Massif arbustif|X <5m²||X >5m²|
 |Fleuri isolé|X|||
-|Massif fleuri|X||X|
-|Espace enherbé|||X|
+|Massif fleuri|X <5m²||X >5m²|
+|Espace enherbé|||X >25m²|
 |Circulation voie||X||
 |Circulation espace|||X|
 |Clôture||X||
@@ -92,7 +92,7 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 |Equipement récréatif|||X|
 |Points d'eau|X|||
 |Cours d'eau||X||
-|Etendue d'eau|X||X|
+|Etendue d'eau|X <5m²||X >5m²|
 
 #### Modélisation détaillée des objets du gabarit à saisir
 
