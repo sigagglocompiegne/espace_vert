@@ -167,10 +167,9 @@ COMMENT ON COLUMN m_espace_vert_v2.lt_ev_typ1.valeur
 INSERT INTO m_espace_vert_v2.lt_ev_typ1(
             code, valeur)
     VALUES
-    ('10','Floral'),
-    ('20','Végétal'),
-    ('30','Minéral'),
-    ('40','Hydrographie'),
+    ('10','Végétal'),
+    ('20','Minéral'),
+    ('30','Hydrographie'),
     ('99','Référence non classée');
 
 COMMENT ON CONSTRAINT lt_ev_typ1_pkey ON m_espace_vert_v2.lt_ev_typ1 IS 'Clé primaire de la table lt_ev_typ1';
