@@ -1420,7 +1420,7 @@ ALTER TABLE m_espace_vert_v2.an_ev_arbre
     ON DELETE NO ACTION
     NOT VALID;
 
-COMMENT ON CONSTRAINT geo_ev_pct_fey ON m_espace_vert_v2.an_ev_arbre
+COMMENT ON CONSTRAINT geo_ev_pct_fkey ON m_espace_vert_v2.an_ev_arbre
     IS 'Clé étrangère sur la classe des objets points des espaces verts';
 
 -- ####################################################################################################################################################
