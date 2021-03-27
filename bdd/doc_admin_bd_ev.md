@@ -184,10 +184,9 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |code | valeur |
 |:---|:---| 
-|10|Floral|
-|20|Végétal|
-|30|Minéral|
-|40|Hydrographie|
+|10|Végétal|
+|20|Minéral|
+|30|Hydrographie|
 |99|Référence non classée|
 
 `lt_ev_typ2` : Liste permettant de décrire la nomenclature de niveau 2 des objets d'espaces verts.
