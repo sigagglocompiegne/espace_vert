@@ -20,6 +20,8 @@ En les typant par une nomenclature simple et compréhensible, cet inventaire peu
 
 Néanmoins pour les besoins d'un service gérant les espaces verts, ce gabarit a été pensé pour deux autres usages : l'un permettant de détailler ces objets d'un point de vue métier et l'autre dans une optique d'engagement de gestion des espaces verts (tableau de bord, interventions....).
 
+Pour cette raison, la production des objets des "espaces verts" est accompagnée par certains attributs complémentaires à renseigner dans le gabarit.
+
 Cet inventaire sera ainsi intégré à la base de données de la collectivité et pourra être également complété et mis à jour par le service métier à moyen et long terme.
 
 ## Gabarits
@@ -32,11 +34,11 @@ Le principe de fonctionnement de la base de données devant intégrer l'inventai
 
 Ces objets peuvent être représentés de façon surfacique (espace enherbé, planté ...), linéaire (haie, chemin ...) ou ponctuel (arbre, pot ...). 
 
-**Dans les sites cohérents (parc, square, coulée verte urbaine ...), les objets "espace vert" sont complétés par des parties minérales ou hydrographiques. En dehors, seuls les objets spécifiques aux espaces verts sont saisis.**
+**Dans les sites cohérents (parc, square, coulée verte urbaine, pénétrante ...), les objets "espace vert" sont complétés par des parties minérales ou hydrographiques. En dehors, seuls les objets spécifiques aux espaces verts sont saisis.**
 
 L'inventaire cartographique ne s'attachera pas à la définition des sites cohérents et des zones de gestion, et ne devra pas tenir compte des règles topologiques liées à ces données.
 
-Tous les objets saisis sont typés à partir d'une nomenclature métier d'objets "espace vert" afin de les définir individuellement.
+Toutes les classes d'objets du gabarit sont typées à partir d'une nomenclature métier d'objets "espace vert" afin de les définir individuellement.
 
 ![picto]() à refaire
 
@@ -119,7 +121,7 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 
 (1) Les arbres en alignement font l'objet d'une double saisie, ponctuel et linéaire
 
-#### Classes d'attributs complémentaires à certains objets
+#### Classes d'attributs complémentaires à saisir propre à certains objets
 
 Certains classes d'objets doivent faire l'objet de complétude par des attributs complémentaires qualitatifs. Le tableau ci-dessous indique les classes d'objets du gabarit qui sont concernées et les attributs à saisir (les valeurs possibles sont listées à la suite du tableau).
 
@@ -235,34 +237,10 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 
 ### Liste de valeurs
 
-`lt_ev_type1` : liste des valeurs de la nomenclature de niveau 1 permettant de décrire les objets de l'inventaire cartographique des espaces verts
+Le gabarit intègre déjà le découpage des 3 niveaux de nomenclature en terme d'objets "espace vert" à saisir. Seul le niveau 3 est présenté ci-dessous car il montre également des illustrations pemrettant de mieux déterminer les objets à saisir.
 
-|Code|Valeur|
-|:---|:---|
-|10|Végétal|
-|20|Minéral|
-|30|Hydrographique|
-|99|Référence non classée|
-
-`lt_ev_type2` : liste des valeurs de la nomenclature de niveau 2 permettant de décrire les objets de l'inventaire cartographique des espaces verts
-
-Code|Valeur|
-|:---|:---|
-|101|Arbre|
-|102|Arbuste|
-|103|Fleuri|
-|104|Enherbé|
-|201|Circulation|
-|202|Clôture|
-|203|Stationnement|
-|204|Equipement|
-|301|Point d'eau|
-|302|Cours d'eau|
-|303|Etendue d'eau|
-|990|Référence non classée|
-
-
-`lt_ev_type3` : liste des valeurs de la nomenclature de niveau 3 permettant de décrire les objets de l'inventaire cartographique des espaces verts
+ * Nomenclature des objets "espace vert" de niveau 3
+ 
 
 |Illustration|Code|Valeur|
 |:---|:---|:---|
@@ -302,18 +280,6 @@ Code|Valeur|
 |![picto](etang.png)|30313|Etang|
 ||30319|Autre|
 ||99000|Référence non classée|
-
-
-`lt_src_geom` : liste des valeurs des référentiels de saisis disponibles
-|Code|Valeur|
-|:---|:---|
-|00|Non renseigné|
-|20|Ortho-images|
-|22|Orthophotoplan partenaire|
-|50|Lever|
-|51|Plan topographique|
-|53|Trace GPS|
-|99|Autre|
 
 
 ### Les identifiants
