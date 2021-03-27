@@ -237,7 +237,7 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 
 ### Liste de valeurs
 
-Le gabarit intègre déjà le découpage des 3 niveaux de nomenclature en terme d'objets "espace vert" à saisir. Seul le niveau 3 est présenté ci-dessous car il montre également des illustrations pemrettant de mieux déterminer les objets à saisir.
+Le gabarit intègre déjà le découpage des 3 niveaux de nomenclature en terme d'objets "espace vert" à saisir. Seul le niveau 3 est présenté ci-dessous car il montre également des illustrations permettant de mieux déterminer les objets à saisir.
 
  * Nomenclature des objets "espace vert" de niveau 3
  
