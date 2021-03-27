@@ -11,7 +11,7 @@ La démarche s'organise en 3 temps :
 
 ## Principe de la modélisation des classes d'objets
 
-![picto](à faire)
+![picto](ev_principe_modelisation.png)
 
 ## Modèle relationnel simplifié
 
