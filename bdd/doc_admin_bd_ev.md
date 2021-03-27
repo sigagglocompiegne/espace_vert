@@ -523,14 +523,13 @@ Sans objet (uniquement un projet QGis pour le gabarit de mise à jour de l'inven
 
 ## Traitement automatisé mis en place (Workflow de l'ETL FME)
 
-### Migration des données V1 à V2 - Etat 0
+ * Export des classes d'objets pour le gabarit QGIS
 
-Un traitement FME a été réalisé, il se situe dans le dossier du proejt métier.
+Un traitement FME a été réalisé, cliquez [ici]() pour le télécharger. (à venir)
 
+ * Intégration des données saisies via la gabarit
 
-### Intégration d'un nouvel inventaire
-
-(FME à produire pour intégrer la production cartographique à venir en fonction ou non de la reprise de l'existant ?)
+Un traitement FME a été réalisé, cliquez [ici]() pour le télécharger. (à venir)
 
 ---
 
