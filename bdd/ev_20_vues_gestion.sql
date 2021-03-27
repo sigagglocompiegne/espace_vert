@@ -63,8 +63,9 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_line
     o.quartier,
     o.doma_d,
     o.doma_r,
-    o.typ,
-    o.sstyp,
+    o.typ1,
+    o.typ2,
+    o.typ3,
     o.srcgeom_sai,
     o.srcdate_sai,
     o.srcgeom_maj,
@@ -74,21 +75,17 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_line
     o.date_sai,
     o.date_maj,
     o.observ,
-	l.long_m,
-	CASE 
-		WHEN h.larg_cm IS NULL AND c.larg_cm IS NULL THEN 'Non concerné'
-		ELSE 
-			CASE
-				WHEN h.larg_cm IS NULL AND c.larg_cm IS NOT NULL THEN c.larg_cm::text
-				WHEN c.larg_cm IS NULL AND h.larg_cm IS NOT NULL THEN h.larg_cm::text
-			END
-		END	as larg_cm,
-	CASE WHEN h.typsai IS NULL THEN 'Non concerné' ELSE th.valeur END as typsai,
+    l.long_m,
+    h.typsai,
+    c.larg_cm,
+    v.position,
+    v.niventretien,
     l.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_line l ON o.idobjet = l.idobjet
 	 LEFT JOIN m_espace_vert_v2.an_ev_geohaie h ON o.idobjet = h.idobjet
-	 LEFT JOIN m_espace_vert_v2.an_ev_geocircudouce c ON o.idobjet = c.idobjet
+	 LEFT JOIN m_espace_vert_v2.an_ev_geoline c ON o.idobjet = c.idobjet
+	 LEFT JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet
 	 JOIN m_espace_vert_v2.lt_ev_typsaihaie th ON th.code = h.typsai;
 
 ALTER TABLE m_espace_vert_v2.geo_v_ev_line
@@ -114,8 +111,9 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_pct
     o.quartier,
     o.doma_d,
     o.doma_r,
-    o.typ,
-    o.sstyp,
+    o.typ1,
+    o.typ2,
+    o.typ3,
     o.srcgeom_sai,
     o.srcdate_sai,
     o.srcgeom_maj,
@@ -125,12 +123,15 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_pct
     o.date_sai,
     o.date_maj,
     o.observ,
+    v.position,
+    v.niventretien,
 	p.x_l93,
 	p.y_l93,
 	p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
-   WHERE o.sstyp <> '01-01';
+      LEFT JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet
+   WHERE o.typ3 <> '10111';
 
 ALTER TABLE m_espace_vert_v2.geo_v_ev_pct
     OWNER TO create_sig;
@@ -155,8 +156,9 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_polygon
     o.quartier,
     o.doma_d,
     o.doma_r,
-    o.typ,
-    o.sstyp,
+    o.typ1,
+    o.typ2,
+    o.typ3,
     o.srcgeom_sai,
     o.srcdate_sai,
     o.srcgeom_maj,
@@ -166,11 +168,14 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_polygon
     o.date_sai,
     o.date_maj,
     o.observ,
+    v.position,
+    v.niventretien,
 	p.sup_m2,
 	p.perimetre,
 	p.geom
    FROM m_espace_vert_v2.an_ev_objet o
-     JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet;
+     JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
+        LEFT JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet;
 
 ALTER TABLE m_espace_vert_v2.geo_v_ev_polygon
     OWNER TO create_sig;
@@ -196,8 +201,9 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_arbre
     o.quartier,
     o.doma_d,
     o.doma_r,
-    o.typ,
-    o.sstyp,
+    o.typ1,
+    o.typ2,
+    o.typ3,
     o.srcgeom_sai,
     o.srcdate_sai,
     o.srcgeom_maj,
@@ -230,13 +236,16 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_arbre
     a.horz_prec,
     a.northing,
     a.easting,
+    v.position,
+    v.niventretien,
     p.x_l93,
     p.y_l93,
     p.geom::geometry(point,2154) AS geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
 	 JOIN m_espace_vert_v2.an_ev_arbre a ON o.idobjet = a.idobjet
-   WHERE o.sstyp = '01-01';			      
+	 LEFT JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet
+   WHERE o.typ3 = '10111';			      
 
 
 
