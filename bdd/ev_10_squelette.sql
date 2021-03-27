@@ -1281,7 +1281,7 @@ CREATE TABLE m_espace_vert_v2.an_ev_arbre
     horz_prec double precision,
     northing double precision,
     easting double precision,
-    CONSTRAINT geo_ev_arbres_pkey_idobjet PRIMARY KEY (idobjet)
+    CONSTRAINT an_ev_arbres_pkey_idobjet PRIMARY KEY (idobjet)
 )
 WITH (
     OIDS = FALSE
@@ -1407,6 +1407,21 @@ ALTER TABLE m_espace_vert_v2.an_ev_geovegetal
 
 COMMENT ON CONSTRAINT an_ev_geovegetal_polygon_fkey ON m_espace_vert_v2.an_ev_geovegetal
     IS 'Clé étrangère sur la classe des objets polygones des espaces verts';
+    
+    
+-- Constraint: geo_ev_pct_fey
+
+-- ALTER TABLE m_espace_vert_v2.an_ev_arbre DROP CONSTRAINT geo_ev_pct_fey;
+
+ALTER TABLE m_espace_vert_v2.an_ev_arbre
+    ADD CONSTRAINT geo_ev_pct_fey FOREIGN KEY (idobjet)
+    REFERENCES m_espace_vert_v2.geo_ev_pct (idobjet) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+COMMENT ON CONSTRAINT geo_ev_pct_fey ON m_espace_vert_v2.an_ev_arbre
+    IS 'Clé étrangère sur la classe des objets points des espaces verts';
 
 -- ####################################################################################################################################################
 -- ###                                                                                                                                              ###
