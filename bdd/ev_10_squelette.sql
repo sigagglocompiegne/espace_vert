@@ -1414,7 +1414,7 @@ COMMENT ON CONSTRAINT an_ev_geovegetal_polygon_fkey ON m_espace_vert_v2.an_ev_ge
 -- ALTER TABLE m_espace_vert_v2.an_ev_arbre DROP CONSTRAINT geo_ev_pct_fey;
 
 ALTER TABLE m_espace_vert_v2.an_ev_arbre
-    ADD CONSTRAINT geo_ev_pct_fey FOREIGN KEY (idobjet)
+    ADD CONSTRAINT geo_ev_pct_fkey FOREIGN KEY (idobjet)
     REFERENCES m_espace_vert_v2.geo_ev_pct (idobjet) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
