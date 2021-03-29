@@ -2,14 +2,12 @@
 
 # Prescriptions locales pour l'inventaire cartographique des espaces verts
 
-# Documentation du standard
-
-# Changelog
+## Changelog
 
 - 29/03/2021 : finalisation du gabarit et de la modélisation pour un inventaire cartographique
 - 16/11/2020 : description initiale du gabarit de production des espaces verts
 
-# Livrables
+## Livrables
 
 Le gabarit présenté ci-après s'organise autour de la production d'un inventaire cartographique des espaces verts.
 Il peut être utilisé indistinctement pour la saisie des espaces verts situés :
@@ -23,11 +21,11 @@ L'inventaire sera intégré à la base de données de la collectivité et pourra
 
 Il constitue le socle de compléments métiers permettant de mieux détailler les caractéristiques patrimoniales des espaces verts ainsi que leur entretien (gestion). Ces compléments de spécialistes ne font pas partie des présentes prescriptions.
 
-## Gabarits
+### Gabarits
 
 - Fichier gabarit Qgis 3.1x (vierge) complet à télécharger
 
-## Principe fonctionnel
+### Principe fonctionnel
 
 Un espace vert désigne un espace homogène d'agrément planté de fleurs, d'arbustes, d'arbres ou engazonné.
 Il peut être représentée de façon surfacique (espace enherbé, planté ...), linéaire (haie ...) ou ponctuel (arbre, pot ...). 
@@ -41,9 +39,9 @@ L'inventaire cartographique ne s'attache pas à la définition du périmètre de
 Schéma 1 : une représentation des objets d'un inventaire cartographique
 
 
-## Règle de modélisation
+### Règle de modélisation
 
-### Règles générales
+#### Règles générales
 
 Les objets constituant l'inventaire cartographique initial sont organisés autour des 3 primitives géographiques de base : polygones, lignes et points. **La saisie des objets de type multi n'est pas autorisée.**
 
@@ -55,7 +53,7 @@ Ainsi, l'inventaire pourra se faire par :
 - levé de terrain
 - relévés aériens ou embarqués
 
-### La modélisation
+#### La modélisation
 
 Les règles de modélisation consistent à présenter la façon dont les objets doivent être saisis et restitués dans le gabarit.
 
@@ -66,11 +64,11 @@ Ces attributs complémentaires propres aux objets des espaces verts permettent a
 Cette orientation assumée, est censée être plus proche d'une gestion de service mais ne permet pas une restitution graphique exacte des objets "espace vert". La production d'un inventaire cartographique et de sa mise à jour (interne ou non) est jugée plus rapide. A contrario, l'exploitation des données devra prendre en compte les particularités de cette modélisation pour restituer au mieux une réalité en terme de surface.
 
 
-#### Présentation simplifiée de la nomenclature 
+##### Présentation simplifiée de la nomenclature 
 
 ![picto](nomenclature_ev_v4.png)
 
-#### Modélisation simplifiée des classes d'objets du gabarit par type de géométrie permis
+##### Modélisation simplifiée des classes d'objets du gabarit par type de géométrie permis
 
 |Classe d'objets|Point|Ligne|Polygone|
 |:---|:---|:---|:---|
@@ -94,7 +92,7 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 |Cours d'eau||X||
 |Etendue d'eau|X <5m²||X >5m²|
 
-#### Modélisation détaillée des objets du gabarit à saisir
+##### Modélisation détaillée des objets du gabarit à saisir
 
 
 |Classe d'objets|Représentation|Définition et règle|Type d'objets saisis|Schéma de principe|
@@ -121,7 +119,7 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 
 (1) Les arbres en alignement font l'objet d'une double saisie, ponctuel et linéaire
 
-#### Classes d'attributs complémentaires propre à certains objets
+##### Classes d'attributs complémentaires propre à certains objets
 
 Certaines classes d'objets doivent faire l'objet de complétude par des attributs complémentaires qualitatifs. Le tableau ci-dessous indique les classes d'objets du gabarit qui sont concernées et les attributs à saisir (les valeurs possibles sont listées à la suite du tableau).
 
@@ -160,7 +158,7 @@ Certaines classes d'objets doivent faire l'objet de complétude par des attribut
 ||29|Hors-sol (autre type)|
 
 
-#### Exemples d'applications de la modélisation
+##### Exemples d'applications de la modélisation
 
 **Dans un site cohérent (parc, square ...) :** 
 
@@ -175,7 +173,7 @@ Certaines classes d'objets doivent faire l'objet de complétude par des attribut
 Les objets de cet inventaire cartographique doivent répondre également aux règles topologiques présentées ci-après.
 
 
-### Topologie
+#### Topologie
 
 La cohérence topologique impose le partage de géométrie et donc l’utilisation des outils « d’accroches ».
 
@@ -197,17 +195,17 @@ La cohérence topologique impose le partage de géométrie et donc l’utilisati
 
 - Les arcs de cercle ou ellipses devront être numérisés sous forme de polyligne suffisamment détaillée pour en reproduire la forme.
 
-### Système de coordonnées
+#### Système de coordonnées
 
 Les coordonnées seront exprimées en mètres avec trois chiffres après la virgule dans le système national en vigueur.
 Sur le territoire métropolitain s'applique le système géodésique français légal RGF93 associé au système altimétrique IGN69. La projection associée Lambert 93 France (EPSG:2154) sera à utiliser pour la livraison des données.
 
-## Format des fichiers
+### Format des fichiers
 
 Les fichiers sont disponibles au format ESRI Shape (.SHP) contenant la géométrie.
 L'encodage des caractères est en UTF8. Les différents supports sont téléchargeables dans la rubrique Gabarits.
 
-## Description des classes d'objets
+### Description des classes d'objets
 
 |Nom fichier|Définition|Catégorie|Géométrie|
 |:---|:---|:---|:---|
@@ -215,9 +213,9 @@ L'encodage des caractères est en UTF8. Les différents supports sont téléchar
 
 
 
-## Implémentation informatique
+### Implémentation informatique
 
-### Patrimoine
+#### Patrimoine
 
 Ensemble des données décrivant les objets composant l'inventaire cartographique des espaces verts ainsi que les attributs complémentaires spécifiques à certaines classes d'attributs. 
 
@@ -227,7 +225,7 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 |:---|:---|:---|:---|:---|:---|
 
 
-### Liste de valeurs
+#### Liste de valeurs
 
 Le gabarit intègre déjà le découpage des 3 niveaux de nomenclature en terme d'objets "espace vert" à saisir. Seul le niveau 3 est présenté ci-dessous car il montre également des illustrations permettant de mieux déterminer les objets à saisir.
 
@@ -274,7 +272,7 @@ Le gabarit intègre déjà le découpage des 3 niveaux de nomenclature en terme 
 
 
 
-### Les identifiants
+#### Les identifiants
 
 Les identifiants des objets des espaces verts sont des identifiants non signifiants (un simple numéro incrémenté de 1 à chaque insertion).
 
