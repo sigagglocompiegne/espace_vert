@@ -30,7 +30,7 @@ Il constitue le socle de compléments métiers permettant de mieux détailler le
 ## Principe fonctionnel
 
 Un espace vert désigne un espace homogène d'agrément planté de fleurs, d'arbustes, d'arbres ou engazonné.
-Il peut être représentée de façon surfacique (espace enherbé, planté ...), linéaire (haie, chemin ...) ou ponctuel (arbre, pot ...). 
+Il peut être représentée de façon surfacique (espace enherbé, planté ...), linéaire (haie) ou ponctuel (arbre, pot ...). 
 
 **Dans les sites (parc, square, coulée verte urbaine, pénétrante ...), les "espaces verts" sont complétés par des parties minérales ou hydrographiques. En dehors, seuls les objets spécifiques aux espaces verts sont saisis.**
 
