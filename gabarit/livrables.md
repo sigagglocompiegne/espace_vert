@@ -269,8 +269,8 @@ Le gabarit intègre déjà le découpage des 3 niveaux de nomenclature en terme 
 |![picto](fontaine.png)|Fontaine|
 |![picto](point_eau.png)|Robinet|
 ||Autre arrivée d'eau|
-|![picto](riviere.png)|30211|Rivière|
-|![picto](ru.png)|30213|Ru|
+|![picto](riviere.png)|Rivière|
+|![picto](ru.png)|Ru|
 ||Autre cours d'eau|
 |![picto](bassin.png)|Bassin|
 |![picto](marre.png)|Marre|
