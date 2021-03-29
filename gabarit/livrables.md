@@ -20,7 +20,8 @@ Il peut être utilisé indistinctement pour la saisie des espaces verts situés 
 La typologie des espaces verts considérés ne requiert pas de connaissances particulières du domaine et permet donc une production des données par un cartographe.
 
 L'inventaire sera intégré à la base de données de la collectivité et pourra être librement complété et mis à jour par celle-ci.
-Il est le socle de compléments métiers permettant de mieux détailler les caractéristiques patrimoniales des espaces verts ainsi que leur entretien (gestion). Ces compléments de spécialistes ne font pas partie des présentes prescriptions.
+
+Il constitue le socle de compléments métiers permettant de mieux détailler les caractéristiques patrimoniales des espaces verts ainsi que leur entretien (gestion). Ces compléments de spécialistes ne font pas partie des présentes prescriptions.
 
 ## Gabarits
 
