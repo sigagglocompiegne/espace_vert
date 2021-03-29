@@ -6,7 +6,7 @@
 
 # Changelog
 
-- 19/03/2021 : finalisation du gabarit et de la modélisation pour un inventaire cartographique
+- 29/03/2021 : finalisation du gabarit et de la modélisation pour un inventaire cartographique
 - 16/11/2020 : description initiale du gabarit de production des espaces verts
 
 # Livrables
@@ -73,7 +73,7 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 
 #### Présentation simplifiée de la nomenclature 
 
-![picto](nomenclature_ev.png)
+![picto](nomenclature_ev_v2.png)
 
 #### Modélisation simplifiée des classes d'objets du gabarit par type de géométrie permis
 
