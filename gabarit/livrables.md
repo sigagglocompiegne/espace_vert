@@ -256,7 +256,7 @@ Le gabarit intègre déjà le découpage des 3 niveaux de nomenclature en terme 
 |![picto](parking.png)|Stationnement matérialisé|
 |![picto](espace_stationnement.png)|Stationnement libre|
 ||Autre stationnement|
-|![picto](.png)|Parvis, place|
+|![picto](place_parvis.png)|Parvis, place|
 ||Autre espace de rencontre|
 |![picto](mur.png)|Mur|
 |![picto](grillage.png)|Grillage|
