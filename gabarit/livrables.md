@@ -240,7 +240,7 @@ Le gabarit intègre déjà le découpage des 3 niveaux de nomenclature en terme 
  
 
 |Illustration|Valeur|
-|:---|:---|:---|
+|:---|:---|
 |![picto](arbre_isole.png)|Arbre isolé|
 |![picto](alignement_arbre.png)|Arbre en alignement|
 |![picto](zone_boisee.png)|Zone boisée|
@@ -258,9 +258,9 @@ Le gabarit intègre déjà le découpage des 3 niveaux de nomenclature en terme 
 ||Autre stationnement|
 |![picto](.png)|Parvis, place|
 ||Autre espace de rencontre|
-|![picto](mur.png)|20211|Mur|
-|![picto](grillage.png)|20212|Grillage|
-|![picto](palissade.png)|20213|Palissage|
+|![picto](mur.png)|Mur|
+|![picto](grillage.png)|Grillage|
+|![picto](palissade.png)|Palissage|
 |Autre clôture|
 |![picto](.png)|Jeux isolé|
 |![picto](.png)|Elément sportif|
