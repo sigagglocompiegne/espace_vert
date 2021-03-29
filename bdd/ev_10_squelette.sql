@@ -203,8 +203,8 @@ COMMENT ON COLUMN m_espace_vert_v2.lt_ev_typ2.valeur
 INSERT INTO m_espace_vert_v2.lt_ev_typ2(
             code, valeur)
     VALUES
-('11','Arbre'),
-('12','Arbuste'),
+('11','Arboré'),
+('12','Arbustif'),
 ('13','Fleuri'),
 ('14','Enherbé'),
 ('21','Circulation'),
