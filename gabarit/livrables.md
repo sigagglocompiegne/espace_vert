@@ -263,7 +263,7 @@ Le gabarit intègre déjà le découpage des 3 niveaux de nomenclature en terme 
 |![picto](palissade.png)|Palissage|
 |Autre clôture|
 |![picto](.png)|Jeux isolé|
-|![picto](.png)|Elément sportif|
+|![picto](parcours_sportif.png)|Elément sportif|
 |![picto](aire_jeux.png)|Aire de jeux|
 ||Autre loisirs|
 |![picto](fontaine.png)|Fontaine|
