@@ -1,6 +1,6 @@
 ![picto](https://github.com/sigagglocompiegne/orga_gest_igeo/blob/master/doc/img/geocompiegnois_2020_reduit_v2.png)
 
-# Prescriptions spécifiques (locales) pour la gestion des espaces verts
+# Prescriptions locales pour l'inventaire cartographique des espaces verts
 
 # Documentation du standard
 
