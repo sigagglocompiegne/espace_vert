@@ -499,27 +499,3 @@ GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_espaceenherbe TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_vegetal_espaceenherbe TO sig_edit;
 
 
--- View: m_espace_vert_v2.geo_ev_mineral_circulationvoie
-
--- DROP VIEW m_espace_vert_v2.geo_ev_mineral_circulationvoie;
-
-CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_mineral_circulationvoie
- AS
- SELECT o.idobjet,
-    o.typ1,
-    o.typ2,
-    o.typ3,
-    gl.larg_cm,
-    p.geom
-   FROM m_espace_vert_v2.an_ev_objet o
-     JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
-     JOIN m_espace_vert_v2.an_ev_geoline gl ON o.idobjet = gl.idobjet
-  WHERE o.typ2::text = '21'::text;
-
-ALTER TABLE m_espace_vert_v2.geo_ev_mineral_circulationvoie
-    OWNER TO sig_create;
-
-GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_mineral_circulationvoie TO sig_read;
-GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_mineral_circulationvoie TO sig_create;
-GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_mineral_circulationvoie TO create_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_mineral_circulationvoie TO sig_edit;
