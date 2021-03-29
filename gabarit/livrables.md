@@ -34,6 +34,9 @@ Il peut être représenté de façon surfacique (espace enherbé, planté ...), 
 
 L'inventaire cartographique ne s'attache pas à la définition du périmètre de ces sites et ne devra pas tenir compte des règles topologiques liées.
 
+
+![picto](nomenclature_ev_v4.png)
+
 ![picto]() à refaire
 
 Schéma 1 : une représentation des objets d'un inventaire cartographique
@@ -62,11 +65,6 @@ Ces ruptures, dans un site cohérent ou non, venant interrompre cette homogéné
 Ces attributs complémentaires propres aux objets des espaces verts permettent ainsi de réaliser plus facilement des calculs d'exploitation (linéaire de haies, ...).
 
 Cette orientation assumée, est censée être plus proche d'une gestion de service mais ne permet pas une restitution graphique exacte des objets "espace vert". La production d'un inventaire cartographique et de sa mise à jour (interne ou non) est jugée plus rapide. A contrario, l'exploitation des données devra prendre en compte les particularités de cette modélisation pour restituer au mieux une réalité en terme de surface.
-
-
-##### Présentation simplifiée de la nomenclature 
-
-![picto](nomenclature_ev_v4.png)
 
 ##### Modélisation simplifiée des classes d'objets du gabarit par type de géométrie permis
 
