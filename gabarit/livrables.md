@@ -88,11 +88,12 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 |Fleuri isolé|X|||
 |Massif fleuri|X <5m²||X >5m²|
 |Espace enherbé|||X >25m²|
-|Circulation voie||X||
-|Circulation espace|||X|
+|Voie circulation||X||
+|Espace de rencontre|||X|
+|Stationnement|||X|
 |Clôture||X||
 |Stationnement|||X|
-|Equipement récréatif|||X|
+|Arrivée d'eau|X|||
 |Points d'eau|X|||
 |Cours d'eau||X||
 |Etendue d'eau|X <5m²||X >5m²|
@@ -111,11 +112,13 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 |Fleuri isolé|POINT|Espace fleuri hors sol dans un contenant artificiel (bacs, pots, jardinière, suspension ...) inférieur à 5m². L'objet restitué doit correspondre au centre de celui-ci.|fleur en pot, en bac, en jardinière||
 |Massif fleuri|POLYGONE|Massif fleuri au sol ou hors sol supérieur à 5m². Pour rappel, si la surface est inféreure à 5m², cet espace est représenté dans la classe "Fleuri isolé".|fleur en massif, jardinière||
 |Espace enherbé|POLYGONE|Ensemble enherbé, homogène, entretenu et de même type, d'une surface supérieure à 25m². Pour rappel, les objets intégrant cet espace (circulation douce, haie ...) de forme linéaire, créant ainsi des ruptures, sont saisis sous forme de linéaire.|pelouse, gazon ...||
-|Circulation voie|LINEAIRE|Axe de circulation doux, homogène décomposant un espace enherbé ou planté d'une largeur inférieure à 5 mètres en moyenne, sinon il s'agit d'un espace de circulation. Une largeur est obligatoirement renseignée. Le tracé de la ligne est obligatoirement saisi au centre de l'emprise au sol de l'objet.|allée, piste cyclable ...||
-|Circulation espace|POLYGONE|Zone minérale de rencontre intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi. Pour rappel les éléments minéraux de rupture (allée, circulation douce ...) sont saisis dans la classe "Circulation voie".|place, parvis ...||
+|Voie circulation|LINEAIRE|Axe de circulation doux, homogène décomposant un espace enherbé ou planté d'une largeur inférieure à 5 mètres en moyenne, sinon il s'agit d'un espace de circulation. Une largeur est obligatoirement renseignée. Le tracé de la ligne est obligatoirement saisi au centre de l'emprise au sol de l'objet.|allée, piste cyclable ...||
+|Espace de rencontre|POLYGONE|Zone minérale de rencontre intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi. Pour rappel les éléments minéraux de rupture (allée, circulation douce ...) sont saisis dans la classe "Voie circulation".|place, parvis ...||
+|Stationnement|POLYGONE|Zone de stationnement identifiée intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi.|parking, aire de stationnement ...||
 |Clôture|LINEAIRE|Délimitation non naturelle fermant un site cohérent (parc, square ...) ou un sous-ensemble (aire de jeux dans un parc ...) . Le tracé de la ligne est obligatoirement au pied de l'emprise au sol de l'objet.|mur, grillage, palissade ...)||
-|Stationnement|POLYGONE|Zone de stationnement identifiée intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi.|parking, aire de stationement ...||
-|Equipement récréatif|POLYGONE|Zone récréative intégrée ou non à un site cohérent. Pas de surface minimum, tout objet doit-être saisi. Pour rappel, si cet espace est clôturé, la clôture doit être saisie dans la classe d'objet "Clôture".|aire de jeux||
+|Aire de jeux|POLYGONE|Zone récréative intégrée ou non à un site cohérent. Pas de surface minimum, tout objet doit-être saisi. Pour rappel, si cet espace est clôturé, la clôture doit être saisie dans la classe d'objet "Clôture".|aire de jeux||
+|Aire de jeux|POLYGONE|Zone récréative intégrée ou non à un site cohérent. Pas de surface minimum, tout objet doit-être saisi. Pour rappel, si cet espace est clôturé, la clôture doit être saisie dans la classe d'objet "Clôture".|aire de jeux||
+
 |Points d'eau|POINT|Equipement hydrographique contenu dans un site cohérent (parc, square ...). Les bassins ou étendues d'eau sont représentés ici s'ils sont inférieurs à 5m². L'objet restitué doit correspondre au centre de celui-ci.|fontaine, point d'eau, marre de moins de 5m² ...||
 |Cours d'eau|POINT|Cours d'eau naturel ou non décomposant un espace enherbé ou planté d'une largeur inférieure à 5 mètres en moyenne, sinon il s'agit d'une étendue d'eau. Une largeur est obligatoirement renseignée. Le tracé de la ligne est obligatoirement saisi au centre de l'emprise au sol de l'objet.|ru, rivière||
 |Etendue d'eau|POLYGONE|Surface en eau supérieure à 5m² intégrant un espace cohérent d'espace vert (parc, square ...). Pour rappel, si la surface est inférieure à 5m², l'objet sera représenté en ponctuel.|bassin, marre, étang ...||
