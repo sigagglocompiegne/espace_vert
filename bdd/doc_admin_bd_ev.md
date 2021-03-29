@@ -116,7 +116,6 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |:---|:---|:---|:---|
 |idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
 |position|position  de l'objet |Character varying(2)|liste de valeurs `lt_ev_position`)|
-|niventretien|niveau d'entretien de l'objet |Character varying(2)|liste de valeurs `lt_ev_niventretien`)|
 
 `an_ev_arbre` : table alphanumérique du patrimoine des objets des espaces verts correspond aux arbres.
 
@@ -204,11 +203,9 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |14|Enherbé|
 |21|Circulation|
 |22|Clôture|
-|23|Stationnement|
-|24|Equipement|
-|31|Point d'eau|
-|32|Cours d'eau|
-|33|Etendue d'eau|
+|23|Loisirs|
+|31|Arrivée d'eau|
+|32|Espace en eau|
 |99|Référence non classée|
 
 `lt_ev_typ3` : Liste permettant de décrire la nomenclature de niveau 3 des objets d'espaces verts.
@@ -231,26 +228,25 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |141|Pelouse, gazon|
 |211|Allée|
 |212|Piste cyclable|
-|219|Autre|
+|213|Parking matérialisé|
+|214|Espace de stationnement libre|
+|219|Autre circulation|
 |221|Mur|
 |222|Grillage|
 |223|Palissage|
-|229|Autre|
-|231|Parking matérialisé|
-|232|Espace de stationnement libre|
-|239|Autre|
-|241|Aire de jeux|
-|249|Autre|
+|229|Autre clôture|
+|231|Aire de jeux|
+|232|Equipement sportif|
+|239|Autre équipement de loisirs|
 |311|Fontaine|
-|312|Point d'accès à l'eau|
-|319|Autre|
+|312|Robinet|
+|319|Autre arrivée d'eau|
 |321|Rivière|
 |322|Ru|
-|329|Autre|
-|331|Bassin|
-|332|Marre|
-|333|Etang|
-|339|Autre|
+|323|Bassin|
+|324|Marre|
+|325|Etang|
+|329|Autre espace en eau|
 |999|Référence non classée|
 
 `lt_ev_typsite` : Liste permettant de décrire les types principaux des sites
@@ -438,23 +434,6 @@ Valeurs possibles :
 |23|Jardinière|
 |24|Suspension|
 |29|Autre|
-
-`lt_ev_niventretien` : Liste des valeurs décrivant le niveau d''entretien des objets "espace vert" de type végétal
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|  
-|code|Code de la classe décrivant le niveau d'entretien des objets espace vert de type végétal|character varying(2)| |
-|valeur|Valeur de la classe décrivant le niveau d'entretien des objets espace vert de type végétal|character varying(80)| |
-
-Particularité(s) à noter : aucune
-
-Valeurs possibles :
-
-|code | valeur |
-|:---|:---|
-|10|Espace entretenu, jardiné|
-|20|Espace rustique|
-|30|Espace naturel|
 
 ---
 
