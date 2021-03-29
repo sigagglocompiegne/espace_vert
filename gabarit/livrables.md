@@ -131,7 +131,7 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 Certaines classes d'objets doivent faire l'objet de complétude par des attributs complémentaires qualitatifs. Le tableau ci-dessous indique les classes d'objets du gabarit qui sont concernées et les attributs à saisir (les valeurs possibles sont listées à la suite du tableau).
 
 |Classe d'objets|Type de saisie (1)|Position (2)|Largeur|
-|:---|:---|:---|:---|:---|
+|:---|:---|:---|:---|
 |Arbre isolé||X||
 |Alignement d'arbres||X||
 |Zone boisée||X||
