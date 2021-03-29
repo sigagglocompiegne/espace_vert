@@ -131,7 +131,7 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_pct
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
       LEFT JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet
-   WHERE o.typ3 <> '10111';
+   WHERE o.typ3 <> '111';
 
 ALTER TABLE m_espace_vert_v2.geo_v_ev_pct
     OWNER TO create_sig;
@@ -245,10 +245,281 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_arbre
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
 	 JOIN m_espace_vert_v2.an_ev_arbre a ON o.idobjet = a.idobjet
 	 LEFT JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet
-   WHERE o.typ3 = '10111';			      
+   WHERE o.typ3 = '111';			      
+
+-- #################################################################################################################################
+-- ###                                                                                                                           ###
+-- ###                                                      VUES DU GABARIT                                                      ###
+-- ###                                                                                                                           ###
+-- #################################################################################################################################
+
+-- les vues listées ci-dessous sont les vues générant la structure des couches du gabarit
+
+-- View: m_espace_vert_v2.geo_ev_vegetal_arbreisole
+
+-- DROP VIEW m_espace_vert_v2.geo_ev_vegetal_arbreisole;
+
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_arbreisole
+ AS
+ SELECT o.idobjet,
+    o.typ1,
+    o.typ2,
+    o.typ3,
+    v."position",
+    v.niventretien,
+    p.geom
+   FROM m_espace_vert_v2.an_ev_objet o
+     JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet
+  WHERE o.typ3::text = '111'::text;
+
+ALTER TABLE m_espace_vert_v2.geo_ev_vegetal_arbreisole
+    OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_vegetal_arbreisole TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_arbreisole TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_arbreisole TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_vegetal_arbreisole TO sig_edit;
+
+-- View: m_espace_vert_v2.geo_ev_vegetal_arbrealignement
+
+-- DROP VIEW m_espace_vert_v2.geo_ev_vegetal_arbrealignement;
+
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_arbrealignement
+ AS
+ SELECT o.idobjet,
+    o.typ1,
+    o.typ2,
+    o.typ3,
+    v."position",
+    v.niventretien,
+    l.geom
+   FROM m_espace_vert_v2.an_ev_objet o
+     JOIN m_espace_vert_v2.geo_ev_line l ON o.idobjet = l.idobjet
+     JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet
+  WHERE o.typ3::text = '112'::text;
+
+ALTER TABLE m_espace_vert_v2.geo_ev_vegetal_arbrealignement
+    OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_vegetal_arbrealignement TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_arbrealignement TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_arbrealignement TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_vegetal_arbrealignement TO sig_edit;
+
+-- View: m_espace_vert_v2.geo_ev_vegetal_zoneboisee
+
+-- DROP VIEW m_espace_vert_v2.geo_ev_vegetal_zoneboisee;
+
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_zoneboisee
+ AS
+ SELECT o.idobjet,
+    o.typ1,
+    o.typ2,
+    o.typ3,
+    v."position",
+    v.niventretien,
+    p.geom
+   FROM m_espace_vert_v2.an_ev_objet o
+     JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet
+  WHERE o.typ3::text = '113'::text;
+
+ALTER TABLE m_espace_vert_v2.geo_ev_vegetal_zoneboisee
+    OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_vegetal_zoneboisee TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_zoneboisee TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_zoneboisee TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_vegetal_zoneboisee TO sig_edit;
 
 
+-- View: m_espace_vert_v2.geo_ev_vegetal_arbusteisole
+
+-- DROP VIEW m_espace_vert_v2.geo_ev_vegetal_arbusteisole;
+
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_arbusteisole
+ AS
+ SELECT o.idobjet,
+    o.typ1,
+    o.typ2,
+    o.typ3,
+    v."position",
+    v.niventretien,
+    p.geom
+   FROM m_espace_vert_v2.an_ev_objet o
+     JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet
+  WHERE o.typ3::text = '121'::text;
+
+ALTER TABLE m_espace_vert_v2.geo_ev_vegetal_arbusteisole
+    OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_vegetal_arbusteisole TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_arbusteisole TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_arbusteisole TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_vegetal_arbusteisole TO sig_edit;
 
 
+-- View: m_espace_vert_v2.geo_ev_vegetal_haie
+
+-- DROP VIEW m_espace_vert_v2.geo_ev_vegetal_haie;
+
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_haie
+ AS
+ SELECT o.idobjet,
+    o.typ1,
+    o.typ2,
+    o.typ3,
+    v."position",
+    v.niventretien,
+    h.typsai,
+    gl.larg_cm,
+    l.geom
+   FROM m_espace_vert_v2.an_ev_objet o
+     JOIN m_espace_vert_v2.geo_ev_line l ON o.idobjet = l.idobjet
+     JOIN m_espace_vert_v2.an_ev_geoline gl ON o.idobjet = gl.idobjet
+     JOIN m_espace_vert_v2.an_ev_geohaie h ON o.idobjet = h.idobjet
+     JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet
+  WHERE o.typ3::text = '122'::text;
+
+ALTER TABLE m_espace_vert_v2.geo_ev_vegetal_haie
+    OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_vegetal_haie TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_haie TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_haie TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_vegetal_haie TO sig_edit;
 
 
+-- View: m_espace_vert_v2.geo_ev_vegetal_massifarbustif
+
+-- DROP VIEW m_espace_vert_v2.geo_ev_vegetal_massifarbustif;
+
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_massifarbustif
+ AS
+ SELECT o.idobjet,
+    o.typ1,
+    o.typ2,
+    o.typ3,
+    v."position",
+    v.niventretien,
+    p.geom
+   FROM m_espace_vert_v2.an_ev_objet o
+     JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet
+  WHERE o.typ3::text = '123'::text;
+
+ALTER TABLE m_espace_vert_v2.geo_ev_vegetal_massifarbustif
+    OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_vegetal_massifarbustif TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_massifarbustif TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_massifarbustif TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_vegetal_massifarbustif TO sig_edit;
+
+
+-- View: m_espace_vert_v2.geo_ev_vegetal_pointfleuri
+
+-- DROP VIEW m_espace_vert_v2.geo_ev_vegetal_pointfleuri;
+
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_pointfleuri
+ AS
+ SELECT o.idobjet,
+    o.typ1,
+    o.typ2,
+    o.typ3,
+    v."position",
+    v.niventretien,
+    p.geom
+   FROM m_espace_vert_v2.an_ev_objet o
+     JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet
+  WHERE o.typ3::text = '131'::text;
+
+ALTER TABLE m_espace_vert_v2.geo_ev_vegetal_pointfleuri
+    OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_vegetal_pointfleuri TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_pointfleuri TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_pointfleuri TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_vegetal_pointfleuri TO sig_edit;
+
+-- View: m_espace_vert_v2.geo_ev_vegetal_massiffleuri
+
+-- DROP VIEW m_espace_vert_v2.geo_ev_vegetal_massiffleuri;
+
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_massiffleuri
+ AS
+ SELECT o.idobjet,
+    o.typ1,
+    o.typ2,
+    o.typ3,
+    v."position",
+    v.niventretien,
+    p.geom
+   FROM m_espace_vert_v2.an_ev_objet o
+     JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet
+  WHERE o.typ3::text = '132'::text;
+
+ALTER TABLE m_espace_vert_v2.geo_ev_vegetal_massiffleuri
+    OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_vegetal_massiffleuri TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_massiffleuri TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_massiffleuri TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_vegetal_massiffleuri TO sig_edit;
+
+
+-- View: m_espace_vert_v2.geo_ev_vegetal_espaceenherbe
+
+-- DROP VIEW m_espace_vert_v2.geo_ev_vegetal_espaceenherbe;
+
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_espaceenherbe
+ AS
+ SELECT o.idobjet,
+    o.typ1,
+    o.typ2,
+    o.typ3,
+    v."position",
+    v.niventretien,
+    p.geom
+   FROM m_espace_vert_v2.an_ev_objet o
+     JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet
+  WHERE o.typ3::text = '141'::text;
+
+ALTER TABLE m_espace_vert_v2.geo_ev_vegetal_espaceenherbe
+    OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_vegetal_espaceenherbe TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_espaceenherbe TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_vegetal_espaceenherbe TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_vegetal_espaceenherbe TO sig_edit;
+
+
+-- View: m_espace_vert_v2.geo_ev_mineral_circulationvoie
+
+-- DROP VIEW m_espace_vert_v2.geo_ev_mineral_circulationvoie;
+
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_mineral_circulationvoie
+ AS
+ SELECT o.idobjet,
+    o.typ1,
+    o.typ2,
+    o.typ3,
+    gl.larg_cm,
+    p.geom
+   FROM m_espace_vert_v2.an_ev_objet o
+     JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert_v2.an_ev_geoline gl ON o.idobjet = gl.idobjet
+  WHERE o.typ2::text = '21'::text;
+
+ALTER TABLE m_espace_vert_v2.geo_ev_mineral_circulationvoie
+    OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_mineral_circulationvoie TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_mineral_circulationvoie TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_mineral_circulationvoie TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_mineral_circulationvoie TO sig_edit;
