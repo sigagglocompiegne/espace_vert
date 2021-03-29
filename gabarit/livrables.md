@@ -50,7 +50,7 @@ Les objets constituant l'inventaire cartographique initial sont organisés autou
 
 La saisie de ces objets doit permettre une **restitution de l'ordre du 1/1000e**.
 
-Le cadre prescriptif autorise des modalités d'inventaire variées sous réserve que leur précision soit suffisante pour respecter l'échelle de restitution indiquée.
+Le cadre prescriptif autorise des modalités d'inventaire variées sous réserve que la précision soit suffisante pour respecter l'échelle de restitution indiquée.
 Ainsi, l'inventaire pourra se faire par :
 - numérisation sur des référentiels cartographiques (intégrés aux gabarits),
 - levé de terrain
