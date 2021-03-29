@@ -79,7 +79,6 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_line
     h.typsai,
     c.larg_cm,
     v.position,
-    v.niventretien,
     l.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_line l ON o.idobjet = l.idobjet
@@ -124,7 +123,6 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_pct
     o.date_maj,
     o.observ,
     v.position,
-    v.niventretien,
 	p.x_l93,
 	p.y_l93,
 	p.geom
@@ -169,7 +167,6 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_polygon
     o.date_maj,
     o.observ,
     v.position,
-    v.niventretien,
 	p.sup_m2,
 	p.perimetre,
 	p.geom
@@ -237,7 +234,6 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_arbre
     a.northing,
     a.easting,
     v.position,
-    v.niventretien,
     p.x_l93,
     p.y_l93,
     p.geom::geometry(point,2154) AS geom
@@ -266,7 +262,6 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_arbreisole
     o.typ2,
     o.typ3,
     v."position",
-    v.niventretien,
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
@@ -292,7 +287,6 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_arbrealignement
     o.typ2,
     o.typ3,
     v."position",
-    v.niventretien,
     l.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_line l ON o.idobjet = l.idobjet
@@ -318,7 +312,6 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_zoneboisee
     o.typ2,
     o.typ3,
     v."position",
-    v.niventretien,
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
@@ -345,7 +338,6 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_arbusteisole
     o.typ2,
     o.typ3,
     v."position",
-    v.niventretien,
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
@@ -372,7 +364,6 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_haie
     o.typ2,
     o.typ3,
     v."position",
-    v.niventretien,
     h.typsai,
     gl.larg_cm,
     l.geom
@@ -403,7 +394,6 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_massifarbustif
     o.typ2,
     o.typ3,
     v."position",
-    v.niventretien,
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
@@ -430,7 +420,6 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_pointfleuri
     o.typ2,
     o.typ3,
     v."position",
-    v.niventretien,
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
@@ -456,7 +445,6 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_massiffleuri
     o.typ2,
     o.typ3,
     v."position",
-    v.niventretien,
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
@@ -483,7 +471,6 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_espaceenherbe
     o.typ2,
     o.typ3,
     v."position",
-    v.niventretien,
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
