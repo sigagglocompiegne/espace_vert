@@ -16,14 +16,11 @@ Il peut être utilisé indistinctement pour la saisie des espaces verts situés 
  * en domaine public,
  * en domaine privé communal ou intercommunal, 
  * en domaine privé non clos (accessible depuis l'espace public).
- 
-En les typant par une nomenclature simple et compréhensible, cet inventaire peut-être produit par un non spécialiste.
 
-Néanmoins pour les besoins d'un service gérant les espaces verts, ce gabarit a été pensé pour deux autres usages : l'un permettant de détailler ces objets d'un point de vue métier et l'autre dans une optique d'engagement de gestion des espaces verts (tableau de bord, interventions....).
+La typologie des espaces verts considérés ne requiert pas de connaissances particulières du domaine et permet donc une production des données par un intervenant cartographe.
+Il sera intégré à la base de données de la collectivité et pourra être librement complété et mis à jour par celle-ci.
 
-Pour cette raison, la production des objets des "espaces verts" est accompagnée par certains attributs complémentaires à renseigner dans le gabarit.
-
-Cet inventaire sera ainsi intégré à la base de données de la collectivité et pourra être également complété et mis à jour par le service métier.
+L'inventaire cartographique est le socle de compléments métiers permettant de mieux détailler les caractéristiques patrimoniales des espaces verts ainsi que leur entretien (gestion). Ces compléments de spécialistes ne font pas partie des présentes prescriptions.
 
 ## Gabarits
 
@@ -31,15 +28,12 @@ Cet inventaire sera ainsi intégré à la base de données de la collectivité e
 
 ## Principe fonctionnel
 
-Le principe de fonctionnement de la base de données devant intégrer l'inventaire des espaces verts s'appuie sur la production cartographique d'objets métiers définis comme un espace d'agrément planté de fleurs, d'arbustes, d'arbres ou engazonné. 
+Un espace vert désigne un espace homogène d'agrément planté de fleurs, d'arbustes, d'arbres ou engazonné.
+Il peut être représentée de façon surfacique (espace enherbé, planté ...), linéaire (haie, chemin ...) ou ponctuel (arbre, pot ...). 
 
-Ces objets peuvent être représentés de façon surfacique (espace enherbé, planté ...), linéaire (haie, chemin ...) ou ponctuel (arbre, pot ...). 
+**Dans les sites (parc, square, coulée verte urbaine, pénétrante ...), les "espaces verts" sont complétés par des parties minérales ou hydrographiques. En dehors, seuls les objets spécifiques aux espaces verts sont saisis.**
 
-**Dans les sites cohérents (parc, square, coulée verte urbaine, pénétrante ...), les objets "espace vert" sont complétés par des parties minérales ou hydrographiques. En dehors, seuls les objets spécifiques aux espaces verts sont saisis.**
-
-L'inventaire cartographique ne s'attachera pas à la définition des sites cohérents et des zones de gestion, et ne devra pas tenir compte des règles topologiques liées à ces données.
-
-Toutes les classes d'objets du gabarit sont typées à partir d'une nomenclature métier d'objets "espace vert" afin de les définir individuellement.
+L'inventaire cartographique ne s'attache pas à la définition du périmètre de ces sites et ne devra pas tenir compte des règles topologiques liées.
 
 ![picto]() à refaire
 
@@ -54,11 +48,11 @@ Les objets constituant l'inventaire cartographique initial sont organisés autou
 
 La saisie de ces objets doit permettre une restitution de l'ordre du 1/1000e.
 
-Les objets produits dans le cadre de cet inventaire devront être en cohérence topologique avec la précision des référentiels utilisés.
-
-L'inventaire cartographique se fera préférentiellement :
-- soit par numérisation sur des référentiels cartographiques (intégrés aux gabarits),
-- soit par un levé de terrain.
+Le cadre prescriptif autorise des modalités d'inventaire variée sous réserve que leurs précisions soit suffisantes pour respecter l'échelle de restitution indiquée.
+Ainsi, l'inventaire pourra se faire par :
+- numérisation sur des référentiels cartographiques (intégrés aux gabarits),
+- levé de terrain
+- relévés aériens ou embarqués
 
 ### La modélisation
 
