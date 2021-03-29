@@ -246,11 +246,11 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |319|Autre|
 |321|Rivière|
 |322|Ru|
-|323|Autre|
+|329|Autre|
 |331|Bassin|
 |332|Marre|
 |333|Etang|
-|334|Autre|
+|339|Autre|
 |999|Référence non classée|
 
 `lt_ev_typsite` : Liste permettant de décrire les types principaux des sites
