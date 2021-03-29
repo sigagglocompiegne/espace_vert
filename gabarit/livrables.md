@@ -92,7 +92,8 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 |Espace de rencontre|||X|
 |Stationnement|||X|
 |Clôture||X||
-|Stationnement|||X|
+|Loisirs isolé|X|||
+|Espace de loisirs|||X|
 |Arrivée d'eau|X|||
 |Points d'eau|X|||
 |Cours d'eau||X||
@@ -116,10 +117,10 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 |Espace de rencontre|POLYGONE|Zone minérale de rencontre intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi. Pour rappel les éléments minéraux de rupture (allée, circulation douce ...) sont saisis dans la classe "Voie circulation".|place, parvis ...||
 |Stationnement|POLYGONE|Zone de stationnement identifiée intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi.|parking, aire de stationnement ...||
 |Clôture|LINEAIRE|Délimitation non naturelle fermant un site cohérent (parc, square ...) ou un sous-ensemble (aire de jeux dans un parc ...) . Le tracé de la ligne est obligatoirement au pied de l'emprise au sol de l'objet.|mur, grillage, palissade ...)||
-|Aire de jeux|POLYGONE|Zone récréative intégrée ou non à un site cohérent. Pas de surface minimum, tout objet doit-être saisi. Pour rappel, si cet espace est clôturé, la clôture doit être saisie dans la classe d'objet "Clôture".|aire de jeux||
-|Aire de jeux|POLYGONE|Zone récréative intégrée ou non à un site cohérent. Pas de surface minimum, tout objet doit-être saisi. Pour rappel, si cet espace est clôturé, la clôture doit être saisie dans la classe d'objet "Clôture".|aire de jeux||
-
-|Points d'eau|POINT|Equipement hydrographique contenu dans un site cohérent (parc, square ...). Les bassins ou étendues d'eau sont représentés ici s'ils sont inférieurs à 5m². L'objet restitué doit correspondre au centre de celui-ci.|fontaine, point d'eau, marre de moins de 5m² ...||
+|Loisirs isolé|POINT|Equipement de loisirs indépendant d'un espace de loisirs, identifiable dans un site cohérent (parc, square ...). L'objet restitué doit correspondre au centre de celui-ci.|jeux, élément de parcours sportif ...||
+|Espace de loisirs|POLYGONE|Zone récréative intégrée ou non à un site cohérent. Pas de surface minimum, tout objet doit-être saisi. Pour rappel, si cet espace est clôturé, la clôture doit être saisie dans la classe d'objet "Clôture".|aire de jeux||
+|Arrivée d'eau|POINT|Equipement hydrographique contenu dans un site cohérent (parc, square ...). L'objet restitué doit correspondre au centre de celui-ci.|fontaine, robinet ...||
+|Points d'eau|POINT|Etendue d'eau naturelle ou artificielle inférieure à 5m². L'objet restitué doit correspondre au centre de celui-ci.|marre ou bassin de moins de 5m² ...||
 |Cours d'eau|POINT|Cours d'eau naturel ou non décomposant un espace enherbé ou planté d'une largeur inférieure à 5 mètres en moyenne, sinon il s'agit d'une étendue d'eau. Une largeur est obligatoirement renseignée. Le tracé de la ligne est obligatoirement saisi au centre de l'emprise au sol de l'objet.|ru, rivière||
 |Etendue d'eau|POLYGONE|Surface en eau supérieure à 5m² intégrant un espace cohérent d'espace vert (parc, square ...). Pour rappel, si la surface est inférieure à 5m², l'objet sera représenté en ponctuel.|bassin, marre, étang ...||
 
@@ -129,19 +130,19 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 
 Certaines classes d'objets doivent faire l'objet de complétude par des attributs complémentaires qualitatifs. Le tableau ci-dessous indique les classes d'objets du gabarit qui sont concernées et les attributs à saisir (les valeurs possibles sont listées à la suite du tableau).
 
-|Classe d'objets|Type de saisie (1)|Position (2)|Niveau d'entretien (3)|Largeur|
+|Classe d'objets|Type de saisie (1)|Position (2)|Largeur|
 |:---|:---|:---|:---|:---|
-|Arbre isolé||X|X||
-|Alignement d'arbres||X|X||
-|Zone boisée||X|X||
-|Arbuste isolé||X|X||
-|Haie|X|X|X|X|
-|Massif arbustif||X|X||
-|Fleuri isolé||X|X||
-|Massif fleuri||X|X||
-|Espace enherbé||X|X||
-|Circulation voie||||X|
-|Cours d'eau||||X|
+|Arbre isolé||X||
+|Alignement d'arbres||X||
+|Zone boisée||X||
+|Arbuste isolé||X||
+|Haie|X|X|X|
+|Massif arbustif||X||
+|Fleuri isolé||X||
+|Massif fleuri||X||
+|Espace enherbé||X||
+|Voie circulation|||X|
+|Cours d'eau|||X|
 
 (1)  Type de saisie : liste des valeurs décrivant le type de saisie de la sous-classe de précision des objets espace vert de type haie
 
@@ -162,15 +163,6 @@ Certaines classes d'objets doivent faire l'objet de complétude par des attribut
 |![picto](jardiniere.png)|23|Jardinière|
 |![picto](suspension.png)|24|Suspension|
 ||29|Hors-sol (autre type)|
-
-(3) Niveau d'entretien : liste des valeurs décrivant le niveau d'entretien des objets "espace vert" de type végétal
-
-|Illustration|Code|Valeur|Définition et exemple|
-|:---|:---|:---|:---|
-|![picto](ev_entretenu_v2.png)|10|Espace entretenu, jardiné|Espace faisant l'objet d'un aménagement et d'un entretien courant : parc, square, massif ...|
-|![picto](ev_rustique_v2.png)|20|Espace rustique|Naturelle ou libre, la flore est laissée en place mais elle est cadrée par quelques interventions de l’équipe d’entretien. Elle peut aussi être associée à des espaces plantés ou semés. Ces espaces sont d’une taille importante et sont essentiels à la trame verte et bleue : liaison douce, bassin d’orage, coulée verte, prairie fleurie ...|
-|![picto](ev_naturel_v2.png)|30|Espace naturel| Développement de la flore spontanée avec peu voir pas d'interventions : berge, zone humide, zone boisée, friche ....|
-
 
 
 #### Exemples d'applications de la modélisation
@@ -227,6 +219,7 @@ L'encodage des caractères est en UTF8. Les différents supports sont téléchar
 |geo_ev_vegetal_arbreisole|Classe d'objets des arbres isolés|Inventaire cartographique|Ponctuel|
 
 
+
 ## Implémentation informatique
 
 ### Patrimoine
@@ -246,44 +239,44 @@ Le gabarit intègre déjà le découpage des 3 niveaux de nomenclature en terme 
  * Nomenclature des objets "espace vert" de niveau 3
  
 
-|Illustration|Code|Valeur|
+|Illustration|Valeur|
 |:---|:---|:---|
-|![picto](arbre_isole.png)|10111|Arbre isolé|
-|![picto](alignement_arbre.png)|10112|Arbre en alignement|
-|![picto](zone_boisee.png)|10113|Zone boisée|
-||10119|Autre|
-|![picto](arbuste_isole.png)|10211|Arbuste isolé|
-|![picto](haie.png)|10212|Haie arbustive|
-|![picto](massif_arbustif.png)|10213|Massif arbustif|
-||10219|Autre|
-|![picto](point_fleuri.png)|10311|Point fleuri|
-|![picto](massif_fleuri.png)|10312|Massif fleuri|
-||10319|Autre|
-|![picto](herbace.png)|10411|Pelouse, gazon|
-||10419|Autre|
-|![picto](allee.png)|20111|Allée|
-|![picto](piste_cyclable.png)|20112|Piste cyclable|
-||20119|Autre|
+|![picto](arbre_isole.png)|Arbre isolé|
+|![picto](alignement_arbre.png)|Arbre en alignement|
+|![picto](zone_boisee.png)|Zone boisée|
+|![picto](arbuste_isole.png)|Arbuste isolé|
+|![picto](haie.png)|Haie arbustive|
+|![picto](massif_arbustif.png)|Massif arbustif|
+|![picto](point_fleuri.png)|Point fleuri|
+|![picto](massif_fleuri.png)|Massif fleuri|
+|![picto](herbace.png)|Pelouse, gazon|
+|![picto](allee.png)|Allée|
+|![picto](piste_cyclable.png)|Piste cyclable|
+||Autre voie|
+|![picto](parking.png)|Stationnement matérialisé|
+|![picto](espace_stationnement.png)|Stationnement libre|
+||Autre stationnement|
+|![picto](.png)|Parvis, place|
+||Autre espace de rencontre|
 |![picto](mur.png)|20211|Mur|
 |![picto](grillage.png)|20212|Grillage|
 |![picto](palissade.png)|20213|Palissage|
-||20219|Autre|
-|![picto](parking.png)|20311|Parking matérialisé|
-|![picto](espace_stationnement.png)|20312|Espace de stationnement libre|
-||20319|Autre|
-|![picto](aire_jeux.png)|20411|Aire de jeux|
-||20419|Autre|
-|![picto](fontaine.png)|30111|Fontaine|
-|![picto](point_eau.png)|30112|Point d'accès à l'eau|
-||30119|Autre|
+|Autre clôture|
+|![picto](.png)|Jeux isolé|
+|![picto](.png)|Elément sportif|
+|![picto](aire_jeux.png)|Aire de jeux|
+||Autre loisirs|
+|![picto](fontaine.png)|Fontaine|
+|![picto](point_eau.png)|Robinet|
+||Autre arrivée d'eau|
 |![picto](riviere.png)|30211|Rivière|
 |![picto](ru.png)|30213|Ru|
-||30219|Autre|
-|![picto](bassin.png)|30311|Bassin|
-|![picto](marre.png)|30312|Marre|
-|![picto](etang.png)|30313|Etang|
-||30319|Autre|
-||99000|Référence non classée|
+||Autre cours d'eau|
+|![picto](bassin.png)|Bassin|
+|![picto](marre.png)|Marre|
+|![picto](etang.png)|Etang|
+||Autre étendue d'eau|
+
 
 
 ### Les identifiants
