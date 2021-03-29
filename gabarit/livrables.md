@@ -60,6 +60,12 @@ Ainsi, l'inventaire pourra se faire par :
 
 Les règles de modélisation consistent à présenter la façon dont les objets doivent être saisis et restitués dans le gabarit.
 
+L'objectif poursuivi dans le cadre de l'inventaire n'est pas celui d'établir un dessin topographique précis mais bien de disposer d'une information nécessaire à la gestion et l'exploitation des espaces verts par la collectivité.
+A ce titre, des mesures de simplification de la restitution graphique sont prises tout en permettant une rapidité d'exécution accrue pour la saisie initiale et la mise à jour des données. 
+En conséquence, les objets surfaciques doivent être "étendus" jusqu'en limite des objets linéaires qui les délimites ou les traverses (ex : allée, trottoir, bande cyclables etc...). Cette simplification de "dessin" est compensée par des attributs descriptifs complémentaires (largeur des espaces linéaires concernés).
+
+![graph]() à refaire
+
 La modélisation choisie est la non prise en compte des ruptures sous forme surfacique pour conserver l'homogénéisation d'usage des objets.
 Ces ruptures, dans un site cohérent ou non, venant interrompre cette homogénéisation, sont représentées sous forme linéaire avec des attributs les qualifiant ( largeur, type de saisie ...). 
 Ces attributs complémentaires propres aux objets des espaces verts permettent ainsi de réaliser plus facilement des calculs d'exploitation (linéaire de haies, ...).
