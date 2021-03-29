@@ -62,10 +62,10 @@ L'inventaire cartographique se fera préférentiellement :
 
 ### La modélisation
 
-Les règles de modélisation consiste à présenter la façon dont les objets doivent être saisis et restitués dans le gabarit.
+Les règles de modélisation consistent à présenter la façon dont les objets doivent être saisis et restitués dans le gabarit.
 
 La modélisation choisie est la non prise en compte des ruptures sous forme surfacique pour conserver l'homogénéisation d'usage des objets.
-Ces ruptures, dans un site cohérent ou non, venant interrompre cette homogénéisation sont représentées sous forme linéaire avec des attributs les qualifiant ( largeur, type de saisie ...). 
+Ces ruptures, dans un site cohérent ou non, venant interrompre cette homogénéisation, sont représentées sous forme linéaire avec des attributs les qualifiant ( largeur, type de saisie ...). 
 Ces attributs complémentaires propres aux objets des espaces verts permettent ainsi de réaliser plus facilement des calculs d'exploitation (linéaire de haies, ...).
 
 Cette orientation assumée, est censée être plus proche d'une gestion de service mais ne permet pas une restitution graphique exacte des objets "espace vert". La production d'un inventaire cartographique et de sa mise à jour (interne ou non) est jugée plus rapide. A contrario, l'exploitation des données devra prendre en compte les particularités de cette modélisation pour restituer au mieux une réalité en terme de surface.
@@ -103,28 +103,28 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 |Classe d'objets|Représentation|Définition et règle|Type d'objets saisis|Schéma de principe|
 |:---|:---|:---|:---|:---|
 |Arbre isolé (1)|POINT|Arbre entretenu, localisé en diffus, en alignement, dans un contenant artificiel ou dans une zone boisée aménagée et entretenue. L'objet restitué doit correspondre au centre de celui-ci.|arbre||
-|Alignement d'arbres (1)|LINEAIRE|Bande arborée, composée d'une série d'arbres entretenus continus (au moins 4), le long d'un axe routier ou piéton. Le linéaire saisi correspond au centre de l'emprise de l'alignement. Les ruptures de voirie devront être respectées. Chaque alignement doit être identifié.|arbre|![picto](regle_lineaire_v1.png)|
+|Alignement d'arbres (1)|LINEAIRE|Bande arborée, composée d'une série d'arbres entretenus continue (au moins 4), le long d'un axe routier ou piéton. Le linéaire saisi correspond au centre de l'emprise de l'alignement. Les ruptures de voirie devront être respectées. Chaque alignement doit être identifié.|arbre|![picto](regle_lineaire_v1.png)|
 |Zone boisée|POLYGONE|Ensemble d'arbres naturels sur un espace ne faisant pas l'objet d'un entretien. Pour rappel, Les boisements denses dans un site cohérent sont entretenus, la modélisation des arbres doit s'appliquer sur un espace enherbé délimité.|boisement naturel||
 |Arbuste isolé|POINT|Arbuste entretenu, localisé en diffus, dans un contenant artificiel ou non. L'objet restitué doit correspondre au centre de celui-ci.|arbuste||
 |Haie|LINEAIRE|Bande arbustive d'un seul tenant intégrée ou non à un espace enherbé d'une largeur inférieure à 5m sinon il s'agit d'un massif arbustif. Les ruptures de cohérence devront être respectées. Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement renseignée. Les ruptures de voirie devront être respectées.|arbuste|![picto](saisie_haie.png) ![picto](haie_rupture.png)|
-|Massif arbustif|POLYGONE|Massif arbustif au sol ou hors sol d'une surface supérieure à 5m².|Pour rappel, si la surface est inféreure à 5m², cet espace est représenté par dans la classe un arbuste isolé.||
-|Fleuri isolé|POINT|Espace fleuri hors sol dans un contenant artificiel (Bacs, pots, jardinière, suspension ...) inférieur à 5m². L'objet restitué doit correspondre au centre de celui-ci.|fleur en pot, en bac, en jardinière||
-|Massif fleuri|POLYGONE|Massif fleuri au sol ou hors sol supérieur à 5m². Pour rappel, si la surface est inféreure à 5m², cet espace est représenté par dans la classe fleuri isolé.|fleur en massif, jardinière||
+|Massif arbustif|POLYGONE|Massif arbustif au sol ou hors sol d'une surface supérieure à 5m².|Pour rappel, si la surface est inféreure à 5m², cet espace est représenté dans la classe "Arbuste isolé".||
+|Fleuri isolé|POINT|Espace fleuri hors sol dans un contenant artificiel (bacs, pots, jardinière, suspension ...) inférieur à 5m². L'objet restitué doit correspondre au centre de celui-ci.|fleur en pot, en bac, en jardinière||
+|Massif fleuri|POLYGONE|Massif fleuri au sol ou hors sol supérieur à 5m². Pour rappel, si la surface est inféreure à 5m², cet espace est représenté dans la classe "Fleuri isolé".|fleur en massif, jardinière||
 |Espace enherbé|POLYGONE|Ensemble enherbé, homogène, entretenu et de même type, d'une surface supérieure à 25m². Pour rappel, les objets intégrant cet espace (circulation douce, haie ...) de forme linéaire, créant ainsi des ruptures, sont saisis sous forme de linéaire.|pelouse, gazon ...||
 |Circulation voie|LINEAIRE|Axe de circulation doux, homogène décomposant un espace enherbé ou planté d'une largeur inférieure à 5 mètres en moyenne, sinon il s'agit d'un espace de circulation. Une largeur est obligatoirement renseignée. Le tracé de la ligne est obligatoirement saisi au centre de l'emprise au sol de l'objet.|allée, piste cyclable ...||
-|Circulation espace|POLYGONE|Zone minérale de rencontre intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi. Pour rappel les éléments minéraux de rupture (allée, circulation douce ...) sont saisi dans la classe "Circulation voie".|place, parvis ...||
+|Circulation espace|POLYGONE|Zone minérale de rencontre intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi. Pour rappel les éléments minéraux de rupture (allée, circulation douce ...) sont saisis dans la classe "Circulation voie".|place, parvis ...||
 |Clôture|LINEAIRE|Délimitation non naturelle fermant un site cohérent (parc, square ...) ou un sous-ensemble (aire de jeux dans un parc ...) . Le tracé de la ligne est obligatoirement au pied de l'emprise au sol de l'objet.|mur, grillage, palissade ...)||
 |Stationnement|POLYGONE|Zone de stationnement identifiée intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi.|parking, aire de stationement ...||
-|Equipement récréatif|POLYGONE|Zone récréative intégrée ou non à un site cohérent. Pas de surface minimum, tout objet doit-être saisi. Pour rappel si cet espace est clôturé, la clôture doit être saisie dans la classe d'objet "Clôture".|aire de jeux||
-|Points d'eau|POINT|Equipement hydrographique contenus dans un site cohérent (parc, square ...). Les bassins ou étendues d'eau sont représentés ici si ils sont inférieurs à 5m². L'objet restitué doit correspondre au centre de celui-ci.|fontaine, point d'eau, marre de moins de 5m² ...||
+|Equipement récréatif|POLYGONE|Zone récréative intégrée ou non à un site cohérent. Pas de surface minimum, tout objet doit-être saisi. Pour rappel, si cet espace est clôturé, la clôture doit être saisie dans la classe d'objet "Clôture".|aire de jeux||
+|Points d'eau|POINT|Equipement hydrographique contenu dans un site cohérent (parc, square ...). Les bassins ou étendues d'eau sont représentés ici s'ils sont inférieurs à 5m². L'objet restitué doit correspondre au centre de celui-ci.|fontaine, point d'eau, marre de moins de 5m² ...||
 |Cours d'eau|POINT|Cours d'eau naturel ou non décomposant un espace enherbé ou planté d'une largeur inférieure à 5 mètres en moyenne, sinon il s'agit d'une étendue d'eau. Une largeur est obligatoirement renseignée. Le tracé de la ligne est obligatoirement saisi au centre de l'emprise au sol de l'objet.|ru, rivière||
-|Etendue d'eau|POLYGONE|Surface en eau supérieure à 5m² intégrant un espace cohérent d'espace vert (parc, square ...). Pour rappel, si leur surface est inférieure à 5m², ils sont représentés en ponctuel.|bassin, marre, étang ...||
+|Etendue d'eau|POLYGONE|Surface en eau supérieure à 5m² intégrant un espace cohérent d'espace vert (parc, square ...). Pour rappel, si la surface est inférieure à 5m², l'objet sera représenté en ponctuel.|bassin, marre, étang ...||
 
 (1) Les arbres en alignement font l'objet d'une double saisie, ponctuel et linéaire
 
-#### Classes d'attributs complémentaires à saisir propre à certains objets
+#### Classes d'attributs complémentaires propre à certains objets
 
-Certains classes d'objets doivent faire l'objet de complétude par des attributs complémentaires qualitatifs. Le tableau ci-dessous indique les classes d'objets du gabarit qui sont concernées et les attributs à saisir (les valeurs possibles sont listées à la suite du tableau).
+Certaines classes d'objets doivent faire l'objet de complétude par des attributs complémentaires qualitatifs. Le tableau ci-dessous indique les classes d'objets du gabarit qui sont concernées et les attributs à saisir (les valeurs possibles sont listées à la suite du tableau).
 
 |Classe d'objets|Type de saisie (1)|Position (2)|Niveau d'entretien (3)|Largeur|
 |:---|:---|:---|:---|:---|
@@ -165,7 +165,7 @@ Certains classes d'objets doivent faire l'objet de complétude par des attributs
 |Illustration|Code|Valeur|Définition et exemple|
 |:---|:---|:---|:---|
 |![picto](ev_entretenu_v2.png)|10|Espace entretenu, jardiné|Espace faisant l'objet d'un aménagement et d'un entretien courant : parc, square, massif ...|
-|![picto](ev_rustique_v2.png)|20|Espace rustique|Naturelle ou libre, la flore est laissée en place mais elle est cadrée par quelques interventions de l’équipe d’entretien. Elle peut aussi être associée à des espaces plantés ou semés. Ces espaces sont d’une taille importante et ils sont essentiels à la trame verte et bleue : liaison douce, bassin d’orage, coulée verte, prairie fleurie ...|
+|![picto](ev_rustique_v2.png)|20|Espace rustique|Naturelle ou libre, la flore est laissée en place mais elle est cadrée par quelques interventions de l’équipe d’entretien. Elle peut aussi être associée à des espaces plantés ou semés. Ces espaces sont d’une taille importante et sont essentiels à la trame verte et bleue : liaison douce, bassin d’orage, coulée verte, prairie fleurie ...|
 |![picto](ev_naturel_v2.png)|30|Espace naturel| Développement de la flore spontanée avec peu voir pas d'interventions : berge, zone humide, zone boisée, friche ....|
 
 
@@ -201,7 +201,7 @@ La cohérence topologique impose le partage de géométrie et donc l’utilisati
 
 ![picto](topo_poly_2.png)
 
-- Les linéraires doivent être connectés entre eux s'ils sont contiguës dans la réalité du dessin saisi.
+- Les linéraires doivent être connectés entre eux s'ils sont contigus dans la réalité du dessin saisi.
 
 ![picto](topo_line_1.png)
 
@@ -210,7 +210,7 @@ La cohérence topologique impose le partage de géométrie et donc l’utilisati
 ### Système de coordonnées
 
 Les coordonnées seront exprimées en mètres avec trois chiffres après la virgule dans le système national en vigueur.
-Sur le territoire métropolitain s'applique le système géodésique français légal RGF93 associé au système altimétrique IGN69. La projection associée Lambert 93 France (epsg:2154) sera à utiliser pour la livraison des données.
+Sur le territoire métropolitain s'applique le système géodésique français légal RGF93 associé au système altimétrique IGN69. La projection associée Lambert 93 France (EPSG:2154) sera à utiliser pour la livraison des données.
 
 ## Format des fichiers
 
@@ -228,7 +228,7 @@ L'encodage des caractères est en UTF8. Les différents supports sont téléchar
 
 ### Patrimoine
 
-Ensemble des données décrivant les objets composant l'inventaire cartographique des espaces verts ainsi que les attrobits complémentaires spécifiques à certaines classes d'attributs. 
+Ensemble des données décrivant les objets composant l'inventaire cartographique des espaces verts ainsi que les attributs complémentaires spécifiques à certaines classes d'attributs. 
 
 `[SHAPE NAME]` : fichier contenant les objets "[NAME]" de type [GEOM]
 
