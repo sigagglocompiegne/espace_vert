@@ -197,8 +197,8 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |code | valeur |
 |:---|:---| 
-|11|Arbre|
-|12|Arbuste|
+|11|Arboré|
+|12|Arbustif|
 |13|Fleuri|
 |14|Enherbé|
 |21|Circulation|
