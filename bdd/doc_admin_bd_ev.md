@@ -5,9 +5,9 @@
 ## Généralité
  
 La démarche s'organise en 3 temps :
-. inventaire cartrographique des espaces verts
-. détaillé ces objets d'un point de vue métier
-. optique d'engagement de gestions des espaces verts (tableau de bord, gestion et intervention).
+* inventaire cartrographique des espaces verts
+* détaillé ces objets d'un point de vue métier
+* optique d'engagement de gestions des espaces verts (tableau de bord, gestion et intervention).
 
 ## Principe de la modélisation des classes d'objets
 
