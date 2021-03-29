@@ -925,9 +925,7 @@ COMMENT ON COLUMN m_espace_vert_v2.an_ev_geovegetal.idobjet
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_geovegetal.position
     IS 'Position des objets';
 
-COMMENT ON COLUMN m_espace_vert_v2.an_ev_geovegetal.niventretien
-    IS 'Niveau d''entretien des objets';
-    
+   
 
    
     -- Constraint: lt_ev_niventretien_fkey
