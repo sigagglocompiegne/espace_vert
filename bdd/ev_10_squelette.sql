@@ -81,7 +81,6 @@ DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_arbredanger;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_arbresol;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_typsaihaie;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_position;
-DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_niventretien;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_objet;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_arbre;
 
@@ -210,11 +209,9 @@ INSERT INTO m_espace_vert_v2.lt_ev_typ2(
 ('14','Enherbé'),
 ('21','Circulation'),
 ('22','Clôture'),
-('23','Stationnement'),
-('24','Equipement'),
-('31','Point d''eau'),
-('32','Cours d''eau'),
-('33','Etendue d''eau'),
+('23','Loisirs'),
+('31','Arrivée d''eau'),
+('32','Espace en eau'),
 ('99','Référence non classée');
 
 COMMENT ON CONSTRAINT lt_ev_typ2_pkey ON m_espace_vert_v2.lt_ev_typ2 IS 'Clé primaire de la table lt_ev_typ2';
@@ -260,26 +257,25 @@ INSERT INTO m_espace_vert_v2.lt_ev_typ3(
 ('141','Pelouse, gazon'),
 ('211','Allée'),
 ('212','Piste cyclable'),
-('213','Autre'),
+('213','Parking matérialisé'),
+('214','Espace de stationnement libre'),
+('219','Autre circulation'),
 ('221','Mur'),
 ('222','Grillage'),
 ('223','Palissage'),
-('229','Autre'),
-('231','Parking matérialisé'),
-('232','Espace de stationnement libre'),
-('239','Autre'),
-('241','Aire de jeux'),
-('242','Autre'),
+('229','Autre clôture'),
+('231','Aire de jeux'),
+('232','Equipement sportif'),
+('239','Autre équipement de loisirs'),
 ('311','Fontaine'),
-('312','Point d''accès à l''eau'),
-('319','Autre'),
+('312','Robinet'),
+('319','Autre arrivée d''eau'),
 ('321','Rivière'),
 ('322','Ru'),
-('329','Autre'),
-('331','Bassin'),
-('332','Marre'),
-('333','Etang'),
-('339','Autre'),
+('323','Bassin'),
+('324','Marre'),
+('325','Etang'),
+('329','Autre espace en eau'),
 ('999','Référence non classée');
 
 COMMENT ON CONSTRAINT lt_ev_typ3_pkey ON m_espace_vert_v2.lt_ev_typ3 IS 'Clé primaire de la table lt_ev_typ3';
@@ -587,45 +583,6 @@ INSERT INTO m_espace_vert_v2.lt_ev_typsaihaie(
   ('30','Largeur à appliquer dans le sens inverse de saisie');
   
   
--- ################################################################# lt_ev_niventretien ###############################################
-
--- Table: m_espace_vert_v2.lt_ev_niventretien
-
--- DROP TABLE m_espace_vert_v2.lt_ev_niventretien;
-
-CREATE TABLE m_espace_vert_v2.lt_ev_niventretien
-(
-    code character varying(2) COLLATE pg_catalog."default" NOT NULL,
-    valeur character varying(80) COLLATE pg_catalog."default",
-    CONSTRAINT lt_ev_niventretien_pkey PRIMARY KEY (code)
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE m_espace_vert_v2.lt_ev_niventretien
-    OWNER to create_sig;
-
-
-COMMENT ON TABLE m_espace_vert_v2.lt_ev_niventretien
-    IS 'Liste des valeurs décrivant le niveau d''entretien des objets "espace vert" de type végétal';
-
-COMMENT ON COLUMN m_espace_vert_v2.lt_ev_niventretien.code
-    IS 'Code de la classe décrivant le niveau d''entretien des objets "espace vert" de type végétal';
-
-COMMENT ON COLUMN m_espace_vert_v2.lt_ev_niventretien.valeur
-    IS 'Valeur de la classe décrivant le niveau d''entretien des objets "espace vert" de type végétal';
-
-COMMENT ON CONSTRAINT lt_ev_niventretien_pkey ON m_espace_vert_v2.lt_ev_niventretien IS 'Clé primaire de la table lt_ev_niventretien';
-
-INSERT INTO m_espace_vert_v2.lt_ev_niventretien(
-            code, valeur)
-    VALUES
-('10','Espace entretenu, jardiné'),
-('20','Espace rustique'),
-('30','Espace naturel');
-
  -- ################################################################# lt_ev_position ###############################################
 
 -- Table: m_espace_vert_v2.lt_ev_position
@@ -948,7 +905,6 @@ CREATE TABLE m_espace_vert_v2.an_ev_geovegetal
 (
   idobjet bigint NOT NULL,
   position character varying(2),
-  niventretien character varying(2),
   CONSTRAINT an_ev_geovegetal_pkey PRIMARY KEY (idobjet)
   
 )
@@ -972,20 +928,8 @@ COMMENT ON COLUMN m_espace_vert_v2.an_ev_geovegetal.position
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_geovegetal.niventretien
     IS 'Niveau d''entretien des objets';
     
--- Constraint: lt_ev_niventretien_fkey
 
--- ALTER TABLE m_espace_vert_v2.an_ev_geovegetal DROP CONSTRAINT lt_ev_niventretien_fkey;
-
-ALTER TABLE m_espace_vert_v2.an_ev_geovegetal
-    ADD CONSTRAINT lt_ev_niventretien_fkey FOREIGN KEY (niventretien)
-    REFERENCES m_espace_vert_v2.lt_ev_niventretien (code) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-
-COMMENT ON CONSTRAINT lt_ev_niventretien_fkey ON m_espace_vert_v2.an_ev_geovegetal
-    IS 'Clé étrangère sur la valeur du niveau d''entretien des espaces verts';
-    
+   
     -- Constraint: lt_ev_niventretien_fkey
 
 -- ALTER TABLE m_espace_vert_v2.an_ev_geovegetal DROP CONSTRAINT lt_ev_position_fkey;
