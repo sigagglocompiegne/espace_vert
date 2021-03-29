@@ -184,10 +184,10 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |code | valeur |
 |:---|:---| 
-|10|Végétal|
-|20|Minéral|
-|30|Hydrographie|
-|99|Référence non classée|
+|1|Végétal|
+|2|Minéral|
+|3|Hydrographie|
+|9|Référence non classée|
 
 `lt_ev_typ2` : Liste permettant de décrire la nomenclature de niveau 2 des objets d'espaces verts.
 
@@ -198,18 +198,18 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |code | valeur |
 |:---|:---| 
-|101|Arbre|
-|102|Arbuste|
-|103|Fleuri|
-|104|Enherbé|
-|201|Circulation|
-|202|Clôture|
-|203|Stationnement|
-|204|Equipement|
-|301|Point d'eau|
-|302|Cours d'eau|
-|303|Etendue d'eau|
-|990|Référence non classée|
+|11|Arbre|
+|12|Arbuste|
+|13|Fleuri|
+|14|Enherbé|
+|21|Circulation|
+|22|Clôture|
+|23|Stationnement|
+|24|Equipement|
+|31|Point d'eau|
+|32|Cours d'eau|
+|33|Etendue d'eau|
+|99|Référence non classée|
 
 `lt_ev_typ3` : Liste permettant de décrire la nomenclature de niveau 3 des objets d'espaces verts.
 
@@ -220,42 +220,39 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |code | valeur |
 |:---|:---| 
-|10111|Arbre isolé|
-|10112|Arbre en alignement|
-|10113|Zone boisée|
-|10119|Autre|
-|10211|Arbuste isolé|
-|10212|Haie arbustive|
-|10213|Massif arbustif|
-|10219|Autre|
-|10311|Point fleuri|
-|10312|Massif fleuri|
-|10319|Autre|
-|10411|Pelouse, gazon|
-|10419|Autre|
-|20111|Allée|
-|20112|Piste cyclable|
-|20119|Autre|
-|20211|Mur|
-|20212|Grillage|
-|20213|Palissage|
-|20219|Autre|
-|20311|Parking matérialisé|
-|20312|Espace de stationnement libre|
-|20319|Autre|
-|20411|Aire de jeux|
-|20419|Autre|
-|30111|Fontaine|
-|30112|Point d'accès à l'eau|
-|30119|Autre|
-|30211|Rivière|
-|30213|Ru|
-|30219|Autre|
-|30311|Bassin|
-|30312|Marre|
-|30313|Etang|
-|30319|Autre|
-|99000|Référence non classée|
+|111|Arbre isolé|
+|112|Arbre en alignement|
+|113|Zone boisée|
+|121|Arbuste isolé|
+|122|Haie arbustive|
+|123|Massif arbustif|
+|129|Autre|
+|131|Point fleuri|
+|132|Massif fleuri|
+|141|Pelouse, gazon|
+|211|Allée|
+|212|Piste cyclable|
+|219|Autre|
+|221|Mur|
+|222|Grillage|
+|223|Palissage|
+|229|Autre|
+|231|Parking matérialisé|
+|232|Espace de stationnement libre|
+|239|Autre|
+|241|Aire de jeux|
+|249|Autre|
+|311|Fontaine|
+|312|Point d'accès à l'eau|
+|319|Autre|
+|321|Rivière|
+|322|Ru|
+|323|Autre|
+|331|Bassin|
+|332|Marre|
+|333|Etang|
+|334|Autre|
+|999|Référence non classée|
 
 `lt_ev_typsite` : Liste permettant de décrire les types principaux des sites
 
