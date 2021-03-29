@@ -158,7 +158,7 @@ Certains classes d'objets doivent faire l'objet de complétude par des attributs
 |![picto](bac_a.png)|22|Bac|
 |![picto](jardiniere.png)|23|Jardinière|
 |![picto](suspension.png)|24|Suspension|
-||29|Autre|
+||29|Hors-sol (autre type)|
 
 (3) Niveau d'entretien : liste des valeurs décrivant le niveau d'entretien des objets "espace vert" de type végétal
 
