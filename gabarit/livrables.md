@@ -25,7 +25,7 @@ Il constitue le socle de compléments métiers permettant de mieux détailler le
 
 - Fichier gabarit Qgis 3.1x (vierge) complet à télécharger
 
-### Principe fonctionnel
+### Désignation
 
 Un espace vert désigne un espace homogène d'agrément planté de fleurs, d'arbustes, d'arbres ou engazonné.
 Il peut être représentée de façon surfacique (espace enherbé, planté ...), linéaire (haie ...) ou ponctuel (arbre, pot ...). 
@@ -39,7 +39,7 @@ L'inventaire cartographique ne s'attache pas à la définition du périmètre de
 Schéma 1 : une représentation des objets d'un inventaire cartographique
 
 
-### Règle de modélisation
+### Règles de modélisation
 
 #### Règles générales
 
