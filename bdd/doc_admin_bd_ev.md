@@ -51,9 +51,9 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |quartier|Libellé du quartier de la ville de Compiègne d'appartenance|character varying(80)||
 |doma_d|Domanialité déduite|character varying(2)|00 (liste de valeurs `lt_ev_doma`)|
 |doma_r|Domanialité réelle|character varying(2)|00 (liste de valeurs `lt_ev_doma`)|
-|typ1|Valeur de la nomenclature de niveau 1 décrivent l'objet "espace vert"|character varying(2)|valeur vide interdite (liste de valeurs `lt_ev_typ1` attribut `code`)|
-|typ2|Valeur de la nomenclature de niveau 2 décrivent l'objet "espace vert"|character varying(3)|valeur vide interdite (liste de valeurs `lt_ev_typ3` attribut `code`)|
-|typ3|Valeur de la nomenclature de niveau 3 décrivent l'objet "espace vert"|character varying(5)|valeur vide interdite (liste de valeurs `lt_ev_typ3` attribut `code`)|
+|typ1|Valeur de la nomenclature de niveau 1 décrivent l'objet "espace vert"|character varying(1)|valeur vide interdite (liste de valeurs `lt_ev_typ1` attribut `code`)|
+|typ2|Valeur de la nomenclature de niveau 2 décrivent l'objet "espace vert"|character varying(2)|valeur vide interdite (liste de valeurs `lt_ev_typ3` attribut `code`)|
+|typ3|Valeur de la nomenclature de niveau 3 décrivent l'objet "espace vert"|character varying(3)|valeur vide interdite (liste de valeurs `lt_ev_typ3` attribut `code`)|
 |srcgeom_sai|Référentiel de saisies utilisé pour la production initiale cartographique|character varying(2)|00 (liste de valeurs `lt_src_geom`)|
 |srcdate_sai|Année du référentiel de saisies utilisé pour la production initiale cartographique|integer||
 |srcgeom_maj|Référentiel de saisies utilisé pour la mise à jour de la production cartographique|character varying(2)|00 (liste de valeurs `lt_src_geom`)|
