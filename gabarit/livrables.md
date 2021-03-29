@@ -73,7 +73,7 @@ Cette orientation assumée, est censée être plus proche d'une gestion de servi
 
 #### Présentation simplifiée de la nomenclature 
 
-![picto](nomenclature_ev_v3.png)
+![picto](nomenclature_ev_v4.png)
 
 #### Modélisation simplifiée des classes d'objets du gabarit par type de géométrie permis
 
