@@ -226,7 +226,6 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |121|Arbuste isolé|
 |122|Haie arbustive|
 |123|Massif arbustif|
-|129|Autre|
 |131|Point fleuri|
 |132|Massif fleuri|
 |141|Pelouse, gazon|
