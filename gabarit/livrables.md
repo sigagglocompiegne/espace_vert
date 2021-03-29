@@ -11,10 +11,11 @@
 
 # Livrables
 
-Le gabarit présenté ci-après s'organise autour de la production d'un inventaire cartographique des espaces verts. Il peut être utilisé pour la saisie :
- * des espaces verts situés dans le domaine public,
- * des espaces verts compris dans des espaces privés fermés relevant de la propriété de la collectivité, 
- * des espaces verts compris dans des espaces privés ouverts et accessibles depuis l'espace public.
+Le gabarit présenté ci-après s'organise autour de la production d'un inventaire cartographique des espaces verts.
+Il peut être utilisé indistinctement pour la saisie des espaces verts situés :
+ * en domaine public,
+ * en domaine privé communal ou intercommunal, 
+ * en domaine privé non clos (accessible depuis l'espace public).
  
 En les typant par une nomenclature simple et compréhensible, cet inventaire peut-être produit par un non spécialiste.
 
@@ -22,7 +23,7 @@ Néanmoins pour les besoins d'un service gérant les espaces verts, ce gabarit a
 
 Pour cette raison, la production des objets des "espaces verts" est accompagnée par certains attributs complémentaires à renseigner dans le gabarit.
 
-Cet inventaire sera ainsi intégré à la base de données de la collectivité et pourra être également complété et mis à jour par le service métier à moyen et long terme.
+Cet inventaire sera ainsi intégré à la base de données de la collectivité et pourra être également complété et mis à jour par le service métier.
 
 ## Gabarits
 
