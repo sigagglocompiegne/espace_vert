@@ -74,7 +74,7 @@ Cette simplification de "dessin" est compensée par des attributs descriptifs co
 
 Schéma n°2 : Présentation du principe de modélisation des intéractions entres les objets surfaciques et linéaires
 
-##### Modélisation simplifiée des classes d'objets du gabarit par type de géométrie
+#### Modélisation simplifiée des classes d'objets du gabarit par type de géométrie
 
 |Classe d'objets|Point|Ligne|Polygone|
 |:---|:---|:---|:---|
