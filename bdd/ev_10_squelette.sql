@@ -684,14 +684,17 @@ CREATE TABLE m_espace_vert_v2.an_ev_objet
   typ1 character varying(1),
   typ2 character varying(2),
   typ3 character varying(3),
+  op_sai character varying(80),
+  date_sai timestamp without time zone,
   srcgeom_sai character varying(2),
   srcdate_sai integer,
+  op_att character varying(80),
+  date_maj_att timestamp without time zone,	
+  op_maj character varying(80),	
   srcgeom_maj character varying(2),
   srcdate_maj integer,
-  op_sai character varying(50),
-  op_maj character varying(50),
-  date_sai timestamp without time zone,
   date_maj timestamp without time zone,
+  date_dmaj timestamp without time zone,
   observ character varying(255),
   CONSTRAINT an_ev_objet_pkey PRIMARY KEY (idobjet)
   
@@ -744,29 +747,39 @@ COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.typ2
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.typ3
     IS 'Sous-Type d''espace vert de niveau 3';
 
-COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.srcgeom_sai
-    IS 'Source du référentiel géographique ayant servi à l''inventaire cartographique initial';
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.op_sai
+    IS 'Opérateur de saisie de l''objet initial';
+    
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.date_sai
+    IS 'Date de saisie de l''objet initial';
 
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.srcgeom_sai
+    IS 'Référentiel géographique utilisé pour la saisie de l''objet initial';
+    
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.srcdate_sai
-    IS 'Année du référentiel géographique ayant servi à l''inventaire cartographique initial';
+    IS 'Date du référentiel géographique utilisé pour la saisie de l''objet initial';
+    
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.op_att
+    IS 'Opérateur de saisie des attributs métiers de l''objet initial';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.date_maj_att
+    IS 'Année de mise à jour des attributs métiers de l''objet initial';
+    
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.op_maj
+    IS 'Opérateur de mise à jour de l''objet géométrique)';   
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.srcgeom_maj
-    IS 'Source du référentiel géographique ayant servi pour la mise à jour de l''inventaire cartographique initial';
+    IS 'Référentiel géographique utilisée pour la mise à jour de l''objet';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.srcdate_maj
-    IS 'Année du référentiel géographique ayant servi à la mise à jour de l''inventaire cartographique initial';
-
-COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.op_sai
-    IS 'Opérateur de saisie';
-
-COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.op_maj
-    IS 'Opérateur de mise à jour';
-
-COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.date_sai
-    IS 'Date de saisie';
-
+    IS 'Année du référentiel géographique utilisée pour la mise à jour de l''objet';
+    
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.date_maj
-    IS 'Date de mise à jour';
+    IS 'Date de mise jour de l''objet';
+    
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.date_dmaj
+    IS 'Dernière date de mise jour';
+
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.observ
     IS 'Observations diverses';
