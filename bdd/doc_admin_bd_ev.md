@@ -235,9 +235,8 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |222|Grillage|
 |223|Palissage|
 |229|Autre clôture|
-|231|Aire de jeux|
-|232|Equipement sportif|
-|239|Autre équipement de loisirs|
+|231|Loisirs isolé|
+|232|Surface de loisirs|
 |311|Fontaine|
 |312|Robinet|
 |319|Autre arrivée d'eau|
