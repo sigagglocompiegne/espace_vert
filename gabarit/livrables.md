@@ -32,6 +32,7 @@ Il peut être représenté de façon surfacique (espace enherbé, planté ...), 
 
 En complément, dans un **site cohérent** (parc, square, coulée verte urbaine, ...), peuvent être associés des espaces minéraux (allée, aire de jeux ...) ou hydrographiques (bassin ...).
 
+Ainsi, la distinction des différents types d'objets "espace vert" est possible via une nomenclature simplifiée ci-dessous.
 
 
 ![picto](nomenclature_ev_v4.png)
