@@ -72,7 +72,7 @@ Cette simplification de "dessin" est compensée par des attributs descriptifs co
 
 ![graph]() à refaire
 
-##### Modélisation simplifiée des classes d'objets du gabarit par type de géométrie permis
+##### Modélisation simplifiée des classes d'objets du gabarit par type de géométrie
 
 |Classe d'objets|Point|Ligne|Polygone|
 |:---|:---|:---|:---|
@@ -96,7 +96,7 @@ Cette simplification de "dessin" est compensée par des attributs descriptifs co
 |Cours d'eau||X||
 |Etendue d'eau|X <5m²||X >5m²|
 
-##### Modélisation détaillée des objets du gabarit à saisir
+##### Modélisation détaillée des objets du gabarit
 
 
 |Classe d'objets|Représentation|Définition et règle|Type d'objets saisis|Schéma de principe|
