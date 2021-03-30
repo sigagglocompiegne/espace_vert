@@ -72,7 +72,7 @@ Cette simplification de "dessin" est compensée par des attributs descriptifs co
 
 ![graph]() à refaire
 
-Shéma n°2 : Présentation du principe de modélisation des intéractions entres les objets surfaciques et linéaires
+Schéma n°2 : Présentation du principe de modélisation des intéractions entres les objets surfaciques et linéaires
 
 ##### Modélisation simplifiée des classes d'objets du gabarit par type de géométrie
 
@@ -192,16 +192,16 @@ Certaines classes d'objets doivent faire l'objet de complétude par des attribut
 
 #### Exemples d'applications des règles de saisies
 
-**Dans un site cohérent (ici une coulée verte urbaine) :** 
+
 
 ![picto](159_ev_schema_detail_1.png)
 
+Schéma n°3 : Application des règles de saisie dans un site cohérent (ici une coulée verte urbaine)
 
-**En dehors d'un site cohérent (espace végétalisé diffus, trottoir végétalisé, accotement ...) :** 
 
 ![picto](à refaire)
 
-
+Schéma n°4 : Application des règles de saisie en dehors d'un site cohérent (espace végétalisé diffus, trottoir végétalisé, accotement ...)
 
 ### Système de coordonnées
 
@@ -218,12 +218,12 @@ L'encodage des caractères est en UTF8. Les différents supports sont téléchar
 
 #### Patrimoine
 
-Ensemble des données décrivant les objets composant l'inventaire cartographique des espaces verts ainsi que les attributs complémentaires spécifiques à certaines classes d'attributs. 
+Ensemble des données décrivant les objets composant l'inventaire cartographique des espaces verts ainsi que les attributs complémentaires spécifiques à certaines classes d'attributs intégrés au gabarit.
 
 `[SHAPE NAME]` : fichier contenant les objets "[NAME]" de type [GEOM]
 
-|Classe d'objets|Définition|Type|Valeurs|Contraintes|Observations|
-|:---|:---|:---|:---|:---|:---|
+|Attributs à compléter|Valeurs possibles|
+|:---|:---|
 
 
 #### Liste de valeurs
