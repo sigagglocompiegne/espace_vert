@@ -264,16 +264,16 @@ Valeurs possibles :
 
 |code | valeur |
 |:---|:---|  
-|00|non renseigné|
-|01|parc, jardin, square|
-|02|accotements de voies|
-|03|accompagnement de bâtiments publics|
-|04|accompagnement d'habitations|
-|05|accompagnement d'établissents industriels et commerciaux|
-|06|enceinte sportive|
+|00|Non renseigné|
+|01|Parc, jardin, square|
+|02|Accotements de voies|
+|03|Accompagnement de bâtiments publics|
+|04|Accompagnement d'habitations|
+|05|Accompagnement d'établissents industriels et commerciaux|
+|06|Enceinte sportive|
 |07|Cimetière|
-|11|espace naturel aménagé|
-|12|arbre d'alignement|
+|11|Espace naturel aménagé|
+|12|Arbre d'alignement|
 
 
 `lt_ev_doma` : Liste permettant de décrire les types domanialités
@@ -289,12 +289,12 @@ Valeurs possibles :
 
 |code | valeur |
 |:---|:---|  
-|00|non renseigné|
-|10|public|
-|20|privée (non déterminé)|
-|21|privée (communale)|
-|22|privée (autre organisme public)|
-|23|privée|
+|00|Non renseigné|
+|10|Public|
+|20|Privée (non déterminé)|
+|21|Privée (communale)|
+|22|Privée (autre organisme public)|
+|23|Privée|
 
 `lt_ev_arbrehauteur` : Liste permettant de décrire la classe de hauteur de chaque objet arbre
 
