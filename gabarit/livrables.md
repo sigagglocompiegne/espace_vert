@@ -215,7 +215,7 @@ Toutes les autres classes du gabarit sont concernées uniquement par la saisie d
 |![picto](palissade.png)|Palissage|
 ||Autre clôture|
 |![picto](jeux_isolé.png) ![picto](parcours_sportif.png)|Loisirs isolé|
-|![picto](aire_jeux.png) |Surface de loisirs|
+|![picto](aire_jeux.png) ![picto](zone_sable.png)|Surface de loisirs|
 |![picto](fontaine.png)|Fontaine|
 |![picto](point_eau.png)|Robinet|
 ||Autre arrivée d'eau|
