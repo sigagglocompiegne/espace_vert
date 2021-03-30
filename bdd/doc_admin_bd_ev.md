@@ -15,7 +15,7 @@ La démarche s'organise en 3 temps :
 
 ## Modèle relationnel simplifié
 
-![picto](ev_mcd_v4.png)
+![picto](ev_mcd_v5.png)
 
 ## Schéma fonctionnel
 
@@ -42,27 +42,26 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-|idobjet|Identifiant unique de l'objet|bigint||
-|idzone|Identifiant de la zone de gestion, intervention d'appartenance|integer||
-|idsite|Identifiant du site de production cartographique d'appartenance|integer||
-|idcontrat|Identifiant du contrat s'appliquant à l'objet (non encore opérationnel à ce jour)|character varying(2)||
-|insee|Code insee de la commune d'appartenance|character varying(5)|valeur vide interdite|
-|commune|Libellé de la commune d'appartenance|character varying(80)|valeur vide interdite|
-|quartier|Libellé du quartier de la ville de Compiègne d'appartenance|character varying(80)||
-|doma_d|Domanialité déduite|character varying(2)|00 (liste de valeurs `lt_ev_doma`)|
-|doma_r|Domanialité réelle|character varying(2)|00 (liste de valeurs `lt_ev_doma`)|
-|typ1|Valeur de la nomenclature de niveau 1 décrivent l'objet "espace vert"|character varying(1)|valeur vide interdite (liste de valeurs `lt_ev_typ1` attribut `code`)|
-|typ2|Valeur de la nomenclature de niveau 2 décrivent l'objet "espace vert"|character varying(2)|valeur vide interdite (liste de valeurs `lt_ev_typ3` attribut `code`)|
-|typ3|Valeur de la nomenclature de niveau 3 décrivent l'objet "espace vert"|character varying(3)|valeur vide interdite (liste de valeurs `lt_ev_typ3` attribut `code`)|
-|srcgeom_sai|Référentiel de saisies utilisé pour la production initiale cartographique|character varying(2)|00 (liste de valeurs `lt_src_geom`)|
-|srcdate_sai|Année du référentiel de saisies utilisé pour la production initiale cartographique|integer||
-|srcgeom_maj|Référentiel de saisies utilisé pour la mise à jour de la production cartographique|character varying(2)|00 (liste de valeurs `lt_src_geom`)|
-|srcdate_maj|Année du référentiel de saisies utilisé pour la mise à jour de la production cartographique|integer||
-|op_sai|Opérateur de saisie initial de l'objet|character varying(50)|valeur vide interdite|
-|op_maj|Opérateur ayant mis à jour l'objet initial|character varying(50)||
-|dat_sai|Date de saisie de l'objet|timestamp without time zone|valeur vide interdite|
-|dat_maj|Date de mise à jour de l'objet|timestamp without time zone||
-|observ|Commentaires divers|character varying(254)||
+|idobjet|Identifiant unique de l'objet espace vert|bigint| |
+|idzone|identifiant de la zone de gestion|integer| |
+|idsite|Identifiant du site cohérent|integer| |
+|idcontrat|Identifiant du contrat|character varying(2)| |
+|insee|Code insee de la commune d'appartenance|character varying(5)| |
+|commune|Libellé de la commune d'appartenance|character varying(80)| |
+|quartier|Libellé du quartier|character varying(80)| |
+|doma|Domanialité|character varying(2)| |
+|qualdoma|Qualité de l'information liée à la domanialité|character varying(2)| |
+|typ1|Type d'espace vert de niveau 1|character varying(1)| |
+|typ2|Sous-Type d'espace vert de niveau 2|character varying(2)| |
+|typ3|Sous-Type d'espace vert de niveau 3|character varying(3)| |
+|op_sai|Opérateur de saisie de l'objet|character varying(80)| |
+|date_sai|Date de saisie de l'objet|timestamp without time zone| |
+|srcgeom_sai|Référentiel géographique utilisé pour la saisie de l'objet|character varying(2)| |
+|srcdate_sai|Date du référentiel géographique utilisé pour la saisie de l'objet|integer| |
+|op_att|Opérateur de saisie des attributs métiers de l'objet initial|character varying(80)| |
+|date_maj_att|Année de mise à jour des attributs métiers de l'objet initial|timestamp without time zone| |
+|date_maj|Date de la dernière mise jour de l'objet|timestamp without time zone| |
+|observ|Observations diverses|character varying(255)| |
 
 
 * triggers : sans objet
@@ -294,6 +293,24 @@ Valeurs possibles :
 |22|Privée (autre organisme public)|
 |23|Privée|
 
+`lt_ev_qualdoma` : Liste permettant de décrire la qualité de l'information sur la domanialité
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|code du |character varying(2)| |
+|valeur|libellé |character varying(30)| |
+
+Particularité(s) à noter : aucune
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|  
+|00|Non renseigné|
+|10|Déduite|
+|20|Déclarative|
+
+
 `lt_ev_arbrehauteur` : Liste permettant de décrire la classe de hauteur de chaque objet arbre
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
@@ -454,7 +471,24 @@ Valeurs possibles :
 
 * Fonction triggers : sans objet
 
-(mettre ici les classes d'objets du gabarit)
+`geo_ev_vegetal_arbreisole` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "végétal" et en niveau 3 de la nomenclature correspondant à "arbre isolé".
+
+`geo_ev_vegetal_arbrealignement` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "végétal" et en niveau 3 de la nomenclature correspondant à "alignement d'arbre".
+
+`geo_ev_vegetal_zoneboisee` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "végétal" et en niveau 3 de la nomenclature correspondant à "zone boisée".
+
+`geo_ev_vegetal_arbusteisole` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "végétal" et en niveau 3 de la nomenclature correspondant à "arbuste isolé".
+
+`geo_ev_vegetal_haie` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "végétal" et en niveau 3 de la nomenclature correspondant à "haie".
+
+`geo_ev_vegetal_massifarbustif` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "végétal" et en niveau 3 de la nomenclature correspondant à "massif arbustif".
+
+`geo_ev_vegetal_pointfleuri` : : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "végétal" et en niveau 3 de la nomenclature correspondant à "fleuri isolé".
+
+`geo_ev_vegetal_massiffleuri` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "végétal" et en niveau 3 de la nomenclature correspondant à "massif fleuri".
+
+`geo_ev_vegetal_espaceenherbe` : : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "végétal" et en niveau 3 de la nomenclature correspondant à "espace enherbé".
+
 
 ---
 
