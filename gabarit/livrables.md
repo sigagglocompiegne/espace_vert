@@ -37,11 +37,6 @@ Ainsi, la distinction des différents types d'objets "espace vert" est possible 
 
 ![picto](nomenclature_ev_v4.png)
 
-![picto](159_ev_schema_principe.png)
-
-Schéma 1 : Type de représentation des objets d'un inventaire cartographique
-
-
 
 ### Règles de modélisation
 
@@ -54,6 +49,11 @@ Ainsi, l'inventaire pourra se faire par :
 - numérisation sur des référentiels cartographiques (intégrés aux gabarits),
 - levé de terrain
 - relévés aériens ou embarqués
+
+![picto](159_ev_schema_principe.png)
+
+Schéma 1 : Exemple de représentation des objets d'un inventaire cartographique
+
 
 #### La modélisation géométrique
 
