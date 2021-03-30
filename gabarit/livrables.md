@@ -32,7 +32,6 @@ Il peut être représenté de façon surfacique (espace enherbé, planté ...), 
 
 En complément, dans un **site cohérent** (parc, square, coulée verte urbaine, ...), peuvent être associés des espaces minéraux (allée, aire de jeux ...) ou hydrographiques (bassin ...).
 
-L'inventaire cartographique ne s'attache pas à la définition du périmètre de ces sites et ne devra pas tenir compte des règles topologiques liées.
 
 
 ![picto](nomenclature_ev_v4.png)
