@@ -204,7 +204,7 @@ Les objets de cet inventaire cartographique doivent répondre également aux rè
 
 
 
-#### Système de coordonnées
+### Système de coordonnées
 
 Les coordonnées seront exprimées en mètres avec trois chiffres après la virgule dans le système national en vigueur.
 Sur le territoire métropolitain s'applique le système géodésique français légal RGF93 associé au système altimétrique IGN69. La projection associée Lambert 93 France (EPSG:2154) sera à utiliser pour la livraison des données.
