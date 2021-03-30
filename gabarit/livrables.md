@@ -62,8 +62,8 @@ L'objectif poursuivi dans le cadre de l'inventaire n'est pas celui d'établir un
 A ce titre, des mesures de simplification de la restitution graphique sont prises tout en permettant une rapidité d'exécution accrue pour la saisie initiale et la mise à jour des données. 
 
 En conséquence, les objets surfaciques (pelouse, massif arbustif ...) doivent être adaptés comme suit par rapport aux objets linéaires (ex : allée, trottoir, bande cyclables etc...) :
-* dans les cas où les objets linéaires les délimitent, les objets surfaciques sont "étendus",
-* dans les cas où les objets linéaires les traversent, les objets linaires se surimposent aux objets surfaciques sans les découper.
+* dans les cas où les objets linéaires les délimitent, les objets surfaciques sont "étendus" (se référer au schéma n°2 ci-dessous),
+* dans les cas où les objets linéaires les traversent, les objets linaires se surimposent aux objets surfaciques sans les découper (se référer au schéma n°2 ci-dessous).
 
 Cette simplification de "dessin" est compensée par des attributs descriptifs complémentaires (largeur des espaces linéaires concernés).
 
