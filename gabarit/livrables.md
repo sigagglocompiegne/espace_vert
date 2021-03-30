@@ -88,8 +88,7 @@ Schéma n°2 : Présentation du principe de modélisation des intéractions entr
 |Massif fleuri|X <5m²||X >5m²|
 |Espace enherbé|||X >25m²|
 |Voie circulation||X||
-|Espace de rencontre|||X|
-|Stationnement|||X|
+|Zone de circulation|||X|
 |Clôture||X||
 |Loisirs isolé|X|||
 |Espace de loisirs|||X|
