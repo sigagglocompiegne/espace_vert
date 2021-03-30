@@ -34,10 +34,10 @@ DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_zonedecirculation;
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_cloture;
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_loisirsisole;
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_espacedeloisirs;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_arriveedeau;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_pointdeau;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_coursdeau;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_etenduedeau;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_hydrographique_arriveedeau;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_hydrographique_pointdeau;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_hydrographique_coursdeau;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_hydrographique_etenduedeau;
 
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_line;
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_pct;
@@ -616,11 +616,11 @@ GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_mineral_espacedeloisirs TO sig_create
 GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_mineral_espacedeloisirs TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_mineral_espacedeloisirs TO sig_edit;
 
--- View: m_espace_vert_v2.geo_ev_mineral_arriveedeau
+-- View: m_espace_vert_v2.geo_ev_hydrographique_arriveedeau
 
--- DROP VIEW m_espace_vert_v2.geo_ev_mineral_arriveedeau;
+-- DROP VIEW m_espace_vert_v2.geo_ev_hydrographique_arriveedeau;
 
-CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_mineral_arriveedeau
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_hydrographique_arriveedeau
  AS
  SELECT o.idobjet,
     o.typ1,
@@ -631,19 +631,19 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_mineral_arriveedeau
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
   WHERE o.typ2::text = '31'::text;
 
-ALTER TABLE m_espace_vert_v2.geo_ev_mineral_arriveedeau
+ALTER TABLE m_espace_vert_v2.geo_ev_hydrographique_arriveedeau
     OWNER TO sig_create;
 
-GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_mineral_arriveedeau TO sig_read;
-GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_mineral_arriveedeau TO sig_create;
-GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_mineral_arriveedeau TO create_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_mineral_arriveedeau TO sig_edit;
+GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_hydrographique_arriveedeau TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_hydrographique_arriveedeau TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_hydrographique_arriveedeau TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_hydrographique_arriveedeau TO sig_edit;
 
--- View: m_espace_vert_v2.geo_ev_mineral_pointdeau
+-- View: m_espace_vert_v2.geo_ev_hydrographique_pointdeau
 
--- DROP VIEW m_espace_vert_v2.geo_ev_mineral_pointdeau;
+-- DROP VIEW m_espace_vert_v2.geo_ev_hydrographique_pointdeau;
 
-CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_mineral_pointdeau
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_hydrographique_pointdeau
  AS
  SELECT o.idobjet,
     o.typ1,
@@ -654,19 +654,19 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_mineral_pointdeau
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
   WHERE o.typ2::text = '32'::text;
 
-ALTER TABLE m_espace_vert_v2.geo_ev_mineral_pointdeau
+ALTER TABLE m_espace_vert_v2.geo_ev_hydrographique_pointdeau
     OWNER TO sig_create;
 
-GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_mineral_pointdeau TO sig_read;
-GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_mineral_pointdeau TO sig_create;
-GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_mineral_pointdeau TO create_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_mineral_pointdeau TO sig_edit;
+GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_hydrographique_pointdeau TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_hydrographique_pointdeau TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_hydrographique_pointdeau TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_hydrographique_pointdeau TO sig_edit;
 
--- View: m_espace_vert_v2.geo_ev_mineral_coursdeau
+-- View: m_espace_vert_v2.geo_ev_hydrographique_coursdeau
 
--- DROP VIEW m_espace_vert_v2.geo_ev_mineral_coursdeau;
+-- DROP VIEW m_espace_vert_v2.geo_ev_hydrographique_coursdeau;
 
-CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_mineral_coursdeau
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_hydrographique_coursdeau
  AS
  SELECT o.idobjet,
     o.typ1,
@@ -679,19 +679,19 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_mineral_coursdeau
      JOIN m_espace_vert_v2.an_ev_geoline gl ON o.idobjet = gl.idobjet
   WHERE o.typ2::text = '32'::text;
 
-ALTER TABLE m_espace_vert_v2.geo_ev_mineral_coursdeau
+ALTER TABLE m_espace_vert_v2.geo_ev_hydrographique_coursdeau
     OWNER TO sig_create;
 
-GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_mineral_coursdeau TO sig_read;
-GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_mineral_coursdeau TO sig_create;
-GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_mineral_coursdeau TO create_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_mineral_coursdeau TO sig_edit;
+GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_hydrographique_coursdeau TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_hydrographique_coursdeau TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_hydrographique_coursdeau TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_hydrographique_coursdeau TO sig_edit;
 
--- View: m_espace_vert_v2.geo_ev_mineral_etenduedeau
+-- View: m_espace_vert_v2.geo_ev_hydrographique_etenduedeau
 
--- DROP VIEW m_espace_vert_v2.geo_ev_mineral_etenduedeau;
+-- DROP VIEW m_espace_vert_v2.geo_ev_hydrographique_etenduedeau;
 
-CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_mineral_etenduedeau
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_hydrographique_etenduedeau
  AS
  SELECT o.idobjet,
     o.typ1,
@@ -702,10 +702,10 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_mineral_etenduedeau
      JOIN m_espace_vert_v2.geo_ev_line l ON o.idobjet = l.idobjet
   WHERE o.typ2::text = '32'::text;
 
-ALTER TABLE m_espace_vert_v2.geo_ev_mineral_etenduedeau
+ALTER TABLE m_espace_vert_v2.geo_ev_hydrographique_etenduedeau
     OWNER TO sig_create;
 
-GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_mineral_etenduedeau TO sig_read;
-GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_mineral_etenduedeau TO sig_create;
-GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_mineral_etenduedeau TO create_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_mineral_etenduedeau TO sig_edit;
+GRANT SELECT ON TABLE m_espace_vert_v2.geo_ev_hydrographique_etenduedeau TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_hydrographique_etenduedeau TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_ev_hydrographique_etenduedeau TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_ev_hydrographique_etenduedeau TO sig_edit;
