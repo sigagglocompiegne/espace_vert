@@ -19,14 +19,22 @@
 
 --VUES
 
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_arbreisole;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_arbrealignement;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_zoneboisee;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_arbusteisole;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_haie;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_massifarbustif;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_pointfleuri;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_massiffleuri;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_espaceenherbe;
+
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_line;
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_pct;
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_polygon;
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_arbre;
 
--- FONCTIONS
 
--- pas de fonction d'édition permise à ce stade de l'inventaire cartographique
 
 -- #################################################################################################################################
 -- ###                                                                                                                           ###
