@@ -35,8 +35,6 @@ En complément, dans un **site cohérent** (parc, square, coulée verte urbaine,
 L'inventaire cartographique ne s'attache pas à la définition du périmètre de ces sites et ne devra pas tenir compte des règles topologiques liées.
 
 
-![picto](nomenclature_ev_v4.png)
-
 ![picto]() à refaire
 
 Schéma 1 : une représentation des objets d'un inventaire cartographique
@@ -74,6 +72,8 @@ Ces attributs complémentaires propres aux objets des espaces verts permettent a
 Cette orientation assumée, est censée être plus proche d'une gestion de service mais ne permet pas une restitution graphique exacte des objets "espace vert". La production d'un inventaire cartographique et de sa mise à jour (interne ou non) est jugée plus rapide. A contrario, l'exploitation des données devra prendre en compte les particularités de cette modélisation pour restituer au mieux une réalité en terme de surface.
 
 ##### Modélisation simplifiée des classes d'objets du gabarit par type de géométrie permis
+
+![picto](nomenclature_ev_v4.png)
 
 |Classe d'objets|Point|Ligne|Polygone|
 |:---|:---|:---|:---|
