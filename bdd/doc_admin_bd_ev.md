@@ -273,7 +273,6 @@ Valeurs possibles :
 |06|Enceinte sportive|
 |07|Cimetière|
 |11|Espace naturel aménagé|
-|12|Arbre d'alignement|
 
 
 `lt_ev_doma` : Liste permettant de décrire les types domanialités
