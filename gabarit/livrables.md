@@ -208,15 +208,8 @@ Sur le territoire métropolitain s'applique le système géodésique français l
 Les fichiers sont disponibles au format ESRI Shape (.SHP) contenant la géométrie.
 L'encodage des caractères est en UTF8. Les différents supports sont téléchargeables dans la rubrique Gabarits.
 
-### Description des classes d'objets
 
-|Nom fichier|Définition|Catégorie|Géométrie|
-|:---|:---|:---|:---|
-|geo_ev_vegetal_arbreisole|Classe d'objets des arbres isolés|Inventaire cartographique|Ponctuel|
-
-
-
-### Implémentation informatique
+### Implémentation informatique du gabarit
 
 #### Patrimoine
 
@@ -224,7 +217,7 @@ Ensemble des données décrivant les objets composant l'inventaire cartographiqu
 
 `[SHAPE NAME]` : fichier contenant les objets "[NAME]" de type [GEOM]
 
-|Nom attribut|Définition|Type|Valeurs|Contraintes|Observations|
+|Classe d'objets|Définition|Type|Valeurs|Contraintes|Observations|
 |:---|:---|:---|:---|:---|:---|
 
 
