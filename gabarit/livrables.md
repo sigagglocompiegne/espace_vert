@@ -61,7 +61,7 @@ Les règles de modélisation consistent à présenter la façon dont les objets 
 L'objectif poursuivi dans le cadre de l'inventaire n'est pas celui d'établir un dessin topographique précis mais bien de disposer d'une information nécessaire à la gestion et l'exploitation des espaces verts par la collectivité.
 A ce titre, des mesures de simplification de la restitution graphique sont prises tout en permettant une rapidité d'exécution accrue pour la saisie initiale et la mise à jour des données. 
 
-En conséquence, les objets surfaciques (pelouse, massif arbustif ...) doivent être "étendus" jusqu'en limite des objets linéaires qui les délimitent ou les traversent (ex : allée, trottoir, bande cyclables etc...). Cette simplification de "dessin" est compensée par des attributs descriptifs complémentaires (largeur des espaces linéaires concernés) pour rendre compte de surfaces approchantes d'espaces verts.
+En conséquence, les objets surfaciques (pelouse, massif arbustif ...) doivent être "étendus" jusqu'en limite des objets linéaires qui les délimitent ou les traversent (ex : allée, trottoir, bande cyclables etc...). Cette simplification de "dessin" est compensée par des attributs descriptifs complémentaires (largeur des espaces linéaires concernés).
 
 ![graph]() à refaire
 
