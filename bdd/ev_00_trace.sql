@@ -15,6 +15,6 @@
 /*
 #################################################################### SUIVI CODE SQL ####################################################################
 
-2021-03-19 : GB / initialisation du code du nouveau modèle de données pour un inventaire cartographique (dernière version fonctionnel)
+2021-03-30 : GB / initialisation du code du nouveau modèle de données pour un inventaire cartographique (dernière version fonctionnel)
 
 
