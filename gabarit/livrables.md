@@ -96,7 +96,33 @@ Cette simplification de "dessin" est compensée par des attributs descriptifs co
 |Cours d'eau||X||
 |Etendue d'eau|X <5m²||X >5m²|
 
-##### Modélisation détaillée des objets du gabarit
+
+#### Topologie
+
+La cohérence topologique impose le partage de géométrie et donc l’utilisation des outils « d’accroches ».
+
+- Tous les objets sont nécessairement inclus dans une emprise communale.
+- Tous les objets sont inclus dans un site cohérent ou non (équipement public, voie ...). 
+- Les objets devront être découpés avec les limites communales et les zones de gestion existantes.
+
+- Tous les objets de type "surface" sont des polygones fermés, et s'ils sont adjacents, ils devront être topologiques (absence de chevauchements et de micro-trous). 
+
+![picto](topo_poly_1.png) ![picto](topo_poly_3.png)
+
+- Un polygone contenant un autre polygone devra être découpé avec celui-ci.
+
+![picto](topo_poly_2.png)
+
+- Les linéraires doivent être connectés entre eux s'ils sont contigus dans la réalité du dessin saisi.
+
+![picto](topo_line_1.png)
+
+- Les arcs de cercle ou ellipses devront être numérisés sous forme de polyligne suffisamment détaillée pour en reproduire la forme.
+
+
+### Règles de saisies
+
+#### Modélisation détaillée des objets du gabarit
 
 
 |Classe d'objets|Représentation|Définition et règle|Type d'objets saisis|Schéma de principe|
@@ -123,7 +149,7 @@ Cette simplification de "dessin" est compensée par des attributs descriptifs co
 
 (1) Les arbres en alignement font l'objet d'une double saisie, ponctuel et linéaire
 
-##### Classes d'attributs complémentaires propre à certains objets
+#### Classes d'attributs complémentaires propre à certains objets
 
 Certaines classes d'objets doivent faire l'objet de complétude par des attributs complémentaires qualitatifs. Le tableau ci-dessous indique les classes d'objets du gabarit qui sont concernées et les attributs à saisir (les valeurs possibles sont listées à la suite du tableau).
 
@@ -162,7 +188,7 @@ Certaines classes d'objets doivent faire l'objet de complétude par des attribut
 ||29|Hors-sol (autre type)|
 
 
-##### Exemples d'applications de la modélisation
+#### Exemples d'applications des règles de saisies
 
 **Dans un site cohérent (parc, square ...) :** 
 
@@ -177,27 +203,6 @@ Certaines classes d'objets doivent faire l'objet de complétude par des attribut
 Les objets de cet inventaire cartographique doivent répondre également aux règles topologiques présentées ci-après.
 
 
-#### Topologie
-
-La cohérence topologique impose le partage de géométrie et donc l’utilisation des outils « d’accroches ».
-
-- Tous les objets sont nécessairement inclus dans une emprise communale.
-- Tous les objets sont inclus dans un site cohérent ou non (équipement public, voie ...). 
-- Les objets devront être découpés avec les limites communales et les zones de gestion existantes.
-
-- Tous les objets de type "surface" sont des polygones fermés, et s'ils sont adjacents, ils devront être topologiques (absence de chevauchements et de micro-trous). 
-
-![picto](topo_poly_1.png) ![picto](topo_poly_3.png)
-
-- Un polygone contenant un autre polygone devra être découpé avec celui-ci.
-
-![picto](topo_poly_2.png)
-
-- Les linéraires doivent être connectés entre eux s'ils sont contigus dans la réalité du dessin saisi.
-
-![picto](topo_line_1.png)
-
-- Les arcs de cercle ou ellipses devront être numérisés sous forme de polyligne suffisamment détaillée pour en reproduire la forme.
 
 #### Système de coordonnées
 
