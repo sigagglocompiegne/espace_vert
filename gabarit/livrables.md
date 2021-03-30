@@ -268,9 +268,6 @@ Le gabarit intègre déjà le découpage des 3 niveaux de nomenclature en terme 
 
 
 
-#### Les identifiants
-
-Les identifiants des objets des espaces verts sont des identifiants non signifiants (un simple numéro incrémenté de 1 à chaque insertion).
 
 
 
