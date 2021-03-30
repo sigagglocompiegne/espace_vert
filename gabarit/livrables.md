@@ -138,8 +138,7 @@ La cohérence topologique impose le partage de géométrie et donc l’utilisati
 |Massif fleuri|POLYGONE|Massif fleuri au sol ou hors sol supérieur à 5m².|fleur en massif, jardinière||
 |Espace enherbé|POLYGONE|Ensemble enherbé, homogène, entretenu et de même type, d'une surface supérieure à 25m².|pelouse, gazon ...||
 |Voie circulation|LINEAIRE|Axe de circulation doux, homogène décomposant un espace enherbé ou planté d'une largeur inférieure à 5 mètres en moyenne, sinon il s'agit d'un espace de circulation. Une largeur est obligatoirement renseignée. Le tracé de la ligne est obligatoirement saisi au centre de l'emprise au sol de l'objet.|allée, piste cyclable ...||
-|Espace de rencontre|POLYGONE|Zone minérale de rencontre intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi.|place, parvis ...||
-|Stationnement|POLYGONE|Zone de stationnement identifiée intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi.|parking, aire de stationnement ...||
+|Zone de circulation|POLYGONE|Zone minérale intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi.|place, parvis, stationnement ...||
 |Clôture|LINEAIRE|Délimitation non naturelle fermant un site cohérent (parc, square ...) ou un sous-ensemble (aire de jeux, bassin ...) . Le tracé de la ligne est obligatoirement au pied de l'emprise au sol de l'objet.|mur, grillage, palissade ...)||
 |Loisirs isolé|POINT|Tout équipement de loisirs identifiable. L'objet restitué doit correspondre au centre de celui-ci. |jeux, élément de parcours sportif, table de pique-nique ...||
 |Espace de loisirs|POLYGONE|Zone récréative minéralisée (sable, enrobé ...) intégrée ou non à un site cohérent. Pas de surface minimum, tout objet doit-être saisi.|aire de jeux, bac à sable, surface d'accompagnement ...||
