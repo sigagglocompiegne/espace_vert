@@ -47,8 +47,6 @@ Schéma 1 : une représentation des objets d'un inventaire cartographique
 
 #### Règles générales
 
-Les objets constituant l'inventaire cartographique initial sont organisés autour des 3 primitives géographiques de base : polygones, lignes et points. **La saisie des objets de type multi n'est pas autorisée.**
-
 La saisie de ces objets doit permettre une **restitution de l'ordre du 1/1000e**.
 
 Le cadre prescriptif autorise des modalités d'inventaire variées sous réserve que la précision soit suffisante pour respecter l'échelle de restitution indiquée.
@@ -60,6 +58,8 @@ Ainsi, l'inventaire pourra se faire par :
 #### La modélisation géométrique
 
 Les règles de modélisation consistent à présenter la façon dont les objets doivent être saisis et restitués dans le gabarit.
+
+Les objets constituant l'inventaire cartographique initial sont organisés autour des 3 primitives géographiques de base : polygones, lignes et points. **La saisie des objets de type multi n'est pas autorisée.**
 
 L'objectif poursuivi dans le cadre de l'inventaire n'est pas celui d'établir un dessin topographique précis mais bien de disposer d'une information nécessaire à la gestion et l'exploitation des espaces verts par la collectivité.
 A ce titre, des mesures de simplification de la restitution graphique sont prises tout en permettant une rapidité d'exécution accrue pour la saisie initiale et la mise à jour des données. 
