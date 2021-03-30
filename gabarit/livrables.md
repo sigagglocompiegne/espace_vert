@@ -40,6 +40,8 @@ L'inventaire cartographique ne s'attache pas à la définition du périmètre de
 Schéma 1 : une représentation des objets d'un inventaire cartographique
 
 
+![picto](nomenclature_ev_v4.png)
+
 ### Règles de modélisation
 
 #### Règles générales
@@ -70,8 +72,6 @@ Cette simplification de "dessin" est compensée par des attributs descriptifs co
 ![graph]() à refaire
 
 ##### Modélisation simplifiée des classes d'objets du gabarit par type de géométrie permis
-
-![picto](nomenclature_ev_v4.png)
 
 |Classe d'objets|Point|Ligne|Polygone|
 |:---|:---|:---|:---|
