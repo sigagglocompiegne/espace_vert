@@ -229,6 +229,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |212|Piste cyclable|
 |213|Parking matérialisé|
 |214|Espace de stationnement libre|
+|215|Place, parvis|
 |219|Autre circulation|
 |221|Mur|
 |222|Grillage|
