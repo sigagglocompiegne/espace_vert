@@ -697,9 +697,9 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_hydrographique_etenduedeau
     o.typ1,
     o.typ2,
     o.typ3,
-    l.geom
+    p.geom
    FROM m_espace_vert_v2.an_ev_objet o
-     JOIN m_espace_vert_v2.geo_ev_line l ON o.idobjet = l.idobjet
+     JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
   WHERE o.typ2::text = '32'::text;
 
 ALTER TABLE m_espace_vert_v2.geo_ev_hydrographique_etenduedeau
