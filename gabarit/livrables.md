@@ -156,7 +156,7 @@ La cohérence topologique impose le partage de géométrie et donc l’utilisati
 Certaines classes d'objets doivent faire l'objet de complétude par des attributs complémentaires qualitatifs. Le tableau ci-dessous indique les classes d'objets du gabarit qui sont concernées et les attributs à saisir (les valeurs possibles sont listées à la suite du tableau).
 
 |Classe d'objets|Type de saisie (1)|Position (2)|Largeur|
-|:---|:---|:---|:---|
+|:---|:---|:---|:---|:---|
 |Arbre isolé||X||
 |Alignement d'arbres||X||
 |Zone boisée||X||
@@ -166,7 +166,7 @@ Certaines classes d'objets doivent faire l'objet de complétude par des attribut
 |Fleuri isolé||X||
 |Massif fleuri||X||
 |Espace enherbé||X||
-|Voie circulation|||X|
+|Circulation Voie|||X|
 |Cours d'eau|||X|
 
 (1)  Type de saisie : liste des valeurs décrivant le type de saisie de la sous-classe de précision des objets espace vert de type haie
@@ -189,49 +189,7 @@ Certaines classes d'objets doivent faire l'objet de complétude par des attribut
 |![picto](suspension.png)|24|Suspension|
 ||29|Hors-sol (autre type)|
 
-
-#### Exemples d'applications des règles de saisies
-
-
-
-![picto](159_ev_schema_detail_1.png)
-
-Schéma n°3 : Application des règles de saisie dans un site cohérent (ici une coulée verte urbaine)
-
-
-![picto](à refaire)
-
-Schéma n°4 : Application des règles de saisie en dehors d'un site cohérent (espace végétalisé diffus, trottoir végétalisé, accotement ...)
-
-### Système de coordonnées
-
-Les coordonnées seront exprimées en mètres avec trois chiffres après la virgule dans le système national en vigueur.
-Sur le territoire métropolitain s'applique le système géodésique français légal RGF93 associé au système altimétrique IGN69. La projection associée Lambert 93 France (EPSG:2154) sera à utiliser pour la livraison des données.
-
-### Format des fichiers
-
-Les fichiers sont disponibles au format ESRI Shape (.SHP) contenant la géométrie.
-L'encodage des caractères est en UTF8. Les différents supports sont téléchargeables dans la rubrique Gabarits.
-
-
-### Implémentation informatique du gabarit
-
-#### Patrimoine
-
-Ensemble des données décrivant les objets composant l'inventaire cartographique des espaces verts ainsi que les attributs complémentaires spécifiques à certaines classes d'attributs intégrés au gabarit.
-
-`[SHAPE NAME]` : fichier contenant les objets "[NAME]" de type [GEOM]
-
-|Attributs à compléter|Valeurs possibles|
-|:---|:---|
-
-
-#### Liste de valeurs
-
-Le gabarit intègre déjà le découpage des 3 niveaux de nomenclature en terme d'objets "espace vert" à saisir. Seul le niveau 3 est présenté ci-dessous car il montre également des illustrations permettant de mieux déterminer les objets à saisir.
-
- * Nomenclature des objets "espace vert" de niveau 3
- 
+Toutes les autres classes du gabarit sont concernées uniquement par la saisie de l'objet et d'une éventuelle précision de la nomenclature de niveau 3. Le tableau ci-dessous montre des exemples d'illustration des objets à saisir par classe de nomenclature.
 
 |Illustration|Valeur|
 |:---|:---|
@@ -257,9 +215,9 @@ Le gabarit intègre déjà le découpage des 3 niveaux de nomenclature en terme 
 |![picto](palissade.png)|Palissage|
 ||Autre clôture|
 |![picto](jeux_isolé.png)|Jeux isolé|
-|![picto](parcours_sportif.png)|Elément sportif|
+|![picto](parcours_sportif.png)|Loisirs isolé|
 |![picto](aire_jeux.png)|Aire de jeux|
-||Autre loisirs|
+||Autre espace de loisirs|
 |![picto](fontaine.png)|Fontaine|
 |![picto](point_eau.png)|Robinet|
 ||Autre arrivée d'eau|
@@ -270,6 +228,30 @@ Le gabarit intègre déjà le découpage des 3 niveaux de nomenclature en terme 
 |![picto](marre.png)|Marre|
 |![picto](etang.png)|Etang|
 ||Autre étendue d'eau|
+
+#### Exemples d'applications des règles de saisies
+
+![picto](159_ev_schema_detail_1.png)
+
+Schéma n°3 : Application des règles de saisie dans un site cohérent (ici une coulée verte urbaine)
+
+
+![picto](à refaire)
+
+Schéma n°4 : Application des règles de saisie en dehors d'un site cohérent (espace végétalisé diffus, trottoir végétalisé, accotement ...)
+
+### Système de coordonnées
+
+Les coordonnées seront exprimées en mètres avec trois chiffres après la virgule dans le système national en vigueur.
+Sur le territoire métropolitain s'applique le système géodésique français légal RGF93 associé au système altimétrique IGN69. La projection associée Lambert 93 France (EPSG:2154) sera à utiliser pour la livraison des données.
+
+### Format des fichiers
+
+Les fichiers sont disponibles au format ESRI Shape (.SHP) contenant la géométrie.
+L'encodage des caractères est en UTF8. Les différents supports sont téléchargeables dans la rubrique Gabarits.
+
+
+
 
 
 
