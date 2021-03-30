@@ -88,6 +88,25 @@ DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_arbre;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_geohaie;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_geoline;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_geovegetal;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_arbreisole;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_arbrealignement;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_zoneboisee;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_arbusteisole;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_haie;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_massifarbustif;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_pointfleuri;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_massiffleuri;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_espaceenherbe;
+
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_voiecirculation;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_zonedecirculation;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_cloture;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_loisirsisole;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_espacedeloisirs;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_arriveedeau;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_pointdeau;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_coursdeau;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_etenduedeau;
 
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_pct;
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_line;
@@ -136,6 +155,7 @@ INSERT INTO m_espace_vert_v2.lt_ev_doma (
 	('21','Privée (communale)'),
 	('22','Privée (autre organisme public, HLM, ...)'),
 	('23','Privée');  
+	
 -- ################################################################# lt_ev_qualdoma ###############################################
     
 -- Table: m_espace_vert_v2.lt_ev_qualdoma 
