@@ -214,10 +214,8 @@ Toutes les autres classes du gabarit sont concernées uniquement par la saisie d
 |![picto](grillage.png)|Grillage|
 |![picto](palissade.png)|Palissage|
 ||Autre clôture|
-|![picto](jeux_isolé.png)|Jeux isolé|
-|![picto](parcours_sportif.png)|Loisirs isolé|
-|![picto](aire_jeux.png)|Aire de jeux|
-||Autre espace de loisirs|
+|![picto](jeux_isolé.png) ![picto](parcours_sportif.png)|Loisirs isolé|
+|![picto](aire_jeux.png) |Surface de loisirs|
 |![picto](fontaine.png)|Fontaine|
 |![picto](point_eau.png)|Robinet|
 ||Autre arrivée d'eau|
