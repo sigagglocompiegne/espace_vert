@@ -103,10 +103,10 @@ DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_zonedecirculation;
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_cloture;
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_loisirsisole;
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_espacedeloisirs;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_arriveedeau;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_pointdeau;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_coursdeau;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_etenduedeau;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_hydrographique_arriveedeau;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_hydrographique_pointdeau;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_hydrographique_coursdeau;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_hydrographique_etenduedeau;
 
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_pct;
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_line;
