@@ -292,6 +292,7 @@ INSERT INTO m_espace_vert_v2.lt_ev_typ3(
 ('212','Piste cyclable'),
 ('213','Parking matérialisé'),
 ('214','Espace de stationnement libre'),
+('215','Parvis, place'),
 ('219','Autre circulation'),
 ('221','Mur'),
 ('222','Grillage'),
