@@ -122,7 +122,7 @@ La cohérence topologique impose le partage de géométrie et donc l’utilisati
 
 ### Règles de saisies
 
-#### Modélisation détaillée des objets du gabarit
+#### Les règles de saisies détaillées des objets du gabarit
 
 
 |Classe d'objets|Représentation|Définition et règle|Type d'objets saisis|Schéma de principe|
