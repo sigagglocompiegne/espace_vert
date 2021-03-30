@@ -70,7 +70,7 @@ En conséquence, les objets surfaciques (pelouse, massif arbustif ...) doivent �
 
 Cette simplification de "dessin" est compensée par des attributs descriptifs complémentaires (largeur des espaces linéaires concernés).
 
-![graph]() à refaire
+![graph](modelisation_trace.png)
 
 Schéma n°2 : Présentation du principe de modélisation des intéractions entres les objets surfaciques et linéaires
 
