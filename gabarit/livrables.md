@@ -103,15 +103,15 @@ Cette simplification de "dessin" est compensée par des attributs descriptifs co
 |:---|:---|:---|:---|:---|
 |Arbre isolé (1)|POINT|Arbre entretenu, localisé en diffus, en alignement, dans un contenant artificiel ou dans une zone boisée aménagée et entretenue. L'objet restitué doit correspondre au centre de celui-ci.|arbre||
 |Alignement d'arbres (1)|LINEAIRE|Bande arborée, composée d'une série d'arbres entretenus continue (au moins 4), le long d'un axe routier ou piéton. Le linéaire saisi correspond au centre de l'emprise de l'alignement. Les ruptures de voirie devront être respectées. Chaque alignement doit être identifié.|arbre|![picto](regle_lineaire_v1.png)|
-|Zone boisée|POLYGONE|Ensemble d'arbres dense essentiellement d'ambiance naturelle. Pour rappel, les arbres dans une zone boisée, situés dans un site cohérent (parc ...) doivent être saisis individuellement sur un espace délimité (enherbé, massif arbustif ...).|boisement d'ambiance naturelle||
+|Zone boisée|POLYGONE|Ensemble d'arbres dense essentiellement d'ambiance naturelle.|boisement d'ambiance naturelle||
 |Arbuste isolé|POINT|Arbuste entretenu, localisé en diffus, dans un contenant artificiel ou non. L'objet restitué doit correspondre au centre de celui-ci.|arbuste||
 |Haie|LINEAIRE|Bande arbustive d'un seul tenant intégrée ou non à un espace enherbé d'une largeur inférieure à 5m sinon il s'agit d'un massif arbustif. Les ruptures de cohérence devront être respectées. Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement renseignée. Les ruptures de voirie devront être respectées.|arbuste|![picto](saisie_haie.png) ![picto](haie_rupture.png)|
-|Massif arbustif|POLYGONE|Massif arbustif au sol ou hors sol d'une surface supérieure à 5m².|Pour rappel, si la surface est inféreure à 5m², cet espace est représenté dans la classe "Arbuste isolé".||
+|Massif arbustif|POLYGONE|Massif arbustif au sol ou hors sol d'une surface supérieure à 5m².|||
 |Fleuri isolé|POINT|Espace fleuri hors sol dans un contenant artificiel (bacs, pots, jardinière, suspension ...) inférieur à 5m². L'objet restitué doit correspondre au centre de celui-ci.|fleur en pot, en bac, en jardinière||
-|Massif fleuri|POLYGONE|Massif fleuri au sol ou hors sol supérieur à 5m². Pour rappel, si la surface est inféreure à 5m², cet espace est représenté dans la classe "Fleuri isolé".|fleur en massif, jardinière||
-|Espace enherbé|POLYGONE|Ensemble enherbé, homogène, entretenu et de même type, d'une surface supérieure à 25m². Pour rappel, les objets intégrant cet espace (circulation douce, haie ...) de forme linéaire, créant ainsi des ruptures, sont saisis sous forme de linéaire.|pelouse, gazon ...||
+|Massif fleuri|POLYGONE|Massif fleuri au sol ou hors sol supérieur à 5m².|fleur en massif, jardinière||
+|Espace enherbé|POLYGONE|Ensemble enherbé, homogène, entretenu et de même type, d'une surface supérieure à 25m².|pelouse, gazon ...||
 |Voie circulation|LINEAIRE|Axe de circulation doux, homogène décomposant un espace enherbé ou planté d'une largeur inférieure à 5 mètres en moyenne, sinon il s'agit d'un espace de circulation. Une largeur est obligatoirement renseignée. Le tracé de la ligne est obligatoirement saisi au centre de l'emprise au sol de l'objet.|allée, piste cyclable ...||
-|Espace de rencontre|POLYGONE|Zone minérale de rencontre intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi. Pour rappel les éléments minéraux de rupture (allée, circulation douce ...) sont saisis dans la classe "Voie circulation".|place, parvis ...||
+|Espace de rencontre|POLYGONE|Zone minérale de rencontre intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi.|place, parvis ...||
 |Stationnement|POLYGONE|Zone de stationnement identifiée intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi.|parking, aire de stationnement ...||
 |Clôture|LINEAIRE|Délimitation non naturelle fermant un site cohérent (parc, square ...) ou un sous-ensemble (aire de jeux, bassin ...) . Le tracé de la ligne est obligatoirement au pied de l'emprise au sol de l'objet.|mur, grillage, palissade ...)||
 |Loisirs isolé|POINT|Tout équipement de loisirs identifiable. L'objet restitué doit correspondre au centre de celui-ci. |jeux, élément de parcours sportif, table de pique-nique ...||
@@ -119,7 +119,7 @@ Cette simplification de "dessin" est compensée par des attributs descriptifs co
 |Arrivée d'eau|POINT|Equipement hydrographique contenu dans un site cohérent (parc, square ...). L'objet restitué doit correspondre au centre de celui-ci.|fontaine, robinet ...||
 |Points d'eau|POINT|Etendue d'eau naturelle ou artificielle inférieure à 5m². L'objet restitué doit correspondre au centre de celui-ci.|marre ou bassin de moins de 5m² ...||
 |Cours d'eau|POINT|Cours d'eau naturel ou non décomposant un espace enherbé ou planté d'une largeur inférieure à 5 mètres en moyenne, sinon il s'agit d'une étendue d'eau. Une largeur est obligatoirement renseignée. Le tracé de la ligne est obligatoirement saisi au centre de l'emprise au sol de l'objet.|ru, rivière||
-|Etendue d'eau|POLYGONE|Surface en eau supérieure à 5m² intégrant un espace cohérent d'espace vert (parc, square ...). Pour rappel, si la surface est inférieure à 5m², l'objet sera représenté en ponctuel.|bassin, marre, étang ...||
+|Etendue d'eau|POLYGONE|Surface en eau supérieure à 5m² intégrant un espace cohérent d'espace vert (parc, square ...).|bassin, marre, étang ...||
 
 (1) Les arbres en alignement font l'objet d'une double saisie, ponctuel et linéaire
 
