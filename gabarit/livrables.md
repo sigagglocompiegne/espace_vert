@@ -37,9 +37,9 @@ Ainsi, la distinction des différents types d'objets "espace vert" est possible 
 
 ![picto](nomenclature_ev_v4.png)
 
-![picto]() à refaire
+![picto](159_ev_schema_principe.png)
 
-Schéma 1 : une représentation des objets d'un inventaire cartographique
+Schéma 1 : Type de représentation des objets d'un inventaire cartographique
 
 
 
