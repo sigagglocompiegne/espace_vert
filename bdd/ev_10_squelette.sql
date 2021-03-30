@@ -81,6 +81,7 @@ DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_arbredanger;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_arbresol;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_typsaihaie;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_position;
+DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_qualdoma;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_objet;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_arbre;
 
@@ -135,6 +136,38 @@ INSERT INTO m_espace_vert_v2.lt_ev_doma (
 	('21','Privée (communale)'),
 	('22','Privée (autre organisme public, HLM, ...)'),
 	('23','Privée');  
+-- ################################################################# lt_ev_qualdoma ###############################################
+    
+-- Table: m_espace_vert_v2.lt_ev_qualdoma 
+
+-- DROP TABLE m_espace_vert_v2.lt_ev_qualdoma ;
+
+CREATE TABLE m_espace_vert_v2.lt_ev_qualdoma 
+(
+    code character varying(2) COLLATE pg_catalog."default" NOT NULL,
+    valeur character varying(50) COLLATE pg_catalog."default",
+    CONSTRAINT lt_ev_qualdoma_pkey PRIMARY KEY (code)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+COMMENT ON TABLE m_espace_vert_v2.lt_ev_qualdoma 
+    IS 'Domaine de valeur sur la qualité de l''information liée à la domanialité';
+
+COMMENT ON COLUMN m_espace_vert_v2.lt_ev_qualdoma .code
+    IS 'Code de la qualité de l''information liée à la domanialité';
+
+COMMENT ON COLUMN m_espace_vert_v2.lt_ev_qualdoma .valeur
+    IS 'valeur de la qualité de l''information liée à la domanialité';
+
+INSERT INTO m_espace_vert_v2.lt_ev_qualdoma (
+            code, valeur)
+    VALUES
+    ('00','Non renseignée'),
+	('10','Déduite'),
+	('20','Déclarative');  
 
 -- ################################################################# lt_ev_typ1 ###############################################
 
@@ -264,9 +297,8 @@ INSERT INTO m_espace_vert_v2.lt_ev_typ3(
 ('222','Grillage'),
 ('223','Palissage'),
 ('229','Autre clôture'),
-('231','Aire de jeux'),
-('232','Equipement sportif'),
-('239','Autre équipement de loisirs'),
+('231','Loisirs isolé'),
+('232','Surface de loisirs'),
 ('311','Fontaine'),
 ('312','Robinet'),
 ('319','Autre arrivée d''eau'),
@@ -327,8 +359,7 @@ INSERT INTO m_espace_vert_v2.lt_ev_typsite(
   ('05','Accompagnement d''établissements industriels et commerciaux'),
   ('06','Enceinte sportive'),
   ('07','Cimetière'),
-  ('11','Espace naturel aménagé'),
-  ('12','Arbre l''alignement');
+  ('11','Espace naturel aménagé');
 
 
   
@@ -648,8 +679,8 @@ CREATE TABLE m_espace_vert_v2.an_ev_objet
   insee character varying(5),
   commune character varying(80),
   quartier character varying(80),
-  doma_d character varying(2),
-  doma_r character varying(2),
+  doma character varying(2),
+  qualdoma character varying(2),
   typ1 character varying(1),
   typ2 character varying(2),
   typ3 character varying(3),
@@ -697,11 +728,11 @@ COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.commune
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.quartier
     IS 'Libellé du quartier';
 
-COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.doma_d
-    IS 'Domanialité déduite';
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.doma
+    IS 'Domanialité';
 
-COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.doma_r
-    IS 'Domanialité réelle';
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.qualdoma
+    IS 'Qualité de l''information liée à la domanialité';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.typ1
     IS 'Type d''espace vert de niveau 1';
@@ -798,27 +829,27 @@ COMMENT ON CONSTRAINT lt_src_geommaj_fkey ON m_espace_vert_v2.an_ev_objet
 -- ALTER TABLE m_espace_vert_v2.an_objet_ev DROP CONSTRAINT lt_ev_doma_fkey;
 
 ALTER TABLE m_espace_vert_v2.an_ev_objet
-    ADD CONSTRAINT lt_ev_domad_fkey FOREIGN KEY (doma_d)
+    ADD CONSTRAINT lt_ev_doma_fkey FOREIGN KEY (doma)
     REFERENCES m_espace_vert_v2.lt_ev_doma (code) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
-COMMENT ON CONSTRAINT lt_ev_domad_fkey ON m_espace_vert_v2.an_ev_objet
+COMMENT ON CONSTRAINT lt_ev_doma_fkey ON m_espace_vert_v2.an_ev_objet
     IS 'Clé étrangère sur la valeur de la domanialité déduite';
 
  -- Constraint: lt_ev_domar_fkey
 
--- ALTER TABLE m_espace_vert_v2.an_objet_ev DROP CONSTRAINT lt_ev_doma_fkey;
+-- ALTER TABLE m_espace_vert_v2.an_objet_ev DROP CONSTRAINT lt_ev_qualdoma_fkey;
 
 	ALTER TABLE m_espace_vert_v2.an_ev_objet
-    ADD CONSTRAINT lt_ev_domar_fkey FOREIGN KEY (doma_r)
-    REFERENCES m_espace_vert_v2.lt_ev_doma (code) MATCH SIMPLE
+    ADD CONSTRAINT lt_ev_qualdoma_fkey FOREIGN KEY (qualdoma)
+    REFERENCES m_espace_vert_v2.lt_ev_qualdoma (code) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
-COMMENT ON CONSTRAINT lt_ev_domar_fkey ON m_espace_vert_v2.an_ev_objet
+COMMENT ON CONSTRAINT lt_ev_qualdoma_fkey ON m_espace_vert_v2.an_ev_objet
     IS 'Clé étrangère sur la valeur de la domanialité réelle';
 
 -- ################################################################# TABLE an_ev_geohaie ###############################################
@@ -1006,7 +1037,7 @@ COMMENT ON CONSTRAINT geo_ev_pct_fkey ON m_espace_vert_v2.geo_ev_pct
 (
   idobjet bigint NOT NULL,
   long_m integer,
-  geom geometry(multilinestring,2154),
+  geom geometry(linestring,2154),
   CONSTRAINT geo_ev_line_pkey PRIMARY KEY (idobjet)
   
 )
@@ -1056,7 +1087,7 @@ COMMENT ON CONSTRAINT geo_ev_line_fkey ON m_espace_vert_v2.geo_ev_line
   idobjet bigint NOT NULL,
   sup_m2 integer,
   perimetre integer,
-  geom geometry(multipolygon,2154),
+  geom geometry(polygon,2154),
   CONSTRAINT geo_ev_polygon_pkey PRIMARY KEY (idobjet)
   
 )
