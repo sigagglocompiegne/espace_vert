@@ -62,18 +62,12 @@ L'objectif poursuivi dans le cadre de l'inventaire n'est pas celui d'établir un
 A ce titre, des mesures de simplification de la restitution graphique sont prises tout en permettant une rapidité d'exécution accrue pour la saisie initiale et la mise à jour des données. 
 
 En conséquence, les objets surfaciques (pelouse, massif arbustif ...) doivent être adaptés comme suit par rapport aux objets linéaires (ex : allée, trottoir, bande cyclables etc...) :
-* dans les cas où les objets linéaires les délimitent, les objets surfaciques sont "étendus"
-* dans les cas où les objets linéaires les traversent, les objets linéaires sont considérés comme transparent
+* dans les cas où les objets linéaires les délimitent, les objets surfaciques sont "étendus",
+* dans les cas où les objets linéaires les traversent, les objets linaires se surimposent aux objets surfaciques sans les découper.
 
 Cette simplification de "dessin" est compensée par des attributs descriptifs complémentaires (largeur des espaces linéaires concernés).
 
 ![graph]() à refaire
-
-La modélisation choisie est la non prise en compte des ruptures sous forme surfacique pour conserver l'homogénéisation d'usage des objets.
-Ces ruptures, dans un site cohérent ou non, venant interrompre cette homogénéisation, sont représentées sous forme linéaire avec des attributs les qualifiant ( largeur, type de saisie ...). 
-Ces attributs complémentaires propres aux objets des espaces verts permettent ainsi de réaliser plus facilement des calculs d'exploitation (linéaire de haies, ...).
-
-Cette orientation assumée, est censée être plus proche d'une gestion de service mais ne permet pas une restitution graphique exacte des objets "espace vert". La production d'un inventaire cartographique et de sa mise à jour (interne ou non) est jugée plus rapide. A contrario, l'exploitation des données devra prendre en compte les particularités de cette modélisation pour restituer au mieux une réalité en terme de surface.
 
 ##### Modélisation simplifiée des classes d'objets du gabarit par type de géométrie permis
 
