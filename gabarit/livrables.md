@@ -190,17 +190,14 @@ Certaines classes d'objets doivent faire l'objet de complétude par des attribut
 
 #### Exemples d'applications des règles de saisies
 
-**Dans un site cohérent (parc, square ...) :** 
+**Dans un site cohérent (ici une coulée verte urbaine) :** 
 
-![picto](à refaire)
+![picto](159_ev_schema_detail_1.png)
 
 
 **En dehors d'un site cohérent (espace végétalisé diffus, trottoir végétalisé, accotement ...) :** 
 
 ![picto](à refaire)
-
-
-Les objets de cet inventaire cartographique doivent répondre également aux règles topologiques présentées ci-après.
 
 
 
