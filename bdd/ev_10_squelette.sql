@@ -690,11 +690,7 @@ CREATE TABLE m_espace_vert_v2.an_ev_objet
   srcdate_sai integer,
   op_att character varying(80),
   date_maj_att timestamp without time zone,	
-  op_maj character varying(80),	
-  srcgeom_maj character varying(2),
-  srcdate_maj integer,
   date_maj timestamp without time zone,
-  date_dmaj timestamp without time zone,
   observ character varying(255),
   CONSTRAINT an_ev_objet_pkey PRIMARY KEY (idobjet)
   
@@ -748,16 +744,16 @@ COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.typ3
     IS 'Sous-Type d''espace vert de niveau 3';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.op_sai
-    IS 'Opérateur de saisie de l''objet initial';
+    IS 'Opérateur de saisie de l''objet';
     
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.date_sai
-    IS 'Date de saisie de l''objet initial';
+    IS 'Date de saisie de l''objet';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.srcgeom_sai
-    IS 'Référentiel géographique utilisé pour la saisie de l''objet initial';
+    IS 'Référentiel géographique utilisé pour la saisie de l''objet';
     
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.srcdate_sai
-    IS 'Date du référentiel géographique utilisé pour la saisie de l''objet initial';
+    IS 'Date du référentiel géographique utilisé pour la saisie de l''objet';
     
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.op_att
     IS 'Opérateur de saisie des attributs métiers de l''objet initial';
@@ -765,20 +761,11 @@ COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.op_att
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.date_maj_att
     IS 'Année de mise à jour des attributs métiers de l''objet initial';
     
-COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.op_maj
-    IS 'Opérateur de mise à jour de l''objet géométrique)';   
-
-COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.srcgeom_maj
-    IS 'Référentiel géographique utilisée pour la mise à jour de l''objet';
-
-COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.srcdate_maj
-    IS 'Année du référentiel géographique utilisée pour la mise à jour de l''objet';
-    
+   
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.date_maj
-    IS 'Date de mise jour de l''objet';
+    IS 'Date de la dernière mise jour de l''objet';
     
-COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.date_dmaj
-    IS 'Dernière date de mise jour';
+
 
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_objet.observ
@@ -826,15 +813,9 @@ COMMENT ON CONSTRAINT lt_ev_typ2_fkey ON m_espace_vert_v2.an_ev_objet
 COMMENT ON CONSTRAINT lt_src_geomsai_fkey ON m_espace_vert_v2.an_ev_objet
     IS 'Clé étrangère sur la nomenclature des référentiels géographiques de saisis'; 
     
- ALTER TABLE m_espace_vert_v2.an_ev_objet
-    ADD CONSTRAINT lt_src_geommaj_fkey FOREIGN KEY (srcgeom_maj)
-    REFERENCES r_objet.lt_src_geom (code) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
 
-COMMENT ON CONSTRAINT lt_src_geommaj_fkey ON m_espace_vert_v2.an_ev_objet
-    IS 'Clé étrangère sur la nomenclature des référentiels géographiques de mise à jour';
+
+
 
 
 -- Constraint: lt_ev_domad_fkey
