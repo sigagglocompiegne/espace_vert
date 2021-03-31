@@ -66,7 +66,7 @@ A ce titre, des mesures de simplification de la restitution graphique sont prise
 
 En conséquence, les objets surfaciques (pelouse, massif arbustif ...) doivent être adaptés comme suit par rapport aux objets linéaires (ex : allée, trottoir, bande cyclables etc...) :
 * dans les cas où les objets linéaires les délimitent, les objets surfaciques sont "étendus" (schéma n°2 - cas 1)
-* dans les cas où les objets linéaires les traversent, les objets linaires se surimposent aux objets surfaciques sans les découper (schéma n°2 - cas 2)
+* dans les cas où les objets linéaires les traversent, les objets linéaires se surimposent aux objets surfaciques sans les découper (schéma n°2 - cas 2)
 
 Cette simplification de "dessin" est compensée par des attributs descriptifs complémentaires (largeur des espaces linéaires concernés).
 
