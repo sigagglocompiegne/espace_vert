@@ -72,7 +72,7 @@ Cette simplification de "dessin" est compensée par des attributs descriptifs co
 
 ![graph](modelisation_trace.png)
 
-Schéma n°2 : Présentation du principe de modélisation des intéractions entres les objets surfaciques et linéaires
+Schéma n°2 : Présentation du principe de modélisation des interactions entres les objets surfaciques et linéaires
 
 #### Modélisation simplifiée des classes d'objets du gabarit par type de géométrie
 
