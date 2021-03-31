@@ -122,7 +122,7 @@ La cohérence topologique impose le partage de géométrie et donc l’utilisati
 
 ![picto](topo_line_1.png)
 
-- Les linéaires correspondant à des alignements d'arbres sont obligatoirement des droites et les arbres dits "isolés" doivent être superposés à la droite de l’alignement
+- Les linéaires correspondant à des alignements d'arbres sont obligatoirement des droites et les arbres dits "isolés" doivent être superposés au tracé de cet alignement.
 
 ![picto](topo_linealignement_2_v2.png)
 
