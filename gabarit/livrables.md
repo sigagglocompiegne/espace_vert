@@ -50,7 +50,7 @@ Ainsi, l'inventaire pourra se faire par :
 - levé de terrain
 - relévés aériens ou embarqués
 
-![picto](159_ev_schema_principe.png)
+![picto](159_ev_schema_principe_1.png)
 
 Schéma 1 : Exemple de représentation des objets d'un inventaire cartographique
 
@@ -227,14 +227,14 @@ Toutes les autres classes du gabarit sont concernées uniquement par la saisie d
 
 #### Exemples d'applications des règles de saisies
 
-![picto](159_ev_schema_detail_1.png)
+![picto](159_ev_schema_detail_11.png)
 
 Schéma n°3 : Application des règles de saisie dans un site cohérent (ici une coulée verte urbaine)
 
 
-![picto](à refaire)
+![picto](159_ev_schema_detail_12.png)
 
-Schéma n°4 : Application des règles de saisie en dehors d'un site cohérent (espace végétalisé diffus, trottoir végétalisé, accotement ...)
+Schéma n°4 : Application des règles de saisie en dehors d'un site cohérent (ici accotement)
 
 ### Système de coordonnées
 
