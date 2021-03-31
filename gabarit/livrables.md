@@ -233,7 +233,7 @@ Toutes les autres classes du gabarit sont concernées uniquement par la saisie d
 |![picto](etang.png)|Etang|
 ||Autre étendue d'eau|
 
-#### Exemples d'applications des règles de saisies
+#### Exemples d'application des règles de saisie
 
 ![picto](159_ev_schema_detail_11_v4.png)
 
