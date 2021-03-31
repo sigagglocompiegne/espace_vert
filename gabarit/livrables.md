@@ -35,7 +35,7 @@ En complément, dans un **site cohérent** (parc, square, coulée verte urbaine,
 Ainsi, la distinction des différents types d'objets "espace vert" est possible via une nomenclature simplifiée ci-dessous.
 
 
-![picto](nomenclature_ev_v4.png)
+![picto](nomenclature_ev_v5.png)
 
 
 ### Règles de modélisation
