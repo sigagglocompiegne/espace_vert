@@ -106,7 +106,7 @@ La cohérence topologique impose le partage de géométrie et donc l’utilisati
 - Tous les objets sont inclus dans un site cohérent ou non (équipement public, voie ...). 
 - Les objets devront être découpés avec les limites communales et les zones de gestion existantes.
 
-- Les objets peuvent partager la géométrie du référentiel cadastral lorsque cela est rendu nécessaire (délimitation entre l'espace public et privé ...). Les limites des objets doivent dans ce cas, correspondre parfaitement avec celles du parcellaire cadastral et prendre appui sur les sommets des parcelles. Lorsque le tracé impose de ne pas s’accrocher sur un sommet de parcelle cadastrale, il conviendra de réaliser un accrochage sur ligne.
+- Les objets peuvent partager la géométrie du référentiel cadastral lorsque cela est rendu nécessaire (délimitation entre l'espace public et privé ...). Les limites des objets doivent dans ce cas, correspondre parfaitement avec celles du cadastre et prendre appui sur les sommets des parcelles. Lorsque le tracé impose de ne pas s’accrocher sur un sommet de parcelle cadastrale, il conviendra de réaliser un accrochage sur ligne.
 
 ![picto](topo_cadastre_v2.png)
 
