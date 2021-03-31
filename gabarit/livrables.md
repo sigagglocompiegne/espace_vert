@@ -232,7 +232,7 @@ Toutes les autres classes du gabarit sont concernées uniquement par la saisie d
 Schéma n°3 : Application des règles de saisie dans un site cohérent (ici une coulée verte urbaine)
 
 
-![picto](159_ev_schema_detail_12_v2.png)
+![picto](159_ev_schema_detail_12_v3.png)
 
 Schéma n°4 : Application des règles de saisie en dehors d'un site cohérent (ici accotement)
 
