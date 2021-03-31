@@ -221,7 +221,7 @@ Toutes les autres classes du gabarit sont concernées uniquement par la saisie d
 |![picto](palissade.png)|Palissage|
 ||Autre clôture|
 |![picto](jeux_isolé.png) ![picto](parcours_sportif.png)|Loisirs isolé|
-|![picto](aire_jeux.png) ![picto](zone_sable.png)|Surface de loisirs|
+|![picto](aire_jeux.png) ![picto](zone_sable.png)|Espace de loisirs|
 |![picto](fontaine.png)|Fontaine|
 |![picto](point_eau.png)|Robinet|
 ||Autre arrivée d'eau|
@@ -229,7 +229,7 @@ Toutes les autres classes du gabarit sont concernées uniquement par la saisie d
 |![picto](ru.png)|Ru|
 ||Autre cours d'eau|
 |![picto](bassin.png)|Bassin|
-|![picto](marre.png)|Marre|
+|![picto](marre.png)|Mare|
 |![picto](etang.png)|Etang|
 ||Autre étendue d'eau|
 
