@@ -106,6 +106,10 @@ La cohérence topologique impose le partage de géométrie et donc l’utilisati
 - Tous les objets sont inclus dans un site cohérent ou non (équipement public, voie ...). 
 - Les objets devront être découpés avec les limites communales et les zones de gestion existantes.
 
+- Les objets linéaires et surfaciques doivent partager la géométrie du référentiel cadastral lorsque cela est nécessaire (délimitation entre l'espace public et privé ...). Les limites des objets doivent correspondre parfaitement avec celles du parcellaire cadastral lorsqu'elles sont identiques. Chaque sommet du polygone doit correspondre avec tous les sommets des parcelles cadastrales qu’il englobe. Lorsque le tracé  impose de ne pas s’accrocher sur un sommet de parcelle cadastrale, il conviendra de réaliser un accrochage sur ligne.
+
+![picto](topo_cadastre.png)
+
 - Tous les objets de type "surface" sont des polygones fermés, et s'ils sont adjacents, ils devront être topologiques (absence de chevauchements et de micro-trous). 
 
 ![picto](topo_poly_1.png) ![picto](topo_poly_3.png)
