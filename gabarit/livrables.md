@@ -42,7 +42,7 @@ Ainsi, la distinction des différents types d'objets "espace vert" est possible 
 
 #### Règles générales
 
-La saisie de ces objets doit permettre une **restitution de l'ordre du 1/1000e**.
+La saisie de ces objets doit permettre une **restitution de l'ordre du 1/500e**.
 
 Le cadre prescriptif autorise des modalités d'inventaire variées sous réserve que la précision soit suffisante pour respecter l'échelle de restitution indiquée.
 Ainsi, l'inventaire pourra se faire par :
