@@ -4,7 +4,7 @@
 
 ## Changelog
 
-- 30/03/2021 : finalisation du gabarit et de la modélisation pour un inventaire cartographique
+- 06/04/2021 : finalisation du gabarit et de la modélisation pour un inventaire cartographique
 - 16/11/2020 : description initiale du gabarit de production des espaces verts
 
 ## Livrables
