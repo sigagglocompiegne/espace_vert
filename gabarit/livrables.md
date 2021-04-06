@@ -191,7 +191,7 @@ Certaines classes d'objets doivent faire l'objet de complétude par des attribut
 ||Hors-sol (non précisé)|
 |![picto](pot.png)|Pot|
 |![picto](bac_a.png)|Bac|
-|![picto](jardiniere.png) |![picto](jardiniere_beton.png)|Jardinière|
+|![picto](jardiniere.png) ![picto](jardiniere_beton_v1.png)|Jardinière|
 |![picto](suspension.png)|Suspension|
 ||Hors-sol (autre type)|
 
