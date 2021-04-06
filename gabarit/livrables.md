@@ -235,12 +235,12 @@ Toutes les autres classes du gabarit sont concernées uniquement par la saisie d
 
 #### Exemples d'application des règles de saisie
 
-![picto](159_ev_schema_detail_11_v4.png)
+![picto](159_ev_schema_detail_11_v5.png)
 
 Schéma n°3 : Application des règles de saisie dans un site cohérent (ici une coulée verte urbaine)
 
 
-![picto](159_ev_schema_detail_12_v4.png)
+![picto](159_ev_schema_detail_12_v5.png)
 
 Schéma n°4 : Application des règles de saisie en dehors d'un site cohérent (ici accotement)
 
