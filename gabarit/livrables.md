@@ -185,15 +185,15 @@ Certaines classes d'objets doivent faire l'objet de complétude par des attribut
 
 (2) Position : liste des valeurs décrivant la position des objets "espace vert" de type végétal
 
-|Illustration|Code|Valeur|
+|Illustration|Valeur|
 |:---|:---|:---|
-|![picto](sol.png)|10|Sol|
-||20|Hors-sol (non précisé)|
-|![picto](pot.png)|21|Pot|
-|![picto](bac_a.png)|22|Bac|
-|![picto](jardiniere.png)|23|Jardinière|
-|![picto](suspension.png)|24|Suspension|
-||29|Hors-sol (autre type)|
+|![picto](sol.png)|Sol|
+||Hors-sol (non précisé)|
+|![picto](pot.png)|Pot|
+|![picto](bac_a.png)|Bac|
+|![picto](jardiniere.png) |![picto](jardiniere_beton.png)|Jardinière|
+|![picto](suspension.png)|Suspension|
+||Hors-sol (autre type)|
 
 Toutes les autres classes du gabarit sont concernées uniquement par la saisie de l'objet et d'une éventuelle précision de la nomenclature de niveau 3. Le tableau ci-dessous montre des exemples d'illustration des objets à saisir par classe de nomenclature.
 
