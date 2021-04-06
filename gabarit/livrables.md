@@ -177,11 +177,11 @@ Certaines classes d'objets doivent faire l'objet de complétude par des attribut
 
 (1)  Type de saisie : liste des valeurs décrivant le type de saisie de la sous-classe de précision des objets espace vert de type haie
 
-|Code|Valeur|
-|:---|:---|
-|10|Largeur à appliquer au centre du linéaire|
-|20|Largeur à appliquer dans le sens de saisie|
-|30|Largeur à appliquer dans le sens inverse de saisie|
+|Valeur|
+|:---|
+|Largeur à appliquer au centre du linéaire|
+|Largeur à appliquer dans le sens de saisie|
+|Largeur à appliquer dans le sens inverse de saisie|
 
 (2) Position : liste des valeurs décrivant la position des objets "espace vert" de type végétal
 
