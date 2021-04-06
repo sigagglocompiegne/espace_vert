@@ -79,14 +79,14 @@ Schéma n°2 : Présentation du principe de modélisation des interactions entre
 |Classe d'objets|Point|Ligne|Polygone|
 |:---|:---|:---|:---|
 |Arbre isolé|X|||
-|Alignement d'arbres||X||
+|Alignement d'arbres||X (à partir de 5 arbres)||
 |Zone boisée|||X|
 |Arbuste isolé|X|||
 |Haie||X <5m de large||
 |Massif arbustif|X <5m²||X >5m²|
 |Fleuri isolé|X|||
 |Massif fleuri|X <5m²||X >5m²|
-|Espace enherbé|||X >25m²|
+|Espace enherbé|||X >5m²|
 |Voie circulation||X||
 |Zone de circulation|||X|
 |Clôture||X||
@@ -137,14 +137,14 @@ La cohérence topologique impose le partage de géométrie et donc l’utilisati
 |Classe d'objets|Représentation|Définition et règle|Type d'objets saisis|Schéma de principe|
 |:---|:---|:---|:---|:---|
 |Arbre isolé (1)|POINT|Arbre entretenu, localisé en diffus, en alignement, dans un contenant artificiel ou dans une zone boisée aménagée et entretenue. L'objet restitué doit correspondre au centre de celui-ci.|arbre||
-|Alignement d'arbres (1)|LINEAIRE|Bande arborée, composée d'une série continue d'arbres entretenus (au moins 4), le long d'un axe routier ou piéton. Le linéaire saisi correspond au centre de l'emprise de l'alignement. Les ruptures de voirie devront être respectées. Chaque alignement doit être identifié.|arbre|![picto](regle_lineaire_v1.png)|
+|Alignement d'arbres (1)|LINEAIRE|Bande arborée, composée d'une série continue d'arbres entretenus (au moins 5), le long d'un axe routier ou piéton. Le linéaire saisi correspond au centre de l'emprise de l'alignement. Les ruptures de voirie devront être respectées. Chaque alignement doit être identifié.|arbre|![picto](regle_lineaire_v1.png)|
 |Zone boisée|POLYGONE|Ensemble d'arbres dense essentiellement d'ambiance naturelle.|boisement d'ambiance naturelle||
 |Arbuste isolé|POINT|Arbuste entretenu, localisé en diffus, dans un contenant artificiel ou non. L'objet restitué doit correspondre au centre de celui-ci.|arbuste||
 |Haie|LINEAIRE|Bande arbustive d'un seul tenant intégrée ou non à un espace enherbé d'une largeur inférieure à 5m sinon il s'agit d'un massif arbustif. Les ruptures de cohérence devront être respectées. Le tracé de la ligne est saisi au centre de l'emprise au sol de l'objet ou à défaut sur une bordure en précisant si la largeur doit être prise en compte dans le sens de saisie. Une information de largeur est obligatoirement renseignée. Les ruptures de voirie devront être respectées.|arbuste|![picto](saisie_haie.png) ![picto](haie_rupture.png)|
 |Massif arbustif|POLYGONE|Massif arbustif au sol ou hors sol d'une surface supérieure à 5m².|||
 |Fleuri isolé|POINT|Espace fleuri hors sol dans un contenant artificiel (bacs, pots, jardinière, suspension ...) inférieur à 5m². L'objet restitué doit correspondre au centre de celui-ci.|fleur en pot, en bac, en jardinière||
 |Massif fleuri|POLYGONE|Massif fleuri au sol ou hors sol supérieur à 5m².|fleur en massif, jardinière||
-|Espace enherbé|POLYGONE|Ensemble enherbé, homogène, entretenu et de même type, d'une surface supérieure à 25m².|pelouse, gazon ...||
+|Espace enherbé|POLYGONE|Ensemble enherbé, homogène, entretenu et de même type, d'une surface supérieure à 5m².|pelouse, gazon ...||
 |Voie circulation|LINEAIRE|Axe de circulation doux, homogène décomposant un espace enherbé ou planté d'une largeur inférieure à 5 mètres en moyenne, sinon il s'agit d'un espace de circulation. Une largeur est obligatoirement renseignée. Le tracé de la ligne est obligatoirement saisi au centre de l'emprise au sol de l'objet.|allée, piste cyclable ...||
 |Zone de circulation|POLYGONE|Zone minérale intégrant un espace cohérent d'espace vert (parc, square ...). Pas de surface minimum, tout objet doit-être saisi.|place, parvis, stationnement ...||
 |Clôture|LINEAIRE|Délimitation non naturelle fermant un site cohérent (parc, square ...) ou un sous-ensemble (aire de jeux, bassin ...) . Le tracé de la ligne est obligatoirement au pied de l'emprise au sol de l'objet.|mur, grillage, palissade ...)||
