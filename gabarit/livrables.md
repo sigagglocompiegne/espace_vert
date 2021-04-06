@@ -186,7 +186,7 @@ Certaines classes d'objets doivent faire l'objet de complétude par des attribut
 (2) Position : liste des valeurs décrivant la position des objets "espace vert" de type végétal
 
 |Illustration|Valeur|
-|:---|:---|:---|
+|:---|:---|
 |![picto](sol.png)|Sol|
 ||Hors-sol (non précisé)|
 |![picto](pot.png)|Pot|
