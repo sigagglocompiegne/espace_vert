@@ -28,7 +28,7 @@ Il constitue le socle de compléments métiers permettant de mieux détailler le
 ### Désignation
 
 Un espace vert désigne un espace végétal homogène d'agrément planté de fleurs, d'arbustes, d'arbres ou engazonné.
-Il peut être représenté de façon surfacique (espace enherbé, planté ...), linéaire (haie ...) ou ponctuel (arbre, pot ...). 
+Il peut être représenté de façon surfacique (espace enherbé, planté ...), linéaire (haie ...) ou ponctuel (arbre ...). 
 
 En complément, dans un **site cohérent** (parc, square, coulée verte urbaine, ...), peuvent être associés des espaces minéraux (allée, aire de jeux ...) ou hydrographiques (bassin ...).
 
