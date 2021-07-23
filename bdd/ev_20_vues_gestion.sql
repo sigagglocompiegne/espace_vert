@@ -5,7 +5,7 @@
 
 /* Propriétaire : GeoCompiegnois - http://geo.compiegnois.fr/ */
 /* Auteur : Grégory Bodet */
-
+/* Participant : Florent Vanhoutte */
 
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
@@ -139,9 +139,9 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_pct
     o.date_maj,
     o.observ,
     v.position,
-	p.x_l93,
-	p.y_l93,
-	p.geom
+	  p.x_l93,
+  	p.y_l93,
+	  p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
       LEFT JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet
@@ -182,9 +182,9 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_polygon
     o.date_maj,
     o.observ,
     v.position,
-	p.sup_m2,
-	p.perimetre,
-	p.geom
+	  p.sup_m2,
+  	p.perimetre,
+  	p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
         LEFT JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet;
@@ -276,6 +276,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_arbreisole
     o.typ2,
     o.typ3,
     v."position",
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
@@ -301,6 +303,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_arbrealignement
     o.typ2,
     o.typ3,
     v."position",
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
     l.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_line l ON o.idobjet = l.idobjet
@@ -326,6 +330,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_zoneboisee
     o.typ2,
     o.typ3,
     v."position",
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
@@ -352,6 +358,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_arbusteisole
     o.typ2,
     o.typ3,
     v."position",
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
@@ -380,6 +388,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_haie
     v."position",
     h.typsai,
     gl.larg_cm,
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
     l.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_line l ON o.idobjet = l.idobjet
@@ -408,6 +418,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_massifarbustif
     o.typ2,
     o.typ3,
     v."position",
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
@@ -434,6 +446,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_pointfleuri
     o.typ2,
     o.typ3,
     v."position",
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
@@ -459,6 +473,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_massiffleuri
     o.typ2,
     o.typ3,
     v."position",
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
@@ -485,6 +501,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_vegetal_espaceenherbe
     o.typ2,
     o.typ3,
     v."position",
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
@@ -510,6 +528,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_mineral_voiecirculation
     o.typ2,
     o.typ3,
     gl.larg_cm,
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
     l.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_line l ON o.idobjet = l.idobjet
@@ -534,6 +554,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_mineral_zonedecirculation
     o.typ1,
     o.typ2,
     o.typ3,
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
@@ -557,6 +579,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_mineral_cloture
     o.typ1,
     o.typ2,
     o.typ3,
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
     l.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_line l ON o.idobjet = l.idobjet
@@ -580,6 +604,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_mineral_loisirsisole
     o.typ1,
     o.typ2,
     o.typ3,
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
@@ -603,6 +629,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_mineral_espacedeloisirs
     o.typ1,
     o.typ2,
     o.typ3,
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
@@ -626,6 +654,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_hydrographique_arriveedeau
     o.typ1,
     o.typ2,
     o.typ3,
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
@@ -649,6 +679,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_hydrographique_pointdeau
     o.typ1,
     o.typ2,
     o.typ3,
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
@@ -673,6 +705,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_hydrographique_coursdeau
     o.typ2,
     o.typ3,
     gl.larg_cm,
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
     l.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_line l ON o.idobjet = l.idobjet
@@ -697,6 +731,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_ev_hydrographique_etenduedeau
     o.typ1,
     o.typ2,
     o.typ3,
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
     p.geom
    FROM m_espace_vert_v2.an_ev_objet o
      JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
