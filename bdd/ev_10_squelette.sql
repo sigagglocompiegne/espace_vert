@@ -22,7 +22,7 @@ CREATE SCHEMA m_espace_vert_v2
   AUTHORIZATION create_sig;
   
 COMMENT ON SCHEMA m_espace_vert_v2
-  IS 'Données métiers sur le thème des espaces verts';
+  IS 'Données métiers sur le thème des espaces verts (nouvelle nomenclature 2021, inventaire en cours)';
 
 GRANT ALL ON SCHEMA m_espace_vert_v2 TO create_sig;
 
