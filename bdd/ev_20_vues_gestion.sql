@@ -39,6 +39,10 @@ DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_hydrographique_pointdeau;
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_hydrographique_coursdeau;
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_hydrographique_etenduedeau;
 
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_refnonclassee_pct;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_refnonclassee_lin;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_refnonclassee_polygon;
+
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_line;
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_pct;
 DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_polygon;
