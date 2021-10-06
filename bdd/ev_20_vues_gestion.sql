@@ -749,3 +749,83 @@ GRANT SELECT ON TABLE m_espace_vert_v2.geo_v_ev_hydrographique_etenduedeau TO si
 GRANT ALL ON TABLE m_espace_vert_v2.geo_v_ev_hydrographique_etenduedeau TO sig_create;
 GRANT ALL ON TABLE m_espace_vert_v2.geo_v_ev_hydrographique_etenduedeau TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_v_ev_hydrographique_etenduedeau TO sig_edit;
+
+
+
+-- View: m_espace_vert_v2.geo_v_ev_refnonclassee_pct
+
+-- DROP VIEW m_espace_vert_v2.geo_v_ev_refnonclassee_pct;
+
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_refnonclassee_pct
+ AS
+ SELECT o.idobjet,
+    o.typ1,
+    o.typ2,
+    o.typ3,
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
+    o.observ,
+    p.geom
+   FROM m_espace_vert_v2.an_ev_objet o
+     JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
+  WHERE o.typ1::text = '9'::text;
+
+ALTER TABLE m_espace_vert_v2.geo_v_ev_refnonclassee_pct
+    OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_v2.geo_v_ev_refnonclassee_pct TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_v_ev_refnonclassee_pct TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_v_ev_refnonclassee_pct TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_v_ev_refnonclassee_pct TO sig_edit;
+
+-- View: m_espace_vert_v2.geo_v_ev_refnonclassee_lin
+
+-- DROP VIEW m_espace_vert_v2.geo_v_ev_refnonclassee_lin;
+
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_refnonclassee_lin
+ AS
+ SELECT o.idobjet,
+    o.typ1,
+    o.typ2,
+    o.typ3,
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
+    o.observ,
+    l.geom
+   FROM m_espace_vert_v2.an_ev_objet o
+     JOIN m_espace_vert_v2.geo_ev_line l ON o.idobjet = l.idobjet
+  WHERE o.typ1::text = '9'::text;
+
+ALTER TABLE m_espace_vert_v2.geo_v_ev_refnonclassee_lin
+    OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_v2.geo_v_ev_refnonclassee_lin TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_v_ev_refnonclassee_lin TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_v_ev_refnonclassee_lin TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_v_ev_refnonclassee_lin TO sig_edit;
+
+-- View: m_espace_vert_v2.geo_v_ev_refnonclassee_polygon
+
+-- DROP VIEW m_espace_vert_v2.geo_v_ev_refnonclassee_polygon;
+
+CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_refnonclassee_polygon
+ AS
+ SELECT o.idobjet,
+    o.typ1,
+    o.typ2,
+    o.typ3,
+    o.srcgeom_sai as src_geom,
+    o.srcdate_sai as src_date,    
+    o.observ,
+    p.geom
+   FROM m_espace_vert_v2.an_ev_objet o
+     JOIN m_espace_vert_v2.geo_ev_polygon p ON o.idobjet = p.idobjet
+  WHERE o.typ1::text = '9'::text;
+
+ALTER TABLE m_espace_vert_v2.geo_v_ev_refnonclassee_polygon
+    OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_v2.geo_v_ev_refnonclassee_polygon TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_v_ev_refnonclassee_polygon TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_v2.geo_v_ev_refnonclassee_polygon TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_v_ev_refnonclassee_polygon TO sig_edit;
