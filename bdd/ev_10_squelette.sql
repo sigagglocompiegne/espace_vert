@@ -1062,7 +1062,7 @@ COMMENT ON COLUMN m_espace_vert_v2.geo_ev_pct.geom
 -- Constraint: an_ev_objet_pct_fkey
 
 -- ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT an_ev_objet_pct_fkey;
-
+/*
 ALTER TABLE m_espace_vert_v2.geo_ev_pct
     ADD CONSTRAINT geo_ev_pct_fkey FOREIGN KEY (idobjet)
     REFERENCES m_espace_vert_v2.an_ev_objet (idobjet) MATCH SIMPLE
@@ -1073,7 +1073,7 @@ ALTER TABLE m_espace_vert_v2.geo_ev_pct
 COMMENT ON CONSTRAINT geo_ev_pct_fkey ON m_espace_vert_v2.geo_ev_pct
     IS 'Clé étrangère sur la classe des objets ponctuels des espaces verts';
     
-
+*/
 -- ################################################################# TABLE geo_ev_line ###############################################
 
 -- Table: m_espace_vert_v2.geo_ev_line
@@ -1111,7 +1111,7 @@ COMMENT ON COLUMN m_espace_vert_v2.geo_ev_line.geom
 -- Constraint: an_ev_objet_line_fkey
 
 -- ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT an_ev_objet_line_fkey;
-
+/*
 ALTER TABLE m_espace_vert_v2.geo_ev_line
     ADD CONSTRAINT geo_ev_line_fkey FOREIGN KEY (idobjet)
     REFERENCES m_espace_vert_v2.an_ev_objet (idobjet) MATCH SIMPLE
@@ -1122,7 +1122,7 @@ ALTER TABLE m_espace_vert_v2.geo_ev_line
 COMMENT ON CONSTRAINT geo_ev_line_fkey ON m_espace_vert_v2.geo_ev_line
     IS 'Clé étrangère sur la classe des objets linéaires des espaces verts';
 
-
+*/
 	
 -- ################################################################# TABLE geo_ev_polygon ###############################################
 
@@ -1164,7 +1164,7 @@ COMMENT ON COLUMN m_espace_vert_v2.geo_ev_polygon.geom
 -- Constraint: an_ev_objet_polygon_fkey
 
 -- ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT an_ev_objet_polygon_fkey;
-
+/*
 ALTER TABLE m_espace_vert_v2.geo_ev_polygon
     ADD CONSTRAINT geo_ev_polygon_fkey FOREIGN KEY (idobjet)
     REFERENCES m_espace_vert_v2.an_ev_objet (idobjet) MATCH SIMPLE
@@ -1174,7 +1174,7 @@ ALTER TABLE m_espace_vert_v2.geo_ev_polygon
 
 COMMENT ON CONSTRAINT geo_ev_polygon_fkey ON m_espace_vert_v2.geo_ev_polygon
     IS 'Clé étrangère sur la classe des objets polygon des espaces verts';
-    
+    */
     
 -- ################################################################# TABLE geo_ev_site ###############################################
 
