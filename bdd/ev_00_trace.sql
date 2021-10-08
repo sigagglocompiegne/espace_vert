@@ -19,4 +19,4 @@
 2021-08-06 : FV / modification des vues de gestion (gabarit) avec ajout des attributs srcgeom_sai et srcdate_sai
 2021-10-06 : GB / Renommage des vues d'exploitation et de gestion (pour cohérence d'organisation)
 2021-10-06 : FB / Ajout des vues d'exploitation et de gestion des références non classées
-
+2021-10-08 : GB / Ajout d'une classe contenant la délimitation des zones inventoriées par direction des espaces verts
