@@ -20,3 +20,5 @@
 2021-10-06 : GB / Renommage des vues d'exploitation et de gestion (pour cohérence d'organisation)
 2021-10-06 : FB / Ajout des vues d'exploitation et de gestion des références non classées
 2021-10-08 : GB / Ajout d'une classe contenant la délimitation des zones inventoriées par direction des espaces verts
+2021-10-08 : GB / Ajout d'un trigger pour le calcul des X et Y sur la classe geo_ev_pct
+2021-10-08 : GB / Paramétrage du script d'initialisaition pour supprimer et insérer proprement les données sans clé étrangère et sans suppression des zones de gestion
