@@ -13,9 +13,11 @@
 -- ###                                                                                                                                              ###
 -- ####################################################################################################################################################
 
+-- après la phase d'initialisation, import de la classe des délimitations des zones d'inventaire par direction
+-- pour une réinitialisation de la base, ne pas supprimer le schéma, juste les classes et objets en dehors des zones inventoriées
 
 -- Schema: m_espace_vert_v2
-
+/*
 DROP SCHEMA IF EXISTS m_espace_vert_v2 CASCADE;
 
 CREATE SCHEMA m_espace_vert_v2
@@ -37,7 +39,7 @@ GRANT ALL ON TABLES TO create_sig;
 
 ALTER DEFAULT PRIVILEGES IN SCHEMA m_espace_vert_v2
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLES TO sig_edit;
-
+*/
 
 -- ####################################################################################################################################################
 -- ###                                                                                                                                              ###
@@ -113,6 +115,7 @@ DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_line;
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_polygon;
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_site; 
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_zone_gestion; 
+-- DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_zone_inv; 
 
 -- ####################################################################################################################################################
 -- ###                                                                                                                                              ###
@@ -1230,6 +1233,48 @@ COMMENT ON COLUMN m_espace_vert_v2.geo_ev_zone_gestion.nom_zone
 
 COMMENT ON COLUMN m_espace_vert_v2.geo_ev_zone_gestion.sup_m2
     IS 'superficie en m²';
+
+-- ################################################################# TABLE geo_ev_zone_inv ###############################################
+
+-- Table: m_espace_vert_v2.geo_ev_zone_inv
+
+-- DROP TABLE m_espace_vert_v2.geo_ev_zone_inv;
+
+CREATE TABLE m_espace_vert_v2.geo_ev_zone_inv
+(
+    gid bigint NOT NULL,
+    typo character varying(50) COLLATE pg_catalog."default",
+    surf_ha double precision,
+    surf_m2 bigint,
+    geom geometry(Geometry,2154),
+    CONSTRAINT geo_ev_zone_inv_pkey PRIMARY KEY (gid)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+COMMENT ON TABLE m_espace_vert_v2.geo_ev_zone_inv
+    IS 'Table contenant la zone d''inventaire réalisée en 2021 et groupé par direction des espaces verts (attributs typo)';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_zone_inv.gid
+    IS 'Identifiant unique';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_zone_inv.typo
+    IS 'Direction des espaces verts ou collectivité gestionnaire des espaces verts';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_zone_inv.surf_ha
+    IS 'Surface en hectare';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_zone_inv.surf_m2
+    IS 'Surface en m²';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_zone_inv.geom
+    IS 'Géométrie des objets';
+COMMENT ON CONSTRAINT geo_ev_zone_inv_pkey ON m_espace_vert_v2.geo_ev_zone_inv
+    IS 'Clé primaire';
+
+
 
  
 -- ################################################################ TABLE an_ev_arbre #####################################
