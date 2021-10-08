@@ -73,6 +73,58 @@ CREATE SEQUENCE m_espace_vert_v2.an_ev_objet_idobjet_seq
 -- ###                                                                                                                                              ###
 -- #################################################################################################################################################### 
 
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_vegetal_arbreisole;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_vegetal_arbrealignement;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_vegetal_zoneboisee;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_vegetal_arbusteisole;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_vegetal_haie;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_vegetal_massifarbustif;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_vegetal_pointfleuri;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_vegetal_massiffleuri;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_vegetal_espaceenherbe;
+
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_mineral_voiecirculation;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_mineral_zonedecirculation;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_mineral_cloture;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_mineral_loisirsisole;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_mineral_espacedeloisirs;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_hydrographique_arriveedeau;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_hydrographique_pointdeau;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_hydrographique_coursdeau;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_hydrographique_etenduedeau;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_refnonclassee_lin;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_refnonclassee_pct;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_refnonclassee_polygon;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_arbre;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_line;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_pct;
+DROP VIEW IF EXISTS m_espace_vert_v2.geo_v_ev_polygon;
+
+/*
+ALTER TABLE m_espace_vert_v2.an_ev_arbre DROP CONSTRAINT geo_ev_pct_fkey;
+ALTER TABLE m_espace_vert_v2.an_ev_arbre DROP CONSTRAINT lt_ev_arbredanger_fkey;
+ALTER TABLE m_espace_vert_v2.an_ev_arbre DROP CONSTRAINT lt_ev_arbreforme_fkey;
+ALTER TABLE m_espace_vert_v2.an_ev_arbre DROP CONSTRAINT lt_ev_arbrehauteur_fkey;
+ALTER TABLE m_espace_vert_v2.an_ev_arbre DROP CONSTRAINT lt_ev_arbreimplant_fkey;
+ALTER TABLE m_espace_vert_v2.an_ev_arbre DROP CONSTRAINT lt_ev_arbresol_fkey;
+ALTER TABLE m_espace_vert_v2.an_ev_geohaie DROP CONSTRAINT lt_ev_typsaihaie_fkey;
+ALTER TABLE m_espace_vert_v2.an_ev_geoline DROP CONSTRAINT an_ev_geoline_fkey;
+ALTER TABLE m_espace_vert_v2.an_ev_geovegetal DROP CONSTRAINT lt_ev_position_fkey;
+ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT lt_ev_doma_fkey;
+ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT lt_ev_qualdoma_fkey;
+ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT lt_ev_typ1_fkey;
+ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT lt_ev_typ2_fkey;
+ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT lt_ev_typ3_fkey;
+ALTER TABLE m_espace_vert_v2.an_ev_objet DROP CONSTRAINT lt_src_geomsai_fkey;
+ALTER TABLE m_espace_vert_v2.geo_ev_site DROP CONSTRAINT geo_ev_site_typ_fkey;
+*/
+
+DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_pct;
+DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_line;
+DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_polygon;
+DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_site; 
+DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_zone_gestion; 
+
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_doma;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_typ1;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_typ2;
@@ -88,35 +140,10 @@ DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_position;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_qualdoma;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_objet;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_arbre;
-
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_geohaie;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_geoline;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_geovegetal;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_arbreisole;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_arbrealignement;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_zoneboisee;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_arbusteisole;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_haie;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_massifarbustif;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_pointfleuri;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_massiffleuri;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_vegetal_espaceenherbe;
 
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_voiecirculation;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_zonedecirculation;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_cloture;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_loisirsisole;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_mineral_espacedeloisirs;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_hydrographique_arriveedeau;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_hydrographique_pointdeau;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_hydrographique_coursdeau;
-DROP VIEW IF EXISTS m_espace_vert_v2.geo_ev_hydrographique_etenduedeau;
-
-DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_pct;
-DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_line;
-DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_polygon;
-DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_site; 
-DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_zone_gestion; 
 -- DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_zone_inv; 
 
 -- ####################################################################################################################################################
@@ -1241,7 +1268,7 @@ COMMENT ON COLUMN m_espace_vert_v2.geo_ev_zone_gestion.sup_m2
 -- Table: m_espace_vert_v2.geo_ev_zone_inv
 
 -- DROP TABLE m_espace_vert_v2.geo_ev_zone_inv;
-
+/*
 CREATE TABLE m_espace_vert_v2.geo_ev_zone_inv
 (
     gid bigint NOT NULL,
@@ -1277,7 +1304,7 @@ COMMENT ON CONSTRAINT geo_ev_zone_inv_pkey ON m_espace_vert_v2.geo_ev_zone_inv
     IS 'Clé primaire';
 
 
-
+*/
  
 -- ################################################################ TABLE an_ev_arbre #####################################
 
@@ -1371,7 +1398,7 @@ ALTER TABLE m_espace_vert_v2.an_ev_arbre
 -- Constraint: an_ev_geohaie_fkey
 
 -- ALTER TABLE m_espace_vert_v2.an_ev_geohaie DROP CONSTRAINT an_ev_geohaie_fkey;
-
+/*
 ALTER TABLE m_espace_vert_v2.an_ev_geohaie
     ADD CONSTRAINT an_ev_geohaie_fkey FOREIGN KEY (idobjet)
     REFERENCES m_espace_vert_v2.geo_ev_line (idobjet) MATCH SIMPLE
@@ -1381,11 +1408,11 @@ ALTER TABLE m_espace_vert_v2.an_ev_geohaie
 
 COMMENT ON CONSTRAINT an_ev_geohaie_fkey ON m_espace_vert_v2.an_ev_geohaie
     IS 'Clé étrangère sur la classe des objets linéaires des espaces verts';
-    
+    */
 -- Constraint: an_ev_geoline_fkey
 
 -- ALTER TABLE m_espace_vert_v2.an_ev_geoline DROP CONSTRAINT an_ev_geoline_fkey;
-
+/*
 ALTER TABLE m_espace_vert_v2.an_ev_geoline
     ADD CONSTRAINT an_ev_geoline_fkey FOREIGN KEY (idobjet)
     REFERENCES m_espace_vert_v2.geo_ev_line (idobjet) MATCH SIMPLE
@@ -1395,11 +1422,11 @@ ALTER TABLE m_espace_vert_v2.an_ev_geoline
 
 COMMENT ON CONSTRAINT an_ev_geoline_fkey ON m_espace_vert_v2.an_ev_geoline
     IS 'Clé étrangère sur la classe des objets linéaires des espaces verts';
-
+*/
 -- Constraint: an_ev_geovegetal_pct_fkey
 
 -- ALTER TABLE m_espace_vert_v2.an_ev_geovegetal DROP CONSTRAINT an_ev_geovegetal_pct_fkey;
-
+/*
 ALTER TABLE m_espace_vert_v2.an_ev_geovegetal
     ADD CONSTRAINT an_ev_geovegetal_pct_fkey FOREIGN KEY (idobjet)
     REFERENCES m_espace_vert_v2.geo_ev_pct (idobjet) MATCH SIMPLE
@@ -1411,9 +1438,9 @@ COMMENT ON CONSTRAINT an_ev_geovegetal_pct_fkey ON m_espace_vert_v2.an_ev_geoveg
     IS 'Clé étrangère sur la classe des objets ponctuels des espaces verts';
     
     -- Constraint: an_ev_geovegetal_lin_fkey
-
+*/
 -- ALTER TABLE m_espace_vert_v2.an_ev_geovegetal DROP CONSTRAINT an_ev_geovegetal_lin_fkey;
-
+/*
 ALTER TABLE m_espace_vert_v2.an_ev_geovegetal
     ADD CONSTRAINT an_ev_geovegetal_lin_fkey FOREIGN KEY (idobjet)
     REFERENCES m_espace_vert_v2.geo_ev_line (idobjet) MATCH SIMPLE
@@ -1425,9 +1452,9 @@ COMMENT ON CONSTRAINT an_ev_geovegetal_lin_fkey ON m_espace_vert_v2.an_ev_geoveg
     IS 'Clé étrangère sur la classe des objets linéaire des espaces verts';
 
     -- Constraint: an_ev_geovegetal_polygon_fkey
-
+*/
 -- ALTER TABLE m_espace_vert_v2.an_ev_geovegetal DROP CONSTRAINT an_ev_geovegetal_polygon_fkey;
-
+/*
 ALTER TABLE m_espace_vert_v2.an_ev_geovegetal
     ADD CONSTRAINT an_ev_geovegetal_polygon_fkey FOREIGN KEY (idobjet)
     REFERENCES m_espace_vert_v2.geo_ev_line (idobjet) MATCH SIMPLE
@@ -1437,12 +1464,12 @@ ALTER TABLE m_espace_vert_v2.an_ev_geovegetal
 
 COMMENT ON CONSTRAINT an_ev_geovegetal_polygon_fkey ON m_espace_vert_v2.an_ev_geovegetal
     IS 'Clé étrangère sur la classe des objets polygones des espaces verts';
-    
+  */  
     
 -- Constraint: geo_ev_pct_fey
 
 -- ALTER TABLE m_espace_vert_v2.an_ev_arbre DROP CONSTRAINT geo_ev_pct_fey;
-
+/*
 ALTER TABLE m_espace_vert_v2.an_ev_arbre
     ADD CONSTRAINT geo_ev_pct_fkey FOREIGN KEY (idobjet)
     REFERENCES m_espace_vert_v2.geo_ev_pct (idobjet) MATCH SIMPLE
@@ -1452,7 +1479,7 @@ ALTER TABLE m_espace_vert_v2.an_ev_arbre
 
 COMMENT ON CONSTRAINT geo_ev_pct_fkey ON m_espace_vert_v2.an_ev_arbre
     IS 'Clé étrangère sur la classe des objets points des espaces verts';
-
+*/
 -- ####################################################################################################################################################
 -- ###                                                                                                                                              ###
 -- ###                                                                INDEX                                                                         ###
