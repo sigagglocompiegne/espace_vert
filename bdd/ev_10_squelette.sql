@@ -16,6 +16,8 @@
 -- après la phase d'initialisation, import de la classe des délimitations des zones d'inventaire par direction
 -- pour une réinitialisation de la base, ne pas supprimer le schéma, juste les classes et objets en dehors des zones inventoriées
 
+-- pour un import de données (après inventaire), penser à supprimer les clés étrangères qui empêchent l'insertion
+
 -- Schema: m_espace_vert_v2
 /*
 DROP SCHEMA IF EXISTS m_espace_vert_v2 CASCADE;
