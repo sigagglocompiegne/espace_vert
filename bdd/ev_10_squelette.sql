@@ -1075,6 +1075,17 @@ COMMENT ON CONSTRAINT geo_ev_pct_fkey ON m_espace_vert_v2.geo_ev_pct
     IS 'Clé étrangère sur la classe des objets ponctuels des espaces verts';
     
 */
+
+-- Trigger: t_t1_geo_ev_pct_xy_l93
+
+-- DROP TRIGGER t_t1_geo_ev_pct_xy_l93 ON m_espace_vert_v2.geo_ev_pct;
+
+CREATE TRIGGER t_t1_geo_ev_pct_xy_l93
+    BEFORE INSERT OR UPDATE OF geom
+    ON m_espace_vert_v2.geo_ev_pct
+    FOR EACH ROW
+    EXECUTE PROCEDURE public.ft_r_xy_l93();
+    
 -- ################################################################# TABLE geo_ev_line ###############################################
 
 -- Table: m_espace_vert_v2.geo_ev_line
