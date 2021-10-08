@@ -14,7 +14,7 @@
 -- ####################################################################################################################################################
 
 -- après la phase d'initialisation, import de la classe des délimitations des zones d'inventaire par direction
--- pour une réinitialisation de la base, ne pas supprimer le schéma, juste les classes et objets en dehors des zones inventoriées
+-- pour une réinitialisation de la base, ne pas supprimer le schéma, juste les classes et objets en dehors des zones inventoriées et des zones de gestion
 
 -- pour un import de données (après inventaire), penser à supprimer les clés étrangères qui empêchent l'insertion
 
@@ -123,7 +123,8 @@ DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_pct;
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_line;
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_polygon;
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_site; 
-DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_zone_gestion; 
+-- DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_zone_gestion; 
+-- DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_zone_inv; 
 
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_doma;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_typ1;
@@ -144,7 +145,7 @@ DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_geohaie;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_geoline;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_geovegetal;
 
--- DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_zone_inv; 
+
 
 -- ####################################################################################################################################################
 -- ###                                                                                                                                              ###
@@ -1233,7 +1234,7 @@ COMMENT ON CONSTRAINT geo_ev_site_typ_fkey ON m_espace_vert_v2.geo_ev_site
  -- Table: m_espace_vert_v2.geo_ev_zone_gestion
 
 -- DROP TABLE m_espace_vert_v2.geo_ev_zone_gestion;
-
+/*
 CREATE TABLE m_espace_vert_v2.geo_ev_zone_gestion
 (
     idzone integer NOT NULL,
@@ -1262,7 +1263,7 @@ COMMENT ON COLUMN m_espace_vert_v2.geo_ev_zone_gestion.nom_zone
 
 COMMENT ON COLUMN m_espace_vert_v2.geo_ev_zone_gestion.sup_m2
     IS 'superficie en m²';
-
+*/
 -- ################################################################# TABLE geo_ev_zone_inv ###############################################
 
 -- Table: m_espace_vert_v2.geo_ev_zone_inv
