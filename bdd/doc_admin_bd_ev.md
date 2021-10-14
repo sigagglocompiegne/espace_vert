@@ -149,6 +149,18 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
     
 **Il n'est pas prévu pour le moment une sous-classe métiers pour les objets ponctuels autre que les objets arbres.**
 
+`an_ev_media` : Table gérant la liste des photos des objets Espace Vert (arbre notamment) avec le module média dans GEO (application Espace Vert V2)
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+|gid|Identifiant unique du média|integer|nextval('m_espace_vert_v2.an_ev_media_gid_seq'::regclass)|
+|idobjet|Identifiant de l'objet|bigint| |
+|media|Champ Média de GEO|text| |
+|miniature|Champ miniature de GEO|bytea| |
+|n_fichier|Nom du fichier|text| |
+|t_fichier|Type de média dans GEO|text| |
+|op_sai|Libellé de l'opérateur ayant intégrer le document|character varying(100)| |
+|date_sai|Date d'intégration du document|timestamp without time zone| |
 
 `geo_ev_zone_gestion` : table géographique délimitant les zones de gestion/entretien interne du service espace vert
 
