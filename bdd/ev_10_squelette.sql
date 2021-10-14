@@ -1364,6 +1364,81 @@ ALTER TABLE m_espace_vert_v2.an_ev_arbre
 COMMENT ON TABLE m_espace_vert_v2.an_ev_arbre
     IS 'Donnée issue du levé terrain réalisé à l''aide du GPS par les apprentis du service Espaces verts de la Ville de Compiègne et complété par l''inventaire cartographique en 2021';
 
+COMMENT ON TABLE m_espace_vert_v2.an_ev_arbre
+    IS 'Donnée issue du levé terrain réalisé à l''aide du GPS par les apprentis du service Espaces verts de la Ville de Compiègne et complété par l''inventaire cartographique en 2021';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.idobjet
+    IS 'Identifiant de l''objet';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.nom
+    IS 'Libellé clair de l''arbre (standard)';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.genre
+    IS 'Nom du genre de l''arbre';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.espece
+    IS 'Nom de l''espèce de l''arbre';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.hauteur
+    IS 'Hauteur de l''arbre en mètre';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.circonf
+    IS 'Circonférence du tronc en centimètre';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.forme
+    IS 'Forme (port) de l''arbre';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.etat_gen
+    IS 'Etat général de l''arbre';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.implant
+    IS 'Implantation';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.remarq
+    IS 'Arbre remarquable';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.malad_obs
+    IS 'Présence de la maladie/parasite';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.malad_nom
+    IS 'Nom de la maladie ou du parasite';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.danger
+    IS 'Dangerosité de l''arbre';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.natur_sol
+    IS 'Nature du sol';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.envnmt_obs
+    IS 'Observations sur l''environnement de l''arbre';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.utilis_obs
+    IS 'Observations diverses';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.cplt_fic_1
+    IS 'Photo 1';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.cplt_fic_2
+    IS 'Photo 2';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.gps_date
+    IS 'Données du GPS (date du relevé)';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.gnss_heigh
+    IS 'Données du GPS (hauteur)';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.vert_prec
+    IS 'Données du GPS (précision verticale)';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.horz_prec
+    IS 'Données du GPS (précision horizontale)';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.northing
+    IS 'Données du GPS (coordonnées Y en Lambert 93)';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.easting
+    IS 'Données du GPS (coordonnées X en Lambert 93)';
+
 ALTER TABLE m_espace_vert_v2.an_ev_arbre
     ADD CONSTRAINT lt_ev_arbrehauteur_fkey FOREIGN KEY (hauteur)
     REFERENCES m_espace_vert_v2.lt_ev_arbrehauteur (code) MATCH SIMPLE
