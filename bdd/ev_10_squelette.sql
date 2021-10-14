@@ -50,6 +50,7 @@ GRANT INSERT, SELECT, UPDATE, DELETE ON TABLES TO sig_edit;
 -- ####################################################################################################################################################
 
 DROP SEQUENCE IF EXISTS m_espace_vert_v2.an_ev_objet_idobjet_seq;
+DROP SEQUENCE IF EXISTS m_espace_vert_v2.an_ev_media_gid_seq;
 
 -- ################################################################# Séquence sur TABLE an_objet_ev ###############################################
 
@@ -65,6 +66,21 @@ CREATE SEQUENCE m_espace_vert_v2.an_ev_objet_idobjet_seq
     CACHE 1;
 
 
+-- ################################################################# Séquence sur TABLE an_ev_media ###############################################
+
+-- SEQUENCE: m_espace_vert_v2.an_ev_media_gid_seq
+
+-- DROP SEQUENCE m_espace_vert_v2.an_ev_media_gid_seq;
+
+CREATE SEQUENCE m_espace_vert_v2.an_ev_media_gid_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 0
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+
+ALTER SEQUENCE m_espace_vert_v2.an_ev_media_gid_seq
+    OWNER TO sig_create;
 
     
  -- ####################################################################################################################################################
@@ -144,6 +160,7 @@ DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_arbre;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_geohaie;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_geoline;
 DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_geovegetal;
+DROP TABLE IF EXISTS m_espace_vert_v2.an_ev_media;
 
 
 
@@ -1471,8 +1488,51 @@ ALTER TABLE m_espace_vert_v2.an_ev_arbre
     ON DELETE NO ACTION
     NOT VALID;
 
+-- ################################################################ TABLE an_ev_media #####################################
 
-    
+-- Table: m_espace_vert_v2.an_ev_media
+
+-- DROP TABLE m_espace_vert_v2.an_ev_media;
+
+CREATE TABLE m_espace_vert_v2.an_ev_media
+(
+	gid integer NOT NULL DEFAULT nextval('m_espace_vert_v2.an_ev_media_gid_seq'::regclass),
+    idobjet bigint NOT NULL,
+    media text COLLATE pg_catalog."default",
+    miniature bytea,
+    n_fichier text COLLATE pg_catalog."default",
+    t_fichier text COLLATE pg_catalog."default"
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE m_espace_vert_v2.an_ev_media
+    OWNER to create_sig;
+
+
+COMMENT ON TABLE m_espace_vert_v2.an_ev_media
+    IS 'Structure de table modèle pour utiliser le module MEDIA dans GEO avec stockage des documents dans une arborescence de fichiers (saisie de docs par les utilisateurs)';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_media.gid
+    IS 'Identifiant unique du média';
+	
+	COMMENT ON COLUMN m_espace_vert_v2.an_ev_media.idobjet
+    IS 'Identifiant de l''objet';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_media.media
+    IS 'Champ Média de GEO';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_media.miniature
+    IS 'Champ miniature de GEO';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_media.n_fichier
+    IS 'Nom du fichier';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_media.t_fichier
+    IS 'Type de média dans GEO';
+
 -- ####################################################################################################################################################
 -- ###                                                                                                                                              ###
 -- ###                                                                CLE ETRANGERE DEPENDANTE                                        		    ###
