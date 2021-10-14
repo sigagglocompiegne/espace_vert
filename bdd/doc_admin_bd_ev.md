@@ -123,29 +123,29 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
 |idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
-|nom|Libellé du nom de l'arbre en français|character varying(50)||
-|genre|Libellé du genre de l'arbre (en latin)|character varying(20)||
-|espece|Libellé d'espèce de l'arbre (en latin)|character varying(20)||
-|hauteur|Classe de hauteur de l'arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbrehauteur`)|
-|circonf|Circonférence du tronc de l'arbre en centimètre|integer||
+|nom|Libellé du nom de l'arbre en français (standard)|character varying(50)||
+|genre|Nom du genre de l''arbre (en latin)|character varying(20)||
+|espece|Nom de l'espèce de l'arbre (en latin)|character varying(20)||
+|hauteur|Classe de hauteur de l'arbre en mètre|character varying(2)|00 (liste de valeurs `lt_ev_arbrehauteur`)|
+|circonf|Circonférence du tronc en centimètre|integer||
 |forme|Classe de forme de l'arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbreforme`)|
 |etat_gen|Etat général l'arbre|character varying(2)|00 (non saisi à ce jour)|
 |implant|Type d'implantation de l'arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbreimplant`)|
 |remarq|Arbre remarquable|character varying(3)||
-|malad_obs|Maladie observée|character varying(3)||
-|malad_nom|Libellé de la maladie observée si connue|character varying(80)||
-|danger|Information sur la dangeurisité de l'arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbredanger`)|
-|natur_sol|Nature du sol de l'arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbresol`)|
+|malad_obs|Présence de la maladie/parasite|character varying(3)||
+|malad_nom|Nom de la maladie ou du parasite|character varying(80)||
+|danger|Dangerosité de l''arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbredanger`)|
+|natur_sol|Nature du sol|character varying(2)|00 (liste de valeurs `lt_ev_arbresol`)|
 |envnmt_obs|Observation environnementale diverse sur l'arbre|character varying(254)||
 |utilis_obs|Observation de l'opérateur diverse sur l'arbre|character varying(254)||
-|plt_fic_1|| character(230)||
-|cplt_fic_2|| character(230)||
-|gps_date|Date du levé GPS| date||
-|gnss_heigh||double precision||
-|vert_prec|| double precision||
-|horz_prec|| double precision||
-|northing|| double precision||
-|easting|| double precision||
+|plt_fic_1|Photo n°1| character(230)||
+|cplt_fic_2|Photo n°2| character(230)||
+|gps_date|Données du GPS (date du relevé)| date||
+|gnss_heigh|Données du GPS (hauteur)|double precision||
+|vert_prec|Données du GPS (précision verticale)| double precision||
+|horz_prec|Données du GPS (précision horizontale)| double precision||
+|northing|Données du GPS (coordonnées Y en Lambert 93)| double precision||
+|easting|Données du GPS (coordonnées X en Lambert 93)| double precision||
     
 **Il n'est pas prévu pour le moment une sous-classe métiers pour les objets ponctuels autre que les objets arbres.**
 
