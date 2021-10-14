@@ -22,3 +22,4 @@
 2021-10-08 : GB / Ajout d'une classe contenant la délimitation des zones inventoriées par direction des espaces verts
 2021-10-08 : GB / Ajout d'un trigger pour le calcul des X et Y sur la classe geo_ev_pct
 2021-10-08 : GB / Paramétrage du script d'initialisaition pour supprimer et insérer proprement les données sans clé étrangère et sans suppression des zones de gestion
+2021-10-14 : GB / Ajout des commentaires des attributs sur la classe an_ev_arbre
