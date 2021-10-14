@@ -1501,7 +1501,9 @@ CREATE TABLE m_espace_vert_v2.an_ev_media
     media text COLLATE pg_catalog."default",
     miniature bytea,
     n_fichier text COLLATE pg_catalog."default",
-    t_fichier text COLLATE pg_catalog."default"
+    t_fichier text COLLATE pg_catalog."default",
+	op_sai character varying(100) COLLATE pg_catalog."default",
+    date_sai timestamp without time zone
 )
 WITH (
     OIDS = FALSE
@@ -1511,6 +1513,13 @@ TABLESPACE pg_default;
 ALTER TABLE m_espace_vert_v2.an_ev_media
     OWNER to create_sig;
 
+GRANT ALL ON TABLE m_espace_vert_v2.an_ev_media TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_v2.an_ev_media TO sig_read;
+
+GRANT ALL ON TABLE m_espace_vert_v2.an_ev_media TO create_sig;
+
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.an_ev_media TO sig_edit;
 
 COMMENT ON TABLE m_espace_vert_v2.an_ev_media
     IS 'Structure de table modèle pour utiliser le module MEDIA dans GEO avec stockage des documents dans une arborescence de fichiers (saisie de docs par les utilisateurs)';
@@ -1532,6 +1541,12 @@ COMMENT ON COLUMN m_espace_vert_v2.an_ev_media.n_fichier
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_media.t_fichier
     IS 'Type de média dans GEO';
+	
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_media.op_sai
+    IS 'Libellé de l''opérateur ayant intégrer le document';
+
+COMMENT ON COLUMN m_espace_vert_v2.an_ev_media.date_sai
+    IS 'Date d''intégration du document';
 
 -- ####################################################################################################################################################
 -- ###                                                                                                                                              ###
