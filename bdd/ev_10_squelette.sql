@@ -1364,35 +1364,32 @@ ALTER TABLE m_espace_vert_v2.an_ev_arbre
 COMMENT ON TABLE m_espace_vert_v2.an_ev_arbre
     IS 'Donnée issue du levé terrain réalisé à l''aide du GPS par les apprentis du service Espaces verts de la Ville de Compiègne et complété par l''inventaire cartographique en 2021';
 
-COMMENT ON TABLE m_espace_vert_v2.an_ev_arbre
-    IS 'Donnée issue du levé terrain réalisé à l''aide du GPS par les apprentis du service Espaces verts de la Ville de Compiègne et complété par l''inventaire cartographique en 2021';
-
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.idobjet
     IS 'Identifiant de l''objet';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.nom
-    IS 'Libellé clair de l''arbre (standard)';
+    IS 'Libellé du nom de l''arbre en français (standard)';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.genre
-    IS 'Nom du genre de l''arbre';
+    IS 'Nom du genre de l''arbre (en latin)';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.espece
-    IS 'Nom de l''espèce de l''arbre';
+    IS 'Nom de l''espèce de l''arbre (en latin)';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.hauteur
-    IS 'Hauteur de l''arbre en mètre';
+    IS 'Classe de hauteur de l''arbre en mètre';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.circonf
     IS 'Circonférence du tronc en centimètre';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.forme
-    IS 'Forme (port) de l''arbre';
+    IS 'Classe de Forme de l''arbre';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.etat_gen
     IS 'Etat général de l''arbre';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.implant
-    IS 'Implantation';
+    IS 'Type d''implantation de l''arbre';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.remarq
     IS 'Arbre remarquable';
@@ -1410,10 +1407,10 @@ COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.natur_sol
     IS 'Nature du sol';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.envnmt_obs
-    IS 'Observations sur l''environnement de l''arbre';
+    IS 'Observation environnementale diverse sur l''arbre';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.utilis_obs
-    IS 'Observations diverses';
+    IS 'Observation de l''opérateur diverse sur l''arbre';
 
 COMMENT ON COLUMN m_espace_vert_v2.an_ev_arbre.cplt_fic_1
     IS 'Photo 1';
