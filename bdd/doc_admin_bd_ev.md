@@ -515,6 +515,12 @@ Valeurs possibles :
 
 * Fonction triggers : sans objet
 
+---
+
+### classes d'objets applicatives métiers sont classés dans le schéma x_apps :
+ 
+**Ces vues sont stockées temporairement dans le schéma de procution `m_espace_vert_v2` et non dans le schéma `x_apps`.**
+
 `geo_ev_vegetal_arbreisole` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "végétal" et en niveau 3 de la nomenclature correspondant à "arbre isolé".
 
 `geo_ev_vegetal_arbrealignement` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "végétal" et en niveau 3 de la nomenclature correspondant à "alignement d'arbre".
@@ -533,29 +539,29 @@ Valeurs possibles :
 
 `geo_ev_vegetal_espaceenherbe` : : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "végétal" et en niveau 3 de la nomenclature correspondant à "espace enherbé".
 
-`geo_ev_vegetal_voiecirculation` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "mineral" et en niveau 3 de la nomenclature correspondant à "voie de circulation".
+`geo_ev_mineral_voiecirculation` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "mineral" et en niveau 3 de la nomenclature correspondant à "voie de circulation".
 
-`geo_ev_vegetal_zonedecirculation` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "mineral" et en niveau 3 de la nomenclature correspondant à "zone de circulation".
+`geo_ev_mineral_zonedecirculation` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "mineral" et en niveau 3 de la nomenclature correspondant à "zone de circulation".
 
-`geo_ev_vegetal_cloture` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "mineral" et en niveau 3 de la nomenclature correspondant à "clôture".
+`geo_ev_mineral_cloture` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "mineral" et en niveau 3 de la nomenclature correspondant à "clôture".
 
-`geo_ev_vegetal_loisirsisole` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "mineral" et en niveau 3 de la nomenclature correspondant à "loisirs isolé".
+`geo_ev_mineral_loisirsisole` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "mineral" et en niveau 3 de la nomenclature correspondant à "loisirs isolé".
 
-`geo_ev_vegetal_espacedeloisirs` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "mineral" et en niveau 3 de la nomenclature correspondant à "espace de loisirs".
+`geo_ev_mineral_espacedeloisirs` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "mineral" et en niveau 3 de la nomenclature correspondant à "espace de loisirs".
 
-`geo_ev_vegetal_arriveedeau` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "hydrographique" et en niveau 3 de la nomenclature correspondant à "arrivée d'eau".
+`geo_ev_hydrographique_arriveedeau` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "hydrographique" et en niveau 3 de la nomenclature correspondant à "arrivée d'eau".
 
-`geo_ev_vegetal_pointdeau` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "hydrographique" et en niveau 3 de la nomenclature correspondant à "point d'eau".
+`geo_ev_hydrographique_pointdeau` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "hydrographique" et en niveau 3 de la nomenclature correspondant à "point d'eau".
 
-`geo_ev_vegetal_coursdeau` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "hydrographique" et en niveau 3 de la nomenclature correspondant à "cours d'eau".
+`geo_ev_hydrographique_coursdeau` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "hydrographique" et en niveau 3 de la nomenclature correspondant à "cours d'eau".
 
-`geo_ev_vegetal_etenduedeau` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "hydrographique" et en niveau 3 de la nomenclature correspondant à "étendue d'eau".
+`geo_ev_hydrographique_etenduedeau` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "hydrographique" et en niveau 3 de la nomenclature correspondant à "étendue d'eau".
 
----
+`geo_v_ev_refnonclassee_lin` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "non classé" et en niveau 3 de la nomenclature correspondant à "référence non classée" des objets linéaire.
 
-### classes d'objets applicatives métiers sont classés dans le schéma x_apps :
- 
-Sans objet
+`geo_v_ev_refnonclassee_pct` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "non classé" et en niveau 3 de la nomenclature correspondant à "référence non classée" des objets ponctuels.
+
+`geo_v_ev_refnonclassee_polygon` : vue de saisie du gabarit permettant la saisie des objets "espace vert" de type "non classé" et en niveau 3 de la nomenclature correspondant à "référence non classée" des objets surfaciques.
 
 ---
 
@@ -590,13 +596,15 @@ Sans objet (uniquement un projet QGis pour le gabarit de mise à jour de l'inven
 
 ## Traitement automatisé mis en place (Workflow de l'ETL FME)
 
+Ces traitements ont des usages internes au servide SIG et temporaire, le temps de l'inventaire.
+
  * Export des classes d'objets pour le gabarit QGIS
 
-Un traitement FME a été réalisé, cliquez [ici]() pour le télécharger. (à venir)
+Un traitement FME a été réalisé, `R:\Projets\Metiers\2011EV-159-LeveCartoEV\6-Traitement\export_gabarit_v2.fmw`
 
  * Intégration des données saisies via la gabarit
 
-Un traitement FME a été réalisé, cliquez [ici]() pour le télécharger. (à venir)
+Un traitement FME a été réalisé, `R:\Projets\Metiers\2011EV-159-LeveCartoEV\6-Traitement\EV_Integration_inventaire (gabarit).fmw`, afin d'intégrer les livraisons de l'inventaire en cours de production. Ce traitement fait appel à un sous-traitement ici `R:\Projets\Metiers\2011EV-159-LeveCartoEV\6-Traitement\bloc\10_EV_Integration_inventaire (gabarit).fmw`. Merci de lire les commentaires dans les traitements pour fonctionnement.
 
 ---
 
