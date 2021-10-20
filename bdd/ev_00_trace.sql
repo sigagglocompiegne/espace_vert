@@ -24,3 +24,4 @@
 2021-10-08 : GB / Paramétrage du script d'initialisaition pour supprimer et insérer proprement les données sans clé étrangère et sans suppression des zones de gestion
 2021-10-14 : GB / Ajout des commentaires des attributs sur la classe an_ev_arbre
 2021-10-14 : GB / Ajout d'une table de gestion des médias pour les objets d'espace vert (migration des médias existant)
+2021-10-20 : GB / Ajout d'une table des secteurs d'intervention des prestataires de la ville de Compiègne
