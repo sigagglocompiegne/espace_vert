@@ -111,10 +111,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_line
 ALTER TABLE m_espace_vert_v2.geo_v_ev_line
     OWNER TO create_sig;
 
-GRANT SELECT ON TABLE m_espace_vert_v2.geo_v_ev_line TO sig_read;
-GRANT ALL ON TABLE m_espace_vert_v2.geo_v_ev_line TO sig_create;
-GRANT ALL ON TABLE m_espace_vert_v2.geo_v_ev_line TO create_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_v_ev_line TO sig_edit;
+COMMENT ON VIEW m_espace_vert_v2.geo_v_ev_line
+    IS 'Vue de gestion des objets "espace vert" de type linéaire';
 
 -- View: m_espace_vert_v2.geo_v_ev_pct
 
@@ -153,11 +151,9 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_pct
 
 ALTER TABLE m_espace_vert_v2.geo_v_ev_pct
     OWNER TO create_sig;
-
-GRANT SELECT ON TABLE m_espace_vert_v2.geo_v_ev_pct TO sig_read;
-GRANT ALL ON TABLE m_espace_vert_v2.geo_v_ev_pct TO sig_create;
-GRANT ALL ON TABLE m_espace_vert_v2.geo_v_ev_pct TO create_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_v_ev_pct TO sig_edit;
+    
+COMMENT ON VIEW m_espace_vert_v2.geo_v_ev_pct
+    IS 'Vue de gestion des objets "espace vert" de type ponctuel';
 
 -- View: m_espace_vert_v2.geo_v_ev_pct
 
@@ -196,10 +192,8 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_polygon
 ALTER TABLE m_espace_vert_v2.geo_v_ev_polygon
     OWNER TO create_sig;
 
-GRANT SELECT ON TABLE m_espace_vert_v2.geo_v_ev_polygon TO sig_read;
-GRANT ALL ON TABLE m_espace_vert_v2.geo_v_ev_polygon TO sig_create;
-GRANT ALL ON TABLE m_espace_vert_v2.geo_v_ev_polygon TO create_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_v2.geo_v_ev_polygon TO sig_edit;
+COMMENT ON VIEW m_espace_vert_v2.geo_v_ev_polygon
+    IS 'Vue de gestion des objets "espace vert" de type surfacique';
 
 
 -- View: m_espace_vert_v2.geo_v_ev_arbre
@@ -259,15 +253,21 @@ CREATE OR REPLACE VIEW m_espace_vert_v2.geo_v_ev_arbre
      JOIN m_espace_vert_v2.geo_ev_pct p ON o.idobjet = p.idobjet
 	 JOIN m_espace_vert_v2.an_ev_arbre a ON o.idobjet = a.idobjet
 	 LEFT JOIN m_espace_vert_v2.an_ev_geovegetal v ON o.idobjet = v.idobjet
-   WHERE o.typ3 = '111';			      
-
+   WHERE o.typ3 = '111';
+   
+   ALTER TABLE m_espace_vert_v2.geo_v_ev_arbre
+    OWNER TO create_sig;
+    
+   COMMENT ON VIEW m_espace_vert_v2.geo_v_ev_arbre
+    IS 'Vue de gestion des objets "espace vert" ponctuel spécifique aux objets "arbre"';
+   
 -- #################################################################################################################################
 -- ###                                                                                                                           ###
 -- ###                                                      VUES DU GABARIT                                                      ###
 -- ###                                                                                                                           ###
 -- #################################################################################################################################
 
--- les vues listées ci-dessous sont les vues générant la structure des couches du gabarit
+-- les vues listées ci-dessous sont les vues générant la structure des couches du gabarit, à migrer plus tard dans les vues applicatives (x_apps).
 
 -- View: m_espace_vert_v2.geo_v_ev_vegetal_arbreisole
 
