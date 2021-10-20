@@ -141,6 +141,7 @@ DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_polygon;
 DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_site; 
 -- DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_zone_gestion; 
 -- DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_zone_inv; 
+-- DROP TABLE IF EXISTS m_espace_vert_v2.geo_ev_secteur_presta; 
 
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_doma;
 DROP TABLE IF EXISTS  m_espace_vert_v2.lt_ev_typ1;
@@ -1334,7 +1335,44 @@ COMMENT ON CONSTRAINT geo_ev_zone_inv_pkey ON m_espace_vert_v2.geo_ev_zone_inv
 
 
 */
- 
+
+-- ################################################################# TABLE geo_ev_secteur_presta ###############################################
+
+-- Table: m_espace_vert_v2.geo_ev_secteur_presta
+
+-- DROP TABLE m_espace_vert_v2.geo_ev_secteur_presta;
+/*
+CREATE TABLE m_espace_vert_v2.geo_ev_secteur_presta
+(
+    gid bigint NOT NULL,
+    lib_secteur character varying(80) COLLATE pg_catalog."default",
+    id_contrat character varying(2) COLLATE pg_catalog."default",
+    geom geometry(MultiPolygon,2154),
+    CONSTRAINT geo_ev_secteur_presta_pkey PRIMARY KEY (gid)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE m_espace_vert_v2.geo_ev_secteur_presta
+    OWNER to sig_create;
+COMMENT ON TABLE m_espace_vert_v2.geo_ev_secteur_presta
+    IS 'Table géographique contenant la délimitation des secteurs d''intervention des prestataires en espace vert pour la ville de Compiègne';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_secteur_presta.gid
+    IS 'Identifiant unique insignifiant';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_secteur_presta.lib_secteur
+    IS 'Libellé du secteur d''intervention';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_secteur_presta.id_contrat
+    IS 'Référence au contrat concerné pour le secteur (table lt_contrat dans le schéma r_objet)';
+
+COMMENT ON COLUMN m_espace_vert_v2.geo_ev_secteur_presta.geom
+    IS 'Attribut de géométrie des objets';
+
+ */
 -- ################################################################ TABLE an_ev_arbre #####################################
 
 -- Table: m_espace_vert_v2.an_ev_arbre
