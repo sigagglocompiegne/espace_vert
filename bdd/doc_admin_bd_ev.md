@@ -37,7 +37,7 @@ La base de données des espaces verts s'appuie sur des référentiels préexista
 
 L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espace_vert, celles dérivées et applicatives dans le schéma `x_apps`, celles dérivées pour les exports opendata dans le schéma `x_opendata`.
 
-### Classe d'objet géographique et patrimoniale
+### Classe d'objet patrimoniale
 
 `an_ev_objet` : table alphanumérique des métadonnées des objets des espaces verts.
 
@@ -149,6 +149,8 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |easting|Données du GPS (coordonnées X en Lambert 93)| double precision||
     
 **Il n'est pas prévu pour le moment une sous-classe métiers pour les objets ponctuels autre que les objets arbres.**
+
+### Classe d'objet non patrimoniale
 
 `an_ev_media` : Table gérant la liste des photos des objets Espace Vert (arbre notamment) avec le module média dans GEO (application Espace Vert V2)
 
