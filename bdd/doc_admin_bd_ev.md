@@ -29,6 +29,7 @@ La base de données des espaces verts s'appuie sur des référentiels préexista
 |schéma | table | description | usage |
 |:---|:---|:---|:---|   
 |r_objet|lt_src_geom|domaine de valeur générique d'une table géographique|source du référentiel de saisies des objets|
+|r_objet|lt_contrat|domaine de valeur générique d'une table géographique|identification des contrats extérieurs|
 
 ---
 
@@ -181,6 +182,34 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |nom|Libellé du site|varchar(100)||
 |typ|Typologie du site|varchar(2)|00 (liste de valeurs `lt_ev_typsite`)|
 |geom|Attribut contenant la géométrie du site|geometry(polygon,2154)|valeur vide interdite|
+
+
+`geo_ev_secteur_presta` : Table géographique contenant la délimitation des secteurs d'intervention des prestataires en espace vert pour la ville de Compiègne
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|gid|Identifiant unique insignifiant|bigint| |
+|lib_secteur|Libellé du secteur d'intervention|character varying(80)| |
+|id_contrat|Référence au contrat concerné pour le secteur (table lt_contrat dans le schéma r_objet)|character varying(2)| |
+|geom|Attribut de géométrie des objets|geometry(MultiPolygon,2154)| |
+
+`geo_ev_zone_inv` : Table contenant la zone d'inventaire réalisée en 2021 et groupé par direction des espaces verts (attributs typo)
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|gid|Identifiant unique|bigint| |
+|typo|Direction des espaces verts ou collectivité gestionnaire des espaces verts|character varying(50)| |
+|surf_ha|Surface en hectare|double precision| |
+|surf_m2|Surface en m²|bigint| |
+|geom|Géométrie des objets|geometry(MultiPolygon,2154)| |
+
+`geo_ev_secteur_inv` : Table géographique contenant le carroyage des secteurs inventoriés par le bureau d''étude AET
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|id|Identifiant du carreau|smallint| |
+|statut|Etape d'inventaire 0 : non commencé ou en cours 1 : vérification terrain 2 : terminé|smallint| |
+|geom|Géométrie des objets|geometry(Polygon,2154)| |
 
 
 ## Liste de valeurs
