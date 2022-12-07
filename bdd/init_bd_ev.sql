@@ -6,6 +6,7 @@
 /* Propriétaire : GeoCompiegnois - http://geo.compiegnois.fr/ */
 /* Auteur : Grégory Bodet */
 /* Participant : Florent Vanhoutte, Fabien Nicollet (Business Geografic) */
+-- 20221207 : FV/ suppression ressources obsolètes (vue geo_v_ev_arbre, attributs an_ev_arbre (gnss_heigh, vert_prec, horz_prec, cplt_fic_1, cplt_fic_2, northing, easting, gps_date))
 
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
@@ -660,11 +661,6 @@ ALTER TABLE m_espace_vert.an_ev_objet ADD CONSTRAINT an_ev_objet_lt_ev_situation
 -- ajout d'un champ contenant le matricule de l'opérateur qui fait une modification
 ALTER TABLE m_espace_vert.an_ev_objet ADD op_maj varchar(80);
 
--- ajout des champs "cplt_fic_1" et "cplt_fic_2" sur an_ev_arbre pour correspondre à la vue existante
--- à noter qu'ils existent dans la table du schéma V1 dans m_espace_vert.geo_ev_arbres, remplis vers des photos qui n'existent pas?
-ALTER TABLE m_espace_vert.an_ev_arbre ADD COLUMN IF NOT EXISTS cplt_fic_1 bpchar(230) NULL;
-ALTER TABLE m_espace_vert.an_ev_arbre ADD COLUMN IF NOT EXISTS cplt_fic_2 bpchar(230) NULL;
-
 -- ajout des champs de saisie au niveau des arbres
 ALTER TABLE m_espace_vert.an_ev_arbre ADD COLUMN IF NOT EXISTS cultivar text;
 COMMENT ON COLUMN m_espace_vert.an_ev_arbre.cultivar IS 'Cultivar';
@@ -931,71 +927,6 @@ COMMENT ON VIEW m_espace_vert.geo_v_ev_polygon
     IS 'Vue de gestion des objets "espace vert" de type surfacique';
 
 
--- View: m_espace_vert.geo_v_ev_arbre
-
-DROP VIEW IF EXISTS m_espace_vert.geo_v_ev_arbre;
-
-CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_arbre
- AS
- SELECT o.idobjet,
-    o.idzone,
-    o.idsite,
-    o.idcontrat,
-    o.insee,
-    o.commune,
-    o.quartier,
-    o.doma,
-    o.qualdoma,
-    o.typ1,
-    o.typ2,
-    o.typ3,
-    o.op_sai,
-    o.date_sai,
-    o.srcgeom_sai,
-    o.srcdate_sai,
-    o.op_att,
-    o.date_maj_att,
-    o.date_maj,
-    o.observ,
-    o.situation,
-    a.nom,
-    a.genre,
-    a.espece,
-    a.hauteur,
-    a.circonf,
-    a.forme,
-    a.etat_gen,
-    a.implant,
-    a.remarq,
-    a.malad_obs,
-    a.malad_nom,
-    a.danger,
-    a.natur_sol,
-    a.envnmt_obs,
-    a.utilis_obs,
-    a.cplt_fic_1,
-    a.cplt_fic_2,
-    a.gps_date,
-    a.gnss_heigh,
-    a.vert_prec,
-    a.horz_prec,
-    a.northing,
-    a.easting,
-    v.position,
-    p.x_l93,
-    p.y_l93,
-    p.geom::geometry(point,2154) AS geom
-   FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_pct p ON o.idobjet = p.idobjet
-	 JOIN m_espace_vert.an_ev_arbre a ON o.idobjet = a.idobjet
-	 LEFT JOIN m_espace_vert.an_ev_geovegetal v ON o.idobjet = v.idobjet
-   WHERE o.typ3 = '111';
-   
-   ALTER TABLE m_espace_vert.geo_v_ev_arbre
-    OWNER TO create_sig;
-    
-   COMMENT ON VIEW m_espace_vert.geo_v_ev_arbre
-    IS 'Vue de gestion des objets "espace vert" ponctuel spécifique aux objets "arbre"';
    
 -- #################################################################################################################################
 -- ###                                                                                                                           ###
@@ -2009,8 +1940,7 @@ BEGIN
     --forme, 
     --etat_gen, 
     --implant, 
-    --natur_sol, 
-    cplt_fic_1, cplt_fic_2, 
+    --natur_sol,  
     cultivar, mode_cond, contrainte, contr_type,
     date_pl_an, date_pl_sa, periode_pl, stade_dev, 
     protege, protege_co, remarq, remarq_com, diam_houpp, type_sol, amena_pied, niveau_all)
@@ -2021,8 +1951,7 @@ BEGIN
     --NEW.forme, 
     --NEW.etat_gen, 
     --NEW.implant, 
-    --NEW.natur_sol, 
-    null, null, 
+    --NEW.natur_sol,
     NEW.cultivar, NEW.mode_cond, NEW.contrainte, NEW.contr_type, 
     NEW.date_pl_an, NEW.date_pl_sa, NEW.periode_pl, NEW.stade_dev, 
     NEW.protege, NEW.protege_co, NEW.remarq, NEW.remarq_com, NEW.diam_houpp, NEW.type_sol, NEW.amena_pied, NEW.niveau_all);
