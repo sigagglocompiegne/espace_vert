@@ -7,6 +7,22 @@
 /* Auteur : Grégory Bodet */
 /* Participant : Florent Vanhoutte, Fabien Nicollet (Business Geografic) */
 -- 20221207 : FV/ suppression ressources obsolètes (vue geo_v_ev_arbre, attributs an_ev_arbre (gnss_heigh, vert_prec, horz_prec, cplt_fic_1, cplt_fic_2, northing, easting, gps_date))
+-- 20221208 : FV/ ajout attributs admin+mesures géographiques dans les vues applicatives (arbre, massifarbustif, zoneboisee, espaceenherbe, massiffleuri, arbrealignement, haie)
+-- 20221212 : FV/ ajout fonction/trigger et attributs admin+mesures geographiques dans certaines vues applicatives (arbusteisole, pointfleuri)
+-- 20221212 : FV/ intégration des attributs admin+mesure dans les vues des classes minérales, hydro, refnonclasse pct-lin-polygon
+
+/*
+ToDo :
+- étendre fonction/trigger objets de type mineraux, hydrographiques et non référencés 
+- vérifier la structure générale du script (ex : paragraphe d'ajout de champs, dc table sur table préexistante, vue de gabarit ???)
+- commentaires des attributs des vues
+- corriger les domaines de valeur avec des 00 qui ne sont pas des "non renseigné"
+- vérifier fonction de découpe des objets hors arbre (enherbé, arbustif, minéraux, hydro, non classés), depuis les découpages admin
+- prb fonction générique sur voiecirculation qui impose (à vérifier) un typ3 unique alors que la voieciculation peut prendre plusieurs valeurs (allée, piste cyclable ...)
+- prb attribut position qui est considété comme générique (donc ds fonction générique) alors qu'il n'a pas sa place dans classes hydro, mineral, nonclasse, voir meme certaines catégories vegetal (ex : pelouse)
+- domaine lt_ev_type_vegetation à priori inutile
+*/
+
 
 -- ###############################################################################################################################
 -- ###                                                                                                                         ###
@@ -936,6 +952,9 @@ COMMENT ON VIEW m_espace_vert.geo_v_ev_polygon
 
 -- les vues listées ci-dessous sont les vues générant la structure des couches du gabarit, à migrer plus tard dans les vues applicatives (x_apps).
 
+
+-- #################################################################### VUE ARBRE ISOLE ###############################################
+
 -- View: m_espace_vert.geo_v_ev_vegetal_arbreisole
 
 DROP VIEW IF EXISTS m_espace_vert.geo_v_ev_vegetal_arbreisole;
@@ -988,6 +1007,8 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_vegetal_arbreisole
     o.doma,
     o.qualdoma,
     -- geom
+    p.x_l93,
+    p.y_l93,
     p.geom
    FROM m_espace_vert.an_ev_objet o
      JOIN m_espace_vert.geo_ev_pct p ON o.idobjet = p.idobjet
@@ -1004,6 +1025,9 @@ GRANT ALL ON TABLE m_espace_vert.geo_v_ev_vegetal_arbreisole TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_vegetal_arbreisole TO sig_edit;
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_vegetal_arbreisole IS 'Vue arbres isolés';
+
+
+-- #################################################################### VUE ARBRE ALIGNEMENT ###############################################
 
 -- View: m_espace_vert.geo_v_ev_vegetal_arbrealignement
 
@@ -1025,10 +1049,21 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_vegetal_arbrealignement
     o.observ,
     o.op_maj,
     o.date_maj,
+    -- autres champs découpage adm
+    o.idzone,
+    o.idsite,
+    o.idequipe,
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.doma,
+    o.qualdoma,
     -- geom
-    l.geom
+    g.long_m,
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_line l ON o.idobjet = l.idobjet
+     JOIN m_espace_vert.geo_ev_line g ON o.idobjet = g.idobjet
      JOIN m_espace_vert.an_ev_geovegetal v ON o.idobjet = v.idobjet
   WHERE o.typ3::text = '112'::text;
 
@@ -1041,6 +1076,9 @@ GRANT ALL ON TABLE m_espace_vert.geo_v_ev_vegetal_arbrealignement TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_vegetal_arbrealignement TO sig_edit;
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_vegetal_arbrealignement IS 'Vue arbres d''alignement';
+
+
+-- #################################################################### VUE ZONE BOISEE ###############################################
 
 -- View: m_espace_vert.geo_v_ev_vegetal_zoneboisee
 
@@ -1073,9 +1111,10 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_vegetal_zoneboisee
     o.doma,
     o.qualdoma,
     -- geom
-    p.geom
+    g.sup_m2,
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_polygon p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert.geo_ev_polygon g ON o.idobjet = g.idobjet
      JOIN m_espace_vert.an_ev_geovegetal v ON o.idobjet = v.idobjet
   WHERE o.typ3::text = '113'::text;
 
@@ -1090,6 +1129,8 @@ GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_vegetal_zon
 COMMENT ON VIEW m_espace_vert.geo_v_ev_vegetal_zoneboisee IS 'Vue zones boisées';
 
 
+-- #################################################################### VUE ARBUSTE ISOLE ###############################################
+
 -- View: m_espace_vert.geo_v_ev_vegetal_arbusteisole
 
 DROP VIEW IF EXISTS m_espace_vert.geo_v_ev_vegetal_arbusteisole;
@@ -1103,10 +1144,29 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_vegetal_arbusteisole
     o.situation,
     v."position",
     o.srcgeom_sai as src_geom,
-    o.srcdate_sai as src_date,    
-    p.geom
+    o.srcdate_sai as src_date,
+    -- autre champs de saisie
+    o.date_sai,
+    o.op_sai,
+    o.observ,
+    o.op_maj,
+    o.date_maj,
+    -- autres champs découpage adm
+    o.idzone,
+    o.idsite,
+    o.idequipe,
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.doma,
+    o.qualdoma,
+    -- geom
+    g.x_l93,
+    g.y_l93,        
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_pct p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert.geo_ev_pct g ON o.idobjet = g.idobjet
      JOIN m_espace_vert.an_ev_geovegetal v ON o.idobjet = v.idobjet
   WHERE o.typ3::text = '121'::text;
 
@@ -1119,6 +1179,9 @@ GRANT ALL ON TABLE m_espace_vert.geo_v_ev_vegetal_arbusteisole TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_vegetal_arbusteisole TO sig_edit;
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_vegetal_arbusteisole IS 'Vue arbustes isolés';
+
+
+-- #################################################################### VUE HAIE ###############################################
 
 -- View: m_espace_vert.geo_v_ev_vegetal_haie
 
@@ -1140,7 +1203,7 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_vegetal_haie
     h.type_veget,
     h.hauteur,
     h.largeur,
-    h.lineaire   ,
+    h.lineaire,
     h.type_espace,
     h.surface,
     h.type_paill,
@@ -1163,9 +1226,10 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_vegetal_haie
     o.doma,
     o.qualdoma,
     --
-    l.geom
+    g.long_m, 
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_line l ON o.idobjet = l.idobjet
+     JOIN m_espace_vert.geo_ev_line g ON o.idobjet = g.idobjet
      LEFT JOIN m_espace_vert.an_ev_geoline gl ON o.idobjet = gl.idobjet
      JOIN m_espace_vert.an_ev_geohaie h ON o.idobjet = h.idobjet
      JOIN m_espace_vert.an_ev_geovegetal v ON o.idobjet = v.idobjet
@@ -1180,6 +1244,9 @@ GRANT ALL ON TABLE m_espace_vert.geo_v_ev_vegetal_haie TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_vegetal_haie TO sig_edit;
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_vegetal_haie IS 'Vue haies';
+
+
+-- #################################################################### VUE MASSIF ARBUSTIF ###############################################
 
 -- View: m_espace_vert.geo_v_ev_vegetal_massifarbustif
 
@@ -1220,10 +1287,11 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_vegetal_massifarbustif
     o.quartier,
     o.doma,
     o.qualdoma,
-    -- 
-    p.geom
+    --
+    g.sup_m2, 
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_polygon p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert.geo_ev_polygon g ON o.idobjet = g.idobjet
      JOIN m_espace_vert.an_ev_massifarbustif a ON o.idobjet = a.idobjet
      JOIN m_espace_vert.an_ev_geovegetal v ON o.idobjet = v.idobjet
   WHERE o.typ3::text = '123'::text;
@@ -1238,6 +1306,9 @@ GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_vegetal_mas
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_vegetal_massifarbustif IS 'Vue massifs arbustifs';
 
+
+-- #################################################################### VUE POINT FLEURI ###############################################
+
 -- View: m_espace_vert.geo_v_ev_vegetal_pointfleuri
 
 DROP VIEW IF EXISTS m_espace_vert.geo_v_ev_vegetal_pointfleuri;
@@ -1251,10 +1322,29 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_vegetal_pointfleuri
     o.situation,
     v."position",
     o.srcgeom_sai as src_geom,
-    o.srcdate_sai as src_date,    
-    p.geom
+    o.srcdate_sai as src_date,
+    -- autre champs de saisie
+    o.date_sai,
+    o.op_sai,
+    o.observ,  
+    o.op_maj, 
+    o.date_maj,
+    -- autres champs découpage adm
+    o.idzone,
+    o.idsite,
+    o.idequipe,
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.doma,
+    o.qualdoma,
+    -- geom
+    g.x_l93,
+    g.y_l93,    
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_pct p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert.geo_ev_pct g ON o.idobjet = g.idobjet
      JOIN m_espace_vert.an_ev_geovegetal v ON o.idobjet = v.idobjet
   WHERE o.typ3::text = '131'::text;
 
@@ -1267,6 +1357,9 @@ GRANT ALL ON TABLE m_espace_vert.geo_v_ev_vegetal_pointfleuri TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_vegetal_pointfleuri TO sig_edit;
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_vegetal_pointfleuri IS 'Vue points fleuris';
+
+
+-- #################################################################### VUE MASSIF FLEURI ###############################################
 
 -- View: m_espace_vert.geo_ev_vegetal_massiffleuri
 
@@ -1286,7 +1379,7 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_vegetal_massiffleuri
     a.type_veget,
     a.type_espac,
     a.type_arros,
-    a.surface   ,
+    a.surface,
     a.arros_auto,
     a.observatio,
     a.biodiversi,
@@ -1297,7 +1390,7 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_vegetal_massiffleuri
     o.observ,  
     o.op_maj, 
     o.date_maj,
-    -- -- autres champs découpage adm
+    -- autres champs découpage adm
     o.idzone,
     o.idsite,
     o.idequipe,
@@ -1307,10 +1400,11 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_vegetal_massiffleuri
     o.quartier,
     o.doma,
     o.qualdoma,
-    --  
-    p.geom
+    -- geom
+    g.sup_m2,
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_polygon p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert.geo_ev_polygon g ON o.idobjet = g.idobjet
      JOIN m_espace_vert.an_ev_massiffleuri a ON o.idobjet = a.idobjet
      JOIN m_espace_vert.an_ev_geovegetal v ON o.idobjet = v.idobjet
   WHERE o.typ3::text = '132'::text;
@@ -1324,6 +1418,9 @@ GRANT ALL ON TABLE m_espace_vert.geo_v_ev_vegetal_massiffleuri TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_vegetal_massiffleuri TO sig_edit;
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_vegetal_massiffleuri IS 'Vue massifs fleuris';
+
+
+-- #################################################################### VUE ESPACE ENBERBE  ###############################################
 
 -- View: m_espace_vert.geo_v_ev_vegetal_espaceenherbe
 
@@ -1362,10 +1459,11 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_vegetal_espaceenherbe
     o.quartier,
     o.doma,
     o.qualdoma,
-    -- geom   
-    p.geom
+    -- geom
+    g.sup_m2,   
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_polygon p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert.geo_ev_polygon g ON o.idobjet = g.idobjet
      JOIN m_espace_vert.an_ev_espaceenherbe a ON o.idobjet = a.idobjet
      JOIN m_espace_vert.an_ev_geovegetal v ON o.idobjet = v.idobjet
   WHERE o.typ3::text = '141'::text;
@@ -1381,6 +1479,9 @@ GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_vegetal_esp
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_vegetal_espaceenherbe IS 'Vue engazonnements';
 
+
+-- #################################################################### VUE VOIE CIRCULATION  ###############################################
+
 -- View: m_espace_vert.geo_v_ev_mineral_voiecirculation
 
 DROP VIEW IF EXISTS m_espace_vert.geo_v_ev_mineral_voiecirculation;
@@ -1395,9 +1496,27 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_mineral_voiecirculation
     gl.larg_cm,
     o.srcgeom_sai as src_geom,
     o.srcdate_sai as src_date,    
-    l.geom
+    -- autre champs de saisie
+    o.date_sai,
+    o.op_sai,
+    o.observ,
+    o.op_maj,
+    o.date_maj,
+    -- autres champs découpage adm
+    o.idzone,
+    o.idsite,
+    o.idequipe,
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.doma,
+    o.qualdoma,
+    -- geom
+    g.long_m,
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_line l ON o.idobjet = l.idobjet
+     JOIN m_espace_vert.geo_ev_line g ON o.idobjet = g.idobjet
      JOIN m_espace_vert.an_ev_geoline gl ON o.idobjet = gl.idobjet
   WHERE o.typ2::text = '21'::text;
 
@@ -1410,6 +1529,9 @@ GRANT ALL ON TABLE m_espace_vert.geo_v_ev_mineral_voiecirculation TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_mineral_voiecirculation TO sig_edit;
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_mineral_voiecirculation IS 'Vue voies de circulation';
+
+
+-- #################################################################### VUE ZONE CIRCULATION  ###############################################
 
 -- View: m_espace_vert.geo_v_ev_mineral_zonedecirculation
 
@@ -1424,9 +1546,27 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_mineral_zonedecirculation
     o.situation,
     o.srcgeom_sai as src_geom,
     o.srcdate_sai as src_date,    
-    p.geom
+    -- autre champs de saisie
+    o.date_sai,
+    o.op_sai,
+    o.observ,
+    o.op_maj,
+    o.date_maj,
+    -- autres champs découpage adm
+    o.idzone,
+    o.idsite,
+    o.idequipe,
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.doma,
+    o.qualdoma,
+    -- geom
+    g.sup_m2,
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_polygon p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert.geo_ev_polygon g ON o.idobjet = g.idobjet
   WHERE o.typ2::text = '21'::text;
 
 ALTER TABLE m_espace_vert.geo_v_ev_mineral_zonedecirculation
@@ -1438,6 +1578,9 @@ GRANT ALL ON TABLE m_espace_vert.geo_v_ev_mineral_zonedecirculation TO create_si
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_mineral_zonedecirculation TO sig_edit;
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_mineral_zonedecirculation IS 'Vue zones de circulation';
+
+
+-- #################################################################### VUE CLOTURE  ###############################################
 
 -- View: m_espace_vert.geo_v_ev_mineral_cloture
 
@@ -1452,9 +1595,27 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_mineral_cloture
     o.situation,
     o.srcgeom_sai as src_geom,
     o.srcdate_sai as src_date,    
-    l.geom
+    -- autre champs de saisie
+    o.date_sai,
+    o.op_sai,
+    o.observ,
+    o.op_maj,
+    o.date_maj,
+    -- autres champs découpage adm
+    o.idzone,
+    o.idsite,
+    o.idequipe,
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.doma,
+    o.qualdoma,
+    -- geom
+    g.long_m,
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_line l ON o.idobjet = l.idobjet
+     JOIN m_espace_vert.geo_ev_line g ON o.idobjet = g.idobjet
   WHERE o.typ2::text = '22'::text;
 
 ALTER TABLE m_espace_vert.geo_v_ev_mineral_cloture
@@ -1466,6 +1627,9 @@ GRANT ALL ON TABLE m_espace_vert.geo_v_ev_mineral_cloture TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_mineral_cloture TO sig_edit;
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_mineral_cloture IS 'Vue clôtures';
+
+
+-- #################################################################### VUE EQUIPEMENT DE LOISIR ###############################################
 
 -- View: m_espace_vert.geo_v_ev_mineral_loisirsisole
 
@@ -1480,9 +1644,28 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_mineral_loisirsisole
     o.situation,
     o.srcgeom_sai as src_geom,
     o.srcdate_sai as src_date,    
-    p.geom
+    -- autre champs de saisie
+    o.date_sai,
+    o.op_sai,
+    o.observ,
+    o.op_maj,
+    o.date_maj,
+    -- autres champs découpage adm
+    o.idzone,
+    o.idsite,
+    o.idequipe,
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.doma,
+    o.qualdoma,
+    -- geom
+    g.x_l93,
+    g.y_l93,
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_pct p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert.geo_ev_pct g ON o.idobjet = g.idobjet
   WHERE o.typ2::text = '23'::text;
 
 ALTER TABLE m_espace_vert.geo_v_ev_mineral_loisirsisole
@@ -1494,6 +1677,9 @@ GRANT ALL ON TABLE m_espace_vert.geo_v_ev_mineral_loisirsisole TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_mineral_loisirsisole TO sig_edit;
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_mineral_loisirsisole IS 'Vue loisirs isolés';
+
+
+-- #################################################################### VUE ZONE DE LOISIRS  ###############################################
 
 -- View: m_espace_vert.geo_v_ev_mineral_espacedeloisirs
 
@@ -1508,9 +1694,27 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_mineral_espacedeloisirs
     o.situation,
     o.srcgeom_sai as src_geom,
     o.srcdate_sai as src_date,    
-    p.geom
+    -- autre champs de saisie
+    o.date_sai,
+    o.op_sai,
+    o.observ,
+    o.op_maj,
+    o.date_maj,
+    -- autres champs découpage adm
+    o.idzone,
+    o.idsite,
+    o.idequipe,
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.doma,
+    o.qualdoma,
+    -- geom
+    g.sup_m2,
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_polygon p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert.geo_ev_polygon g ON o.idobjet = g.idobjet
   WHERE o.typ2::text = '23'::text;
 
 ALTER TABLE m_espace_vert.geo_v_ev_mineral_espacedeloisirs
@@ -1522,6 +1726,9 @@ GRANT ALL ON TABLE m_espace_vert.geo_v_ev_mineral_espacedeloisirs TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_mineral_espacedeloisirs TO sig_edit;
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_mineral_espacedeloisirs IS 'Vue espaces de loisirs';
+
+
+-- #################################################################### VUE ARRIVEE D'EAU  ###############################################
 
 -- View: m_espace_vert.geo_v_ev_hydrographique_arriveedeau
 
@@ -1536,9 +1743,28 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_hydrographique_arriveedeau
     o.situation,
     o.srcgeom_sai as src_geom,
     o.srcdate_sai as src_date,    
-    p.geom
+    -- autre champs de saisie
+    o.date_sai,
+    o.op_sai,
+    o.observ,
+    o.op_maj,
+    o.date_maj,
+    -- autres champs découpage adm
+    o.idzone,
+    o.idsite,
+    o.idequipe,
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.doma,
+    o.qualdoma,
+    -- geom
+    g.x_l93,
+    g.y_l93,
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_pct p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert.geo_ev_pct g ON o.idobjet = g.idobjet
   WHERE o.typ2::text = '31'::text;
 
 ALTER TABLE m_espace_vert.geo_v_ev_hydrographique_arriveedeau
@@ -1550,6 +1776,9 @@ GRANT ALL ON TABLE m_espace_vert.geo_v_ev_hydrographique_arriveedeau TO create_s
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_hydrographique_arriveedeau TO sig_edit;
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_hydrographique_arriveedeau IS 'Vue arrivées d''eau';
+
+
+-- #################################################################### VUE POINT D'EAU  ###############################################
 
 -- View: m_espace_vert.geo_v_ev_hydrographique_pointdeau
 
@@ -1564,9 +1793,28 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_hydrographique_pointdeau
     o.situation,
     o.srcgeom_sai as src_geom,
     o.srcdate_sai as src_date,    
-    p.geom
+    -- autre champs de saisie
+    o.date_sai,
+    o.op_sai,
+    o.observ,
+    o.op_maj,
+    o.date_maj,
+    -- autres champs découpage adm
+    o.idzone,
+    o.idsite,
+    o.idequipe,
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.doma,
+    o.qualdoma,
+    -- geom
+    g.x_l93,
+    g.y_l93,
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_pct p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert.geo_ev_pct g ON o.idobjet = g.idobjet
   WHERE o.typ2::text = '32'::text;
 
 ALTER TABLE m_espace_vert.geo_v_ev_hydrographique_pointdeau
@@ -1578,6 +1826,9 @@ GRANT ALL ON TABLE m_espace_vert.geo_v_ev_hydrographique_pointdeau TO create_sig
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_hydrographique_pointdeau TO sig_edit;
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_hydrographique_pointdeau IS 'Vue points d''eau';
+
+
+-- #################################################################### VUE COURS D'EAU  ###############################################
 
 -- View: m_espace_vert.geo_v_ev_hydrographique_coursdeau
 
@@ -1593,9 +1844,27 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_hydrographique_coursdeau
     gl.larg_cm,
     o.srcgeom_sai as src_geom,
     o.srcdate_sai as src_date,    
-    l.geom
+    -- autre champs de saisie
+    o.date_sai,
+    o.op_sai,
+    o.observ,
+    o.op_maj,
+    o.date_maj,
+    -- autres champs découpage adm
+    o.idzone,
+    o.idsite,
+    o.idequipe,
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.doma,
+    o.qualdoma,
+    -- geom
+    g.long_m,
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_line l ON o.idobjet = l.idobjet
+     JOIN m_espace_vert.geo_ev_line g ON o.idobjet = g.idobjet
      JOIN m_espace_vert.an_ev_geoline gl ON o.idobjet = gl.idobjet
   WHERE o.typ2::text = '32'::text;
 
@@ -1608,6 +1877,9 @@ GRANT ALL ON TABLE m_espace_vert.geo_v_ev_hydrographique_coursdeau TO create_sig
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_hydrographique_coursdeau TO sig_edit;
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_hydrographique_coursdeau IS 'Vue cours d''eau';
+
+
+-- #################################################################### VUE ETENDUE EAU  ###############################################
 
 -- View: m_espace_vert.geo_v_ev_hydrographique_etenduedeau
 
@@ -1622,9 +1894,27 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_hydrographique_etenduedeau
     o.situation,
     o.srcgeom_sai as src_geom,
     o.srcdate_sai as src_date,    
-    p.geom
+    -- autre champs de saisie
+    o.date_sai,
+    o.op_sai,
+    o.observ,
+    o.op_maj,
+    o.date_maj,
+    -- autres champs découpage adm
+    o.idzone,
+    o.idsite,
+    o.idequipe,
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.doma,
+    o.qualdoma,
+    -- geom
+    g.sup_m2,
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_polygon p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert.geo_ev_polygon g ON o.idobjet = g.idobjet
   WHERE o.typ2::text = '32'::text;
 
 ALTER TABLE m_espace_vert.geo_v_ev_hydrographique_etenduedeau
@@ -1637,6 +1927,8 @@ GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_hydrographi
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_hydrographique_etenduedeau IS 'Vue étendue d''eau';
 
+
+-- #################################################################### VUE REF NON CLASSEE PONCTUEL  ###############################################
 
 -- View: m_espace_vert.geo_v_ev_refnonclassee_pct
 
@@ -1651,10 +1943,28 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_refnonclassee_pct
     o.situation,
     o.srcgeom_sai as src_geom,
     o.srcdate_sai as src_date,    
+    -- autre champs de saisie
+    o.date_sai,
+    o.op_sai,
     o.observ,
-    p.geom
+    o.op_maj,
+    o.date_maj,
+    -- autres champs découpage adm
+    o.idzone,
+    o.idsite,
+    o.idequipe,
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.doma,
+    o.qualdoma,
+    -- geom
+    g.x_l93,
+    g.y_l93,
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_pct p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert.geo_ev_pct g ON o.idobjet = g.idobjet
   WHERE o.typ1::text = '9'::text;
 
 ALTER TABLE m_espace_vert.geo_v_ev_refnonclassee_pct
@@ -1666,6 +1976,9 @@ GRANT ALL ON TABLE m_espace_vert.geo_v_ev_refnonclassee_pct TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_refnonclassee_pct TO sig_edit;
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_refnonclassee_pct IS 'Vue ponctuels non classés';
+
+
+-- #################################################################### VUE REF NON CLASSEE LINEAIRE  ###############################################
 
 -- View: m_espace_vert.geo_v_ev_refnonclassee_lin
 
@@ -1680,10 +1993,27 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_refnonclassee_lin
     o.situation,
     o.srcgeom_sai as src_geom,
     o.srcdate_sai as src_date,    
+    -- autre champs de saisie
+    o.date_sai,
+    o.op_sai,
     o.observ,
-    l.geom
+    o.op_maj,
+    o.date_maj,
+    -- autres champs découpage adm
+    o.idzone,
+    o.idsite,
+    o.idequipe,
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.doma,
+    o.qualdoma,
+    -- geom
+    g.long_m,
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_line l ON o.idobjet = l.idobjet
+     JOIN m_espace_vert.geo_ev_line g ON o.idobjet = g.idobjet
   WHERE o.typ1::text = '9'::text;
 
 ALTER TABLE m_espace_vert.geo_v_ev_refnonclassee_lin
@@ -1695,6 +2025,9 @@ GRANT ALL ON TABLE m_espace_vert.geo_v_ev_refnonclassee_lin TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_refnonclassee_lin TO sig_edit;
 
 COMMENT ON VIEW m_espace_vert.geo_v_ev_refnonclassee_lin IS 'Vue linéaires non classés';
+
+
+-- #################################################################### VUE REF NON CLASSEE SURFACE  ###############################################
 
 -- View: m_espace_vert.geo_v_ev_refnonclassee_polygon
 
@@ -1709,10 +2042,27 @@ CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_refnonclassee_polygon
     o.situation,
     o.srcgeom_sai as src_geom,
     o.srcdate_sai as src_date,    
+    -- autre champs de saisie
+    o.date_sai,
+    o.op_sai,
     o.observ,
-    p.geom
+    o.op_maj,
+    o.date_maj,
+    -- autres champs découpage adm
+    o.idzone,
+    o.idsite,
+    o.idequipe,
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.doma,
+    o.qualdoma,
+    -- geom
+    g.sup_m2,
+    g.geom
    FROM m_espace_vert.an_ev_objet o
-     JOIN m_espace_vert.geo_ev_polygon p ON o.idobjet = p.idobjet
+     JOIN m_espace_vert.geo_ev_polygon g ON o.idobjet = g.idobjet
   WHERE o.typ1::text = '9'::text;
 
 ALTER TABLE m_espace_vert.geo_v_ev_refnonclassee_polygon
@@ -1729,7 +2079,7 @@ COMMENT ON VIEW m_espace_vert.geo_v_ev_refnonclassee_polygon IS 'Vue polygones n
 
 -- #################################################################################################################################
 -- ###                                                                                                                           ###
--- ###                                                      FONCTIONS                                                            ###
+-- ###                                                      FONCTIONS TRIGGER                                                    ###
 -- ###                                                                                                                           ###
 -- #################################################################################################################################
 
@@ -1843,7 +2193,7 @@ BEGIN
     ELSE
       RAISE EXCEPTION 'Type de géométrie inconnu %', _geometry_type ;
     END IF;
-    
+-- !!!!! prb ici car c'est uniquement pour objet vegetaux.    
     -- insertion attribut position
     INSERT INTO m_espace_vert.an_ev_geovegetal (idobjet, "position") VALUES (_idobjet, _position);
 
@@ -1896,7 +2246,9 @@ END;
 $$
 ;
 
--- arbres
+-- #################################################################### FONCTION/TRIGGER ARBRE ###############################################
+
+
 CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_espace_vert_arbre_isole() RETURNS trigger LANGUAGE plpgsql AS $$
   
   DECLARE _idobjet integer;
@@ -1992,10 +2344,17 @@ BEGIN
 END;
 $$
 ;
----
 
--- engazonnement
-CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_espace_vert_espaceenherbe() RETURNS trigger LANGUAGE plpgsql AS $$
+DROP TRIGGER IF EXISTS t_t1_arbre_isole on m_espace_vert.geo_v_ev_vegetal_arbreisole;
+CREATE TRIGGER t_t1_arbre_isole instead of
+insert or update or delete 
+on m_espace_vert.geo_v_ev_vegetal_arbreisole 
+for each row execute procedure m_espace_vert.ft_m_espace_vert_arbre_isole();
+
+
+-- #################################################################### FONCTION/TRIGGER ALIGNEMENT D'ARBRE ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_espace_vert_arbrealignement() RETURNS trigger LANGUAGE plpgsql AS $$
   
   DECLARE _idobjet integer;
   DECLARE _dataold text;
@@ -2020,32 +2379,11 @@ BEGIN
     _dataold := ROW(OLD.*)::text;
     _datanew := null;
   END IF;
-  PERFORM m_espace_vert.ft_m_espace_vert_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.position, _record_used.op_sai, _record_used.op_maj, '14', '141');
+  PERFORM m_espace_vert.ft_m_espace_vert_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.position, _record_used.op_sai, _record_used.op_maj, '11', '112');
   -- 
   IF (TG_OP = 'INSERT') THEN
-    -- insertion des attributs spécifiques
-    INSERT INTO m_espace_vert.an_ev_espaceenherbe
-    (idobjet, 
-    type_espac, type_arros, 
-    surface, arros_auto, observatio, biodiversi, inv_faunis)
-    VALUES
-    (_idobjet, 
-    NEW.type_espac, NEW.type_arros, 
-    NEW.surface, NEW.arros_auto, 
-    NEW.observatio, NEW.biodiversi, 
-    NEW.inv_faunis);
     RETURN NEW;
   ELSIF (TG_OP = 'UPDATE') THEN
-    -- MAJ des attributs spécifiques
-    UPDATE m_espace_vert.an_ev_espaceenherbe SET
-    type_espac = NEW.type_espac, 
-    type_arros = NEW.type_arros, 
-    surface = NEW.surface, 
-    arros_auto = NEW.arros_auto, 
-    observatio = NEW.observatio, 
-    biodiversi = NEW.biodiversi, 
-    inv_faunis = NEW.inv_faunis 
-    WHERE idobjet = NEW.idobjet;
     RETURN NEW;
   ELSIF (TG_OP = 'DELETE') THEN
     RETURN OLD;
@@ -2053,11 +2391,17 @@ BEGIN
 END;
 $$
 ;
----
+
+DROP TRIGGER IF EXISTS t_t1_arbrealignement on m_espace_vert.geo_v_ev_vegetal_arbrealignement;
+CREATE TRIGGER t_t1_arbrealignement instead of
+insert or update or delete 
+on m_espace_vert.geo_v_ev_vegetal_arbrealignement
+for each row execute procedure m_espace_vert.ft_m_espace_vert_arbrealignement();
 
 
--- massiffleuri
-CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_espace_vert_massiffleuri() RETURNS trigger LANGUAGE plpgsql AS $$
+-- #################################################################### FONCTION/TRIGGER ZONE BOISEE ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_espace_vert_zoneboisee() RETURNS trigger LANGUAGE plpgsql AS $$
   
   DECLARE _idobjet integer;
   DECLARE _dataold text;
@@ -2082,35 +2426,11 @@ BEGIN
     _dataold := ROW(OLD.*)::text;
     _datanew := null;
   END IF;
-  PERFORM m_espace_vert.ft_m_espace_vert_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.position, _record_used.op_sai, _record_used.op_maj, '13', '132');
+  PERFORM m_espace_vert.ft_m_espace_vert_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.position, _record_used.op_sai, _record_used.op_maj, '11', '113');
   -- 
   IF (TG_OP = 'INSERT') THEN
-    -- insertion des attributs spécifiques
-    INSERT INTO m_espace_vert.an_ev_massiffleuri
-    (idobjet, 
-    type_veget,
-    type_espac, type_arros, 
-    surface, arros_auto, observatio, biodiversi, inv_faunis)
-    VALUES
-    (_idobjet, 
-    NEW.type_veget,
-    NEW.type_espac, NEW.type_arros, 
-    NEW.surface, NEW.arros_auto, 
-    NEW.observatio, NEW.biodiversi, 
-    NEW.inv_faunis);
     RETURN NEW;
   ELSIF (TG_OP = 'UPDATE') THEN
-    -- MAJ des attributs spécifiques
-    UPDATE m_espace_vert.an_ev_massiffleuri SET
-    type_veget = NEW.type_veget,
-    type_espac = NEW.type_espac, 
-    type_arros = NEW.type_arros, 
-    surface = NEW.surface, 
-    arros_auto = NEW.arros_auto, 
-    observatio = NEW.observatio, 
-    biodiversi = NEW.biodiversi, 
-    inv_faunis = NEW.inv_faunis 
-    WHERE idobjet = NEW.idobjet;
     RETURN NEW;
   ELSIF (TG_OP = 'DELETE') THEN
     RETURN OLD;
@@ -2118,12 +2438,17 @@ BEGIN
 END;
 $$
 ;
----
+
+DROP TRIGGER IF EXISTS t_t1_zoneboisee on m_espace_vert.geo_v_ev_vegetal_zoneboisee;
+CREATE TRIGGER t_t1_zoneboisee instead of
+insert or update or delete 
+on m_espace_vert.geo_v_ev_vegetal_zoneboisee
+for each row execute procedure m_espace_vert.ft_m_espace_vert_zoneboisee();
 
 
+-- #################################################################### FONCTION/TRIGGER ARBUSTE ISOLE ###############################################
 
--- massifarbustif
-CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_espace_vert_massifarbustif() RETURNS trigger LANGUAGE plpgsql AS $$
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_espace_vert_arbusteisole() RETURNS trigger LANGUAGE plpgsql AS $$
   
   DECLARE _idobjet integer;
   DECLARE _dataold text;
@@ -2148,35 +2473,11 @@ BEGIN
     _dataold := ROW(OLD.*)::text;
     _datanew := null;
   END IF;
-  PERFORM m_espace_vert.ft_m_espace_vert_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.position, _record_used.op_sai, _record_used.op_maj, '12', '123');
+  PERFORM m_espace_vert.ft_m_espace_vert_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.position, _record_used.op_sai, _record_used.op_maj, '12', '121');
   -- 
   IF (TG_OP = 'INSERT') THEN
-    -- insertion des attributs spécifiques
-    INSERT INTO m_espace_vert.an_ev_massifarbustif
-    (idobjet, 
-    type_veget,
-    type_espac, type_arros, 
-    surface, arros_auto, observatio, biodiversi, inv_faunis)
-    VALUES
-    (_idobjet, 
-    NEW.type_veget,
-    NEW.type_espac, NEW.type_arros, 
-    NEW.surface, NEW.arros_auto, 
-    NEW.observatio, NEW.biodiversi, 
-    NEW.inv_faunis);
     RETURN NEW;
   ELSIF (TG_OP = 'UPDATE') THEN
-    -- MAJ des attributs spécifiques
-    UPDATE m_espace_vert.an_ev_massifarbustif SET
-    type_veget = NEW.type_veget,
-    type_espac = NEW.type_espac, 
-    type_arros = NEW.type_arros, 
-    surface = NEW.surface, 
-    arros_auto = NEW.arros_auto, 
-    observatio = NEW.observatio, 
-    biodiversi = NEW.biodiversi, 
-    inv_faunis = NEW.inv_faunis 
-    WHERE idobjet = NEW.idobjet;
     RETURN NEW;
   ELSIF (TG_OP = 'DELETE') THEN
     RETURN OLD;
@@ -2185,8 +2486,15 @@ END;
 $$
 ;
 
+DROP TRIGGER IF EXISTS t_t1_arbusteisole on m_espace_vert.geo_v_ev_vegetal_arbusteisole;
+CREATE TRIGGER t_t1_arbusteisole instead of
+insert or update or delete 
+on m_espace_vert.geo_v_ev_vegetal_arbusteisole 
+for each row execute procedure m_espace_vert.ft_m_espace_vert_arbusteisole();
 
--- haie
+
+-- #################################################################### FONCTION/TRIGGER HAIE ###############################################
+
 CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_espace_vert_haie() RETURNS trigger LANGUAGE plpgsql AS $$
   
   DECLARE _idobjet integer;
@@ -2249,10 +2557,18 @@ BEGIN
 END;
 $$
 ;
----
 
--- arbres en alignement
-CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_espace_vert_arbrealignement() RETURNS trigger LANGUAGE plpgsql AS $$
+DROP TRIGGER IF EXISTS t_t1_haie on m_espace_vert.geo_v_ev_vegetal_haie;
+CREATE TRIGGER t_t1_haie instead of
+insert or update or delete 
+on m_espace_vert.geo_v_ev_vegetal_haie
+for each row execute procedure m_espace_vert.ft_m_espace_vert_haie();
+
+
+
+-- #################################################################### FONCTION/TRIGGER MASSIF ARBUSTIF ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_espace_vert_massifarbustif() RETURNS trigger LANGUAGE plpgsql AS $$
   
   DECLARE _idobjet integer;
   DECLARE _dataold text;
@@ -2277,11 +2593,35 @@ BEGIN
     _dataold := ROW(OLD.*)::text;
     _datanew := null;
   END IF;
-  PERFORM m_espace_vert.ft_m_espace_vert_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.position, _record_used.op_sai, _record_used.op_maj, '11', '112');
+  PERFORM m_espace_vert.ft_m_espace_vert_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.position, _record_used.op_sai, _record_used.op_maj, '12', '123');
   -- 
   IF (TG_OP = 'INSERT') THEN
+    -- insertion des attributs spécifiques
+    INSERT INTO m_espace_vert.an_ev_massifarbustif
+    (idobjet, 
+    type_veget,
+    type_espac, type_arros, 
+    surface, arros_auto, observatio, biodiversi, inv_faunis)
+    VALUES
+    (_idobjet, 
+    NEW.type_veget,
+    NEW.type_espac, NEW.type_arros, 
+    NEW.surface, NEW.arros_auto, 
+    NEW.observatio, NEW.biodiversi, 
+    NEW.inv_faunis);
     RETURN NEW;
   ELSIF (TG_OP = 'UPDATE') THEN
+    -- MAJ des attributs spécifiques
+    UPDATE m_espace_vert.an_ev_massifarbustif SET
+    type_veget = NEW.type_veget,
+    type_espac = NEW.type_espac, 
+    type_arros = NEW.type_arros, 
+    surface = NEW.surface, 
+    arros_auto = NEW.arros_auto, 
+    observatio = NEW.observatio, 
+    biodiversi = NEW.biodiversi, 
+    inv_faunis = NEW.inv_faunis 
+    WHERE idobjet = NEW.idobjet;
     RETURN NEW;
   ELSIF (TG_OP = 'DELETE') THEN
     RETURN OLD;
@@ -2289,10 +2629,17 @@ BEGIN
 END;
 $$
 ;
---
 
--- Zones boisées
-CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_espace_vert_zoneboisee() RETURNS trigger LANGUAGE plpgsql AS $$
+DROP TRIGGER IF EXISTS t_t1_massifarbustif on m_espace_vert.geo_v_ev_vegetal_massifarbustif;
+CREATE TRIGGER t_t1_massifarbustif instead of
+insert or update or delete 
+on m_espace_vert.geo_v_ev_vegetal_massifarbustif 
+for each row execute procedure m_espace_vert.ft_m_espace_vert_massifarbustif();
+
+
+-- #################################################################### FONCTION/TRIGGER FLEURI ISOLE ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_espace_vert_pointfleuri() RETURNS trigger LANGUAGE plpgsql AS $$
   
   DECLARE _idobjet integer;
   DECLARE _dataold text;
@@ -2317,7 +2664,7 @@ BEGIN
     _dataold := ROW(OLD.*)::text;
     _datanew := null;
   END IF;
-  PERFORM m_espace_vert.ft_m_espace_vert_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.position, _record_used.op_sai, _record_used.op_maj, '11', '113');
+  PERFORM m_espace_vert.ft_m_espace_vert_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.position, _record_used.op_sai, _record_used.op_maj, '13', '131');
   -- 
   IF (TG_OP = 'INSERT') THEN
     RETURN NEW;
@@ -2329,7 +2676,270 @@ BEGIN
 END;
 $$
 ;
---
+
+DROP TRIGGER IF EXISTS t_t1_pointfleuri on m_espace_vert.geo_v_ev_vegetal_pointfleuri;
+CREATE TRIGGER t_t1_pointfleuri instead of
+insert or update or delete 
+on m_espace_vert.geo_v_ev_vegetal_pointfleuri 
+for each row execute procedure m_espace_vert.ft_m_espace_vert_pointfleuri();
+
+
+-- #################################################################### FONCTION/TRIGGER MASSIF FLEURI ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_espace_vert_massiffleuri() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := null;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := null;
+  END IF;
+  PERFORM m_espace_vert.ft_m_espace_vert_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.position, _record_used.op_sai, _record_used.op_maj, '13', '132');
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    -- insertion des attributs spécifiques
+    INSERT INTO m_espace_vert.an_ev_massiffleuri
+    (idobjet, 
+    type_veget,
+    type_espac, type_arros, 
+    surface, arros_auto, observatio, biodiversi, inv_faunis)
+    VALUES
+    (_idobjet, 
+    NEW.type_veget,
+    NEW.type_espac, NEW.type_arros, 
+    NEW.surface, NEW.arros_auto, 
+    NEW.observatio, NEW.biodiversi, 
+    NEW.inv_faunis);
+    RETURN NEW;
+  ELSIF (TG_OP = 'UPDATE') THEN
+    -- MAJ des attributs spécifiques
+    UPDATE m_espace_vert.an_ev_massiffleuri SET
+    type_veget = NEW.type_veget,
+    type_espac = NEW.type_espac, 
+    type_arros = NEW.type_arros, 
+    surface = NEW.surface, 
+    arros_auto = NEW.arros_auto, 
+    observatio = NEW.observatio, 
+    biodiversi = NEW.biodiversi, 
+    inv_faunis = NEW.inv_faunis 
+    WHERE idobjet = NEW.idobjet;
+    RETURN NEW;
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+DROP TRIGGER IF EXISTS t_t1_massiffleuri on m_espace_vert.geo_v_ev_vegetal_massiffleuri;
+CREATE TRIGGER t_t1_massiffleuri instead of
+insert or update or delete 
+on m_espace_vert.geo_v_ev_vegetal_massiffleuri 
+for each row execute procedure m_espace_vert.ft_m_espace_vert_massiffleuri();
+
+
+-- #################################################################### FONCTION/TRIGGER ESPACE ENHERBE ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_espace_vert_espaceenherbe() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := null;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := null;
+  END IF;
+  PERFORM m_espace_vert.ft_m_espace_vert_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.position, _record_used.op_sai, _record_used.op_maj, '14', '141');
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    -- insertion des attributs spécifiques
+    INSERT INTO m_espace_vert.an_ev_espaceenherbe
+    (idobjet, 
+    type_espac, type_arros, 
+    surface, arros_auto, observatio, biodiversi, inv_faunis)
+    VALUES
+    (_idobjet, 
+    NEW.type_espac, NEW.type_arros, 
+    NEW.surface, NEW.arros_auto, 
+    NEW.observatio, NEW.biodiversi, 
+    NEW.inv_faunis);
+    RETURN NEW;
+  ELSIF (TG_OP = 'UPDATE') THEN
+    -- MAJ des attributs spécifiques
+    UPDATE m_espace_vert.an_ev_espaceenherbe SET
+    type_espac = NEW.type_espac, 
+    type_arros = NEW.type_arros, 
+    surface = NEW.surface, 
+    arros_auto = NEW.arros_auto, 
+    observatio = NEW.observatio, 
+    biodiversi = NEW.biodiversi, 
+    inv_faunis = NEW.inv_faunis 
+    WHERE idobjet = NEW.idobjet;
+    RETURN NEW;
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+DROP TRIGGER IF EXISTS t_t1_espaceenherbe on m_espace_vert.geo_v_ev_vegetal_espaceenherbe;
+CREATE TRIGGER t_t1_espaceenherbe instead of
+insert or update or delete 
+on m_espace_vert.geo_v_ev_vegetal_espaceenherbe 
+for each row execute procedure m_espace_vert.ft_m_espace_vert_espaceenherbe();
+
+/*
+
+-- #################################################################### FONCTION/TRIGGER VOIE CIRCULATION ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_espace_vert_voiecirculation() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := null;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := null;
+  END IF;
+-- !!!!!!!!!!! voir que voie circulation peut prendre plusieurs valeur en type 3  
+  PERFORM m_espace_vert.ft_m_espace_vert_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.position, _record_used.op_sai, _record_used.op_maj, '21', '211');
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    RETURN NEW;
+  ELSIF (TG_OP = 'UPDATE') THEN
+    RETURN NEW;
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+DROP TRIGGER IF EXISTS t_t1_voiecirculation on m_espace_vert.geo_v_ev_vegetal_voiecirculation;
+CREATE TRIGGER t_t1_voiecirculation instead of
+insert or update or delete 
+on m_espace_vert.geo_v_ev_vegetal_voiecirculation 
+for each row execute procedure m_espace_vert.ft_m_espace_vert_voiecirculation();
+
+
+
+-- #################################################################### FONCTION/TRIGGER ***** ###############################################
+
+
+-- #################################################################### FONCTION/TRIGGER REFNONCLASSEE PCT-LIN-POLYGON ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_espace_vert_refnonclassee() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := null;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := null;
+  END IF;
+  PERFORM m_espace_vert.ft_m_espace_vert_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.position, _record_used.op_sai, _record_used.op_maj, '99', '999');
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    RETURN NEW;
+  ELSIF (TG_OP = 'UPDATE') THEN
+    RETURN NEW;
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+-- trigger sur table refnonclassee_pct
+DROP TRIGGER IF EXISTS t_t1_refnonclassee_pct on m_espace_vert.geo_v_ev_refnonclassee_pct;
+CREATE TRIGGER t_t1_refnonclassee_pct instead of
+insert or update or delete 
+on m_espace_vert.geo_v_ev_refnonclassee_pct
+for each row execute procedure m_espace_vert.ft_m_espace_vert_refnonclassee();
+
+-- trigger sur table refnonclassee_lin
+DROP TRIGGER IF EXISTS t_t1_refnonclassee_lin on m_espace_vert.geo_v_ev_refnonclassee_lin;
+CREATE TRIGGER t_t1_refnonclassee_lin instead of
+insert or update or delete 
+on m_espace_vert.geo_v_ev_refnonclassee_lin
+for each row execute procedure m_espace_vert.ft_m_espace_vert_refnonclassee();
+
+-- trigger sur table refnonclassee_polygon
+DROP TRIGGER IF EXISTS t_t1_refnonclassee_polygon on m_espace_vert.geo_v_ev_refnonclassee_polygon;
+CREATE TRIGGER t_t1_refnonclassee_polygon instead of
+insert or update or delete 
+on m_espace_vert.geo_v_ev_refnonclassee_polygon
+for each row execute procedure m_espace_vert.ft_m_espace_vert_refnonclassee();
+
+*/
+
+-- #################################################################### INTERVENTION ###############################################
 
 -- lors de la suppression d'une DI / Intervention, ne pas laisser les objets liés comme orphelins.
 -- pas possible d'utilisée une FOREIGN KEY avec DELETE CASCADE car l'id_inter peut être lié soit à une DI, soit à une intervention
@@ -2465,47 +3075,7 @@ $$
 -- ###                                                      TRIGGERS                                                             ###
 -- ###                                                                                                                           ###
 -- #################################################################################################################################
-DROP TRIGGER IF EXISTS t_t1_arbre_isole on m_espace_vert.geo_v_ev_vegetal_arbreisole;
-CREATE TRIGGER t_t1_arbre_isole instead of
-insert or update or delete 
-on m_espace_vert.geo_v_ev_vegetal_arbreisole 
-for each row execute procedure m_espace_vert.ft_m_espace_vert_arbre_isole();
 
-DROP TRIGGER IF EXISTS t_t1_espaceenherbe on m_espace_vert.geo_v_ev_vegetal_espaceenherbe;
-CREATE TRIGGER t_t1_espaceenherbe instead of
-insert or update or delete 
-on m_espace_vert.geo_v_ev_vegetal_espaceenherbe 
-for each row execute procedure m_espace_vert.ft_m_espace_vert_espaceenherbe();
-
-DROP TRIGGER IF EXISTS t_t1_massiffleuri on m_espace_vert.geo_v_ev_vegetal_massiffleuri;
-CREATE TRIGGER t_t1_massiffleuri instead of
-insert or update or delete 
-on m_espace_vert.geo_v_ev_vegetal_massiffleuri 
-for each row execute procedure m_espace_vert.ft_m_espace_vert_massiffleuri();
-
-DROP TRIGGER IF EXISTS t_t1_massifarbustif on m_espace_vert.geo_v_ev_vegetal_massifarbustif;
-CREATE TRIGGER t_t1_massifarbustif instead of
-insert or update or delete 
-on m_espace_vert.geo_v_ev_vegetal_massifarbustif 
-for each row execute procedure m_espace_vert.ft_m_espace_vert_massifarbustif();
-
-DROP TRIGGER IF EXISTS t_t1_haie on m_espace_vert.geo_v_ev_vegetal_haie;
-CREATE TRIGGER t_t1_haie instead of
-insert or update or delete 
-on m_espace_vert.geo_v_ev_vegetal_haie
-for each row execute procedure m_espace_vert.ft_m_espace_vert_haie();
-
-DROP TRIGGER IF EXISTS t_t1_arbrealignement on m_espace_vert.geo_v_ev_vegetal_arbrealignement;
-CREATE TRIGGER t_t1_arbrealignement instead of
-insert or update or delete 
-on m_espace_vert.geo_v_ev_vegetal_arbrealignement
-for each row execute procedure m_espace_vert.ft_m_espace_vert_arbrealignement();
-
-DROP TRIGGER IF EXISTS t_t1_zoneboisee on m_espace_vert.geo_v_ev_vegetal_zoneboisee;
-CREATE TRIGGER t_t1_zoneboisee instead of
-insert or update or delete 
-on m_espace_vert.geo_v_ev_vegetal_zoneboisee
-for each row execute procedure m_espace_vert.ft_m_espace_vert_zoneboisee();
 
 -- demande d'intervention, trigger classique
 -- on crée en AFTER INSERT pour pouvoir récupérer l'identifiant id_inter généré
@@ -2549,6 +3119,26 @@ DROP TRIGGER IF EXISTS t_t1_set_equipe on m_espace_vert.geo_ev_equipe;
 CREATE TRIGGER t_t1_set_equipe 
 AFTER INSERT OR UPDATE of geom OR DELETE on m_espace_vert.geo_ev_equipe
 for each row execute procedure m_espace_vert.ft_m_espace_vert_set_equipe();
+
+-- MAJ des calculs de surface des objets de type polygone !!!!!! renvoit vers fonction trigger générique du schéma public !!!!;
+DROP TRIGGER IF EXISTS t_t1_ev_polygon_surf;
+CREATE TRIGGER t_t1_ev_polygon_surf
+BEFORE INSERT OR UPDATE OF geom ON m_espace_vert.geo_ev_polygon
+FOR EACH ROW EXECUTE PROCEDURE public.ft_r_sup_m2_maj();
+
+-- MAJ des calculs de longueur des objets de type line !!!!!! renvoit vers fonction trigger générique du schéma public !!!!;
+DROP TRIGGER IF EXISTS t_t1_ev_line_long;
+CREATE TRIGGER t_t1_ev_line_long
+BEFORE INSERT OR UPDATE OF geom ON m_espace_vert.geo_ev_line
+FOR EACH ROW EXECUTE PROCEDURE public.ft_r_longm_maj();
+
+-- MAJ des calculs des coordonnées des objets de type point !!!!!! renvoit vers fonction trigger générique du schéma public !!!!;
+DROP TRIGGER IF EXISTS t_t1_geo_ev_pct_xy_l93;
+CREATE TRIGGER t_t1_geo_ev_pct_xy_l93
+BEFORE INSERT OR UPDATE OF geom ON m_espace_vert.geo_ev_pct
+FOR EACH ROW EXECUTE PROCEDURE public.ft_r_xy_l93();
+
+
 
 -- #################################################################################################################################
 -- ###                                                                                                                           ###
