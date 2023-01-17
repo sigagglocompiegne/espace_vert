@@ -1,6 +1,6 @@
 /*ESPACE VERT V2.2.0*/
-/*Creation du fichier trace qui permet de suivre l'évolution du code*/
-/* init_bd_ev.sql */
+/*Creation du fichier complet*/
+/* init_db_ev.sql */
 /*PostGIS*/
 
 /* Propriétaire : GeoCompiegnois - http://geo.compiegnois.fr/ */
@@ -27,8 +27,8 @@
 2022-12-13 : FV / suppression du domaine de valeur lt_ev_type_vegetation (et dépendance) qui permettait de définir un type de végétation arbre, arbustif et fleuri, pour des objets de massif arbustifs ou massif fleuri
 2022-12-13 : FV / correctif et élargissement de domaines de valeur (lt_ev_vegetal_arbre_mode_conduite, lt_ev_vegetal_arbre_stade_dev, ...)
 2022-12-13 : FV / modif fonction générique en écartant l'attribut position qui relève uniquement des objets de type végétal (an_ev_vegetal)
-2022-12-13 : FV / intégration dans les fonctions trigger des vues des objets végétaux (arbreisole, arbre_alignement, pointfleuri, massiffleuri, espaceenherbe), de l'insert/update de l'attribut position
-2022-12-14 : FV / intégration dans les fonctions trigger des vues des objets végétaux (zone boisée, arbusteisole, haie, massifarbustif), de l'insert/update de l'attribut position
+2022-12-13 : FV / intégration dans les fonctions trigger des vues des objets végétaux (arbreisole, arbre_alignement, pointfleuri, massiffleuri, espaceenherbe), de l'INSERT/update de l'attribut position
+2022-12-14 : FV / intégration dans les fonctions trigger des vues des objets végétaux (zone boisée, arbusteisole, haie, massifarbustif), de l'INSERT/update de l'attribut position
 2022-12-14 : FV / correctif de la fonction générique pour faire passer le typ1 en variable et supprimer le caractère fixe à la valeur 1 = objet végétal + corrections dans les fonctions pour les vues
 2022-12-14 : FV / correctif vue geo_v_ev_pct qui excluait les arbres isolés (typ3 = 111)
 2022-12-14 : FV / correction de la fonction générique pour faire passer le typ3 en variable lors d'une mise à jour de façon à permettre dans les cas qui le necessite, un changement de typ3 (ex : voie de circulation)
@@ -48,19 +48,22 @@
 2023-01-09 : FV / reprise du script sur les classes EV végétales, minérales, hydro et refnonclassee
 2023-01-09 : FV / reprise du script suite aux décisions de la réunion projet du 06/01 (niv_allerg au niveau du référentiel bota, aménagement pied d'arbre en multivarié + ajout valeur du domaine, contrainte en multivarié + ajout valeur du domaine)
 2023-01-13 : FV / reprise fonction trigger arbre pour mettre à NULL les commentaires lorsque les attributs boolean (remarq, proteg, contr, naiss) sont à NON (f)
+2023-01-16 : FV / reprise classe d'intervention et correctifs
+
 */
 
 
 /*
 ToDo :
-- vérifier la structure générale du script (ex : paragraphe d'ajout de champs, dc table sur table préexistante, vue de gabarit ???)
 - corriger les domaines de valeur avec des 00 qui ne sont pas des "non renseigné" (reste à évaluer/faire : intervention_freq_unite, intervention_periode)
 - vérifier fonction de découpe (ou comment se faire l'intersection si plusieurs zonage) des objets hors arbre (enherbé, arbustif, minéraux, hydro, non classés), depuis les découpages admin
-(A VERIFIER SI FAIT > - absence insert update du champ largeur larg_cm de la class geoline utilisée pour les haies et voies de circulation
-- attribut position sans valeur par défaut (à corriger)
+(A VERIFIER SI FAIT > - absence INSERT update du champ largeur larg_cm de la class geoline utilisée pour les haies et voies de circulation
 - attributs ev_objet avec plusieurs valeur par défaut à vérifier (src_geom ...)
 - prévoir analyse croisée pour déterminer implantation arbre / alignement et zone boisée
 - fonciton générique pour calcul périmètre objet surfacique
+- arbre : voir pour ajout champ à surveiller dépendant si un état sanitaire (le dernier en date ???) indique la nécessité de surveillance à OUI
+- arbre : voir pour ajout date d'abattage de l'arbre rempli en auto en fonction de la date d'intervention arbre de type abattage
+?? : zonage inventaire à reintégrer ?
 
 */
 
@@ -72,6 +75,9 @@ ToDo :
 -- ####################################################################################################################################################
 
 -- ##VUE
+-- stats
+DROP VIEW IF EXISTS m_espace_vert_22x.xapps_an_v_ev_stat_arbre_quartier;
+DROP VIEW IF EXISTS m_espace_vert_22x.xapps_an_v_ev_chiffre_cle_tab;
 -- vegetal
 DROP VIEW IF EXISTS m_espace_vert_22x.geo_v_ev_vegetal_arbre;
 DROP VIEW IF EXISTS m_espace_vert_22x.geo_v_ev_vegetal_arbre_alignement;
@@ -97,9 +103,7 @@ DROP VIEW IF EXISTS m_espace_vert_22x.geo_v_ev_hydro_eau_etendue;
 DROP VIEW IF EXISTS m_espace_vert_22x.geo_v_ev_refnonclassee_point;
 DROP VIEW IF EXISTS m_espace_vert_22x.geo_v_ev_refnonclassee_line;
 DROP VIEW IF EXISTS m_espace_vert_22x.geo_v_ev_refnonclassee_polygon;
--- stats
-DROP VIEW IF EXISTS m_espace_vert_22x.xapps_an_v_ev_stat_arbre_quartier;
-DROP VIEW IF EXISTS m_espace_vert_22x.xapps_an_v_ev_chiffre_cle_tab;
+
 
 -- ## CONTRAINTES
 -- an_ev_objet
@@ -121,24 +125,22 @@ ALTER TABLE IF EXISTS m_espace_vert_22x.an_ev_vegetal DROP CONSTRAINT IF EXISTS 
 ALTER TABLE IF EXISTS m_espace_vert_22x.an_ev_vegetal_arbre DROP CONSTRAINT IF EXISTS an_ev_objet_fkey;
 -- an_ev_vegetal_arbre_etat_sanitaire
 ALTER TABLE IF EXISTS m_espace_vert_22x.an_ev_vegetal_arbre_etat_sanitaire DROP CONSTRAINT IF EXISTS an_ev_objet_fkey;
--- utile ? ALTER TABLE IF EXISTS m_espace_vert_22x.an_ev_vegetal_arbre_etat_sanitaire DROP CONSTRAINT IF EXISTS lt_ev_vegetal_arbre_etat_sanitaire_anomal_typ_fkey;
--- utile ? ALTER TABLE IF EXISTS m_espace_vert_22x.an_ev_vegetal_arbre_etat_sanitaire DROP CONSTRAINT IF EXISTS lt_ev_anomal_boolean_fkey;
--- utile ? ALTER TABLE IF EXISTS m_espace_vert_22x.an_ev_vegetal_arbre_etat_sanitaire DROP CONSTRAINT IF EXISTS lt_ev_surveil_boolean_fkey;
 -- an_ev_vegetal_arbuste_haie
 ALTER TABLE IF EXISTS m_espace_vert_22x.an_ev_vegetal_arbuste_haie DROP CONSTRAINT IF EXISTS an_ev_objet_fkey;
--- utile ? ALTER TABLE IF EXISTS m_espace_vert_22x.an_ev_vegetal_arbuste_haie DROP CONSTRAINT IF EXISTS lt_ev_vegetal_haie_sai_type_fkey;
 -- an_ev_vegetal_arbuste_massif
 ALTER TABLE IF EXISTS m_espace_vert_22x.an_ev_vegetal_arbuste_massif DROP CONSTRAINT IF EXISTS an_ev_objet_fkey;
-
 -- an_ev_vegetal_fleuri_massif
 ALTER TABLE IF EXISTS m_espace_vert_22x.an_ev_vegetal_fleuri_massif DROP CONSTRAINT IF EXISTS an_ev_objet_fkey;
-
 -- an_ev_vegetal_herbe
 ALTER TABLE IF EXISTS m_espace_vert_22x.an_ev_vegetal_herbe DROP CONSTRAINT IF EXISTS an_ev_objet_fkey;
-
 -- lt_ev_intervention_inter_type
-ALTER TABLE IF EXISTS m_espace_vert_22x.lt_ev_intervention_inter_type DROP CONSTRAINT IF EXISTS lt_ev_intervention_type_objet_fkey;
-
+ALTER TABLE IF EXISTS m_espace_vert_22x.lt_ev_intervention_inter_type DROP CONSTRAINT IF EXISTS lt_ev_intervention_objet_type_fkey;
+-- lk_ev_intervention_objet
+ALTER TABLE IF EXISTS m_espace_vert_22x.lk_ev_intervention_objet DROP CONSTRAINT IF EXISTS an_ev_objet_fkey;
+-- geo_ev_intervention
+ALTER TABLE IF EXISTS m_espace_vert_22x.geo_ev_intervention DROP CONSTRAINT IF EXISTS lt_ev_intervention_ress_affec_fkey;
+-- geo_ev_intervention_demande
+ALTER TABLE IF EXISTS m_espace_vert_22x.geo_ev_intervention_demande DROP CONSTRAINT IF EXISTS lt_ev_demande_intervention_ress_affec_fkey;
 -- an_ev_media
 ALTER TABLE IF EXISTS m_espace_vert_22x.an_ev_media DROP CONSTRAINT IF EXISTS an_ev_objet_fkey;
 
@@ -168,6 +170,12 @@ DROP TABLE IF EXISTS m_espace_vert_22x.geo_ev_zone_site;
 DROP TABLE IF EXISTS m_espace_vert_22x.geo_ev_zone_equipe;
 -- referentiel
 DROP TABLE IF EXISTS m_espace_vert_22x.an_ev_vegetal_ref_bota;
+-- intervention
+DROP TABLE IF EXISTS m_espace_vert_22x.geo_ev_intervention_demande;
+DROP TABLE IF EXISTS m_espace_vert_22x.geo_ev_intervention;
+
+-- relation
+DROP TABLE IF EXISTS m_espace_vert_22x.lk_ev_intervention_objet;
 -- media
 DROP TABLE IF EXISTS m_espace_vert_22x.an_ev_media;
 -- log
@@ -208,7 +216,7 @@ DROP TABLE IF EXISTS m_espace_vert_22x.lt_ev_vegetal_haie_sai_type;
 DROP TABLE IF EXISTS m_espace_vert_22x.lt_ev_vegetal_haie_veget_type;
 DROP TABLE IF EXISTS m_espace_vert_22x.lt_ev_vegetal_haie_paillage_type;
 -- intervention
-DROP TABLE IF EXISTS m_espace_vert_22x.lt_ev_intervention_type_objet;
+DROP TABLE IF EXISTS m_espace_vert_22x.lt_ev_intervention_objet_type;
 DROP TABLE IF EXISTS m_espace_vert_22x.lt_ev_intervention_inter_type;
 DROP TABLE IF EXISTS m_espace_vert_22x.lt_ev_intervention_src_demand;
 DROP TABLE IF EXISTS m_espace_vert_22x.lt_ev_intervention_freq_unite;
@@ -226,12 +234,17 @@ DROP SEQUENCE IF EXISTS m_espace_vert_22x.an_ev_vegetal_ref_bota_idref_bota_seq;
 DROP SEQUENCE IF EXISTS m_espace_vert_22x.geo_ev_zone_gestion_idgestion_seq;
 DROP SEQUENCE IF EXISTS m_espace_vert_22x.geo_ev_zone_site_idsite_seq;
 DROP SEQUENCE IF EXISTS m_espace_vert_22x.geo_ev_zone_equipe_idequipe_seq;
+-- inter
+DROP SEQUENCE IF EXISTS m_espace_vert_22x.geo_ev_intervention_idinter_seq;
+-- relation
+DROP SEQUENCE IF EXISTS m_espace_vert_22x.lk_ev_intervention_objet_idlk_seq;
 -- media
 DROP SEQUENCE IF EXISTS m_espace_vert_22x.an_ev_media_gid_seq;
 -- log
 DROP SEQUENCE IF EXISTS m_espace_vert_22x.an_ev_log_idlog_seq;
 
 -- ## FONCTIONS
+-- objet patrimoniaux EV
 DROP FUNCTION IF EXISTS m_espace_vert_22x.ft_m_ev_process_generic_info(text,text,geometry,integer,text,text,text,text,text,text,text,text);
 DROP FUNCTION IF EXISTS m_espace_vert_22x.ft_m_ev_vegetal_arbre();
 DROP FUNCTION IF EXISTS m_espace_vert_22x.ft_m_ev_vegetal_arbre_alignement();
@@ -251,6 +264,14 @@ DROP FUNCTION IF EXISTS m_espace_vert_22x.ft_m_ev_hydro_eau_arrivee();
 DROP FUNCTION IF EXISTS m_espace_vert_22x.ft_m_ev_hydro();
 DROP FUNCTION IF EXISTS m_espace_vert_22x.ft_m_ev_hydro_eau_cours();
 DROP FUNCTION IF EXISTS m_espace_vert_22x.ft_m_ev_refnonclassee();
+-- gestion intervention
+DROP FUNCTION IF EXISTS m_espace_vert_22x.ft_m_ev_intervention_purge_on_delete();
+DROP FUNCTION IF EXISTS m_espace_vert_22x.ft_m_ev_intervention_add_objets();
+-- mise à jour objet en cas de mise à jour des zonages
+DROP FUNCTION IF EXISTS m_espace_vert_22x.ft_m_ev_zone_gestion_set();
+DROP FUNCTION IF EXISTS m_espace_vert_22x.ft_m_ev_zone_site_set();
+DROP FUNCTION IF EXISTS m_espace_vert_22x.ft_m_ev_zone_equipe_set();
+
 
 -- ##SCHEMA
 DROP SCHEMA IF EXISTS m_espace_vert_22x;
@@ -302,6 +323,7 @@ COMMENT ON CONSTRAINT lt_ev_objet_typ1_pkey ON m_espace_vert_22x.lt_ev_objet_typ
 INSERT INTO m_espace_vert_22x.lt_ev_objet_typ1(
             code, valeur)
     VALUES
+  ('0','Non renseigné'),    
   ('1','Végétal'),
   ('2','Minéral'),
   ('3','Hydrographie'),
@@ -331,6 +353,7 @@ COMMENT ON CONSTRAINT lt_ev_objet_typ2_pkey ON m_espace_vert_22x.lt_ev_objet_typ
 INSERT INTO m_espace_vert_22x.lt_ev_objet_typ2(
             code, valeur)
     VALUES
+  ('00','Non renseigné'),      
   ('11','Arboré'),
   ('12','Arbustif'),
   ('13','Fleuri'),
@@ -366,6 +389,7 @@ COMMENT ON CONSTRAINT lt_ev_objet_typ3_pkey ON m_espace_vert_22x.lt_ev_objet_typ
 INSERT INTO m_espace_vert_22x.lt_ev_objet_typ3(
             code, valeur)
     VALUES
+  ('000','Non renseigné'),      
   ('111','Arbre isolé'),
   ('112','Arbre en alignement'),
   ('113','Zone boisée'),
@@ -937,7 +961,7 @@ INSERT INTO m_espace_vert_22x.lt_ev_vegetal_arbre_contr_type(
   ('00', 'Non renseigné'),
   ('01', 'Cohabitation'),
   ('02', 'Candélabre'),
-  ('03', 'bâtiment'),
+  ('03', 'Bâtiment'),
   ('04', 'Feu de signalisation'),
   ('05', 'Cable aérien'),
   ('99', 'Autre');
@@ -1124,28 +1148,28 @@ INSERT INTO m_espace_vert_22x.lt_ev_vegetal_haie_paillage_type(
   ('02','Paillage minéral');
 
 
--- ################################################################# lt_ev_intervention_type_objet ###############################################
+-- ################################################################# lt_ev_intervention_objet_type ###############################################
 
--- Table: m_espace_vert_22x.lt_ev_intervention_type_objet
+-- Table: m_espace_vert_22x.lt_ev_intervention_objet_type
 
--- DROP TABLE m_espace_vert_22x.lt_ev_intervention_type_objet;
+-- DROP TABLE m_espace_vert_22x.lt_ev_intervention_objet_type;
 
-CREATE TABLE m_espace_vert_22x.lt_ev_intervention_type_objet
+CREATE TABLE m_espace_vert_22x.lt_ev_intervention_objet_type
 (
     code character varying(3) NOT NULL,
     valeur character varying(80),
-    CONSTRAINT lt_ev_intervention_type_objet_pkey PRIMARY KEY (code)
+    CONSTRAINT lt_ev_intervention_objet_type_pkey PRIMARY KEY (code)
 )
 WITH (
   OIDS=FALSE
 );
 
-COMMENT ON TABLE m_espace_vert_22x.lt_ev_intervention_type_objet IS 'Liste permettant de décrire le "Type d''objet" des interventions';
-COMMENT ON COLUMN m_espace_vert_22x.lt_ev_intervention_type_objet.code IS 'Code de la classe décrivant le "Type d''objet" des interventions';
-COMMENT ON COLUMN m_espace_vert_22x.lt_ev_intervention_type_objet.valeur IS 'Valeur de la classe décrivant le "Type d''objet" des interventions';
-COMMENT ON CONSTRAINT lt_ev_intervention_type_objet_pkey ON m_espace_vert_22x.lt_ev_intervention_type_objet IS 'Clé primaire du domaine de valeur lt_ev_intervention_type_objet';
+COMMENT ON TABLE m_espace_vert_22x.lt_ev_intervention_objet_type IS 'Liste permettant de décrire le "Type d''objet" des interventions';
+COMMENT ON COLUMN m_espace_vert_22x.lt_ev_intervention_objet_type.code IS 'Code de la classe décrivant le "Type d''objet" des interventions';
+COMMENT ON COLUMN m_espace_vert_22x.lt_ev_intervention_objet_type.valeur IS 'Valeur de la classe décrivant le "Type d''objet" des interventions';
+COMMENT ON CONSTRAINT lt_ev_intervention_objet_type_pkey ON m_espace_vert_22x.lt_ev_intervention_objet_type IS 'Clé primaire du domaine de valeur lt_ev_intervention_objet_type';
 
-INSERT INTO m_espace_vert_22x.lt_ev_intervention_type_objet(
+INSERT INTO m_espace_vert_22x.lt_ev_intervention_objet_type(
             code, valeur)
     VALUES
   ('000', 'Non renseigné'),
@@ -1165,8 +1189,8 @@ INSERT INTO m_espace_vert_22x.lt_ev_intervention_type_objet(
 
 CREATE TABLE m_espace_vert_22x.lt_ev_intervention_inter_type
 (
-    code character varying(2) NOT NULL,
-    type_objet character varying(3) NOT NULL,    
+    code character varying(5) NOT NULL,
+    objet_type character varying(3) NOT NULL,    
     valeur character varying(80),
     CONSTRAINT lt_ev_intervention_inter_type_pkey PRIMARY KEY (code)
 )
@@ -1180,29 +1204,36 @@ COMMENT ON COLUMN m_espace_vert_22x.lt_ev_intervention_inter_type.valeur IS 'Val
 COMMENT ON CONSTRAINT lt_ev_intervention_inter_type_pkey ON m_espace_vert_22x.lt_ev_intervention_inter_type IS 'Clé primaire du domaine de valeur lt_ev_intervention_inter_type';
 
 INSERT INTO m_espace_vert_22x.lt_ev_intervention_inter_type(
-            code, type_objet, valeur)
+            code, objet_type, valeur)
     VALUES
-  ('00', '111', 'Non renseigné'),
-  ('01', '111', 'Abattage'),
-  ('02', '111', 'Tête de chat'),
-  ('03', '111', 'Cohabitation'),
-  ('04', '111', 'Sanitaire'),
-  ('05', '111', 'Sélection'),
-  ('06', '111', 'Démontage'),
-  ('07', '111', 'Remontée de couronne'),
-  ('08', '111', 'Formation'),
-  ('10', '113', 'Abattage'),
-  ('11', '113', 'Coupe'),
-  ('12', '113', 'Elagage'),
-  ('20', '122', 'Abattage'),
-  ('21', '122', 'Coupe'),
-  ('22', '122', 'Elagage'),
-  ('30', '141', 'Tonte'),
-  ('31', '141', 'Traitement'),
-  ('40', '132', 'Tonte'),
-  ('41', '132', 'Traitement'),
-  ('50', '123', 'Tonte'),
-  ('51', '123', 'Traitement');
+  ('00000', '000', 'Non renseigné'),    
+-- arbre
+  ('11100', '111', 'Non renseigné'),
+  ('11101', '111', 'Abattage'),
+  ('11102', '111', 'Dessouchage'),  
+  ('11103', '111', 'Tête de chat'),
+  ('11104', '111', 'Cohabitation'),
+  ('11105', '111', 'Sanitaire'),
+  ('11106', '111', 'Sélection'),
+  ('11107', '111', 'Démontage'),
+  ('11108', '111', 'Remontée de couronne'),
+  ('11109', '111', 'Formation'),
+  ('11110', '111', 'Branche cassée'),
+  ('11111', '111', 'Branche en suspension'),  
+  ('11112', '111', 'Arbre accidenté'),
+--         
+  ('11301', '113', 'Abattage'),
+  ('11302', '113', 'Coupe'),
+  ('11303', '113', 'Elagage'),
+  ('12201', '122', 'Abattage'),
+  ('12202', '122', 'Coupe'),
+  ('12203', '122', 'Elagage'),
+  ('12301', '123', 'Tonte'),
+  ('12302', '123', 'Traitement'),
+  ('13201', '132', 'Tonte'),
+  ('13202', '132', 'Traitement'),    
+  ('14101', '141', 'Tonte'),
+  ('14102', '141', 'Traitement');
 
 
 -- ################################################################# lt_ev_intervention_src_demand ###############################################
@@ -1450,6 +1481,33 @@ CREATE SEQUENCE m_espace_vert_22x.geo_ev_zone_equipe_idequipe_seq
     CACHE 1;                  
 
 
+-- ################################################################# Séquence sur TABLE lk_ev_intervention_objet ###############################################
+
+-- SEQUENCE: m_espace_vert_22x.lk_ev_intervention_objet_idlk_seq
+
+-- DROP SEQUENCE m_espace_vert_22x.lk_ev_intervention_objet_idlk_seq;
+
+CREATE SEQUENCE m_espace_vert_22x.lk_ev_intervention_objet_idlk_seq
+    INCREMENT 1
+    START 0
+    MINVALUE 0
+    MAXVALUE 9223372036854775807
+    CACHE 1;    
+
+-- ################################################################# Séquence sur TABLE geo_ev_intervention ###############################################
+
+-- SEQUENCE: m_espace_vert_22x.geo_ev_intervention_idinter_seq
+
+-- DROP SEQUENCE m_espace_vert_22x.geo_ev_intervention_idinter_seq;
+
+CREATE SEQUENCE m_espace_vert_22x.geo_ev_intervention_idinter_seq
+    INCREMENT 1
+    START 0
+    MINVALUE 0
+    MAXVALUE 9223372036854775807
+    CACHE 1;    
+
+
 -- ################################################################# Séquence sur TABLE an_ev_media ###############################################
 
 -- SEQUENCE: m_espace_vert_22x.an_ev_media_gid_seq
@@ -1484,8 +1542,6 @@ CREATE SEQUENCE m_espace_vert_22x.an_ev_log_idlog_seq
 
 
 -- ################################################################# TABLE an_ev_objet ###############################################
-
--- Table: m_espace_vert_22x.an_ev_objet
 
 -- DROP TABLE m_espace_vert_22x.an_ev_objet;
 
@@ -1548,8 +1604,6 @@ COMMENT ON CONSTRAINT an_ev_objet_pkey ON m_espace_vert_22x.an_ev_objet IS 'Clé
 
 -- ################################################################# TABLE geo_ev_objet_pct ###############################################
 
--- Table: m_espace_vert_22x.geo_ev_objet_pct
-
 -- DROP TABLE m_espace_vert_22x.geo_ev_objet_pct;
   
 CREATE TABLE m_espace_vert_22x.geo_ev_objet_pct
@@ -1574,8 +1628,6 @@ COMMENT ON CONSTRAINT geo_ev_objet_pct_pkey ON m_espace_vert_22x.geo_ev_objet_pc
 
 -- ################################################################# TABLE geo_ev_objet_line ###############################################
 
--- Table: m_espace_vert_22x.geo_ev_objet_line
-
 -- DROP TABLE m_espace_vert_22x.geo_ev_objet_line;
   
 CREATE TABLE m_espace_vert_22x.geo_ev_objet_line      
@@ -1598,8 +1650,6 @@ COMMENT ON CONSTRAINT geo_ev_objet_line_pkey ON m_espace_vert_22x.geo_ev_objet_l
 
 -- ################################################################# TABLE an_ev_objet_line_largeur ###############################################
 
--- Table: m_espace_vert_22x.an_ev_objet_line_largeur
-
 -- DROP TABLE m_espace_vert_22x.an_ev_objet_line_largeur;
 
 CREATE TABLE m_espace_vert_22x.an_ev_objet_line_largeur
@@ -1620,8 +1670,6 @@ COMMENT ON CONSTRAINT an_ev_objet_line_largeur_pkey ON m_espace_vert_22x.an_ev_o
 
 
 -- ################################################################# TABLE geo_ev_objet_polygon ###############################################
-
--- Table: m_espace_vert_22x.geo_ev_objet_polygon
 
 -- DROP TABLE m_espace_vert_22x.geo_ev_objet_polygon;
 
@@ -1647,14 +1695,12 @@ COMMENT ON CONSTRAINT geo_ev_objet_polygon_pkey ON m_espace_vert_22x.geo_ev_obje
 
 -- ################################################################# TABLE an_ev_vegetal ###############################################
 
--- Table: m_espace_vert_22x.an_ev_vegetal
-
 -- DROP TABLE m_espace_vert_22x.an_ev_vegetal;
 
 CREATE TABLE m_espace_vert_22x.an_ev_vegetal
 (
     idobjet bigint NOT NULL,
-    "position" character varying(2) NOT NULL DEFAULT '00',
+    "position" character varying(2) NOT NULL DEFAULT '10',
     CONSTRAINT an_ev_vegetal_pkey PRIMARY KEY (idobjet)
 )
 WITH (
@@ -1670,8 +1716,6 @@ COMMENT ON CONSTRAINT an_ev_vegetal_pkey ON m_espace_vert_22x.an_ev_vegetal IS '
 
 -- ################################################################# TABLE an_ev_vegetal_arbre ###############################################
 
--- Table: m_espace_vert_22x.an_ev_vegetal_arbre
-
 -- DROP TABLE m_espace_vert_22x.an_ev_vegetal_arbre;
 
 CREATE TABLE m_espace_vert_22x.an_ev_vegetal_arbre
@@ -1684,29 +1728,29 @@ CREATE TABLE m_espace_vert_22x.an_ev_vegetal_arbre
     cultivar character varying(20),
     nomlatin character varying(80),
     nomcommun character varying(80),
-    niv_allerg character varying(2) NOT NULL '00',       
+    niv_allerg character varying(2) NOT NULL DEFAULT '00',       
 -- proprio
-    hauteur_cl character varying(2) NOT NULL '00',
+    hauteur_cl character varying(2) NOT NULL DEFAULT '00',
     circonf integer,
     diam_houpp integer,    
-    implant character varying(2) NOT NULL '00',
-    mode_cond character varying(2) NOT NULL '00',   
+    implant character varying(2) NOT NULL DEFAULT '00',
+    mode_cond character varying(2) NOT NULL DEFAULT '00',   
 -- historique
     date_pl_an integer,
-    date_pl_sa character varying(2) NOT NULL '00',
-    periode_pl character varying(2) NOT NULL '00',
-    stade_dev character varying(2) NOT NULL '00',
+    date_pl_sa character varying(2) NOT NULL DEFAULT '00',
+    periode_pl character varying(2) NOT NULL DEFAULT '00',
+    stade_dev character varying(2) NOT NULL DEFAULT '00',
 -- divers
-    sol_type character varying(2) NOT NULL '00',
+    sol_type character varying(2) NOT NULL DEFAULT '00',
     amena_pied character varying(80),   
 --    
-    remarq character varying(1) DEFAULT '0',
+    remarq character varying(1) NOT NULL DEFAULT '0',
     remarq_com character varying(254),
-    proteg character varying(1) DEFAULT '0',
+    proteg character varying(1) NOT NULL DEFAULT '0',
     proteg_com character varying(254),
-    contr character varying(1) DEFAULT '0',
+    contr character varying(1) NOT NULL DEFAULT '0',
     contr_type character varying(80),
-    naiss character varying(1) DEFAULT '0',     
+    naiss character varying(1) NOT NULL DEFAULT '0',     
     naiss_com character varying(254),        
 -- etat    
     etatarbre character varying(2),
@@ -1755,8 +1799,6 @@ COMMENT ON CONSTRAINT an_ev_vegetal_arbre_pkey ON m_espace_vert_22x.an_ev_vegeta
 
 -- ################################################################# TABLE an_ev_vegetal_arbre_etat_sanitaire ###############################################
 
--- Table: m_espace_vert_22x.an_ev_vegetal_arbre_etat_sanitaire
-
 -- DROP TABLE m_espace_vert_22x.an_ev_vegetal_arbre_etat_sanitaire;
 
 CREATE TABLE m_espace_vert_22x.an_ev_vegetal_arbre_etat_sanitaire
@@ -1785,8 +1827,6 @@ COMMENT ON CONSTRAINT an_ev_vegetal_arbre_etat_sanitaire_pkey ON m_espace_vert_2
 
 -- ################################################################# TABLE an_ev_vegetal_arbuste_haie ###############################################
 
--- Table: m_espace_vert_22x.an_ev_vegetal_arbuste_haie
-
 -- DROP TABLE m_espace_vert_22x.an_ev_vegetal_arbuste_haie;
 
 CREATE TABLE m_espace_vert_22x.an_ev_vegetal_arbuste_haie
@@ -1806,7 +1846,7 @@ WITH (
 );
 
 COMMENT ON TABLE m_espace_vert_22x.an_ev_vegetal_arbuste_haie IS 'Classe de précision des objets de l''inventaire des objets haies';
-COMMENT ON COLUMN m_espace_vert_22x.an_ev_vegetal_arbuste_haie.idobjet IS 'Identifiant unique de l''objet haie';
+COMMENT ON COLUMN m_espace_vert_22x.an_ev_vegetal_arbuste_haie.idobjet IS 'Identifiant unique de l''objet';
 COMMENT ON COLUMN m_espace_vert_22x.an_ev_vegetal_arbuste_haie.sai_type IS 'Type de saisie de l''objet linéaire haie';
 COMMENT ON COLUMN m_espace_vert_22x.an_ev_vegetal_arbuste_haie.veget_type IS 'Type végétation';
 COMMENT ON COLUMN m_espace_vert_22x.an_ev_vegetal_arbuste_haie.hauteur IS 'Hauteur';
@@ -1819,8 +1859,6 @@ COMMENT ON CONSTRAINT an_ev_vegetal_arbuste_haie_pkey ON m_espace_vert_22x.an_ev
 
 
 -- ################################################################# TABLE an_ev_vegetal_arbuste_massif ###############################################
-
--- Table: m_espace_vert_22x.an_ev_vegetal_arbuste_massif
 
 -- DROP TABLE m_espace_vert_22x.an_ev_vegetal_arbuste_massif;
 
@@ -1839,6 +1877,7 @@ WITH (
 );
 
 COMMENT ON TABLE m_espace_vert_22x.an_ev_vegetal_arbuste_massif IS 'Table contenant les attributs complémentaires pour les massifs arbustifs';
+COMMENT ON COLUMN m_espace_vert_22x.an_ev_vegetal_arbuste_massif.idobjet IS 'Identifiant unique de l''objet';
 COMMENT ON COLUMN m_espace_vert_22x.an_ev_vegetal_arbuste_massif.espac_type IS 'Type d''espace';
 COMMENT ON COLUMN m_espace_vert_22x.an_ev_vegetal_arbuste_massif.arros_auto IS 'Arrosage automatique (O/N)';
 COMMENT ON COLUMN m_espace_vert_22x.an_ev_vegetal_arbuste_massif.arros_type IS 'Type d''arrosage automatique';
@@ -1848,8 +1887,6 @@ COMMENT ON CONSTRAINT an_ev_vegetal_arbuste_massif_pkey ON m_espace_vert_22x.an_
 
 
 -- ################################################################# TABLE an_ev_vegetal_fleuri_massif ###############################################
-
--- Table: m_espace_vert_22x.an_ev_vegetal_fleuri_massif
 
 -- DROP TABLE m_espace_vert_22x.an_ev_vegetal_fleuri_massif;
 
@@ -1868,6 +1905,7 @@ WITH (
 );
 
 COMMENT ON TABLE m_espace_vert_22x.an_ev_vegetal_fleuri_massif IS 'Table contenant les attributs complémentaires pour les massifs fleuris';
+COMMENT ON COLUMN m_espace_vert_22x.an_ev_vegetal_fleuri_massif.idobjet IS 'Identifiant unique de l''objet';
 COMMENT ON COLUMN m_espace_vert_22x.an_ev_vegetal_fleuri_massif.espac_type IS 'Type d''espace';
 COMMENT ON COLUMN m_espace_vert_22x.an_ev_vegetal_fleuri_massif.arros_auto IS 'Arrosage automatique (O/N)';
 COMMENT ON COLUMN m_espace_vert_22x.an_ev_vegetal_fleuri_massif.arros_type IS 'Type d''arrosage automatique';
@@ -1877,8 +1915,6 @@ COMMENT ON CONSTRAINT an_ev_vegetal_fleuri_massif_pkey ON m_espace_vert_22x.an_e
 
 
 -- ################################################################# TABLE an_ev_vegetal_herbe ###############################################
-
--- Table: m_espace_vert_22x.an_ev_vegetal_herbe
 
 -- DROP TABLE m_espace_vert_22x.an_ev_vegetal_herbe;
 
@@ -1897,6 +1933,7 @@ WITH (
 );
 
 COMMENT ON TABLE m_espace_vert_22x.an_ev_vegetal_herbe IS 'Table contenant les attributs complémentaires pour les espaces enherbés';
+COMMENT ON COLUMN m_espace_vert_22x.an_ev_vegetal_herbe.idobjet IS 'Identifiant unique de l''objet';
 COMMENT ON COLUMN m_espace_vert_22x.an_ev_vegetal_herbe.espac_type IS 'Type d''espace';
 COMMENT ON COLUMN m_espace_vert_22x.an_ev_vegetal_herbe.arros_auto IS 'Arrosage automatique (O/N)';
 COMMENT ON COLUMN m_espace_vert_22x.an_ev_vegetal_herbe.arros_type IS 'Type d''arrosage automatique';
@@ -1909,8 +1946,6 @@ COMMENT ON CONSTRAINT an_ev_vegetal_herbe_pkey ON m_espace_vert_22x.an_ev_vegeta
 
 -- ################################################################# TABLE an_ev_vegetal_ref_bota ###############################################
 
--- Table: m_espace_vert_22x.an_ev_vegetal_ref_bota
-
 -- DROP TABLE m_espace_vert_22x.an_ev_vegetal_ref_bota;
 
 CREATE TABLE m_espace_vert_22x.an_ev_vegetal_ref_bota
@@ -1921,10 +1956,10 @@ CREATE TABLE m_espace_vert_22x.an_ev_vegetal_ref_bota
     famille character varying(20),
     genre character varying(20),
     espece character varying(20),
-    cultivar character varying(20),
+    cultivar character varying(80),
     nomlatin character varying(80),
     nomcommun character varying(80),
-    niv_allerg character varying(1), 
+    niv_allerg character varying(2), 
     CONSTRAINT an_ev_vegetal_ref_bota_pkey PRIMARY KEY (idref_bota)      
 )
 WITH (
@@ -1947,8 +1982,6 @@ COMMENT ON CONSTRAINT an_ev_vegetal_ref_bota_pkey ON m_espace_vert_22x.an_ev_veg
 
 -- ################################################################# TABLE geo_ev_zone_site ###############################################
 
--- Table: m_espace_vert_22x.geo_ev_zone_site
-
 -- DROP TABLE m_espace_vert_22x.geo_ev_zone_site;
 
 CREATE TABLE m_espace_vert_22x.geo_ev_zone_site
@@ -1965,6 +1998,7 @@ WITH (
 );
 
 COMMENT ON TABLE m_espace_vert_22x.geo_ev_zone_site IS 'Table géographique des sites d''espace vert';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_zone_site.idsite IS 'Identifiant du site';
 COMMENT ON COLUMN m_espace_vert_22x.geo_ev_zone_site.nom IS 'Nom du site';
 COMMENT ON COLUMN m_espace_vert_22x.geo_ev_zone_site.typ IS 'Type de site';
 COMMENT ON COLUMN m_espace_vert_22x.geo_ev_zone_site.sup_m2 IS 'Surface en mètre carré';
@@ -1973,8 +2007,6 @@ COMMENT ON CONSTRAINT geo_ev_zone_site_pkey ON m_espace_vert_22x.geo_ev_zone_sit
 
 
 -- ################################################################# TABLE geo_ev_zone_gestion ###############################################
-
--- Table: m_espace_vert_22x.geo_ev_zone_gestion
 
 -- DROP TABLE m_espace_vert_22x.geo_ev_zone_gestion;
 
@@ -1992,6 +2024,7 @@ WITH (
 );
 
 COMMENT ON TABLE m_espace_vert_22x.geo_ev_zone_gestion IS 'Table géographique des zones d''intervention des gestionnaires en espace vert';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_zone_gestion.idgestion IS 'Identifiant du site';
 COMMENT ON COLUMN m_espace_vert_22x.geo_ev_zone_gestion.nom IS 'Nom de la zone de gestion';
 COMMENT ON COLUMN m_espace_vert_22x.geo_ev_zone_gestion.gestion IS 'Nom du gestionnaire';
 COMMENT ON COLUMN m_espace_vert_22x.geo_ev_zone_gestion.sup_m2 IS 'Surface en mètre carré';
@@ -2000,8 +2033,6 @@ COMMENT ON CONSTRAINT geo_ev_zone_gestion_pkey ON m_espace_vert_22x.geo_ev_zone_
 
 
 -- ################################################################# TABLE geo_ev_zone_equipe ###############################################
-
--- Table: m_espace_vert_22x.geo_ev_zone_equipe
 
 -- DROP TABLE m_espace_vert_22x.geo_ev_zone_equipe;
 
@@ -2019,11 +2050,162 @@ WITH (
 );
 
 COMMENT ON TABLE m_espace_vert_22x.geo_ev_zone_equipe IS 'Table géographique des secteurs d''intervention des equipes';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_zone_equipe.idequipe IS 'Identifiant d''équipe';
 COMMENT ON COLUMN m_espace_vert_22x.geo_ev_zone_equipe.nom IS 'Nom de la zone de equipe';
 COMMENT ON COLUMN m_espace_vert_22x.geo_ev_zone_equipe.equipe IS 'Nom du equipenaire';
 COMMENT ON COLUMN m_espace_vert_22x.geo_ev_zone_equipe.sup_m2 IS 'Surface en mètre carré';
 COMMENT ON COLUMN m_espace_vert_22x.geo_ev_zone_equipe.geom IS 'Géométrie surfacique';
 COMMENT ON CONSTRAINT geo_ev_zone_equipe_pkey ON m_espace_vert_22x.geo_ev_zone_equipe IS 'Clé primaire de la classe geo_ev_zone_equipe';
+
+
+
+-- ################################################################# TABLE geo_ev_intervention_demande ###############################################
+
+-- DROP TABLE m_espace_vert_22x.geo_ev_intervention_demande;
+
+CREATE TABLE m_espace_vert_22x.geo_ev_intervention_demande
+(
+    idinter bigint NOT NULL DEFAULT nextval('m_espace_vert_22x.geo_ev_intervention_idinter_seq'),
+    objet_type varchar(3),
+    inter_type varchar(254) DEFAULT '00000',
+    src_demand varchar(2) DEFAULT '00',
+    com_demand text,
+    dat_souhai date,
+    contr_adm boolean DEFAULT false,
+    contr_com text,
+    ress_affec integer, -- lien vers la table geo_ev_zone_equipe
+    observ character varying(254),
+    nb_jr_rapp integer,
+    -- ajout d'un champ "iddemande" pour pouvoir faire une logique commune au niveau du trigger
+    -- ce champ ne sera pas utilisé dans le trigger
+    iddemande integer,
+    -- ajout d'un champ "idequipe" pour la liaison avec un secteur d'équipe
+    idequipe integer,
+    -- récurrence
+    recurrent boolean DEFAULT false,
+    freq_value integer,
+    freq_unite varchar(2) DEFAULT '00',
+    dat_ref date,
+    period_sta varchar(2) DEFAULT '00',
+    period_end varchar(2) DEFAULT '00',
+    --
+    dat_sai timestamp without time zone DEFAULT now(),
+    op_sai character varying(80),
+    geom geometry(Polygon, 2154),
+    CONSTRAINT geo_ev_intervention_demande_pkey PRIMARY KEY (idinter)    
+)
+WITH (
+  OIDS=FALSE
+);
+
+COMMENT ON TABLE m_espace_vert_22x.geo_ev_intervention_demande IS 'Tables contenant les demandes d''intervention';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention_demande.objet_type IS 'Type d''objets';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention_demande.inter_type IS 'Type d''intervention';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention_demande.src_demand IS 'Source demande';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention_demande.com_demand IS 'Commentaire demande';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention_demande.dat_souhai IS 'Date d''intervention souhaitée';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention_demande.contr_adm IS 'Contraintes administratives';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention_demande.contr_com IS 'Commentaire sur contraintes adm.';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention_demande.ress_affec IS 'Équipe / Entreprise affectée';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention_demande.observ IS 'Observations';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention_demande.nb_jr_rapp IS 'Nb jours rappel';
+-- récurrence
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention_demande.recurrent IS 'Demande d''intervention récurrente';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention_demande.freq_value IS 'Fréquence (valeur)';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention_demande.freq_unite IS 'Fréquence (unité)';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention_demande.dat_ref IS 'Date de référence';
+--
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention_demande.dat_sai IS 'Date saisie';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention_demande.op_sai IS 'Auteur saisie';
+--
+COMMENT ON CONSTRAINT geo_ev_intervention_demande_pkey ON m_espace_vert_22x.geo_ev_intervention_demande IS 'Clé primaire de la classe geo_ev_intervention_demande';
+
+
+
+-- ################################################################# TABLE geo_ev_intervention ###############################################
+
+-- DROP TABLE m_espace_vert_22x.geo_ev_intervention;
+
+CREATE TABLE m_espace_vert_22x.geo_ev_intervention
+(
+    idinter bigint NOT NULL DEFAULT nextval('m_espace_vert_22x.geo_ev_intervention_idinter_seq'),
+    objet_type varchar(3),
+    inter_type varchar(254) DEFAULT '00000',
+    -- ajout d'un champ "idequipe" pour la liaison avec un secteur d'équipe
+    idequipe integer,
+    iddemande integer,
+    inter_date date DEFAULT now(),
+    ress_affec integer, -- lien vers la table geo_ev_zone_equipe
+    statut varchar(2) DEFAULT '00',
+    taches_eff text,
+    observ character varying(254),
+    notif_resp boolean DEFAULT true,
+    -- récurrence
+    nb_jr_rapp integer,
+    recurrent boolean DEFAULT false,
+    freq_value integer,
+    freq_unite varchar(2) DEFAULT '00',
+    dat_ref date,
+    period_sta varchar(2) DEFAULT '00',
+    period_end varchar(2) DEFAULT '00',
+    --
+    dat_sai timestamp without time zone DEFAULT now(),
+    op_sai character varying(80),
+    geom geometry(Polygon, 2154),
+    CONSTRAINT geo_ev_intervention_pkey PRIMARY KEY (idinter)    
+)
+WITH (
+  OIDS=FALSE
+);
+
+COMMENT ON TABLE m_espace_vert_22x.geo_ev_intervention IS 'Tables contenant les interventions';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention.objet_type IS 'Type d''objets';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention.inter_type IS 'Type d''intervention';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention.iddemande IS 'Demande liée';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention.inter_date IS 'Date d''intervention';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention.ress_affec IS 'Équipe / Entreprise';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention.statut IS 'Statut';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention.taches_eff IS 'Liste des tâches effectuées';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention.notif_resp IS 'Envoyer notification aux responsables EV ?';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention.observ IS 'Observations';
+-- récurrence
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention.nb_jr_rapp IS 'Nb jours rappel';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention.recurrent IS 'Intervention récurrente';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention.freq_value IS 'Fréquence (valeur)';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention.freq_unite IS 'Fréquence (unité)';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention.dat_ref IS 'Date de référence';
+--
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention.dat_sai IS 'Date saisie';
+COMMENT ON COLUMN m_espace_vert_22x.geo_ev_intervention.op_sai IS 'Auteur saisie';
+--
+COMMENT ON CONSTRAINT geo_ev_intervention_pkey ON m_espace_vert_22x.geo_ev_intervention IS 'Clé primaire de la classe geo_ev_intervention';
+
+
+-- ####################################################################################################################################################
+-- ###                                                                                                                                              ###
+-- ###                                                                     LIAISON N-M                                                              ###
+-- ###                                                                                                                                              ###
+-- ####################################################################################################################################################
+
+-- DROP TABLE m_espace_vert_22x.lk_ev_intervention_objet;
+
+CREATE TABLE m_espace_vert_22x.lk_ev_intervention_objet
+(
+    idlk bigint NOT NULL DEFAULT nextval('m_espace_vert_22x.lk_ev_intervention_objet_idlk_seq'::regclass),
+    idinter bigint NOT NULL,
+    idobjet bigint NOT NULL,
+    CONSTRAINT lk_ev_intervention_objet_pkey PRIMARY KEY (idlk)  
+)
+WITH (
+  OIDS=FALSE
+);
+
+COMMENT ON TABLE m_espace_vert_22x.lk_ev_intervention_objet IS 'Table de relations N-M contenant la liaison entre les objets et les demandes d''intervention';
+COMMENT ON COLUMN m_espace_vert_22x.lk_ev_intervention_objet.idlk IS 'Identifiant relation intervention<>objet';
+COMMENT ON COLUMN m_espace_vert_22x.lk_ev_intervention_objet.idinter IS 'Identifiant d''intervention';
+COMMENT ON COLUMN m_espace_vert_22x.lk_ev_intervention_objet.idobjet IS 'Identifiant d''objet';
+COMMENT ON CONSTRAINT lk_ev_intervention_objet_pkey ON m_espace_vert_22x.lk_ev_intervention_objet IS 'Clé primaire de la classe lk_ev_intervention_objet';
+
 
 
 -- ####################################################################################################################################################
@@ -2084,7 +2266,7 @@ CREATE TABLE m_espace_vert_22x.an_ev_log (
 	type_ope character varying(30) NOT NULL,
 	dataold text,
 	datanew text,
-	date_maj timestamp default now(),
+	date_maj timestamp DEFAULT now(),
   CONSTRAINT an_ev_log_pkey PRIMARY KEY (idlog)
 )
 WITH (
@@ -2130,7 +2312,7 @@ ALTER TABLE m_espace_vert_22x.an_ev_objet
         ON UPDATE NO ACTION ON DELETE NO ACTION;       
 /*        
     ADD CONSTRAINT lt_ev_idequipe_fkey FOREIGN KEY (idequipe)
-        REFERENCES m_espace_vert_22x.geo_ev_objet_equipe(idequipe) MATCH SIMPLE
+        REFERENCES m_espace_vert_22x.geo_ev_zone_equipe(idequipe) MATCH SIMPLE
         ON UPDATE NO ACTION ON DELETE NO ACTION,
     ADD CONSTRAINT lt_src_geomsai_fkey FOREIGN KEY (src_geom)
         REFERENCES r_objet.lt_src_geom (code) MATCH SIMPLE
@@ -2293,8 +2475,7 @@ ALTER TABLE m_espace_vert_22x.an_ev_vegetal_herbe
         ON UPDATE NO ACTION ON DELETE NO ACTION,
     ADD CONSTRAINT lt_ev_inv_faunis_boolean_fkey FOREIGN KEY (inv_faunis)
         REFERENCES m_espace_vert_22x.lt_ev_boolean (code) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE NO ACTION;                     
-        
+        ON UPDATE NO ACTION ON DELETE NO ACTION;                             
 
 -- an_ev_vegetal_ref_bota        
 ALTER TABLE m_espace_vert_22x.an_ev_vegetal_ref_bota
@@ -2313,12 +2494,68 @@ ALTER TABLE m_espace_vert_22x.geo_ev_zone_site
     ADD CONSTRAINT lt_ev_zone_site_type_fkey FOREIGN KEY (typ)
         REFERENCES m_espace_vert_22x.lt_ev_zone_site_type (code) MATCH SIMPLE
         ON UPDATE NO ACTION ON DELETE NO ACTION;
-    
 
 -- lt_ev_intervention_inter_type
 ALTER TABLE m_espace_vert_22x.lt_ev_intervention_inter_type
-    ADD CONSTRAINT lt_ev_intervention_type_objet_fkey FOREIGN KEY (type_objet)
-        REFERENCES m_espace_vert_22x.lt_ev_intervention_type_objet(code) MATCH SIMPLE
+    ADD CONSTRAINT lt_ev_intervention_objet_type_fkey FOREIGN KEY (objet_type)
+        REFERENCES m_espace_vert_22x.lt_ev_intervention_objet_type(code) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+-- lk_ev_intervention_objet
+ALTER TABLE m_espace_vert_22x.lk_ev_intervention_objet
+    ADD CONSTRAINT an_ev_objet_fkey FOREIGN KEY (idobjet)
+        REFERENCES m_espace_vert_22x.an_ev_objet (idobjet) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION;    
+-- vers inter ?
+
+-- geo_ev_intervention_demande
+ALTER TABLE m_espace_vert_22x.geo_ev_intervention_demande
+    ADD CONSTRAINT lt_ev_demande_intervention_objet_type_fkey FOREIGN KEY (objet_type)
+        REFERENCES m_espace_vert_22x.lt_ev_intervention_objet_type(code) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION,
+/*  plus possible en multivarié
+    ADD CONSTRAINT lt_ev_demande_intervention_inter_type_fkey FOREIGN KEY (inter_type)
+        REFERENCES m_espace_vert_22x.lt_ev_intervention_inter_type(code) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION,   */
+    ADD CONSTRAINT lt_ev_demande_intervention_src_demand_fkey FOREIGN KEY (src_demand)
+        REFERENCES m_espace_vert_22x.lt_ev_intervention_src_demand(code) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION,
+    ADD CONSTRAINT lt_ev_demande_intervention_freq_unite_fkey FOREIGN KEY (freq_unite)
+        REFERENCES m_espace_vert_22x.lt_ev_intervention_freq_unite(code) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION,
+    ADD CONSTRAINT lt_ev_demande_intervention_periode_sta_fkey FOREIGN KEY (period_sta)
+        REFERENCES m_espace_vert_22x.lt_ev_intervention_periode(code) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION,
+    ADD CONSTRAINT lt_ev_demande_intervention_periode_end_fkey FOREIGN KEY (period_end)
+        REFERENCES m_espace_vert_22x.lt_ev_intervention_periode(code) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION,
+    ADD CONSTRAINT lt_ev_demande_intervention_ress_affec_fkey FOREIGN KEY (ress_affec)
+        REFERENCES m_espace_vert_22x.geo_ev_zone_equipe(idequipe) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION;        
+
+-- geo_ev_intervention
+ALTER TABLE m_espace_vert_22x.geo_ev_intervention 
+    ADD CONSTRAINT lt_ev_intervention_objet_type_fkey FOREIGN KEY (objet_type)
+        REFERENCES m_espace_vert_22x.lt_ev_intervention_objet_type(code) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION,
+/*  plus possible en multivarié
+     ADD CONSTRAINT lt_ev_intervention_inter_type_fkey FOREIGN KEY (inter_type)
+        REFERENCES m_espace_vert_22x.lt_ev_intervention_inter_type(code) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION,   */
+    ADD CONSTRAINT lt_ev_intervention_statut_fkey FOREIGN KEY (statut)
+        REFERENCES m_espace_vert_22x.lt_ev_intervention_statut(code) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION,
+    ADD CONSTRAINT lt_ev_intervention_freq_unite_fkey FOREIGN KEY (freq_unite)
+        REFERENCES m_espace_vert_22x.lt_ev_intervention_freq_unite(code) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION,
+    ADD CONSTRAINT lt_ev_intervention_periode_sta_fkey FOREIGN KEY (period_sta)
+        REFERENCES m_espace_vert_22x.lt_ev_intervention_periode(code) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION,
+    ADD CONSTRAINT lt_ev_intervention_periode_end_fkey FOREIGN KEY (period_end)
+        REFERENCES m_espace_vert_22x.lt_ev_intervention_periode(code) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION,
+    ADD CONSTRAINT lt_ev_intervention_ress_affec_fkey FOREIGN KEY (ress_affec)
+        REFERENCES m_espace_vert_22x.geo_ev_zone_equipe(idequipe) MATCH SIMPLE
         ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 -- an_ev_media
@@ -2326,6 +2563,7 @@ ALTER TABLE m_espace_vert_22x.an_ev_media
     ADD CONSTRAINT an_ev_objet_fkey FOREIGN KEY (idobjet)
         REFERENCES m_espace_vert_22x.an_ev_objet (idobjet) MATCH SIMPLE
         ON UPDATE NO ACTION ON DELETE NO ACTION;
+
 
 
 -- ####################################################################################################################################################
@@ -2418,6 +2656,11 @@ CREATE INDEX an_ev_vegetal_ref_bota_niv_allerg_idx ON m_espace_vert_22x.an_ev_ve
 -- geo_ev_zone_site
 CREATE INDEX geo_ev_zone_site_geom_idx ON m_espace_vert_22x.geo_ev_zone_site USING gist (geom);
 
+-- geo_ev_intervention_demande
+CREATE INDEX geo_ev_intervention_demande_geom_idx ON m_espace_vert_22x.geo_ev_intervention_demande USING gist (geom);
+-- geo_ev_intervention
+CREATE INDEX geo_ev_intervention_geom_idx ON m_espace_vert_22x.geo_ev_intervention USING gist (geom);
+
 -- an_ev_media
 -- utile si contrainte pkey définie ? CREATE INDEX an_ev_media_gid_idx ON m_espace_vert_22x.an_ev_media USING btree (gid ASC NULLS LAST);
 CREATE INDEX an_ev_media_idobjet_idx ON m_espace_vert_22x.an_ev_media USING btree (idobjet ASC NULLS LAST);
@@ -2430,7 +2673,6 @@ CREATE INDEX an_ev_media_idobjet_idx ON m_espace_vert_22x.an_ev_media USING btre
 -- ###                                                                        VUE                                                                   ###
 -- ###                                                                                                                                              ###
 -- ####################################################################################################################################################
-
 
 
 -- #################################################################### VUE geo_v_ev_vegetal_arbre ###############################################
@@ -4196,10 +4438,10 @@ BEGIN
         _op_sai, now(), 
         '20', '2018', 
         _op_sai, 
-        null, null, 
+        NULL, NULL, 
         _observ, '2');
 
-    -- insertion de la géométrie
+    -- INSERTion de la géométrie
     if _geometry_type = 'ST_Point' THEN
       INSERT INTO m_espace_vert_22x.geo_ev_objet_pct (idobjet, geom) VALUES (_idobjet, _geom);
     ELSIF _geometry_type = 'ST_LineString' THEN
@@ -4279,7 +4521,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -4290,12 +4532,12 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '11', '111');
   --  
   IF (TG_OP = 'INSERT') THEN
-    -- insertion des attributs spécifiques
+    -- INSERTion des attributs spécifiques
     INSERT INTO m_espace_vert_22x.an_ev_vegetal_arbre
     (idobjet, famille, genre, espece, cultivar, nomlatin, nomcommun, niv_allerg,
     hauteur_cl, circonf, diam_houpp, implant, mode_cond, date_pl_an, date_pl_sa, periode_pl, stade_dev, sol_type, amena_pied,
@@ -4326,13 +4568,13 @@ BEGIN
     CASE WHEN NEW.contr ='t' THEN NEW.contr_type ELSE NULL END,
     CASE WHEN NEW.naiss IS NULL THEN '0' ELSE NEW.naiss END,     
     CASE WHEN NEW.naiss ='t' THEN NEW.naiss_com ELSE NULL END);     
-    -- insertion des attributs des EV végétaux  
+    -- INSERTion des attributs des EV végétaux  
     INSERT INTO m_espace_vert_22x.an_ev_vegetal
     (idobjet, 
     position)
     VALUES
     (_idobjet, 
-    CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END);  
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);  
     RETURN NEW;  
     
   ELSIF (TG_OP = 'UPDATE') THEN
@@ -4373,7 +4615,7 @@ BEGIN
     WHERE idobjet = NEW.idobjet;    
     -- MAJ des attributs des EV végétaux  
     UPDATE m_espace_vert_22x.an_ev_vegetal SET
-    position = CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END 
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
     WHERE idobjet = NEW.idobjet;       
     RETURN NEW;
     
@@ -4384,11 +4626,11 @@ END;
 $$
 ;
 
--- DROP TRIGGER IF EXISTS t_m_ev_vegetal_arbre on m_espace_vert_22x.geo_v_ev_vegetal_arbre;
+-- DROP TRIGGER IF EXISTS t_m_ev_vegetal_arbre ON m_espace_vert_22x.geo_v_ev_vegetal_arbre;
 CREATE TRIGGER t_m_ev_vegetal_arbre INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 on m_espace_vert_22x.geo_v_ev_vegetal_arbre 
-for each row execute procedure m_espace_vert_22x.ft_m_ev_vegetal_arbre();
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_vegetal_arbre();
 
 
 -- #################################################################### FONCTION/TRIGGER arbre_alignement ###############################################
@@ -4405,7 +4647,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -4416,24 +4658,24 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '11', '112');
   -- 
   IF (TG_OP = 'INSERT') THEN
-    -- insertion des attributs des EV végétaux    
+    -- INSERTion des attributs des EV végétaux    
     INSERT INTO m_espace_vert_22x.an_ev_vegetal
     (idobjet, 
     position)
     VALUES
     (_idobjet, 
-    CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END);  
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);  
     RETURN NEW;
     
   ELSIF (TG_OP = 'UPDATE') THEN
     -- MAJ des attributs des EV végétaux    
     UPDATE m_espace_vert_22x.an_ev_vegetal SET
-    position = CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END 
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
     WHERE idobjet = NEW.idobjet;
     RETURN NEW;
     
@@ -4444,11 +4686,11 @@ END;
 $$
 ;
 
--- DROP TRIGGER IF EXISTS t_m_ev_vegetal_arbre_alignement on m_espace_vert_22x.geo_v_ev_vegetal_arbre_alignement;
+-- DROP TRIGGER IF EXISTS t_m_ev_vegetal_arbre_alignement ON m_espace_vert_22x.geo_v_ev_vegetal_arbre_alignement;
 CREATE TRIGGER t_m_ev_vegetal_arbre_alignement INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 on m_espace_vert_22x.geo_v_ev_vegetal_arbre_alignement
-for each row execute procedure m_espace_vert_22x.ft_m_ev_vegetal_arbre_alignement();
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_vegetal_arbre_alignement();
 
 
 -- #################################################################### FONCTION/TRIGGER ZONE BOISEE ###############################################
@@ -4465,7 +4707,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -4476,24 +4718,24 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '11', '113');
   -- 
   IF (TG_OP = 'INSERT') THEN
-    -- insertion des attributs des EV végétaux    
+    -- INSERTion des attributs des EV végétaux    
     INSERT INTO m_espace_vert_22x.an_ev_vegetal
     (idobjet, 
     position)
     VALUES
     (_idobjet, 
-    CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END);  
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);  
     RETURN NEW;
     
   ELSIF (TG_OP = 'UPDATE') THEN
     -- MAJ des attributs des EV végétaux  
     UPDATE m_espace_vert_22x.an_ev_vegetal SET
-    position = CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END 
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
     WHERE idobjet = NEW.idobjet;
     RETURN NEW;
     
@@ -4504,11 +4746,11 @@ END;
 $$
 ;
 
--- DROP TRIGGER IF EXISTS t_m_ev_vegetal_arbre_bois on m_espace_vert_22x.geo_v_ev_vegetal_arbre_bois;
+-- DROP TRIGGER IF EXISTS t_m_ev_vegetal_arbre_bois ON m_espace_vert_22x.geo_v_ev_vegetal_arbre_bois;
 CREATE TRIGGER t_m_ev_vegetal_arbre_bois INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 on m_espace_vert_22x.geo_v_ev_vegetal_arbre_bois
-for each row execute procedure m_espace_vert_22x.ft_m_ev_vegetal_arbre_bois();
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_vegetal_arbre_bois();
 
 
 -- #################################################################### FONCTION/TRIGGER arbuste ###############################################
@@ -4525,7 +4767,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -4536,24 +4778,24 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '12', '121');
   -- 
   IF (TG_OP = 'INSERT') THEN
-    -- insertion des attributs des EV végétaux    
+    -- INSERTion des attributs des EV végétaux    
     INSERT INTO m_espace_vert_22x.an_ev_vegetal
     (idobjet, 
     position)
     VALUES
     (_idobjet, 
-    CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END);  
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);  
     RETURN NEW;
  
   ELSIF (TG_OP = 'UPDATE') THEN
     -- MAJ des attributs des EV végétaux     
     UPDATE m_espace_vert_22x.an_ev_vegetal SET
-    position = CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END 
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
     WHERE idobjet = NEW.idobjet;
     RETURN NEW;
     
@@ -4564,16 +4806,16 @@ END;
 $$
 ;
 
--- DROP TRIGGER IF EXISTS t_m_ev_vegetal_arbuste on m_espace_vert_22x.geo_v_ev_vegetal_arbuste;
+-- DROP TRIGGER IF EXISTS t_m_ev_vegetal_arbuste ON m_espace_vert_22x.geo_v_ev_vegetal_arbuste;
 CREATE TRIGGER t_m_ev_vegetal_arbuste INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 on m_espace_vert_22x.geo_v_ev_vegetal_arbuste 
-for each row execute procedure m_espace_vert_22x.ft_m_ev_vegetal_arbuste();
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_vegetal_arbuste();
 
 
 -- #################################################################### FONCTION/TRIGGER haie ###############################################
 
-CREATE OR REPLACE FUNCTION m_espace_vert_22x.ft_m_ev_vegetal_haie() RETURNS trigger LANGUAGE plpgsql AS $$
+CREATE OR REPLACE FUNCTION m_espace_vert_22x.ft_m_ev_vegetal_arbuste_haie() RETURNS trigger LANGUAGE plpgsql AS $$
   
   DECLARE _idobjet integer;
   DECLARE _dataold text;
@@ -4585,7 +4827,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -4596,12 +4838,12 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '12', '122');
   -- 
   IF (TG_OP = 'INSERT') THEN
-    -- insertion des attributs spécifiques
+    -- INSERTion des attributs spécifiques
     INSERT INTO m_espace_vert_22x.an_ev_vegetal_arbuste_haie
     (idobjet, 
     veget_type,
@@ -4611,13 +4853,13 @@ BEGIN
     NEW.veget_type,
     NEW.hauteur, NEW.espac_type, 
     NEW.paill_type, NEW.biodiv);
-    -- insertion des attributs des EV végétaux      
+    -- INSERTion des attributs des EV végétaux      
     INSERT INTO m_espace_vert_22x.an_ev_vegetal
     (idobjet, 
     position)
     VALUES
     (_idobjet, 
-    CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END);  
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);  
     RETURN NEW;
     
   ELSIF (TG_OP = 'UPDATE') THEN
@@ -4631,7 +4873,7 @@ BEGIN
     WHERE idobjet = NEW.idobjet;
     -- MAJ des attributs des EV végétaux      
     UPDATE m_espace_vert_22x.an_ev_vegetal SET
-    position = CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END 
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
     WHERE idobjet = NEW.idobjet;
     RETURN NEW;    
 
@@ -4642,11 +4884,11 @@ END;
 $$
 ;
 
--- DROP TRIGGER IF EXISTS t_m_ev_vegetal_haie on m_espace_vert_22x.geo_v_ev_vegetal_arbuste_haie;
+-- DROP TRIGGER IF EXISTS t_m_ev_vegetal_haie ON m_espace_vert_22x.geo_v_ev_vegetal_arbuste_haie;
 CREATE TRIGGER t_m_ev_vegetal_haie INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 on m_espace_vert_22x.geo_v_ev_vegetal_arbuste_haie
-for each row execute procedure m_espace_vert_22x.ft_m_ev_vegetal_haie();
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_vegetal_arbuste_haie();
 
 
 -- #################################################################### FONCTION/TRIGGER arbuste_massif ###############################################
@@ -4663,7 +4905,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -4674,12 +4916,12 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '12', '123');
   -- 
   IF (TG_OP = 'INSERT') THEN
-    -- insertion des attributs spécifiques
+    -- INSERTion des attributs spécifiques
     INSERT INTO m_espace_vert_22x.an_ev_vegetal_arbuste_massif
     (idobjet,
     espac_type, arros_type, 
@@ -4689,13 +4931,13 @@ BEGIN
     NEW.espac_type, NEW.arros_type, 
     CASE WHEN NEW.arros_auto IS NULL THEN '0' ELSE NEW.arros_auto END, NEW.biodiv, 
     CASE WHEN NEW.inv_faunis IS NULL THEN '0' ELSE NEW.inv_faunis END);
-    -- insertion des attributs des EV végétaux  
+    -- INSERTion des attributs des EV végétaux  
     INSERT INTO m_espace_vert_22x.an_ev_vegetal
     (idobjet, 
     position)
     VALUES
     (_idobjet, 
-    CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END);  
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);  
     RETURN NEW;    
     
   ELSIF (TG_OP = 'UPDATE') THEN
@@ -4709,7 +4951,7 @@ BEGIN
     WHERE idobjet = NEW.idobjet;
     -- MAJ des attributs des EV végétaux  
     UPDATE m_espace_vert_22x.an_ev_vegetal SET
-    position = CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END 
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
     WHERE idobjet = NEW.idobjet;
     RETURN NEW;     
 
@@ -4720,11 +4962,11 @@ END;
 $$
 ;
 
--- DROP TRIGGER IF EXISTS t_m_ev_vegetal_arbuste_massif on m_espace_vert_22x.geo_v_ev_vegetal_arbuste_massif;
+-- DROP TRIGGER IF EXISTS t_m_ev_vegetal_arbuste_massif ON m_espace_vert_22x.geo_v_ev_vegetal_arbuste_massif;
 CREATE TRIGGER t_m_ev_vegetal_arbuste_massif INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 on m_espace_vert_22x.geo_v_ev_vegetal_arbuste_massif 
-for each row execute procedure m_espace_vert_22x.ft_m_ev_vegetal_arbuste_massif();
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_vegetal_arbuste_massif();
 
 
 -- #################################################################### FONCTION/TRIGGER fleuri ###############################################
@@ -4741,7 +4983,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -4752,24 +4994,24 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '13', '131');
   -- 
   IF (TG_OP = 'INSERT') THEN
-    -- insertion des attributs des EV végétaux   
+    -- INSERTion des attributs des EV végétaux   
     INSERT INTO m_espace_vert_22x.an_ev_vegetal
     (idobjet, 
     position)
     VALUES
     (_idobjet, 
-    CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END);  
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);  
     RETURN NEW;
     
   ELSIF (TG_OP = 'UPDATE') THEN
     -- MAJ des attributs des EV végétaux  
     UPDATE m_espace_vert_22x.an_ev_vegetal SET
-    position = CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END 
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
     WHERE idobjet = NEW.idobjet;
     RETURN NEW;
     
@@ -4780,11 +5022,11 @@ END;
 $$
 ;
 
--- DROP TRIGGER IF EXISTS t_m_ev_vegetal_fleuri on m_espace_vert_22x.geo_v_ev_vegetal_fleuri;
+-- DROP TRIGGER IF EXISTS t_m_ev_vegetal_fleuri ON m_espace_vert_22x.geo_v_ev_vegetal_fleuri;
 CREATE TRIGGER t_m_ev_vegetal_fleuri INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 on m_espace_vert_22x.geo_v_ev_vegetal_fleuri 
-for each row execute procedure m_espace_vert_22x.ft_m_ev_vegetal_fleuri();
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_vegetal_fleuri();
 
 
 -- #################################################################### FONCTION/TRIGGER fleuri_massif ###############################################
@@ -4801,7 +5043,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -4812,13 +5054,13 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '13', '132');
 
   -- 
   IF (TG_OP = 'INSERT') THEN
-    -- insertion des attributs spécifiques
+    -- INSERTion des attributs spécifiques
     INSERT INTO m_espace_vert_22x.an_ev_vegetal_fleuri_massif
     (idobjet, 
     espac_type, arros_type, 
@@ -4828,13 +5070,13 @@ BEGIN
     NEW.espac_type, NEW.arros_type, 
     CASE WHEN NEW.arros_auto IS NULL THEN '0' ELSE NEW.arros_auto END, NEW.biodiv, 
     CASE WHEN NEW.inv_faunis IS NULL THEN '0' ELSE NEW.inv_faunis END);
-    -- insertion des attributs des EV végétaux  
+    -- INSERTion des attributs des EV végétaux  
     INSERT INTO m_espace_vert_22x.an_ev_vegetal
     (idobjet, 
     position)
     VALUES
     (_idobjet, 
-    CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END);
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);
     RETURN NEW;
     
   ELSIF (TG_OP = 'UPDATE') THEN
@@ -4848,7 +5090,7 @@ BEGIN
     WHERE idobjet = NEW.idobjet;
     -- MAJ des attributs des EV végétaux
     UPDATE m_espace_vert_22x.an_ev_vegetal SET
-    position = CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END 
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
     WHERE idobjet = NEW.idobjet;
     RETURN NEW;
     
@@ -4859,11 +5101,11 @@ END;
 $$
 ;
 
--- DROP TRIGGER IF EXISTS t_m_ev_vegetal_fleuri_massif on m_espace_vert_22x.geo_v_ev_vegetal_fleuri_massif;
+-- DROP TRIGGER IF EXISTS t_m_ev_vegetal_fleuri_massif ON m_espace_vert_22x.geo_v_ev_vegetal_fleuri_massif;
 CREATE TRIGGER t_m_ev_vegetal_fleuri_massif INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 on m_espace_vert_22x.geo_v_ev_vegetal_fleuri_massif 
-for each row execute procedure m_espace_vert_22x.ft_m_ev_vegetal_fleuri_massif();
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_vegetal_fleuri_massif();
 
 
 -- #################################################################### FONCTION/TRIGGER vegetal_herbe ###############################################
@@ -4880,7 +5122,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -4891,12 +5133,12 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '14', '141');
   -- 
   IF (TG_OP = 'INSERT') THEN
-    -- insertion des attributs spécifiques
+    -- INSERTion des attributs spécifiques
     INSERT INTO m_espace_vert_22x.an_ev_vegetal_herbe
     (idobjet, 
     espac_type, arros_type, arros_auto, 
@@ -4906,13 +5148,13 @@ BEGIN
     NEW.espac_type, NEW.arros_type, 
     CASE WHEN NEW.arros_auto IS NULL THEN '0' ELSE NEW.arros_auto END, NEW.biodiv, 
     CASE WHEN NEW.inv_faunis IS NULL THEN '0' ELSE NEW.inv_faunis END);
-    -- insertion des attributs des EV végétaux    
+    -- INSERTion des attributs des EV végétaux    
     INSERT INTO m_espace_vert_22x.an_ev_vegetal
     (idobjet, 
     position)
     VALUES
     (_idobjet, 
-    CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END);
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);
     RETURN NEW;
     
   ELSIF (TG_OP = 'UPDATE') THEN
@@ -4926,7 +5168,7 @@ BEGIN
     WHERE idobjet = NEW.idobjet;
     -- MAJ des attributs des EV végétaux  
     UPDATE m_espace_vert_22x.an_ev_vegetal SET
-    position = CASE WHEN NEW.position IS NULL THEN '00' ELSE NEW.position END 
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
     WHERE idobjet = NEW.idobjet;
     RETURN NEW;
     
@@ -4937,11 +5179,11 @@ END;
 $$
 ;
 
---DROP TRIGGER IF EXISTS t_m_ev_vegetal_herbe on m_espace_vert_22x.geo_v_ev_vegetal_herbe;
+--DROP TRIGGER IF EXISTS t_m_ev_vegetal_herbe ON m_espace_vert_22x.geo_v_ev_vegetal_herbe;
 CREATE TRIGGER t_m_ev_vegetal_herbe INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 on m_espace_vert_22x.geo_v_ev_vegetal_herbe 
-for each row execute procedure m_espace_vert_22x.ft_m_ev_vegetal_herbe();
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_vegetal_herbe();
 
 
 -- #################################################################### FONCTION/TRIGGER circulation_voie ###############################################
@@ -4958,7 +5200,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -4969,12 +5211,12 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '2', '21', _record_used.typ3);
   -- 
   IF (TG_OP = 'INSERT') THEN
-    -- insertion des attributs des objets geoline    
+    -- INSERTion des attributs des objets geoline    
     INSERT INTO m_espace_vert_22x.an_ev_objet_line_largeur
     (idobjet, 
     larg_cm)
@@ -4997,7 +5239,7 @@ END;
 $$
 ;
 
--- DROP TRIGGER IF EXISTS t_m_ev_mineral_circulation_voie on m_espace_vert_22x.geo_v_ev_mineral_circulation_voie;
+-- DROP TRIGGER IF EXISTS t_m_ev_mineral_circulation_voie ON m_espace_vert_22x.geo_v_ev_mineral_circulation_voie;
 CREATE TRIGGER t_m_ev_mineral_circulation_voie INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 ON m_espace_vert_22x.geo_v_ev_mineral_circulation_voie 
@@ -5018,7 +5260,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -5029,7 +5271,7 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '2', '21', _record_used.typ3);
   -- 
@@ -5046,7 +5288,7 @@ END;
 $$
 ;
 
--- DROP TRIGGER IF EXISTS t_m_ev_mineral_circulation_zone on m_espace_vert_22x.geo_v_ev_mineral_circulation_zone;
+-- DROP TRIGGER IF EXISTS t_m_ev_mineral_circulation_zone ON m_espace_vert_22x.geo_v_ev_mineral_circulation_zone;
 CREATE TRIGGER t_m_ev_mineral_circulation_zone INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 ON m_espace_vert_22x.geo_v_ev_mineral_circulation_zone 
@@ -5068,7 +5310,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -5079,7 +5321,7 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '2', '22', _record_used.typ3);
   -- 
@@ -5096,7 +5338,7 @@ END;
 $$
 ;
 
--- DROP TRIGGER IF EXISTS t_m_ev_mineral_cloture on m_espace_vert_22x.geo_v_ev_mineral_cloture;
+-- DROP TRIGGER IF EXISTS t_m_ev_mineral_cloture ON m_espace_vert_22x.geo_v_ev_mineral_cloture;
 CREATE TRIGGER t_m_ev_mineral_cloture INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 ON m_espace_vert_22x.geo_v_ev_mineral_cloture 
@@ -5117,7 +5359,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -5128,7 +5370,7 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '2', '23', '231');
   -- 
@@ -5145,7 +5387,7 @@ END;
 $$
 ;
 
--- DROP TRIGGER IF EXISTS t_m_ev_mineral_loisir_equipement on m_espace_vert_22x.geo_v_ev_mineral_loisir_equipement;
+-- DROP TRIGGER IF EXISTS t_m_ev_mineral_loisir_equipement ON m_espace_vert_22x.geo_v_ev_mineral_loisir_equipement;
 CREATE TRIGGER t_m_ev_mineral_loisir_equipement INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 ON m_espace_vert_22x.geo_v_ev_mineral_loisir_equipement 
@@ -5168,7 +5410,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -5179,7 +5421,7 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '2', '23', '232');
   -- 
@@ -5196,7 +5438,7 @@ END;
 $$
 ;
 
--- DROP TRIGGER IF EXISTS t_m_ev_mineral_loisir_zone on m_espace_vert_22x.geo_v_ev_mineral_loisir_zone;
+-- DROP TRIGGER IF EXISTS t_m_ev_mineral_loisir_zone ON m_espace_vert_22x.geo_v_ev_mineral_loisir_zone;
 CREATE TRIGGER t_m_ev_mineral_loisir_zone INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 ON m_espace_vert_22x.geo_v_ev_mineral_loisir_zone 
@@ -5217,7 +5459,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -5228,7 +5470,7 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '3', '31', _record_used.typ3);
   -- 
@@ -5245,7 +5487,7 @@ END;
 $$
 ;
 
---DROP TRIGGER IF EXISTS t_m_ev_hydro_eau_arrivee on m_espace_vert_22x.geo_v_ev_hydro_eau_arrivee;
+--DROP TRIGGER IF EXISTS t_m_ev_hydro_eau_arrivee ON m_espace_vert_22x.geo_v_ev_hydro_eau_arrivee;
 CREATE TRIGGER t_m_ev_hydro_eau_arrivee INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 ON m_espace_vert_22x.geo_v_ev_hydro_eau_arrivee 
@@ -5266,7 +5508,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -5277,7 +5519,7 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '3', '32', _record_used.typ3);
   -- 
@@ -5295,14 +5537,14 @@ $$
 ;
 
 -- trigger sur table hydro_eau_point
--- DROP TRIGGER IF EXISTS t_m_ev_hydro_eau_point on m_espace_vert_22x.geo_v_ev_hydro_eau_point;
+-- DROP TRIGGER IF EXISTS t_m_ev_hydro_eau_point ON m_espace_vert_22x.geo_v_ev_hydro_eau_point;
 CREATE TRIGGER t_m_ev_hydro_eau_point INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 ON m_espace_vert_22x.geo_v_ev_hydro_eau_point 
 FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_hydro();
 
 -- trigger sur table hydro_eau_etendue
--- DROP TRIGGER IF EXISTS t_m_ev_hydro_eau_etendue on m_espace_vert_22x.geo_v_ev_hydro_eau_etendue;
+-- DROP TRIGGER IF EXISTS t_m_ev_hydro_eau_etendue ON m_espace_vert_22x.geo_v_ev_hydro_eau_etendue;
 CREATE TRIGGER t_m_ev_hydro_eau_etendue INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 ON m_espace_vert_22x.geo_v_ev_hydro_eau_etendue 
@@ -5323,7 +5565,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -5334,12 +5576,12 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '3', '32', _record_used.typ3);
   -- 
   IF (TG_OP = 'INSERT') THEN
-    -- insertion des attributs des objets geoline    
+    -- INSERTion des attributs des objets geoline    
     INSERT INTO m_espace_vert_22x.an_ev_objet_line_largeur
     (idobjet, 
     larg_cm)
@@ -5363,7 +5605,7 @@ $$
 ;
 
 -- trigger sur table hydro_eau_cours
---DROP TRIGGER IF EXISTS t_m_ev_hydro_eau_cours on m_espace_vert_22x.geo_v_ev_hydro_eau_cours;
+--DROP TRIGGER IF EXISTS t_m_ev_hydro_eau_cours ON m_espace_vert_22x.geo_v_ev_hydro_eau_cours;
 CREATE TRIGGER t_m_ev_hydro_eau_cours INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 ON m_espace_vert_22x.geo_v_ev_hydro_eau_cours 
@@ -5384,7 +5626,7 @@ BEGIN
    -- générer un nouvel identifiant à partir de la séquence globale des objets EV
     _idobjet := nextval('m_espace_vert_22x.an_ev_objet_idobjet_seq');
     _record_used := NEW;
-    _dataold := null;
+    _dataold := NULL;
     _datanew := ROW(NEW.*)::text;
   ELSIF TG_OP = 'UPDATE' THEN
     _idobjet := NEW.idobjet;
@@ -5395,7 +5637,7 @@ BEGIN
     _idobjet := OLD.idobjet;
     _record_used := OLD;
     _dataold := ROW(OLD.*)::text;
-    _datanew := null;
+    _datanew := NULL;
   END IF;
   PERFORM m_espace_vert_22x.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '9', '99', '999');
   -- 
@@ -5411,25 +5653,211 @@ $$
 ;
 
 -- trigger sur table refnonclassee_point
--- DROP TRIGGER IF EXISTS t_m_ev_refnonclassee_point on m_espace_vert_22x.geo_v_ev_refnonclassee_point;
+-- DROP TRIGGER IF EXISTS t_m_ev_refnonclassee_point ON m_espace_vert_22x.geo_v_ev_refnonclassee_point;
 CREATE TRIGGER t_m_ev_refnonclassee_point INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 on m_espace_vert_22x.geo_v_ev_refnonclassee_point
-for each row execute procedure m_espace_vert_22x.ft_m_ev_refnonclassee();
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_refnonclassee();
 
 -- trigger sur table refnonclassee_line
--- DROP TRIGGER IF EXISTS t_m_ev_refnonclassee_line on m_espace_vert_22x.geo_v_ev_refnonclassee_line;
+-- DROP TRIGGER IF EXISTS t_m_ev_refnonclassee_line ON m_espace_vert_22x.geo_v_ev_refnonclassee_line;
 CREATE TRIGGER t_m_ev_refnonclassee_line INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 on m_espace_vert_22x.geo_v_ev_refnonclassee_line
-for each row execute procedure m_espace_vert_22x.ft_m_ev_refnonclassee();
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_refnonclassee();
 
 -- trigger sur table refnonclassee_polygon
--- DROP TRIGGER IF EXISTS t_m_ev_refnonclassee_polygon on m_espace_vert_22x.geo_v_ev_refnonclassee_polygon;
+-- DROP TRIGGER IF EXISTS t_m_ev_refnonclassee_polygon ON m_espace_vert_22x.geo_v_ev_refnonclassee_polygon;
 CREATE TRIGGER t_m_ev_refnonclassee_polygon INSTEAD OF
 INSERT OR UPDATE OR DELETE 
 on m_espace_vert_22x.geo_v_ev_refnonclassee_polygon
-for each row execute procedure m_espace_vert_22x.ft_m_ev_refnonclassee();
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_refnonclassee();
+
+
+
+-- #################################################################### FONCTION/TRIGGER INTERVENTION + DDE INTER ###############################################
+
+-- lors de la suppression d'une DI / Intervention, ne pas laisser les objets liés comme orphelins.
+-- pas possible d'utilisée une FOREIGN KEY avec DELETE CASCADE car l'idinter peut être lié soit à une DI, soit à une intervention
+CREATE OR REPLACE FUNCTION m_espace_vert_22x.ft_m_ev_intervention_purge_on_delete() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  DELETE FROM m_espace_vert_22x.lk_ev_intervention_objet WHERE idinter = OLD.idinter;
+  RETURN OLD;
+END;
+$$
+;
+
+-- demande d'intervention
+-- assigner tous les objets du type choisi, à la DI
+CREATE OR REPLACE FUNCTION m_espace_vert_22x.ft_m_ev_intervention_add_objets() RETURNS trigger LANGUAGE plpgsql AS $$
+DECLARE 
+  _geom_intersection geometry; -- géométrie à utiliser pour intersecter avec les éléments de patrimoine (soit tracée à la main, soit celle de l'équipe)
+BEGIN
+  -- si l'intervention saisie est liée à une demande d'intervention
+  IF NEW.iddemande IS NOT NULL THEN
+    -- on vérifie si une intervention n'existe pas déjà pour cette demande (car GEO ne permet pas de cacher le bouton)
+    IF (SELECT count(1) > 0 FROM m_espace_vert_22x.geo_ev_intervention WHERE iddemande = NEW.iddemande AND idinter <> NEW.idinter) THEN
+      RAISE EXCEPTION 'Une intervention est déjà liée à cette demande d''intervention.<br><br>';
+      return NEW;
+    END IF;
+    -- alors on va recopier tous les objets liés à la DI, au niveau de l'intervention
+    INSERT INTO m_espace_vert_22x.lk_ev_intervention_objet(idinter, idobjet)
+      SELECT NEW.idinter, idobjet 
+        FROM m_espace_vert_22x.lk_ev_intervention_objet 
+        WHERE idinter = NEW.iddemande;
+    -- et recopier aussi la géométrie polygone issue de la DI
+    -- on fait un UPDATE comme on est en AFTER INSERT, sinon on aurait pu faire NEW.geom := (SELECT ...)
+    UPDATE m_espace_vert_22x.geo_ev_intervention SET geom = (SELECT geom FROM m_espace_vert_22x.geo_ev_intervention_demande WHERE idinter = NEW.iddemande) WHERE idinter = NEW.idinter;
+    RETURN NEW;
+  END IF;
+  -- si géométrie dessinée
+  IF NEW.geom IS NOT NULL THEN
+    _geom_intersection := NEW.geom;
+  END IF;
+  -- si la demande provient de la fiche d'information d'un secteur d'équipe, alors on considère que la géométrie à utiliser est celle du secteur d'équipe
+  IF NEW.idequipe IS NOT NULL THEN
+    _geom_intersection := (SELECT geom FROM m_espace_vert_22x.geo_ev_zone_equipe e WHERE e.idequipe = NEW.idequipe LIMIT 1);
+  END IF;
+  -- si pas de géométrie à intersecter, on ne fait rien
+  IF _geom_intersection IS NULL THEN
+    return NEW;
+  END IF;
+  -- si on a une géométrie mais pas de type d'objet, alors on refuse la saisie
+  IF NEW.type_objet IS NULL OR NEW.type_objet = '00' THEN
+    RAISE EXCEPTION 'Lors d''une saisie par polygone, veuillez choisir un type d''objet. Tous les objets de ce type présents dans cette zone seront liés automatiquement à la demande.<br><br>';
+    return NEW;
+  END IF;
+  -- on ajoute dans la table de relation N-M tous les objets du type choisi
+  INSERT INTO m_espace_vert_22x.lk_ev_intervention_objet(idinter, idobjet)
+    SELECT NEW.idinter, coalesce(l.idobjet, p.idobjet , s.idobjet)
+    FROM m_espace_vert_22x.an_ev_objet 
+    -- pour pouvoir faire l'intersection spatiale, on fait des jointures avec les 3 tables dans lesquelles peuvent se trouver la géom (pct, ligne, polygon)
+      LEFT JOIN m_espace_vert_22x.geo_ev_objet_line l ON l.idobjet = an_ev_objet.idobjet AND ST_Intersects(_geom_intersection, l.geom)
+      LEFT JOIN m_espace_vert_22x.geo_ev_objet_pct p ON p.idobjet = an_ev_objet.idobjet AND ST_Intersects(_geom_intersection, p.geom)
+      LEFT JOIN m_espace_vert_22x.geo_ev_objet_polygon s ON s.idobjet = an_ev_objet.idobjet AND ST_Intersects(_geom_intersection, s.geom)
+          -- on ne prend que le type d'objets EV choisi par l'utilisateur
+    where typ3 = NEW.type_objet 
+          -- pour retirer les lignes de an_ev_objet qui n'ont pas matché, on regarde les lignes en résultat qui ont un identifiant
+          and (l.idobjet IS NOT NULL or p.idobjet IS NOT NULL or s.idobjet IS NOT NULL);
+    -- on vérifie si des objets de ce type ont bien été ajoutés, sinon on refuse la saisie
+    IF (SELECT count(1) = 0 FROM m_espace_vert_22x.lk_ev_intervention_objet WHERE idinter = NEW.idinter) THEN
+      RAISE EXCEPTION 'Aucun objet de ce type n''a été trouvé dans la zone tracée. Veuillez modifier la zone ou le type d''objets et essayer à nouveau.<br><br>';
+    END IF;
+  RETURN NEW;
+END;
+$$
+;
+
+-- demande d'intervention, trigger classique
+-- on crée en AFTER INSERT pour pouvoir récupérer l'identifiant idinter généré
+--DROP TRIGGER t_m_ev_intervention_demande ON m_espace_vert_22x.geo_ev_intervention_demande;
+CREATE TRIGGER t_m_ev_intervention_demande 
+AFTER INSERT ON m_espace_vert_22x.geo_ev_intervention_demande
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_intervention_add_objets();
+
+-- purge des éléments liés à la DI lors du DELETE
+-- DROP TRIGGER t_m_ev_intervention_demande_on_delete ON m_espace_vert_22x.geo_ev_intervention_demande;
+CREATE TRIGGER t_m_ev_intervention_demande_on_delete 
+AFTER DELETE ON m_espace_vert_22x.geo_ev_intervention_demande
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_intervention_purge_on_delete();
+
+-- on crée en AFTER INSERT pour pouvoir récupérer l'identifiant idinter généré
+-- DROP TRIGGER t_m_ev_intervention ON m_espace_vert_22x.geo_ev_intervention;
+CREATE TRIGGER t_m_ev_intervention 
+AFTER INSERT ON m_espace_vert_22x.geo_ev_intervention
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_intervention_add_objets();
+
+-- purge des éléments liés à l'intervention lors du DELETE
+-- DROP TRIGGER t_m_ev_intervention_on_delete ON m_espace_vert_22x.geo_ev_intervention;
+CREATE TRIGGER t_m_ev_intervention_on_delete 
+AFTER DELETE ON m_espace_vert_22x.geo_ev_intervention
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_intervention_purge_on_delete();
+
+
+-- #################################################################### FONCTION/TRIGGER ZONE GESTION ###############################################
+
+-- MAJ des objets EV liés quand modification découpage adm (zone_gestion, site cohérent)
+-- pour chaque type de couche, on fait l'intersection
+CREATE OR REPLACE FUNCTION m_espace_vert_22x.ft_m_ev_zone_gestion_set() RETURNS trigger LANGUAGE plpgsql AS $$
+DECLARE
+BEGIN
+  IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
+    UPDATE m_espace_vert_22x.an_ev_objet SET idzone = NEW.idzone WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_polygon WHERE ST_Intersects(geom,NEW.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idzone = NEW.idzone WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_line WHERE ST_Intersects(geom,NEW.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idzone = NEW.idzone WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_pct WHERE ST_Intersects(geom,NEW.geom));
+  ELSE
+    UPDATE m_espace_vert_22x.an_ev_objet SET idzone = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_polygon WHERE ST_Intersects(geom,OLD.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idzone = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_line WHERE ST_Intersects(geom,OLD.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idzone = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_pct WHERE ST_Intersects(geom,OLD.geom));
+    RETURN OLD;
+  END IF;
+ RETURN NEW;
+END;
+$$
+;
+
+
+-- MAJ des objets EV liés quand modification découpage adm (zone_gestion)
+-- DROP TRIGGER t_m_ev_zone_gestion_set ON m_espace_vert_22x.geo_ev_zone_gestion;
+CREATE TRIGGER t_m_ev_zone_gestion_set 
+AFTER INSERT OR UPDATE of geom OR DELETE ON m_espace_vert_22x.geo_ev_zone_gestion
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_zone_gestion_set();
+
+
+-- #################################################################### FONCTION/TRIGGER ZONE SITE ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert_22x.ft_m_ev_zone_site_set() RETURNS trigger LANGUAGE plpgsql AS $$
+DECLARE
+BEGIN
+  IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
+    UPDATE m_espace_vert_22x.an_ev_objet SET idsite = NEW.idsite WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_polygon WHERE ST_Intersects(geom,NEW.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idsite = NEW.idsite WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_line WHERE ST_Intersects(geom,NEW.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idsite = NEW.idsite WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_pct WHERE ST_Intersects(geom,NEW.geom));
+  ELSE
+    UPDATE m_espace_vert_22x.an_ev_objet SET idsite = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_polygon WHERE ST_Intersects(geom,OLD.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idsite = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_line WHERE ST_Intersects(geom,OLD.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idsite = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_pct WHERE ST_Intersects(geom,OLD.geom));
+    RETURN OLD;
+  END IF;
+ RETURN NEW;
+END;
+$$
+;
+
+-- MAJ des objets EV liés quand modification découpage adm (site cohérent)
+-- DROP TRIGGER t_m_ev_zone_site_set ON m_espace_vert_22x.geo_ev_zone_site;
+CREATE TRIGGER t_m_ev_zone_site_set 
+AFTER INSERT OR UPDATE of geom OR DELETE ON m_espace_vert_22x.geo_ev_zone_site
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_zone_site_set();
+
+-- #################################################################### FONCTION/TRIGGER ZONE EQUIPE ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert_22x.ft_m_ev_zone_equipe_set() RETURNS trigger LANGUAGE plpgsql AS $$
+DECLARE
+BEGIN
+  IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
+    UPDATE m_espace_vert_22x.an_ev_objet SET idequipe = NEW.idequipe WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_polygon WHERE ST_Intersects(geom,NEW.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idequipe = NEW.idequipe WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_line WHERE ST_Intersects(geom,NEW.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idequipe = NEW.idequipe WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_pct WHERE ST_Intersects(geom,NEW.geom));
+  ELSE
+    UPDATE m_espace_vert_22x.an_ev_objet SET idequipe = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_polygon WHERE ST_Intersects(geom,OLD.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idequipe = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_line WHERE ST_Intersects(geom,OLD.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idequipe = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_pct WHERE ST_Intersects(geom,OLD.geom));
+    RETURN OLD;
+  END IF;
+ RETURN NEW;
+END;
+$$
+;
+
+-- MAJ des objets EV liés quand modification découpage adm (equipe ev)
+-- DROP TRIGGER t_m_ev_zone_equipe_set ON m_espace_vert_22x.geo_ev_zone_equipe;
+CREATE TRIGGER t_m_ev_zone_equipe_set 
+AFTER INSERT OR UPDATE of geom OR DELETE ON m_espace_vert_22x.geo_ev_zone_equipe
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_zone_equipe_set();
+
+
+
 
 
 -- ####################################################################################################################################################
@@ -5816,6 +6244,25 @@ GRANT ALL ON TABLE m_espace_vert_22x.geo_ev_zone_equipe TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_22x.geo_ev_zone_equipe TO sig_edit;
 
 
+-- ## intervention
+
+-- geo_ev_intervention_demande
+ALTER TABLE m_espace_vert_22x.geo_ev_intervention_demande OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_22x.geo_ev_intervention_demande TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_22x.geo_ev_intervention_demande TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_22x.geo_ev_intervention_demande TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_22x.geo_ev_intervention_demande TO sig_edit;
+
+-- geo_ev_intervention
+ALTER TABLE m_espace_vert_22x.geo_ev_intervention OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_22x.geo_ev_intervention TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_22x.geo_ev_intervention TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_22x.geo_ev_intervention TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_22x.geo_ev_intervention TO sig_edit;
+
+
 -- ## DOMAINE
 
 -- lt_ev_boolean
@@ -5874,13 +6321,13 @@ GRANT SELECT ON TABLE m_espace_vert_22x.lt_ev_intervention_inter_type TO sig_rea
 GRANT ALL ON TABLE m_espace_vert_22x.lt_ev_intervention_inter_type TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_22x.lt_ev_intervention_inter_type TO sig_edit;
 
--- lt_ev_intervention_type_objet
-ALTER TABLE m_espace_vert_22x.lt_ev_intervention_type_objet OWNER to create_sig;
+-- lt_ev_intervention_objet_type
+ALTER TABLE m_espace_vert_22x.lt_ev_intervention_objet_type OWNER to create_sig;
 
-GRANT ALL ON TABLE m_espace_vert_22x.lt_ev_intervention_type_objet TO sig_create;
-GRANT SELECT ON TABLE m_espace_vert_22x.lt_ev_intervention_type_objet TO sig_read;
-GRANT ALL ON TABLE m_espace_vert_22x.lt_ev_intervention_type_objet TO create_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_22x.lt_ev_intervention_type_objet TO sig_edit;
+GRANT ALL ON TABLE m_espace_vert_22x.lt_ev_intervention_objet_type TO sig_create;
+GRANT SELECT ON TABLE m_espace_vert_22x.lt_ev_intervention_objet_type TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_22x.lt_ev_intervention_objet_type TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_22x.lt_ev_intervention_objet_type TO sig_edit;
 
 -- lt_ev_objet_doma
 ALTER TABLE m_espace_vert_22x.lt_ev_objet_doma OWNER to create_sig;
@@ -6252,6 +6699,17 @@ GRANT ALL ON TABLE m_espace_vert_22x.geo_v_ev_refnonclassee_polygon TO sig_creat
 GRANT SELECT ON TABLE m_espace_vert_22x.geo_v_ev_refnonclassee_polygon TO sig_read;
 GRANT ALL ON TABLE m_espace_vert_22x.geo_v_ev_refnonclassee_polygon TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_22x.geo_v_ev_refnonclassee_polygon TO sig_edit;
+
+
+-- ## RELATION
+
+-- lk_ev_intervention_objet
+ALTER TABLE m_espace_vert_22x.lk_ev_intervention_objet OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_22x.lk_ev_intervention_objet TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_22x.lk_ev_intervention_objet TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_22x.lk_ev_intervention_objet TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_22x.lk_ev_intervention_objet TO sig_edit;
 
 
 -- ## MEDIA
