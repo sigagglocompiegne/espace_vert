@@ -4595,9 +4595,8 @@ BEGIN
     CASE WHEN NEW.hauteur_cl IS NULL THEN '00' ELSE NEW.hauteur_cl END,
     NEW.circonf,
     NEW.diam_houpp,    
-    -- implant est déduite par relation spatiale avec alignement et zone boisée en etat actif si la valeur est NULL ou NR '00')
-    CASE WHEN (SELECT count(1) > 0 FROM m_espace_vert_22x.geo_v_ev_vegetal_arbre_alignement b WHERE b.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),b.geom)) THEN '02' WHEN (SELECT count(1) > 0 FROM m_espace_vert_22x.geo_v_ev_vegetal_arbre_bois c WHERE c.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),c.geom)) THEN '03' ELSE '01' END,
---    CASE WHEN (SELECT count(1) > 0 FROM m_espace_vert_22x.geo_v_ev_vegetal_arbre_alignement b WHERE b.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),b.geom)) THEN '02' WHEN (SELECT count(1) > 0 FROM m_espace_vert_22x.geo_v_ev_vegetal_arbre_bois c WHERE c.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),c.geom)) THEN '03' ELSE '01' END,
+-- implant est déduit uniquement dans le cas où l'utilisateur ne le renseigne pas ('00' OU NULL)
+    CASE WHEN NEW.implant IN ('01','02','03') THEN NEW.implant WHEN (SELECT count(1) > 0 FROM m_espace_vert_22x.geo_v_ev_vegetal_arbre_alignement b WHERE b.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),b.geom)) THEN '02' WHEN (SELECT count(1) > 0 FROM m_espace_vert_22x.geo_v_ev_vegetal_arbre_bois c WHERE c.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),c.geom)) THEN '03' END,
     CASE WHEN NEW.mode_cond IS NULL THEN '00' ELSE NEW.mode_cond END,   
 -- historique
     NEW.date_pl_an, 
@@ -4640,8 +4639,8 @@ BEGIN
     hauteur_cl = CASE WHEN NEW.hauteur_cl IS NULL THEN '00' ELSE NEW.hauteur_cl END,
     circonf = NEW.circonf,
     diam_houpp = NEW.diam_houpp,    
-    -- implant est déduite par relation spatiale avec alignement et zone boisée en etat actif
-    implant = CASE WHEN (SELECT count(1) > 0 FROM m_espace_vert_22x.geo_v_ev_vegetal_arbre_alignement b WHERE b.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),b.geom)) THEN '02' WHEN (SELECT count(1) > 0 FROM m_espace_vert_22x.geo_v_ev_vegetal_arbre_bois c WHERE c.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),c.geom)) THEN '03' ELSE '01' END,
+-- implant est déduit uniquement dans le cas où l'utilisateur ne le renseigne pas ('00' OU NULL)
+    implant = CASE WHEN NEW.implant IN ('01','02','03') THEN NEW.implant WHEN (SELECT count(1) > 0 FROM m_espace_vert_22x.geo_v_ev_vegetal_arbre_alignement b WHERE b.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),b.geom)) THEN '02' WHEN (SELECT count(1) > 0 FROM m_espace_vert_22x.geo_v_ev_vegetal_arbre_bois c WHERE c.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),c.geom)) THEN '03' END,
     mode_cond = CASE WHEN NEW.mode_cond IS NULL THEN '00' ELSE NEW.mode_cond END,   
 -- historique
     date_pl_an = NEW.date_pl_an, 
@@ -5913,6 +5912,7 @@ FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_zone_equipe_set();
 -- ####################################################################################################################################################
 
 
+
 -- MAJ des calculs de surface des objets de type polygone !!!!!! renvoit vers fonction trigger générique du schéma public !!!!;
 -- DROP TRIGGER t_geo_ev_objet_polygon_sup_m2 ON m_espace_vert_22x.geo_ev_objet_polygon;
 CREATE TRIGGER t_geo_ev_objet_polygon_sup_m2
@@ -5932,6 +5932,24 @@ FOR EACH ROW EXECUTE PROCEDURE public.ft_r_longm_maj();
 CREATE TRIGGER t_geo_ev_objet_pct_xy_l93
 BEFORE INSERT OR UPDATE OF geom ON m_espace_vert_22x.geo_ev_objet_pct
 FOR EACH ROW EXECUTE PROCEDURE public.ft_r_xy_l93();
+
+-- MAJ des calculs de surface des zones sites !!!!!! renvoit vers fonction trigger générique du schéma public !!!!;
+-- DROP TRIGGER t_geo_ev_zone_site_sup_m2 ON m_espace_vert_22x.geo_ev_zone_site;
+CREATE TRIGGER t_geo_ev_zone_site_sup_m2
+BEFORE INSERT OR UPDATE OF geom ON m_espace_vert_22x.geo_ev_zone_site
+FOR EACH ROW EXECUTE PROCEDURE public.ft_r_sup_m2_maj();
+
+-- MAJ des calculs de surface des zones equipe !!!!!! renvoit vers fonction trigger générique du schéma public !!!!;
+-- DROP TRIGGER t_geo_ev_zone_equipe_sup_m2 ON m_espace_vert_22x.geo_ev_zone_equipe;
+CREATE TRIGGER t_geo_ev_zone_equipe_sup_m2
+BEFORE INSERT OR UPDATE OF geom ON m_espace_vert_22x.geo_ev_zone_equipe
+FOR EACH ROW EXECUTE PROCEDURE public.ft_r_sup_m2_maj();
+
+-- MAJ des calculs de surface des zones gestion !!!!!! renvoit vers fonction trigger générique du schéma public !!!!;
+-- DROP TRIGGER t_geo_ev_zone_gestion_sup_m2 ON m_espace_vert_22x.geo_ev_zone_gestion;
+CREATE TRIGGER t_geo_ev_zone_gestion_sup_m2
+BEFORE INSERT OR UPDATE OF geom ON m_espace_vert_22x.geo_ev_zone_gestion
+FOR EACH ROW EXECUTE PROCEDURE public.ft_r_sup_m2_maj();
 
 
 
