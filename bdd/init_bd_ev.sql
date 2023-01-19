@@ -49,22 +49,24 @@
 2023-01-09 : FV / reprise du script suite aux décisions de la réunion projet du 06/01 (niv_allerg au niveau du référentiel bota, aménagement pied d'arbre en multivarié + ajout valeur du domaine, contrainte en multivarié + ajout valeur du domaine)
 2023-01-13 : FV / reprise fonction trigger arbre pour mettre à NULL les commentaires lorsque les attributs boolean (remarq, proteg, contr, naiss) sont à NON (f)
 2023-01-16 : FV / reprise classe d'intervention et correctifs
+2023-01-19 : FV / correctif code de la liste lt_ev_intervention_freq_unite et lt_ev_intervention_periode
 
 */
 
 
 /*
 ToDo :
-- corriger les domaines de valeur avec des 00 qui ne sont pas des "non renseigné" (reste à évaluer/faire : intervention_freq_unite, intervention_periode)
 - vérifier fonction de découpe (ou comment se faire l'intersection si plusieurs zonage) des objets hors arbre (enherbé, arbustif, minéraux, hydro, non classés), depuis les découpages admin
 (A VERIFIER SI FAIT > - absence INSERT update du champ largeur larg_cm de la class geoline utilisée pour les haies et voies de circulation
 - attributs ev_objet avec plusieurs valeur par défaut à vérifier (src_geom ...)
 - prévoir analyse croisée pour déterminer implantation arbre / alignement et zone boisée
-- fonciton générique pour calcul périmètre objet surfacique
+- fonction générique pour calcul périmètre objet surfacique
 - arbre : voir pour ajout champ à surveiller dépendant si un état sanitaire (le dernier en date ???) indique la nécessité de surveillance à OUI
 - arbre : voir pour ajout date d'abattage de l'arbre rempli en auto en fonction de la date d'intervention arbre de type abattage
 ?? : zonage inventaire à reintégrer ?
-
+- manque calcul sup_m2 sur geo_ev_zone_site et geo_ev_zone_equipe
+-- fonction de rappel sans aucun déclencheur dessus (?)
+-- avec changement des codes des mois de 01 à 12 et non plus de 00 à 11 dans lt_ev_intervention_periode, voir impact potentiel sur fonction de rappel
 */
 
 
@@ -77,6 +79,8 @@ ToDo :
 -- ##VUE
 -- stats
 DROP VIEW IF EXISTS m_espace_vert_22x.xapps_an_v_ev_stat_arbre_quartier;
+DROP VIEW IF EXISTS m_espace_vert_22x.xapps_an_v_ev_stat_arbre_alignement;
+DROP VIEW IF EXISTS m_espace_vert_22x.xapps_an_v_ev_stat_fleuri;
 DROP VIEW IF EXISTS m_espace_vert_22x.xapps_an_v_ev_chiffre_cle_tab;
 -- vegetal
 DROP VIEW IF EXISTS m_espace_vert_22x.geo_v_ev_vegetal_arbre;
@@ -246,6 +250,7 @@ DROP SEQUENCE IF EXISTS m_espace_vert_22x.an_ev_log_idlog_seq;
 -- ## FONCTIONS
 -- objet patrimoniaux EV
 DROP FUNCTION IF EXISTS m_espace_vert_22x.ft_m_ev_process_generic_info(text,text,geometry,integer,text,text,text,text,text,text,text,text);
+DROP FUNCTION IF EXISTS m_espace_vert_22x.ft_m_ev_intervention_get_next_date_rappel(date,integer,text,integer,text,text);
 DROP FUNCTION IF EXISTS m_espace_vert_22x.ft_m_ev_vegetal_arbre();
 DROP FUNCTION IF EXISTS m_espace_vert_22x.ft_m_ev_vegetal_arbre_alignement();
 DROP FUNCTION IF EXISTS m_espace_vert_22x.ft_m_ev_vegetal_arbre_bois();
@@ -1289,10 +1294,10 @@ COMMENT ON CONSTRAINT lt_ev_intervention_freq_unite_pkey ON m_espace_vert_22x.lt
 INSERT INTO m_espace_vert_22x.lt_ev_intervention_freq_unite(
             code, valeur)
     VALUES
-  ('00', 'Jours'),
-  ('01', 'Semaines'),
-  ('02', 'Mois'),
-  ('03', 'Ans');
+  ('01', 'Jours'),
+  ('02', 'Semaines'),
+  ('03', 'Mois'),
+  ('04', 'Ans');
 
 
 -- ################################################################# lt_ev_intervention_statut ###############################################
@@ -1349,18 +1354,18 @@ COMMENT ON CONSTRAINT lt_ev_intervention_periode_pkey ON m_espace_vert_22x.lt_ev
 INSERT INTO m_espace_vert_22x.lt_ev_intervention_periode(
             code, valeur)
     VALUES
-  ('00', 'Janvier'),
-  ('01', 'Février'),
-  ('02', 'Mars'),
-  ('03', 'Avril'),
-  ('04', 'Mai'),
-  ('05', 'Juin'),
-  ('06', 'Juillet'),
-  ('07', 'Août'),
-  ('08', 'Septembre'),
-  ('09', 'Octobre'),
-  ('10', 'Novembre'),
-  ('11', 'Décembre');
+  ('01', 'Janvier'),
+  ('02', 'Février'),
+  ('03', 'Mars'),
+  ('04', 'Avril'),
+  ('05', 'Mai'),
+  ('06', 'Juin'),
+  ('07', 'Juillet'),
+  ('08', 'Août'),
+  ('09', 'Septembre'),
+  ('10', 'Octobre'),
+  ('11', 'Novembre'),
+  ('12', 'Décembre');
 
 
 -- ################################################################# lt_ev_equipe_specialisation ###############################################
@@ -4377,6 +4382,48 @@ COMMENT ON COLUMN m_espace_vert_22x.geo_v_ev_refnonclassee_polygon.geom IS 'Géo
 -- ####################################################################################################################################################
 
 
+-- #################################################################### FONCTION DATE RAPPEL ###############################################
+
+-- à partir d'une date de référence, récupérer la prochaine date anniversaire
+CREATE OR REPLACE FUNCTION m_espace_vert_22x.ft_m_ev_intervention_get_next_date_rappel(_date_ref date, _freq_value integer, _freq_unit text, _nb_jr_rapp integer, _period_start text, _period_end text)  RETURNS date LANGUAGE plpgsql AS $$
+  DECLARE next_date date;
+  -- valeur Postgresql utilisable dans un interval : jour -> days, Semaines -> weeks
+  DECLARE _freq_unit_pg text;
+  -- les mois sont codes à partir de 0 dans la donnée, depuis 1 dans PG
+  DECLARE _month_start_pg integer := _period_start::integer + 1;
+  DECLARE _month_end_pg integer := _period_end::integer + 1;
+BEGIN
+  -- transformer la valeur de l'unité en unité PG
+  _freq_unit_pg := (
+  CASE _freq_unit
+    WHEN '01' THEN 'days'
+    WHEN '02' THEN 'weeks'
+    WHEN '03' THEN 'months'
+    WHEN '04' THEN 'years'
+  ELSE 
+  'days' 
+  END); 
+  
+  next_date := (
+    with dates_anniv as (
+      select _date_ref + incr * (_freq_value || ' ' || _freq_unit_pg)::interval - ('' || _nb_jr_rapp || ' days')::interval as date_anniv
+      -- note: ici on prévoit les 10000 prochains anniversaire. Augmenter cette valeur a un impact sur la performance de la requête
+      from pg_catalog.generate_series(0, 10000, 1) incr
+    )
+    select date_anniv 
+      from dates_anniv 
+      WHERE 
+        -- à partir de maintenant (ne pas tenir compte des anniversaires passés)
+        date_anniv >= now() 
+        -- entre les mois indiqués
+        AND EXTRACT(MONTH from date_anniv) BETWEEN _month_start_pg AND _month_end_pg
+      limit 1);
+  return next_date;
+END;
+$$
+;
+
+
 -- #################################################################### FONCTION GENERIQUE ###############################################
 
 -- fonction pour gérer les attributs communs (méta + geo) à l'ensemble des objets de la base espaces verts (végétal, minéral, hydro et non reférencé)
@@ -4548,8 +4595,9 @@ BEGIN
     CASE WHEN NEW.hauteur_cl IS NULL THEN '00' ELSE NEW.hauteur_cl END,
     NEW.circonf,
     NEW.diam_houpp,    
-    -- implant est déduite par relation spatiale avec alignement et zone boisée en etat actif
+    -- implant est déduite par relation spatiale avec alignement et zone boisée en etat actif si la valeur est NULL ou NR '00')
     CASE WHEN (SELECT count(1) > 0 FROM m_espace_vert_22x.geo_v_ev_vegetal_arbre_alignement b WHERE b.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),b.geom)) THEN '02' WHEN (SELECT count(1) > 0 FROM m_espace_vert_22x.geo_v_ev_vegetal_arbre_bois c WHERE c.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),c.geom)) THEN '03' ELSE '01' END,
+--    CASE WHEN (SELECT count(1) > 0 FROM m_espace_vert_22x.geo_v_ev_vegetal_arbre_alignement b WHERE b.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),b.geom)) THEN '02' WHEN (SELECT count(1) > 0 FROM m_espace_vert_22x.geo_v_ev_vegetal_arbre_bois c WHERE c.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),c.geom)) THEN '03' ELSE '01' END,
     CASE WHEN NEW.mode_cond IS NULL THEN '00' ELSE NEW.mode_cond END,   
 -- historique
     NEW.date_pl_an, 
@@ -5782,13 +5830,13 @@ CREATE OR REPLACE FUNCTION m_espace_vert_22x.ft_m_ev_zone_gestion_set() RETURNS 
 DECLARE
 BEGIN
   IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
-    UPDATE m_espace_vert_22x.an_ev_objet SET idzone = NEW.idzone WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_polygon WHERE ST_Intersects(geom,NEW.geom));
-    UPDATE m_espace_vert_22x.an_ev_objet SET idzone = NEW.idzone WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_line WHERE ST_Intersects(geom,NEW.geom));
-    UPDATE m_espace_vert_22x.an_ev_objet SET idzone = NEW.idzone WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_pct WHERE ST_Intersects(geom,NEW.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idgestion = NEW.idgestion WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_polygon WHERE ST_Intersects(geom,NEW.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idgestion = NEW.idgestion WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_line WHERE ST_Intersects(geom,NEW.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idgestion = NEW.idgestion WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_pct WHERE ST_Intersects(geom,NEW.geom));
   ELSE
-    UPDATE m_espace_vert_22x.an_ev_objet SET idzone = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_polygon WHERE ST_Intersects(geom,OLD.geom));
-    UPDATE m_espace_vert_22x.an_ev_objet SET idzone = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_line WHERE ST_Intersects(geom,OLD.geom));
-    UPDATE m_espace_vert_22x.an_ev_objet SET idzone = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_pct WHERE ST_Intersects(geom,OLD.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idgestion = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_polygon WHERE ST_Intersects(geom,OLD.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idgestion = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_line WHERE ST_Intersects(geom,OLD.geom));
+    UPDATE m_espace_vert_22x.an_ev_objet SET idgestion = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert_22x.geo_ev_objet_pct WHERE ST_Intersects(geom,OLD.geom));
     RETURN OLD;
   END IF;
  RETURN NEW;
@@ -5855,8 +5903,6 @@ $$
 CREATE TRIGGER t_m_ev_zone_equipe_set 
 AFTER INSERT OR UPDATE of geom OR DELETE ON m_espace_vert_22x.geo_ev_zone_equipe
 FOR EACH ROW EXECUTE PROCEDURE m_espace_vert_22x.ft_m_ev_zone_equipe_set();
-
-
 
 
 
@@ -6008,18 +6054,23 @@ CREATE OR REPLACE VIEW m_espace_vert_22x.xapps_an_v_ev_chiffre_cle_tab
      JOIN req_surfenherbe sh ON ar.gid = sh.gid
      JOIN req_surfmassifarbustif sma ON ar.gid = sma.gid
      JOIN req_surfmassiffleuri smf ON ar.gid = smf.gid;
-/*
-ALTER TABLE m_espace_vert_22x.xapps_an_v_ev_chiffre_cle_tab
-    OWNER TO create_sig;
-
-GRANT ALL ON TABLE m_espace_vert_22x.xapps_an_v_ev_chiffre_cle_tab TO sig_create;
-GRANT ALL ON TABLE m_espace_vert_22x.xapps_an_v_ev_chiffre_cle_tab TO create_sig;
-GRANT SELECT ON TABLE m_espace_vert_22x.xapps_an_v_ev_chiffre_cle_tab TO sig_read;
-GRANT DELETE, UPDATE, SELECT, INSERT ON TABLE m_espace_vert_22x.xapps_an_v_ev_chiffre_cle_tab TO sig_edit;
-*/
 
 COMMENT ON VIEW m_espace_vert_22x.xapps_an_v_ev_chiffre_cle_tab
     IS 'Vue alphanumérique présentant les chiffres clés des espaces verts sur la ville de Compiègne';
+
+-- #################################################################### VUE NBR ARBRE D'ALIGNEMENT  ###############################################
+
+-- View: m_espace_vert_22x.xapps_an_v_ev_stat_arbre_alignement
+
+-- DROP VIEW IF EXISTS m_espace_vert_22x.xapps_an_v_ev_stat_arbre_alignement;
+
+CREATE OR REPLACE VIEW m_espace_vert_22x.xapps_an_v_ev_stat_arbre_alignement
+ AS
+ SELECT COUNT(*) AS nb
+   FROM m_espace_vert_22x.geo_v_ev_vegetal_arbre a
+   WHERE a.typ3 = '111' AND a.etat ='2' AND a.implant ='02' ;
+
+COMMENT ON VIEW m_espace_vert_22x.xapps_an_v_ev_stat_arbre_alignement IS 'Vue du nombre d''arbres d''alignement';
 
 
 -- #################################################################### VUE NBR ARBRE PAR QUARTIER  ###############################################
@@ -6034,17 +6085,23 @@ CREATE OR REPLACE VIEW m_espace_vert_22x.xapps_an_v_ev_stat_arbre_quartier
     CASE WHEN a.quartier IS NULL THEN 'Hors quartier' ELSE a.quartier END AS quartier
    FROM m_espace_vert_22x.geo_v_ev_vegetal_arbre a
    WHERE a.typ3 = '111' AND a.etat ='2' GROUP BY a.quartier;
-/*
-ALTER TABLE m_espace_vert_22x.xapps_an_v_ev_stat_arbre_quartier
-    OWNER TO sig_create;
 
-GRANT SELECT ON TABLE m_espace_vert_22x.xapps_an_v_ev_stat_arbre_quartier TO sig_read;
-GRANT ALL ON TABLE m_espace_vert_22x.xapps_an_v_ev_stat_arbre_quartier TO sig_create;
-GRANT ALL ON TABLE m_espace_vert_22x.xapps_an_v_ev_stat_arbre_quartier TO create_sig;
-GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_22x.xapps_an_v_ev_stat_arbre_quartier TO sig_edit;
-*/
 COMMENT ON VIEW m_espace_vert_22x.xapps_an_v_ev_stat_arbre_quartier IS 'Vue du nombre d''arbres par quartiers';
 
+
+-- #################################################################### VUE NBR DE LIEU FLEURI  ###############################################
+
+-- View: m_espace_vert_22x.xapps_an_v_ev_stat_fleuri
+
+-- DROP VIEW IF EXISTS m_espace_vert_22x.xapps_an_v_ev_stat_fleuri;
+
+CREATE OR REPLACE VIEW m_espace_vert_22x.xapps_an_v_ev_stat_fleuri
+ AS
+ SELECT COUNT(*) AS nb
+   FROM m_espace_vert_22x.an_ev_objet a
+   WHERE a.typ2 = '13' AND a.etat ='2';
+
+COMMENT ON VIEW m_espace_vert_22x.xapps_an_v_ev_stat_fleuri IS 'Vue du nombre de lieu (ponctuel, massif) de fleurissement';
 
 
 -- ####################################################################################################################################################
@@ -6711,7 +6768,6 @@ GRANT ALL ON TABLE m_espace_vert_22x.lk_ev_intervention_objet TO sig_create;
 GRANT ALL ON TABLE m_espace_vert_22x.lk_ev_intervention_objet TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_22x.lk_ev_intervention_objet TO sig_edit;
 
-
 -- ## MEDIA
 
 -- an_ev_media
@@ -6721,6 +6777,41 @@ GRANT ALL ON TABLE m_espace_vert_22x.an_ev_media TO sig_create;
 GRANT SELECT ON TABLE m_espace_vert_22x.an_ev_media TO sig_read;
 GRANT ALL ON TABLE m_espace_vert_22x.an_ev_media TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_22x.an_ev_media TO sig_edit;
+
+-- ## STAT
+
+-- xapps_an_v_ev_chiffre_cle_tab
+ALTER TABLE m_espace_vert_22x.xapps_an_v_ev_chiffre_cle_tab OWNER TO create_sig;
+
+GRANT ALL ON TABLE m_espace_vert_22x.xapps_an_v_ev_chiffre_cle_tab TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_22x.xapps_an_v_ev_chiffre_cle_tab TO create_sig;
+GRANT SELECT ON TABLE m_espace_vert_22x.xapps_an_v_ev_chiffre_cle_tab TO sig_read;
+GRANT DELETE, UPDATE, SELECT, INSERT ON TABLE m_espace_vert_22x.xapps_an_v_ev_chiffre_cle_tab TO sig_edit;
+
+-- xapps_an_v_ev_stat_arbre_alignement
+ALTER TABLE m_espace_vert_22x.xapps_an_v_ev_stat_arbre_alignement OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_22x.xapps_an_v_ev_stat_arbre_alignement TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_22x.xapps_an_v_ev_stat_arbre_alignement TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_22x.xapps_an_v_ev_stat_arbre_alignement TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_22x.xapps_an_v_ev_stat_arbre_alignement TO sig_edit;
+
+-- xapps_an_v_ev_stat_fleuri
+ALTER TABLE m_espace_vert_22x.xapps_an_v_ev_stat_fleuri OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_22x.xapps_an_v_ev_stat_fleuri TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_22x.xapps_an_v_ev_stat_fleuri TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_22x.xapps_an_v_ev_stat_fleuri TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_22x.xapps_an_v_ev_stat_fleuri TO sig_edit;
+
+-- xapps_an_v_ev_stat_arbre_quartier
+ALTER TABLE m_espace_vert_22x.xapps_an_v_ev_stat_arbre_quartier OWNER TO sig_create;
+
+GRANT SELECT ON TABLE m_espace_vert_22x.xapps_an_v_ev_stat_arbre_quartier TO sig_read;
+GRANT ALL ON TABLE m_espace_vert_22x.xapps_an_v_ev_stat_arbre_quartier TO sig_create;
+GRANT ALL ON TABLE m_espace_vert_22x.xapps_an_v_ev_stat_arbre_quartier TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert_22x.xapps_an_v_ev_stat_arbre_quartier TO sig_edit;
+
 
 -- ## LOG
 
