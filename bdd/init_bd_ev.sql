@@ -4448,7 +4448,7 @@ BEGIN
     -- récupération automatique INSEE / commune
     _insee := (SELECT insee FROM r_osm.geo_vm_osm_commune_arcba WHERE ST_Intersects(geom,_geom) LIMIT 1);
 		_commune := (SELECT commune FROM r_osm.geo_vm_osm_commune_arcba WHERE ST_Intersects(geom,_geom) LIMIT 1);
-    -- Lors de la saisie d’un arbre, EV ou intervention, un message doit s’afficher lorsque la localisation ne se trouve pas dans zone « Commune » ou « Intercommunalité ».
+    -- Lors de la saisie dun arbre, EV ou intervention, un message doit safficher lorsque la localisation ne se trouve pas dans zone « Commune » ou « Intercommunalité ».
     IF _insee IS NULL THEN
 		  RAISE EXCEPTION 'Erreur : L''objet ne se situe pas dans une commune de l''ARC.<br><br>';
     END IF;
@@ -4558,7 +4558,7 @@ CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_vegetal_arbre() RETURNS trigger
 
 BEGIN 
   IF TG_OP = 'INSERT' THEN
-    -- Lors de la saisie d’un arbre, afficher un message d’avertissement dans la fiche si sa localisation se trouve à moins de 50cm d’un autre arbre, afin d’éviter la saisie de doublons.
+    -- Lors de la saisie dun arbre, afficher un message davertissement dans la fiche si sa localisation se trouve à moins de 50cm dun autre arbre, afin déviter la saisie de doublons.
     IF (SELECT count(1) > 0 FROM m_espace_vert.geo_v_ev_vegetal_arbre WHERE ST_DWithin(NEW.geom,geom, 0.5) AND etat <> '3' )  THEN
       RAISE EXCEPTION 'Erreur : Un arbre existe déjà à moins de 50cm de cette position.<br><br>';
     END IF;
@@ -6132,6 +6132,7 @@ COMMENT ON VIEW m_espace_vert.xapps_an_v_ev_stat_fleuri IS 'Vue du nombre de lie
 -- ## SCHEMA
 ALTER SCHEMA m_espace_vert OWNER TO create_sig;
 GRANT ALL ON SCHEMA m_espace_vert TO sig_create;
+GRANT ALL ON SCHEMA m_espace_vert TO create_sig;
 GRANT ALL ON SCHEMA m_espace_vert TO sig_create WITH GRANT OPTION;
 GRANT ALL ON SCHEMA m_espace_vert TO sig_edit WITH GRANT OPTION;
 GRANT ALL ON SCHEMA m_espace_vert TO sig_read WITH GRANT OPTION;
@@ -6149,6 +6150,8 @@ GRANT ALL ON TABLES TO sig_read WITH GRANT OPTION;
 -- ## SEQUENCE
 
 -- an_ev_objet_idobjet_seq
+ALTER SEQUENCE m_espace_vert.an_ev_objet_idobjet_seq
+    OWNER TO create_sig;
 ALTER SEQUENCE m_espace_vert.an_ev_objet_idobjet_seq OWNER TO create_sig;
 GRANT ALL ON SEQUENCE m_espace_vert.an_ev_objet_idobjet_seq TO create_sig;
 GRANT ALL ON SEQUENCE m_espace_vert.an_ev_objet_idobjet_seq TO PUBLIC;
@@ -6846,9 +6849,141 @@ GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.xapps_an_v_ev_stat_a
 
 -- ## FONCTION
 
+ALTER FUNCTION m_espace_vert.ft_m_ev_hydro()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_hydro() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_hydro() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_hydro_eau_arrivee()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_hydro_eau_arrivee() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_hydro_eau_arrivee() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_hydro_eau_cours()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_hydro_eau_cours() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_hydro_eau_cours() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_intervention_add_objets()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_intervention_add_objets() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_intervention_add_objets() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_intervention_purge_on_delete()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_intervention_purge_on_delete() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_intervention_purge_on_delete() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_mineral_circulation_voie()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_mineral_circulation_voie() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_mineral_circulation_voie() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_mineral_circulation_zone()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_mineral_circulation_zone() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_mineral_circulation_zone() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_mineral_cloture()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_mineral_cloture() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_mineral_cloture() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_mineral_loisir_equipement()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_mineral_loisir_equipement() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_mineral_loisir_equipement() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_mineral_loisir_zone()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_mineral_loisir_zone() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_mineral_loisir_zone() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_refnonclassee()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_refnonclassee() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_refnonclassee() TO PUBLIC;
+
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_vegetal_arbre()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_arbre() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_arbre() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_vegetal_arbre_alignement()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_arbre_alignement() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_arbre_alignement() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_vegetal_arbre_bois()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_arbre_bois() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_arbre_bois() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_vegetal_arbuste()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_arbuste() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_arbuste() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_vegetal_arbuste_haie()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_arbuste_haie() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_arbuste_haie() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_vegetal_arbuste_massif()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_arbuste_massif() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_arbuste_massif() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_vegetal_fleuri()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_fleuri() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_fleuri() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_vegetal_fleuri_massif()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_fleuri_massif() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_fleuri_massif() TO PUBLIC;
+
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_vegetal_herbe()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_herbe() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_vegetal_herbe() TO PUBLIC;
+
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_zone_equipe_set()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_zone_equipe_set() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_zone_equipe_set() TO PUBLIC;
+
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_zone_gestion_set()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_zone_gestion_set() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_zone_gestion_set() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_zone_site_set()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_zone_site_set() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_zone_site_set() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_intervention_get_next_date_rappel(date, integer, text, integer, text, text)
+    OWNER TO create_sig;
+
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_intervention_get_next_date_rappel(date, integer, text, integer, text, text) TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_intervention_get_next_date_rappel(date, integer, text, integer, text, text) TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_process_generic_info(text, text, geometry, integer, text, text, text, text, text, text, text, text)
+    OWNER TO create_sig;
+
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_process_generic_info(text, text, geometry, integer, text, text, text, text, text, text, text, text) TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_process_generic_info(text, text, geometry, integer, text, text, text, text, text, text, text, text) TO PUBLIC;
 
 
 -- ## LOG
+
+
 
 -- an_ev_log
 ALTER TABLE m_espace_vert.an_ev_log OWNER to create_sig;
