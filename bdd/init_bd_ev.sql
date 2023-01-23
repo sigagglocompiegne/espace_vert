@@ -107,7 +107,10 @@ DROP VIEW IF EXISTS m_espace_vert.geo_v_ev_hydro_eau_etendue;
 DROP VIEW IF EXISTS m_espace_vert.geo_v_ev_refnonclassee_point;
 DROP VIEW IF EXISTS m_espace_vert.geo_v_ev_refnonclassee_line;
 DROP VIEW IF EXISTS m_espace_vert.geo_v_ev_refnonclassee_polygon;
-
+-- type geom
+DROP VIEW IF EXISTS m_espace_vert.geo_v_ev_objet_pct;
+DROP VIEW IF EXISTS m_espace_vert.geo_v_ev_objet_line;
+DROP VIEW IF EXISTS m_espace_vert.geo_v_ev_objet_polygon;
 
 -- ## CONTRAINTES
 -- an_ev_objet
@@ -1964,7 +1967,7 @@ CREATE TABLE m_espace_vert.an_ev_vegetal_ref_bota
     cultivar character varying(80),
     nomlatin character varying(80),
     nomcommun character varying(80),
-    niv_allerg character varying(2), 
+    niv_allerg character varying(2) NOT NULL DEFAULT '00', 
     CONSTRAINT an_ev_vegetal_ref_bota_pkey PRIMARY KEY (idref_bota)      
 )
 WITH (
@@ -4379,6 +4382,222 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_refnonclassee_polygon.perimetre IS 'Pé
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_refnonclassee_polygon.geom IS 'Géométrie des objets espaces verts';
 
 
+-- ## vue objets par type de geométrie
+
+
+-- #################################################################### VUE geo_v_ev_objet_pct ###############################################
+
+-- View: m_espace_vert.geo_v_ev_objet_pct
+
+-- DROP VIEW m_espace_vert.geo_v_ev_objet_pct;
+
+CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_objet_pct
+ AS
+ SELECT 
+-- an_ev_objet
+    o.idobjet,
+    o.idgestion,
+    o.idsite,
+    o.idequipe,  
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.typ1,
+    o.typ2,
+    o.typ3,
+    o.etat,  
+    o.doma,
+    o.qualdoma,
+    o.op_sai,  
+    o.date_sai,
+    o.src_geom,
+    o.src_date,    
+    o.op_att,
+    o.date_maj_att,	    
+    o.op_maj,  
+    o.date_maj,
+    o.observ,
+-- geo_ev_objet_pct
+    g.x_l93,
+    g.y_l93,
+    g.geom
+   FROM m_espace_vert.an_ev_objet o
+     JOIN m_espace_vert.geo_ev_objet_pct g ON o.idobjet = g.idobjet;
+
+COMMENT ON VIEW m_espace_vert.geo_v_ev_objet_pct IS 'Vue des objets EV de type point';
+-- an_ev_objet
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.idobjet IS 'Identifiant unique de l''objet espace vert';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.idgestion IS 'identifiant de la zone de gestion';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.idsite IS 'Identifiant du site cohérent';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.idequipe IS 'Identifiant de la zone d''équipe';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.idcontrat IS 'Identifiant du contrat';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.insee IS 'Code insee de la commune d''appartenance';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.commune IS 'Libellé de la commune d''appartenance';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.quartier IS 'Libellé du quartier';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.typ1 IS 'Type d''espace vert de niveau 1';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.typ2 IS 'Sous-Type d''espace vert de niveau 2';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.typ3 IS 'Sous-Type d''espace vert de niveau 3';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.etat IS 'Etat de l''objet dans la base de données (projet, existant, supprimé)';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.doma IS 'Domanialité';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.qualdoma IS 'Qualité de l''information liée à la domanialité';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.op_sai IS 'Opérateur de saisie de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.date_sai IS 'Date de saisie de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.src_geom IS 'Référentiel géographique utilisé pour la saisie de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.src_date IS 'Date du référentiel géographique utilisé pour la saisie de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.op_att IS 'Opérateur de saisie des attributs métiers de l''objet initial';   
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.date_maj_att IS 'Année de mise à jour des attributs métiers de l''objet initial';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.op_maj IS 'Opérateur de la dernière mise à jour de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.date_maj IS 'Date de la dernière mise jour de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.observ IS 'Observations diverses';
+-- geo_ev_objet_pct
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.x_l93 IS 'Coordonnées X en lambert 93';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.y_l93 IS 'Coordonnées Y en Lambert 93';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.geom IS 'Géométrie des objets espaces verts';
+
+
+
+-- #################################################################### VUE geo_v_ev_objet_line ###############################################
+
+-- View: m_espace_vert.geo_v_ev_objet_line
+
+-- DROP VIEW m_espace_vert.geo_v_ev_objet_line;
+
+CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_objet_line
+ AS
+ SELECT
+-- an_ev_objet
+    o.idobjet,
+    o.idgestion,
+    o.idsite,
+    o.idequipe,  
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.typ1,
+    o.typ2,
+    o.typ3,
+    o.etat,  
+    o.doma,
+    o.qualdoma,
+    o.op_sai,  
+    o.date_sai,
+    o.src_geom,
+    o.src_date,    
+    o.op_att,
+    o.date_maj_att,	    
+    o.op_maj,  
+    o.date_maj,
+    o.observ,
+-- geo_ev_objet_line
+    g.long_m,
+    g.geom  
+   FROM m_espace_vert.an_ev_objet o
+     JOIN m_espace_vert.geo_ev_objet_line g ON o.idobjet = g.idobjet;
+
+COMMENT ON VIEW m_espace_vert.geo_v_ev_objet_line IS 'Vue des objets EV de type line';
+-- an_ev_objet
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.idobjet IS 'Identifiant unique de l''objet espace vert';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.idgestion IS 'identifiant de la zone de gestion';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.idsite IS 'Identifiant du site cohérent';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.idequipe IS 'Identifiant de la zone d''équipe';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.idcontrat IS 'Identifiant du contrat';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.insee IS 'Code insee de la commune d''appartenance';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.commune IS 'Libellé de la commune d''appartenance';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.quartier IS 'Libellé du quartier';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.typ1 IS 'Type d''espace vert de niveau 1';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.typ2 IS 'Sous-Type d''espace vert de niveau 2';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.typ3 IS 'Sous-Type d''espace vert de niveau 3';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.etat IS 'Etat de l''objet dans la base de données (projet, existant, supprimé)';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.doma IS 'Domanialité';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.qualdoma IS 'Qualité de l''information liée à la domanialité';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.op_sai IS 'Opérateur de saisie de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.date_sai IS 'Date de saisie de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.src_geom IS 'Référentiel géographique utilisé pour la saisie de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.src_date IS 'Date du référentiel géographique utilisé pour la saisie de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.op_att IS 'Opérateur de saisie des attributs métiers de l''objet initial';   
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.date_maj_att IS 'Année de mise à jour des attributs métiers de l''objet initial';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.op_maj IS 'Opérateur de la dernière mise à jour de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.date_maj IS 'Date de la dernière mise jour de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.observ IS 'Observations diverses';
+-- geo_ev_objet_line
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.long_m IS 'Longueur en mètres';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.geom IS 'Géométrie des objets espaces verts';
+
+
+-- #################################################################### VUE geo_v_ev_objet_polygon ###############################################
+
+-- View: m_espace_vert.geo_v_ev_objet_polygon
+
+-- DROP VIEW m_espace_vert.geo_v_ev_objet_polygon;
+
+CREATE OR REPLACE VIEW m_espace_vert.geo_v_ev_objet_polygon
+ AS
+ SELECT
+-- an_ev_objet
+    o.idobjet,
+    o.idgestion,
+    o.idsite,
+    o.idequipe,  
+    o.idcontrat,
+    o.insee,
+    o.commune,
+    o.quartier,
+    o.typ1,
+    o.typ2,
+    o.typ3,
+    o.etat,  
+    o.doma,
+    o.qualdoma,
+    o.op_sai,  
+    o.date_sai,
+    o.src_geom,
+    o.src_date,    
+    o.op_att,
+    o.date_maj_att,	    
+    o.op_maj,  
+    o.date_maj,
+    o.observ,
+-- geo_ev_objet_polygon
+    g.sup_m2,
+    g.perimetre,
+    g.geom   
+   FROM m_espace_vert.an_ev_objet o
+     JOIN m_espace_vert.geo_ev_objet_polygon g ON o.idobjet = g.idobjet;
+
+COMMENT ON VIEW m_espace_vert.geo_v_ev_objet_polygon IS 'Vue des objets EV de type polygon';
+-- an_ev_objet
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.idobjet IS 'Identifiant unique de l''objet espace vert';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.idgestion IS 'identifiant de la zone de gestion';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.idsite IS 'Identifiant du site cohérent';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.idequipe IS 'Identifiant de la zone d''équipe';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.idcontrat IS 'Identifiant du contrat';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.insee IS 'Code insee de la commune d''appartenance';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.commune IS 'Libellé de la commune d''appartenance';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.quartier IS 'Libellé du quartier';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.typ1 IS 'Type d''espace vert de niveau 1';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.typ2 IS 'Sous-Type d''espace vert de niveau 2';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.typ3 IS 'Sous-Type d''espace vert de niveau 3';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.etat IS 'Etat de l''objet dans la base de données (projet, existant, supprimé)';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.doma IS 'Domanialité';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.qualdoma IS 'Qualité de l''information liée à la domanialité';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.op_sai IS 'Opérateur de saisie de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.date_sai IS 'Date de saisie de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.src_geom IS 'Référentiel géographique utilisé pour la saisie de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.src_date IS 'Date du référentiel géographique utilisé pour la saisie de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.op_att IS 'Opérateur de saisie des attributs métiers de l''objet initial';   
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.date_maj_att IS 'Année de mise à jour des attributs métiers de l''objet initial';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.op_maj IS 'Opérateur de la dernière mise à jour de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.date_maj IS 'Date de la dernière mise jour de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.observ IS 'Observations diverses';
+-- geo_ev_objet_polygon
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.sup_m2 IS 'Surface en mètre carré';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.perimetre IS 'Périmètre des objets surfaciques en mètre';
+COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.geom IS 'Géométrie des objets espaces verts';
+
+
+
 
 -- ####################################################################################################################################################
 -- ###                                                                                                                                              ###
@@ -4595,13 +4814,13 @@ BEGIN
     hauteur_cl, circonf, diam_houpp, implant, mode_cond, date_pl_an, date_pl_sa, periode_pl, stade_dev, sol_type, amena_pied,
     remarq, remarq_com, proteg, proteg_com, contr, contr_type, naiss, naiss_com)
     VALUES
-    (_idobjet, NEW.famille, NEW.genre, NEW.espece, NEW.cultivar, NEW.nomlatin, NEW.nomcommun, NEW.niv_allerg,
+    (_idobjet, NEW.famille, NEW.genre, NEW.espece, NEW.cultivar, NEW.nomlatin, NEW.nomcommun, CASE WHEN NEW.niv_allerg IS NULL THEN '00' ELSE NEW.niv_allerg END,
 -- proprio
     CASE WHEN NEW.hauteur_cl IS NULL THEN '00' ELSE NEW.hauteur_cl END,
     NEW.circonf,
     NEW.diam_houpp,    
 -- implant est déduit uniquement dans le cas où l'utilisateur ne le renseigne pas ('00' OU NULL)
-    CASE WHEN NEW.implant IN ('01','02','03') THEN NEW.implant WHEN (SELECT count(1) > 0 FROM m_espace_vert.geo_v_ev_vegetal_arbre_alignement b WHERE b.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),b.geom)) THEN '02' WHEN (SELECT count(1) > 0 FROM m_espace_vert.geo_v_ev_vegetal_arbre_bois c WHERE c.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),c.geom)) THEN '03' END,
+    CASE WHEN NEW.implant IN ('01','02','03') THEN NEW.implant WHEN (SELECT count(1) > 0 FROM m_espace_vert.geo_v_ev_vegetal_arbre_alignement b WHERE b.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),b.geom)) THEN '02' WHEN (SELECT count(1) > 0 FROM m_espace_vert.geo_v_ev_vegetal_arbre_bois c WHERE c.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),c.geom)) THEN '03' ELSE '00' END,
     CASE WHEN NEW.mode_cond IS NULL THEN '00' ELSE NEW.mode_cond END,   
 -- historique
     NEW.date_pl_an, 
@@ -4639,13 +4858,13 @@ BEGIN
     cultivar = NEW.cultivar,
     nomlatin = NEW.nomlatin,
     nomcommun = NEW.nomcommun,
-    niv_allerg = NEW.niv_allerg,        
+    niv_allerg = CASE WHEN NEW.niv_allerg IS NULL THEN '00' ELSE NEW.niv_allerg END,        
 -- proprio
     hauteur_cl = CASE WHEN NEW.hauteur_cl IS NULL THEN '00' ELSE NEW.hauteur_cl END,
     circonf = NEW.circonf,
     diam_houpp = NEW.diam_houpp,    
 -- implant est déduit uniquement dans le cas où l'utilisateur ne le renseigne pas ('00' OU NULL)
-    implant = CASE WHEN NEW.implant IN ('01','02','03') THEN NEW.implant WHEN (SELECT count(1) > 0 FROM m_espace_vert.geo_v_ev_vegetal_arbre_alignement b WHERE b.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),b.geom)) THEN '02' WHEN (SELECT count(1) > 0 FROM m_espace_vert.geo_v_ev_vegetal_arbre_bois c WHERE c.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),c.geom)) THEN '03' END,
+    implant = CASE WHEN NEW.implant IN ('01','02','03') THEN NEW.implant WHEN (SELECT count(1) > 0 FROM m_espace_vert.geo_v_ev_vegetal_arbre_alignement b WHERE b.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),b.geom)) THEN '02' WHEN (SELECT count(1) > 0 FROM m_espace_vert.geo_v_ev_vegetal_arbre_bois c WHERE c.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),c.geom)) THEN '03' ELSE '00' END,
     mode_cond = CASE WHEN NEW.mode_cond IS NULL THEN '00' ELSE NEW.mode_cond END,   
 -- historique
     date_pl_an = NEW.date_pl_an, 
