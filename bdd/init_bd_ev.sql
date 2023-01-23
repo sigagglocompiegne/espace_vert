@@ -2314,15 +2314,19 @@ ALTER TABLE m_espace_vert.an_ev_objet
         ON UPDATE NO ACTION ON DELETE NO ACTION,
     ADD CONSTRAINT lt_ev_objet_qualdoma_fkey FOREIGN KEY (qualdoma)
         REFERENCES m_espace_vert.lt_ev_objet_qualdoma (code) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE NO ACTION;       
-/*        
-    ADD CONSTRAINT lt_ev_idequipe_fkey FOREIGN KEY (idequipe)
-        REFERENCES m_espace_vert.geo_ev_zone_equipe(idequipe) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION,      
+    ADD CONSTRAINT geo_ev_zone_gestion_idgestion_fkey FOREIGN KEY (idgestion)
+        REFERENCES m_espace_vert.geo_ev_zone_gestion(idgestion) MATCH SIMPLE
         ON UPDATE NO ACTION ON DELETE NO ACTION,
-    ADD CONSTRAINT lt_src_geomsai_fkey FOREIGN KEY (src_geom)
+    ADD CONSTRAINT geo_ev_zone_equipe_idequipe_fkey FOREIGN KEY (idequipe)
+        REFERENCES m_espace_vert.geo_ev_zone_equipe(idequipe) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION,         
+    ADD CONSTRAINT geo_ev_zone_site_idsite_fkey FOREIGN KEY (idsite)
+        REFERENCES m_espace_vert.geo_ev_zone_site(idsite) MATCH SIMPLE
+        ON UPDATE NO ACTION ON DELETE NO ACTION,        
+    ADD CONSTRAINT lt_src_geom_fkey FOREIGN KEY (src_geom)
         REFERENCES r_objet.lt_src_geom (code) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE NO ACTION
-*/
+        ON UPDATE NO ACTION ON DELETE NO ACTION;
 
 
 -- geo_ev_objet_pct
@@ -2393,7 +2397,8 @@ ALTER TABLE m_espace_vert.an_ev_vegetal_arbre
         ON UPDATE NO ACTION ON DELETE NO ACTION,
     ADD CONSTRAINT lt_ev_vegetal_arbre_etatarbre_fkey FOREIGN KEY (etatarbre)
         REFERENCES m_espace_vert.lt_ev_vegetal_arbre_etatarbre (code) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE NO ACTION;
+        ON UPDATE NO ACTION ON DELETE NO ACTION; 
+        
 
 -- an_ev_vegetal_arbre_etat_sanitaire
 ALTER TABLE m_espace_vert.an_ev_vegetal_arbre_etat_sanitaire
