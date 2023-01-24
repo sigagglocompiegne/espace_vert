@@ -59,7 +59,6 @@ ToDo :
 - vérifier fonction de découpe (ou comment se faire l'intersection si plusieurs zonage) des objets hors arbre (enherbé, arbustif, minéraux, hydro, non classés), depuis les découpages admin
 (A VERIFIER SI FAIT > - absence INSERT update du champ largeur larg_cm de la class geoline utilisée pour les haies et voies de circulation
 - attributs ev_objet avec plusieurs valeur par défaut à vérifier (src_geom ...)
-- prévoir analyse croisée pour déterminer implantation arbre / alignement et zone boisée
 - fonction générique pour calcul périmètre objet surfacique
 - arbre : voir pour ajout champ à surveiller dépendant si un état sanitaire (le dernier en date ???) indique la nécessité de surveillance à OUI
 - arbre : voir pour ajout date d'abattage de l'arbre rempli en auto en fonction de la date d'intervention arbre de type abattage
@@ -67,6 +66,7 @@ ToDo :
 - manque calcul sup_m2 sur geo_ev_zone_site et geo_ev_zone_equipe
 -- fonction de rappel sans aucun déclencheur dessus (?)
 -- avec changement des codes des mois de 01 à 12 et non plus de 00 à 11 dans lt_ev_intervention_periode, voir impact potentiel sur fonction de rappel
+-- voir pour prévoir 'ZZ' pour periode et freq_unité par défaut pour inter/demande inter en cas de non récurrent !
 */
 
 
@@ -1297,6 +1297,7 @@ COMMENT ON CONSTRAINT lt_ev_intervention_freq_unite_pkey ON m_espace_vert.lt_ev_
 INSERT INTO m_espace_vert.lt_ev_intervention_freq_unite(
             code, valeur)
     VALUES
+--  ('00', 'Non renseigné'),    
   ('01', 'Jours'),
   ('02', 'Semaines'),
   ('03', 'Mois'),
@@ -1357,6 +1358,7 @@ COMMENT ON CONSTRAINT lt_ev_intervention_periode_pkey ON m_espace_vert.lt_ev_int
 INSERT INTO m_espace_vert.lt_ev_intervention_periode(
             code, valeur)
     VALUES
+--  ('00', 'Non renseigné'),
   ('01', 'Janvier'),
   ('02', 'Février'),
   ('03', 'Mars'),
@@ -4812,7 +4814,7 @@ BEGIN
     INSERT INTO m_espace_vert.an_ev_vegetal_arbre
     (idobjet, famille, genre, espece, cultivar, nomlatin, nomcommun, niv_allerg,
     hauteur_cl, circonf, diam_houpp, implant, mode_cond, date_pl_an, date_pl_sa, periode_pl, stade_dev, sol_type, amena_pied,
-    remarq, remarq_com, proteg, proteg_com, contr, contr_type, naiss, naiss_com)
+    remarq, remarq_com, proteg, proteg_com, contr, contr_type, naiss, naiss_com, etatarbre)
     VALUES
     (_idobjet, NEW.famille, NEW.genre, NEW.espece, NEW.cultivar, NEW.nomlatin, NEW.nomcommun, CASE WHEN NEW.niv_allerg IS NULL THEN '00' ELSE NEW.niv_allerg END,
 -- proprio
@@ -4838,7 +4840,8 @@ BEGIN
     CASE WHEN NEW.contr IS NULL THEN '0' ELSE NEW.contr END,
     CASE WHEN NEW.contr ='t' THEN NEW.contr_type ELSE NULL END,
     CASE WHEN NEW.naiss IS NULL THEN '0' ELSE NEW.naiss END,     
-    CASE WHEN NEW.naiss ='t' THEN NEW.naiss_com ELSE NULL END);     
+    CASE WHEN NEW.naiss ='t' THEN NEW.naiss_com ELSE NULL END,
+    CASE WHEN NEW.etatarbre IS NULL THEN '00' ELSE NEW.etatarbre END);     
     -- INSERTion des attributs des EV végétaux  
     INSERT INTO m_espace_vert.an_ev_vegetal
     (idobjet, 
@@ -4882,7 +4885,8 @@ BEGIN
     contr = CASE WHEN NEW.contr IS NULL THEN '0' ELSE NEW.contr END,
     contr_type = CASE WHEN NEW.contr ='t' THEN NEW.contr_type ELSE NULL END,
     naiss = CASE WHEN NEW.naiss IS NULL THEN '0' ELSE NEW.naiss END,     
-    naiss_com = CASE WHEN NEW.naiss ='t' THEN NEW.naiss_com ELSE NULL END      
+    naiss_com = CASE WHEN NEW.naiss ='t' THEN NEW.naiss_com ELSE NULL END,
+    etatarbre = CASE WHEN NEW.etatarbre IS NULL THEN '00' ELSE NEW.etatarbre END      
     WHERE idobjet = NEW.idobjet;    
     -- MAJ des attributs des EV végétaux  
     UPDATE m_espace_vert.an_ev_vegetal SET
@@ -4891,6 +4895,7 @@ BEGIN
     RETURN NEW;
     
   ELSIF (TG_OP = 'DELETE') THEN
+-- voir pour cas arbre supprimé (etatarbre) 
     RETURN OLD;
   END IF;
 END;
@@ -5994,7 +5999,7 @@ BEGIN
     return NEW;
   END IF;
   -- si on a une géométrie mais pas de type d'objet, alors on refuse la saisie
-  IF NEW.type_objet IS NULL OR NEW.type_objet = '00' THEN
+  IF NEW.objet_type IS NULL OR NEW.objet_type = '000' THEN
     RAISE EXCEPTION 'Lors d''une saisie par polygone, veuillez choisir un type d''objet. Tous les objets de ce type présents dans cette zone seront liés automatiquement à la demande.<br><br>';
     return NEW;
   END IF;
@@ -6007,7 +6012,7 @@ BEGIN
       LEFT JOIN m_espace_vert.geo_ev_objet_pct p ON p.idobjet = an_ev_objet.idobjet AND ST_Intersects(_geom_intersection, p.geom)
       LEFT JOIN m_espace_vert.geo_ev_objet_polygon s ON s.idobjet = an_ev_objet.idobjet AND ST_Intersects(_geom_intersection, s.geom)
           -- on ne prend que le type d'objets EV choisi par l'utilisateur
-    where typ3 = NEW.type_objet 
+    where typ3 = NEW.objet_type
           -- pour retirer les lignes de an_ev_objet qui n'ont pas matché, on regarde les lignes en résultat qui ont un identifiant
           and (l.idobjet IS NOT NULL or p.idobjet IS NOT NULL or s.idobjet IS NOT NULL);
     -- on vérifie si des objets de ce type ont bien été ajoutés, sinon on refuse la saisie
@@ -7015,6 +7020,29 @@ GRANT SELECT ON TABLE m_espace_vert.geo_v_ev_refnonclassee_polygon TO sig_read;
 GRANT ALL ON TABLE m_espace_vert.geo_v_ev_refnonclassee_polygon TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_refnonclassee_polygon TO sig_edit;
 
+-- geo_v_ev_objet_pct
+ALTER TABLE m_espace_vert.geo_v_ev_objet_pct OWNER TO create_sig;
+
+GRANT ALL ON TABLE m_espace_vert.geo_v_ev_objet_pct TO sig_create;
+GRANT SELECT ON TABLE m_espace_vert.geo_v_ev_objet_pct TO sig_read;
+GRANT ALL ON TABLE m_espace_vert.geo_v_ev_objet_pct TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_objet_pct TO sig_edit;
+
+-- geo_v_ev_objet_line
+ALTER TABLE m_espace_vert.geo_v_ev_objet_line OWNER TO create_sig;
+
+GRANT ALL ON TABLE m_espace_vert.geo_v_ev_objet_line TO sig_create;
+GRANT SELECT ON TABLE m_espace_vert.geo_v_ev_objet_line TO sig_read;
+GRANT ALL ON TABLE m_espace_vert.geo_v_ev_objet_line TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_objet_line TO sig_edit;
+
+-- geo_v_ev_objet_polygon
+ALTER TABLE m_espace_vert.geo_v_ev_objet_polygon OWNER TO create_sig;
+
+GRANT ALL ON TABLE m_espace_vert.geo_v_ev_objet_polygon TO sig_create;
+GRANT SELECT ON TABLE m_espace_vert.geo_v_ev_objet_polygon TO sig_read;
+GRANT ALL ON TABLE m_espace_vert.geo_v_ev_objet_polygon TO create_sig;
+GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_objet_polygon TO sig_edit;
 
 -- ## RELATION
 
