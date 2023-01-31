@@ -50,6 +50,8 @@
 2023-01-13 : FV / reprise fonction trigger arbre pour mettre à NULL les commentaires lorsque les attributs boolean (remarq, proteg, contr, naiss) sont à NON (f)
 2023-01-16 : FV / reprise classe d'intervention et correctifs
 2023-01-19 : FV / correctif code de la liste lt_ev_intervention_freq_unite et lt_ev_intervention_periode
+2023-01-27 : CS / créer la vue VUE an_v_lt_ev_objet_typ123
+2023-01-31 : FV / suppression contrainte sur type anomalie de la table état sanitaire pour permettre à le passe en multivalué
 
 */
 
@@ -2384,10 +2386,7 @@ ALTER TABLE m_espace_vert.an_ev_vegetal_arbre
         ON UPDATE NO ACTION ON DELETE NO ACTION,
     ADD CONSTRAINT lt_ev_vegetal_arbre_sol_type_fkey FOREIGN KEY (sol_type)
         REFERENCES m_espace_vert.lt_ev_vegetal_arbre_sol_type (code) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE NO ACTION,
-    ADD CONSTRAINT lt_ev_vegetal_arbre_amenagement_pied_fkey FOREIGN KEY (amena_pied)
-        REFERENCES m_espace_vert.lt_ev_vegetal_arbre_amenagement_pied (code) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE NO ACTION,       
+        ON UPDATE NO ACTION ON DELETE NO ACTION,  
     ADD CONSTRAINT lt_ev_vegetal_arbre_remarq_boolean_fkey FOREIGN KEY (remarq)
         REFERENCES m_espace_vert.lt_ev_boolean (code) MATCH SIMPLE
         ON UPDATE NO ACTION ON DELETE NO ACTION,
@@ -2409,9 +2408,6 @@ ALTER TABLE m_espace_vert.an_ev_vegetal_arbre
 ALTER TABLE m_espace_vert.an_ev_vegetal_arbre_etat_sanitaire
     ADD CONSTRAINT an_ev_objet_fkey FOREIGN KEY (idobjet)
         REFERENCES m_espace_vert.an_ev_objet (idobjet) MATCH SIMPLE
-        ON UPDATE NO ACTION ON DELETE NO ACTION,
-    ADD CONSTRAINT lt_ev_vegetal_arbre_etat_sanitaire_anomal_typ_fkey FOREIGN KEY (anomal_typ)
-        REFERENCES m_espace_vert.lt_ev_vegetal_arbre_etat_sanitaire_anomal_typ (code) MATCH SIMPLE
         ON UPDATE NO ACTION ON DELETE NO ACTION,
     ADD CONSTRAINT lt_ev_anomal_boolean_fkey FOREIGN KEY (anomal)
         REFERENCES m_espace_vert.lt_ev_boolean (code) MATCH SIMPLE
@@ -4597,6 +4593,29 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.observ IS 'Observations d
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.sup_m2 IS 'Surface en mètre carré';
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.perimetre IS 'Périmètre des objets surfaciques en mètre';
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.geom IS 'Géométrie des objets espaces verts';
+
+
+
+-- #################################################################### VUE an_v_lt_ev_objet_typ123 ###############################################
+
+-- View: m_espace_vert.an_v_lt_ev_objet_typ123
+
+-- DROP VIEW m_espace_vert.an_v_lt_ev_objet_typ123;
+
+CREATE OR REPLACE VIEW m_espace_vert.an_v_lt_ev_objet_typ123
+ AS
+ SELECT row_number() OVER () AS id,
+    t1.code AS code_t1,
+    t1.valeur AS valeur_t1,
+    t2.code AS code_t2,
+    t2.valeur AS valeur_t2,
+    t3.code AS code_t3,
+    t3.valeur AS valeur_t3
+   FROM m_espace_vert.lt_ev_objet_typ1 t1
+     LEFT JOIN m_espace_vert.lt_ev_objet_typ2 t2 ON t1.code::text = "left"(t2.code::text, 1)
+     LEFT JOIN m_espace_vert.lt_ev_objet_typ3 t3 ON t2.code::text = "left"(t3.code::text, 2);
+
+
 
 
 
@@ -7043,6 +7062,16 @@ GRANT ALL ON TABLE m_espace_vert.geo_v_ev_objet_polygon TO sig_create;
 GRANT SELECT ON TABLE m_espace_vert.geo_v_ev_objet_polygon TO sig_read;
 GRANT ALL ON TABLE m_espace_vert.geo_v_ev_objet_polygon TO create_sig;
 GRANT INSERT, SELECT, UPDATE, DELETE ON TABLE m_espace_vert.geo_v_ev_objet_polygon TO sig_edit;
+
+
+-- an_v_lt_ev_objet_typ123 (les 3 types dans une meme vue)
+
+ALTER TABLE m_espace_vert.an_v_lt_ev_objet_typ123 OWNER TO create_sig;
+
+GRANT ALL ON TABLE m_espace_vert.an_v_lt_ev_objet_typ123 TO sig_read;
+GRANT ALL ON TABLE m_espace_vert.an_v_lt_ev_objet_typ123 TO create_sig;
+GRANT ALL ON TABLE m_espace_vert.an_v_lt_ev_objet_typ123 TO sig_create;
+GRANT DELETE, UPDATE, SELECT, INSERT ON TABLE m_espace_vert.an_v_lt_ev_objet_typ123 TO sig_edit;
 
 -- ## RELATION
 
