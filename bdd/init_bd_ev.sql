@@ -114,6 +114,7 @@ DROP VIEW IF EXISTS m_espace_vert.geo_v_ev_objet_pct;
 DROP VIEW IF EXISTS m_espace_vert.geo_v_ev_objet_line;
 DROP VIEW IF EXISTS m_espace_vert.geo_v_ev_objet_polygon;
 
+
 -- ## CONTRAINTES
 -- an_ev_objet
 ALTER TABLE IF EXISTS m_espace_vert.an_ev_objet DROP CONSTRAINT IF EXISTS lt_ev_objet_typ1_fkey;
@@ -4600,7 +4601,7 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.geom IS 'Géométrie des 
 
 -- View: m_espace_vert.an_v_lt_ev_objet_typ123
 
--- DROP VIEW m_espace_vert.an_v_lt_ev_objet_typ123;
+DROP VIEW IF EXISTS m_espace_vert.an_v_lt_ev_objet_typ123;
 
 CREATE OR REPLACE VIEW m_espace_vert.an_v_lt_ev_objet_typ123
  AS
@@ -6153,6 +6154,164 @@ FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_zone_equipe_set();
 
 
 
+
+-- #################################################################### FONCTION/TRIGGER geo_v_ev_objet_pct ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_objet_pct() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+BEGIN
+   
+-- MAJ des attributs objets
+    UPDATE m_espace_vert.an_ev_objet SET
+    idobjet = OLD.idobjet,
+    idgestion = (SELECT idgestion FROM m_espace_vert.geo_ev_zone_gestion WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),
+    idsite = (SELECT idsite FROM m_espace_vert.geo_ev_zone_site WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),
+    idequipe = (SELECT idequipe FROM m_espace_vert.geo_ev_zone_equipe WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),    
+    idcontrat = NEW.idcontrat,
+    insee = (SELECT insee FROM r_osm.geo_osm_commune WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    commune = (SELECT commune FROM r_osm.geo_osm_commune WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    quartier = (SELECT nom FROM r_administratif.geo_adm_quartier WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    typ1 = NEW.typ1,
+    typ2 = NEW.typ2,
+    typ3 = NEW.typ3,
+    etat = NEW.etat,  
+    doma = NEW.doma,
+    qualdoma = NEW.qualdoma,
+    op_sai = NEW.op_sai,  
+    date_sai = NEW.date_sai,
+    src_geom = NEW.src_geom,
+    src_date = NEW.src_date,    
+    op_att = NEW.op_att,
+    date_maj_att = NEW.date_maj_att,	    
+    op_maj = NEW.op_maj,  
+    date_maj = NEW.date_sai,
+    observ = NEW.observ  
+    WHERE idobjet = NEW.idobjet;      
+-- MAJ des attributs geom  
+    UPDATE m_espace_vert.geo_ev_objet_pct SET
+    x_l93 = ST_X(new.geom),
+    y_l93 = ST_Y(new.geom),
+    geom = NEW.geom 
+    WHERE idobjet = NEW.idobjet; 
+          
+    RETURN NEW;
+
+END;
+$$
+;
+     
+-- DROP TRIGGER IF EXISTS t_m_ev_objet_pct ON m_espace_vert.geo_v_ev_objet_pct;
+CREATE TRIGGER t_m_ev_objet_pct INSTEAD OF
+UPDATE
+ON m_espace_vert.geo_v_ev_objet_pct 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_objet_pct();     
+     
+     
+ 
+-- #################################################################### FONCTION/TRIGGER geo_v_ev_objet_line ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_objet_line() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+BEGIN
+   
+-- MAJ des attributs objets
+    UPDATE m_espace_vert.an_ev_objet SET
+    idobjet = OLD.idobjet,
+    idgestion = (SELECT idgestion FROM m_espace_vert.geo_ev_zone_gestion WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),
+    idsite = (SELECT idsite FROM m_espace_vert.geo_ev_zone_site WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),
+    idequipe = (SELECT idequipe FROM m_espace_vert.geo_ev_zone_equipe WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),   
+    idcontrat = NEW.idcontrat,
+    insee = (SELECT insee FROM r_osm.geo_osm_commune WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    commune = (SELECT commune FROM r_osm.geo_osm_commune WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    quartier = (SELECT nom FROM r_administratif.geo_adm_quartier WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    typ1 = NEW.typ1,
+    typ2 = NEW.typ2,
+    typ3 = NEW.typ3,
+    etat = NEW.etat,  
+    doma = NEW.doma,
+    qualdoma = NEW.qualdoma,
+    op_sai = NEW.op_sai,  
+    date_sai = NEW.date_sai,
+    src_geom = NEW.src_geom,
+    src_date = NEW.src_date,    
+    op_att = NEW.op_att,
+    date_maj_att = NEW.date_maj_att,	    
+    op_maj = NEW.op_maj,  
+    date_maj = NEW.date_sai,
+    observ = NEW.observ  
+    WHERE idobjet = NEW.idobjet;      
+-- MAJ des attributs geom  
+    UPDATE m_espace_vert.geo_ev_objet_line SET
+    long_m = ST_Length(new.geom)::integer,
+    geom = NEW.geom 
+    WHERE idobjet = NEW.idobjet; 
+          
+    RETURN NEW;
+
+END;
+$$
+;
+     
+-- DROP TRIGGER IF EXISTS t_m_ev_objet_line ON m_espace_vert.geo_v_ev_objet_line;
+CREATE TRIGGER t_m_ev_objet_line INSTEAD OF
+UPDATE
+ON m_espace_vert.geo_v_ev_objet_line 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_objet_line();         
+
+
+-- #################################################################### FONCTION/TRIGGER geo_v_ev_objet_polygon ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_objet_polygon() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+BEGIN
+   
+-- MAJ des attributs objets
+    UPDATE m_espace_vert.an_ev_objet SET
+    idobjet = OLD.idobjet,
+    idgestion = (SELECT idgestion FROM m_espace_vert.geo_ev_zone_gestion WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),
+    idsite = (SELECT idsite FROM m_espace_vert.geo_ev_zone_site WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),
+    idequipe = (SELECT idequipe FROM m_espace_vert.geo_ev_zone_equipe WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),  
+    idcontrat = NEW.idcontrat,
+    insee = (SELECT insee FROM r_osm.geo_osm_commune WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    commune = (SELECT commune FROM r_osm.geo_osm_commune WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    quartier = (SELECT nom FROM r_administratif.geo_adm_quartier WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    typ1 = NEW.typ1,
+    typ2 = NEW.typ2,
+    typ3 = NEW.typ3,
+    etat = NEW.etat,  
+    doma = NEW.doma,
+    qualdoma = NEW.qualdoma,
+    op_sai = NEW.op_sai,  
+    date_sai = NEW.date_sai,
+    src_geom = NEW.src_geom,
+    src_date = NEW.src_date,    
+    op_att = NEW.op_att,
+    date_maj_att = NEW.date_maj_att,	    
+    op_maj = NEW.op_maj,  
+    date_maj = NEW.date_sai,
+    observ = NEW.observ  
+    WHERE idobjet = NEW.idobjet;      
+-- MAJ des attributs geom  
+    UPDATE m_espace_vert.geo_ev_objet_polygon SET
+    sup_m2 = round(cast(st_area(new.geom) as numeric),0),
+    perimetre = NEW.perimetre,
+    geom = NEW.geom 
+    WHERE idobjet = NEW.idobjet; 
+          
+    RETURN NEW;
+
+END;
+$$
+;
+     
+-- DROP TRIGGER IF EXISTS t_m_ev_objet_polygon ON m_espace_vert.geo_v_ev_objet_polygon;
+CREATE TRIGGER t_m_ev_objet_polygon INSTEAD OF
+UPDATE
+ON m_espace_vert.geo_v_ev_objet_polygon 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_objet_polygon();  
+
+
+
 -- ####################################################################################################################################################
 -- ###                                                                                                                                              ###
 -- ###                                                                      TRIGGER                                                                 ###
@@ -7248,6 +7407,21 @@ ALTER FUNCTION m_espace_vert.ft_m_ev_zone_site_set()
     OWNER TO create_sig;
 GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_zone_site_set() TO create_sig;
 GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_zone_site_set() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_objet_pct()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_objet_pct() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_objet_pct() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_objet_line()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_objet_line() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_objet_line() TO PUBLIC;
+
+ALTER FUNCTION m_espace_vert.ft_m_ev_objet_polygon()
+    OWNER TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_objet_polygon() TO create_sig;
+GRANT EXECUTE ON FUNCTION m_espace_vert.ft_m_ev_objet_polygon() TO PUBLIC;
 
 ALTER FUNCTION m_espace_vert.ft_m_ev_intervention_get_next_date_rappel(date, integer, text, integer, text, text)
     OWNER TO create_sig;
