@@ -67,10 +67,17 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 |date_maj|Date de la dernière mise jour de l'objet|timestamp without time zone| |
 |observ|Observations diverses|character varying(254)| |
 
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
+* Une clé étrangère existe sur la table de valeur `idequipe` (lien vers la table des équipes `geo_ev_zone_equipe`)
+* Une clé étrangère existe sur la table de valeur `idgestion` (lien vers la table des zones de gestion `geo_ev_zone_gestion`)
+* Une clé étrangère existe sur la table de valeur `idsite` (lien vers la table des sites cohérent `geo_ev_zone_site`)
+* Une clé étrangère existe sur la table de valeur `doma` (lien vers une liste de valeurs `lt_ev_objet_doma`)
+*
+*
 
 * triggers : sans objet
-
-
+  
 `geo_ev_pct` : table géographique des objets des espaces verts saisis sous forme de ponctuel
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
