@@ -15,7 +15,7 @@ La démarche s'organise en 3 temps :
 
 ## Modèle relationnel simplifié
 
-![picto](ev_mcd_v5.png)
+![picto](ev_modele_rela_V1.png)
 
 ## Schéma fonctionnel
 
