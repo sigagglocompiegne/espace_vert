@@ -15,7 +15,7 @@ Spécification du fichier d’échange relatif aux données concernant l'inventa
   * [Création des vues OpenData](bdd/ev_23_vues_xopendata.sql)
   * [Création des privilèges](bdd/ev_99_grant.sql)
 - [Documentation d'administration de la base](bdd/doc_admin_bd_ev.md)
-- [Documentation utilisateurs](app/doc_admin_app_ev.md)
+- [Documentation des utilisateurs de l'application (authentification nécessaire)]()
 
 
 ## Contexte
