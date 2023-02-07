@@ -43,26 +43,29 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-|idobjet|Identifiant unique de l'objet espace vert|bigint| |
-|idzone|identifiant de la zone de gestion|integer| |
+|idobjet|Identifiant unique de l'objet espace vert|bigint|nextval('m_espace_vert.an_ev_objet_idobjet_seq'::regclass)|
+|idgestion|identifiant de la zone de gestion|integer| |
 |idsite|Identifiant du site cohérent|integer| |
+|idequipe|Identifiant de la zone d'équipe|integer| |
 |idcontrat|Identifiant du contrat|character varying(2)| |
 |insee|Code insee de la commune d'appartenance|character varying(5)| |
 |commune|Libellé de la commune d'appartenance|character varying(80)| |
 |quartier|Libellé du quartier|character varying(80)| |
-|doma|Domanialité|character varying(2)| |
-|qualdoma|Qualité de l'information liée à la domanialité|character varying(2)| |
 |typ1|Type d'espace vert de niveau 1|character varying(1)| |
 |typ2|Sous-Type d'espace vert de niveau 2|character varying(2)| |
 |typ3|Sous-Type d'espace vert de niveau 3|character varying(3)| |
+|etat|Etat de l'objet dans la base de données (projet, existant, supprimé)|character varying(1)|'0'::character varying|
+|doma|Domanialité|character varying(2)| |
+|qualdoma|Qualité de l'information liée à la domanialité|character varying(2)| |
 |op_sai|Opérateur de saisie de l'objet|character varying(80)| |
 |date_sai|Date de saisie de l'objet|timestamp without time zone| |
-|srcgeom_sai|Référentiel géographique utilisé pour la saisie de l'objet|character varying(2)| |
-|srcdate_sai|Date du référentiel géographique utilisé pour la saisie de l'objet|integer| |
+|src_geom|Référentiel géographique utilisé pour la saisie de l'objet|character varying(2)| |
+|src_date|Date du référentiel géographique utilisé pour la saisie de l'objet|integer| |
 |op_att|Opérateur de saisie des attributs métiers de l'objet initial|character varying(80)| |
 |date_maj_att|Année de mise à jour des attributs métiers de l'objet initial|timestamp without time zone| |
+|op_maj|Opérateur de la dernière mise à jour de l'objet|character varying(80)| |
 |date_maj|Date de la dernière mise jour de l'objet|timestamp without time zone| |
-|observ|Observations diverses|character varying(255)| |
+|observ|Observations diverses|character varying(254)| |
 
 
 * triggers : sans objet
