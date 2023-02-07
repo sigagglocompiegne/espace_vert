@@ -30,5 +30,5 @@ L’ARC privilégie donc une organisation dans laquelle l’Interface Homme Mach
 
 ## Jeu de données consolidé
 
-Aucun jeu de données consolidé n'est disponible pour le moment. Le patrimoine des données espace vert est en cours de constitution.
+Aucun jeu de données consolidé n'est disponible.
 
