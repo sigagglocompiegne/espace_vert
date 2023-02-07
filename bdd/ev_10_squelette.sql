@@ -4,7 +4,8 @@
 /* PostGIS*/
 
 /* Propriétaire : GeoCompiegnois - http://geo.compiegnois.fr/ */
-/* Auteur : Grégory Bodet */
+/* Auteur : Business Geografic */
+/* Associé : Florent Vanhoutte, Caroline Sard */
 
 
 -- ####################################################################################################################################################
