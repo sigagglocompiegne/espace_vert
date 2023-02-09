@@ -1,5 +1,5 @@
 /*ESPACE VERT V2.2.0*/
-/*Creation du fichier complet*/
+/*Creation de la structure*/
 /* init_db_ev.sql */
 /*PostGIS*/
 
