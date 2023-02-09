@@ -1,5 +1,5 @@
 /*ESPACE VERT V2.2.0*/
-/* Creation des vues de gestion */
+/* Creation des vues pour l'opendata */
 /* init_db_ev.sql */
 /*PostGIS*/
 
