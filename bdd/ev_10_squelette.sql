@@ -1,11 +1,10 @@
-/* ESPACE VERT V1.0*/
-/* Creation du squelette de la structure des données */
-/* ev_10_squelette.sql */
-/* PostGIS*/
+/*ESPACE VERT V2.2.0*/
+/*Creation du fichier complet*/
+/* init_db_ev.sql */
+/*PostGIS*/
 
 /* Propriétaire : GeoCompiegnois - http://geo.compiegnois.fr/ */
-/* Auteur : Business Geografic */
-/* Associé : Florent Vanhoutte, Caroline Sarg */
+/* Auteurs : Grégory Bodet, Florent Vanhoutte, Caroline Sarg, Fabien Nicollet (Business Geografic) */
 
 
 
