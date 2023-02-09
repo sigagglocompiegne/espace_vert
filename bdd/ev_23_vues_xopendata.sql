@@ -1,10 +1,10 @@
-/* ESPACE VERT V1.0*/
-/* Creation des vues applicatives publiques */
-/* ev_23_vues_xopendata.sql */
+/*ESPACE VERT V2.2.0*/
+/* Creation des vues de gestion */
+/* init_db_ev.sql */
 /*PostGIS*/
 
 /* Propriétaire : GeoCompiegnois - http://geo.compiegnois.fr/ */
-/* Auteur : Grégory Bodet */
+/* Auteurs : Grégory Bodet, Florent Vanhoutte, Caroline Sarg, Fabien Nicollet (Business Geografic) */
 
 -- #################################################################################################################################
 -- ###                                                                                                                           ###
