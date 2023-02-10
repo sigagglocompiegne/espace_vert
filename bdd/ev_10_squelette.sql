@@ -1917,6 +1917,33 @@ COMMENT ON COLUMN m_espace_vert.geo_ev_zone_site.geom IS 'Géométrie surfacique
 COMMENT ON CONSTRAINT geo_ev_zone_site_pkey ON m_espace_vert.geo_ev_zone_site IS 'Clé primaire de la classe geo_ev_zone_site';
 
 
+-- #################################################################### FONCTION/TRIGGER ZONE SITE ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_zone_site_set() RETURNS trigger LANGUAGE plpgsql AS $$
+DECLARE
+BEGIN
+  IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
+    UPDATE m_espace_vert.an_ev_objet SET idsite = NEW.idsite WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_polygon WHERE ST_Intersects(geom,NEW.geom));
+    UPDATE m_espace_vert.an_ev_objet SET idsite = NEW.idsite WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_line WHERE ST_Intersects(geom,NEW.geom));
+    UPDATE m_espace_vert.an_ev_objet SET idsite = NEW.idsite WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_pct WHERE ST_Intersects(geom,NEW.geom));
+  ELSE
+    UPDATE m_espace_vert.an_ev_objet SET idsite = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_polygon WHERE ST_Intersects(geom,OLD.geom));
+    UPDATE m_espace_vert.an_ev_objet SET idsite = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_line WHERE ST_Intersects(geom,OLD.geom));
+    UPDATE m_espace_vert.an_ev_objet SET idsite = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_pct WHERE ST_Intersects(geom,OLD.geom));
+    RETURN OLD;
+  END IF;
+ RETURN NEW;
+END;
+$$
+;
+
+-- MAJ des objets EV liés quand modification découpage adm (site cohérent)
+-- DROP TRIGGER t_m_ev_zone_site_set ON m_espace_vert.geo_ev_zone_site;
+CREATE TRIGGER t_m_ev_zone_site_set 
+AFTER INSERT OR UPDATE of geom OR DELETE ON m_espace_vert.geo_ev_zone_site
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_zone_site_set();
+
+
 -- ################################################################# TABLE geo_ev_zone_gestion ###############################################
 
 -- DROP TABLE m_espace_vert.geo_ev_zone_gestion;
@@ -1943,6 +1970,38 @@ COMMENT ON COLUMN m_espace_vert.geo_ev_zone_gestion.geom IS 'Géométrie surfaci
 COMMENT ON CONSTRAINT geo_ev_zone_gestion_pkey ON m_espace_vert.geo_ev_zone_gestion IS 'Clé primaire de la classe geo_ev_zone_gestion';
 
 
+
+-- #################################################################### FONCTION/TRIGGER ZONE GESTION ###############################################
+
+-- MAJ des objets EV liés quand modification découpage adm (zone_gestion, site cohérent)
+-- pour chaque type de couche, on fait l'intersection
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_zone_gestion_set() RETURNS trigger LANGUAGE plpgsql AS $$
+DECLARE
+BEGIN
+  IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
+    UPDATE m_espace_vert.an_ev_objet SET idgestion = NEW.idgestion WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_polygon WHERE ST_Intersects(geom,NEW.geom));
+    UPDATE m_espace_vert.an_ev_objet SET idgestion = NEW.idgestion WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_line WHERE ST_Intersects(geom,NEW.geom));
+    UPDATE m_espace_vert.an_ev_objet SET idgestion = NEW.idgestion WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_pct WHERE ST_Intersects(geom,NEW.geom));
+  ELSE
+    UPDATE m_espace_vert.an_ev_objet SET idgestion = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_polygon WHERE ST_Intersects(geom,OLD.geom));
+    UPDATE m_espace_vert.an_ev_objet SET idgestion = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_line WHERE ST_Intersects(geom,OLD.geom));
+    UPDATE m_espace_vert.an_ev_objet SET idgestion = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_pct WHERE ST_Intersects(geom,OLD.geom));
+    RETURN OLD;
+  END IF;
+ RETURN NEW;
+END;
+$$
+;
+
+
+-- MAJ des objets EV liés quand modification découpage adm (zone_gestion)
+-- DROP TRIGGER t_m_ev_zone_gestion_set ON m_espace_vert.geo_ev_zone_gestion;
+CREATE TRIGGER t_m_ev_zone_gestion_set 
+AFTER INSERT OR UPDATE of geom OR DELETE ON m_espace_vert.geo_ev_zone_gestion
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_zone_gestion_set();
+
+
+
 -- ################################################################# TABLE geo_ev_zone_equipe ###############################################
 
 -- DROP TABLE m_espace_vert.geo_ev_zone_equipe;
@@ -1967,6 +2026,34 @@ COMMENT ON COLUMN m_espace_vert.geo_ev_zone_equipe.equipe IS 'Nom du equipenaire
 COMMENT ON COLUMN m_espace_vert.geo_ev_zone_equipe.sup_m2 IS 'Surface en mètre carré';
 COMMENT ON COLUMN m_espace_vert.geo_ev_zone_equipe.geom IS 'Géométrie surfacique';
 COMMENT ON CONSTRAINT geo_ev_zone_equipe_pkey ON m_espace_vert.geo_ev_zone_equipe IS 'Clé primaire de la classe geo_ev_zone_equipe';
+
+
+
+-- #################################################################### FONCTION/TRIGGER ZONE EQUIPE ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_zone_equipe_set() RETURNS trigger LANGUAGE plpgsql AS $$
+DECLARE
+BEGIN
+  IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
+    UPDATE m_espace_vert.an_ev_objet SET idequipe = NEW.idequipe WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_polygon WHERE ST_Intersects(geom,NEW.geom));
+    UPDATE m_espace_vert.an_ev_objet SET idequipe = NEW.idequipe WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_line WHERE ST_Intersects(geom,NEW.geom));
+    UPDATE m_espace_vert.an_ev_objet SET idequipe = NEW.idequipe WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_pct WHERE ST_Intersects(geom,NEW.geom));
+  ELSE
+    UPDATE m_espace_vert.an_ev_objet SET idequipe = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_polygon WHERE ST_Intersects(geom,OLD.geom));
+    UPDATE m_espace_vert.an_ev_objet SET idequipe = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_line WHERE ST_Intersects(geom,OLD.geom));
+    UPDATE m_espace_vert.an_ev_objet SET idequipe = NULL WHERE idobjet IN (SELECT idobjet FROM m_espace_vert.geo_ev_objet_pct WHERE ST_Intersects(geom,OLD.geom));
+    RETURN OLD;
+  END IF;
+ RETURN NEW;
+END;
+$$
+;
+
+-- MAJ des objets EV liés quand modification découpage adm (equipe ev)
+-- DROP TRIGGER t_m_ev_zone_equipe_set ON m_espace_vert.geo_ev_zone_equipe;
+CREATE TRIGGER t_m_ev_zone_equipe_set 
+AFTER INSERT OR UPDATE of geom OR DELETE ON m_espace_vert.geo_ev_zone_equipe
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_zone_equipe_set();
 
 
 
@@ -2090,6 +2177,136 @@ COMMENT ON COLUMN m_espace_vert.geo_ev_intervention.dat_sai IS 'Date saisie';
 COMMENT ON COLUMN m_espace_vert.geo_ev_intervention.op_sai IS 'Auteur saisie';
 --
 COMMENT ON CONSTRAINT geo_ev_intervention_pkey ON m_espace_vert.geo_ev_intervention IS 'Clé primaire de la classe geo_ev_intervention';
+
+
+
+
+-- #################################################################### FONCTION/TRIGGER INTERVENTION + DDE INTER ###############################################
+
+-- lors de la suppression d'une DI / Intervention, ne pas laisser les objets liés comme orphelins.
+-- pas possible d'utilisée une FOREIGN KEY avec DELETE CASCADE car l'idinter peut être lié soit à une DI, soit à une intervention
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_intervention_purge_on_delete() RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  DELETE FROM m_espace_vert.lk_ev_intervention_objet WHERE idinter = OLD.idinter;
+  RETURN OLD;
+END;
+$$
+;
+
+-- demande d'intervention
+-- assigner tous les objets du type choisi, à la DI
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_intervention_add_objets() RETURNS trigger LANGUAGE plpgsql AS $$
+DECLARE 
+  _geom_intersection geometry; -- géométrie à utiliser pour intersecter avec les éléments de patrimoine (soit tracée à la main, soit celle de l'équipe)
+BEGIN
+  -- si l'intervention saisie est liée à une demande d'intervention
+  IF NEW.iddemande IS NOT NULL THEN
+    -- on vérifie si une intervention n'existe pas déjà pour cette demande (car GEO ne permet pas de cacher le bouton)
+    IF (SELECT count(1) > 0 FROM m_espace_vert.geo_ev_intervention WHERE iddemande = NEW.iddemande AND idinter <> NEW.idinter) THEN
+      RAISE EXCEPTION 'Une intervention est déjà liée à cette demande d''intervention.<br><br>';
+      return NEW;
+    END IF;
+    -- alors on va recopier tous les objets liés à la DI, au niveau de l'intervention
+    INSERT INTO m_espace_vert.lk_ev_intervention_objet(idinter, idobjet)
+      SELECT NEW.idinter, idobjet 
+        FROM m_espace_vert.lk_ev_intervention_objet 
+        WHERE idinter = NEW.iddemande;
+    -- et recopier aussi la géométrie polygone issue de la DI
+    -- on fait un UPDATE comme on est en AFTER INSERT, sinon on aurait pu faire NEW.geom := (SELECT ...)
+    UPDATE m_espace_vert.geo_ev_intervention SET geom = (SELECT geom FROM m_espace_vert.geo_ev_intervention_demande WHERE idinter = NEW.iddemande) WHERE idinter = NEW.idinter;
+    RETURN NEW;
+  END IF;
+  -- si géométrie dessinée
+  IF NEW.geom IS NOT NULL THEN
+    _geom_intersection := NEW.geom;
+  END IF;
+  -- si la demande provient de la fiche d'information d'un secteur d'équipe, alors on considère que la géométrie à utiliser est celle du secteur d'équipe
+  IF NEW.idequipe IS NOT NULL THEN
+    _geom_intersection := (SELECT geom FROM m_espace_vert.geo_ev_zone_equipe e WHERE e.idequipe = NEW.idequipe LIMIT 1);
+  END IF;
+  -- si pas de géométrie à intersecter, on ne fait rien
+  IF _geom_intersection IS NULL THEN
+    return NEW;
+  END IF;
+  -- si on a une géométrie mais pas de type d'objet, alors on refuse la saisie
+  IF NEW.objet_type IS NULL OR NEW.objet_type = '000' THEN
+    RAISE EXCEPTION 'Lors d''une saisie par polygone, veuillez choisir un type d''objet. Tous les objets de ce type présents dans cette zone seront liés automatiquement à la demande.<br><br>';
+    return NEW;
+  END IF;
+  -- on ajoute dans la table de relation N-M tous les objets du type choisi
+  INSERT INTO m_espace_vert.lk_ev_intervention_objet(idinter, idobjet)
+    SELECT NEW.idinter, coalesce(l.idobjet, p.idobjet , s.idobjet)
+    FROM m_espace_vert.an_ev_objet 
+    -- pour pouvoir faire l'intersection spatiale, on fait des jointures avec les 3 tables dans lesquelles peuvent se trouver la géom (pct, ligne, polygon)
+      LEFT JOIN m_espace_vert.geo_ev_objet_line l ON l.idobjet = an_ev_objet.idobjet AND ST_Intersects(_geom_intersection, l.geom)
+      LEFT JOIN m_espace_vert.geo_ev_objet_pct p ON p.idobjet = an_ev_objet.idobjet AND ST_Intersects(_geom_intersection, p.geom)
+      LEFT JOIN m_espace_vert.geo_ev_objet_polygon s ON s.idobjet = an_ev_objet.idobjet AND ST_Intersects(_geom_intersection, s.geom)
+          -- on ne prend que le type d'objets EV choisi par l'utilisateur
+    where typ3 = NEW.objet_type
+          -- pour retirer les lignes de an_ev_objet qui n'ont pas matché, on regarde les lignes en résultat qui ont un identifiant
+          and (l.idobjet IS NOT NULL or p.idobjet IS NOT NULL or s.idobjet IS NOT NULL);
+    -- on vérifie si des objets de ce type ont bien été ajoutés, sinon on refuse la saisie
+    IF (SELECT count(1) = 0 FROM m_espace_vert.lk_ev_intervention_objet WHERE idinter = NEW.idinter) THEN
+      RAISE EXCEPTION 'Aucun objet de ce type n''a été trouvé dans la zone tracée. Veuillez modifier la zone ou le type d''objets et essayer à nouveau.<br><br>';
+    END IF;
+  RETURN NEW;
+END;
+$$
+;
+
+-- demande d'intervention, trigger classique
+-- on crée en AFTER INSERT pour pouvoir récupérer l'identifiant idinter généré
+--DROP TRIGGER t_m_ev_intervention_demande ON m_espace_vert.geo_ev_intervention_demande;
+CREATE TRIGGER t_m_ev_intervention_demande 
+AFTER INSERT ON m_espace_vert.geo_ev_intervention_demande
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_intervention_add_objets();
+
+-- purge des éléments liés à la DI lors du DELETE
+-- DROP TRIGGER t_m_ev_intervention_demande_on_delete ON m_espace_vert.geo_ev_intervention_demande;
+CREATE TRIGGER t_m_ev_intervention_demande_on_delete 
+AFTER DELETE ON m_espace_vert.geo_ev_intervention_demande
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_intervention_purge_on_delete();
+
+-- on crée en AFTER INSERT pour pouvoir récupérer l'identifiant idinter généré
+-- DROP TRIGGER t_m_ev_intervention ON m_espace_vert.geo_ev_intervention;
+CREATE TRIGGER t_m_ev_intervention 
+AFTER INSERT ON m_espace_vert.geo_ev_intervention
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_intervention_add_objets();
+
+-- purge des éléments liés à l'intervention lors du DELETE
+-- DROP TRIGGER t_m_ev_intervention_on_delete ON m_espace_vert.geo_ev_intervention;
+CREATE TRIGGER t_m_ev_intervention_on_delete 
+AFTER DELETE ON m_espace_vert.geo_ev_intervention
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_intervention_purge_on_delete();
+
+
+
+
+-- ####################################################################################################################################################
+-- ###                                                                                                                                              ###
+-- ###                                                                      TRIGGER                                                                 ###
+-- ###                                                                                                                                              ###
+-- ####################################################################################################################################################
+
+
+-- MAJ des calculs de surface des zones sites !!!!!! renvoit vers fonction trigger générique du schéma public !!!!;
+-- DROP TRIGGER t_geo_ev_zone_site_sup_m2 ON m_espace_vert.geo_ev_zone_site;
+CREATE TRIGGER t_geo_ev_zone_site_sup_m2
+BEFORE INSERT OR UPDATE OF geom ON m_espace_vert.geo_ev_zone_site
+FOR EACH ROW EXECUTE PROCEDURE public.ft_r_sup_m2_maj();
+
+-- MAJ des calculs de surface des zones equipe !!!!!! renvoit vers fonction trigger générique du schéma public !!!!;
+-- DROP TRIGGER t_geo_ev_zone_equipe_sup_m2 ON m_espace_vert.geo_ev_zone_equipe;
+CREATE TRIGGER t_geo_ev_zone_equipe_sup_m2
+BEFORE INSERT OR UPDATE OF geom ON m_espace_vert.geo_ev_zone_equipe
+FOR EACH ROW EXECUTE PROCEDURE public.ft_r_sup_m2_maj();
+
+-- MAJ des calculs de surface des zones gestion !!!!!! renvoit vers fonction trigger générique du schéma public !!!!;
+-- DROP TRIGGER t_geo_ev_zone_gestion_sup_m2 ON m_espace_vert.geo_ev_zone_gestion;
+CREATE TRIGGER t_geo_ev_zone_gestion_sup_m2
+BEFORE INSERT OR UPDATE OF geom ON m_espace_vert.geo_ev_zone_gestion
+FOR EACH ROW EXECUTE PROCEDURE public.ft_r_sup_m2_maj();
+
 
 
 -- ####################################################################################################################################################
