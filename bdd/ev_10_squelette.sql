@@ -1,6 +1,6 @@
 /*ESPACE VERT V2.2.0*/
 /*Creation de la structure*/
-/* init_db_ev.sql */
+/* ev_10_squelette.sql */
 /*PostGIS*/
 
 /* Propriétaire : GeoCompiegnois - http://geo.compiegnois.fr/ */
