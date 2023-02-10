@@ -1,6 +1,6 @@
 /*ESPACE VERT V2.2.0*/
 /* Creation des vues de gestion */
-/* init_db_ev.sql */
+/* ev_20_vues_gestion.sql */
 /*PostGIS*/
 
 /* Propriétaire : GeoCompiegnois - http://geo.compiegnois.fr/ */
