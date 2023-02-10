@@ -1,6 +1,6 @@
 /*ESPACE VERT V2.2.0*/
 /* Creation des vues pour l'opendata */
-/* init_db_ev.sql */
+/* ev_23_vues_xopendata.sql */
 /*PostGIS*/
 
 /* Propriétaire : GeoCompiegnois - http://geo.compiegnois.fr/ */
