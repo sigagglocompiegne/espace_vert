@@ -3005,6 +3005,58 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.y_l93 IS 'Coordonnées Y en L
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_pct.geom IS 'Géométrie des objets espaces verts';
 
 
+-- #################################################################### FONCTION/TRIGGER geo_v_ev_objet_pct ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_objet_pct() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+BEGIN
+   
+-- MAJ des attributs objets
+    UPDATE m_espace_vert.an_ev_objet SET
+    idobjet = OLD.idobjet,
+    idgestion = (SELECT idgestion FROM m_espace_vert.geo_ev_zone_gestion WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),
+    idsite = (SELECT idsite FROM m_espace_vert.geo_ev_zone_site WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),
+    idequipe = (SELECT idequipe FROM m_espace_vert.geo_ev_zone_equipe WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),    
+    idcontrat = NEW.idcontrat,
+    insee = (SELECT insee FROM r_osm.geo_osm_commune WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    commune = (SELECT commune FROM r_osm.geo_osm_commune WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    quartier = (SELECT nom FROM r_administratif.geo_adm_quartier WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    typ1 = NEW.typ1,
+    typ2 = NEW.typ2,
+    typ3 = NEW.typ3,
+    etat = NEW.etat,  
+    doma = NEW.doma,
+    qualdoma = NEW.qualdoma,
+    op_sai = NEW.op_sai,  
+    date_sai = NEW.date_sai,
+    src_geom = NEW.src_geom,
+    src_date = NEW.src_date,    
+    op_att = NEW.op_att,
+    date_maj_att = NEW.date_maj_att,	    
+    op_maj = NEW.op_maj,  
+    date_maj = NEW.date_sai,
+    observ = NEW.observ  
+    WHERE idobjet = NEW.idobjet;      
+-- MAJ des attributs geom  
+    UPDATE m_espace_vert.geo_ev_objet_pct SET
+    x_l93 = ST_X(new.geom),
+    y_l93 = ST_Y(new.geom),
+    geom = NEW.geom 
+    WHERE idobjet = NEW.idobjet; 
+          
+    RETURN NEW;
+
+END;
+$$
+;
+     
+-- DROP TRIGGER IF EXISTS t_m_ev_objet_pct ON m_espace_vert.geo_v_ev_objet_pct;
+CREATE TRIGGER t_m_ev_objet_pct INSTEAD OF
+UPDATE
+ON m_espace_vert.geo_v_ev_objet_pct 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_objet_pct();     
+     
+ 
 
 -- #################################################################### VUE geo_v_ev_objet_line ###############################################
 
@@ -3073,6 +3125,58 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.observ IS 'Observations dive
 -- geo_ev_objet_line
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.long_m IS 'Longueur en mètres';
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_line.geom IS 'Géométrie des objets espaces verts';
+
+
+-- #################################################################### FONCTION/TRIGGER geo_v_ev_objet_line ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_objet_line() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+BEGIN
+   
+-- MAJ des attributs objets
+    UPDATE m_espace_vert.an_ev_objet SET
+    idobjet = OLD.idobjet,
+    idgestion = (SELECT idgestion FROM m_espace_vert.geo_ev_zone_gestion WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),
+    idsite = (SELECT idsite FROM m_espace_vert.geo_ev_zone_site WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),
+    idequipe = (SELECT idequipe FROM m_espace_vert.geo_ev_zone_equipe WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),   
+    idcontrat = NEW.idcontrat,
+    insee = (SELECT insee FROM r_osm.geo_osm_commune WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    commune = (SELECT commune FROM r_osm.geo_osm_commune WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    quartier = (SELECT nom FROM r_administratif.geo_adm_quartier WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    typ1 = NEW.typ1,
+    typ2 = NEW.typ2,
+    typ3 = NEW.typ3,
+    etat = NEW.etat,  
+    doma = NEW.doma,
+    qualdoma = NEW.qualdoma,
+    op_sai = NEW.op_sai,  
+    date_sai = NEW.date_sai,
+    src_geom = NEW.src_geom,
+    src_date = NEW.src_date,    
+    op_att = NEW.op_att,
+    date_maj_att = NEW.date_maj_att,	    
+    op_maj = NEW.op_maj,  
+    date_maj = NEW.date_sai,
+    observ = NEW.observ  
+    WHERE idobjet = NEW.idobjet;      
+-- MAJ des attributs geom  
+    UPDATE m_espace_vert.geo_ev_objet_line SET
+    long_m = ST_Length(new.geom)::integer,
+    geom = NEW.geom 
+    WHERE idobjet = NEW.idobjet; 
+          
+    RETURN NEW;
+
+END;
+$$
+;
+     
+-- DROP TRIGGER IF EXISTS t_m_ev_objet_line ON m_espace_vert.geo_v_ev_objet_line;
+CREATE TRIGGER t_m_ev_objet_line INSTEAD OF
+UPDATE
+ON m_espace_vert.geo_v_ev_objet_line 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_objet_line();         
+
 
 
 -- #################################################################### VUE geo_v_ev_objet_polygon ###############################################
@@ -3145,6 +3249,57 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.sup_m2 IS 'Surface en mè
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.perimetre IS 'Périmètre des objets surfaciques en mètre';
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_objet_polygon.geom IS 'Géométrie des objets espaces verts';
 
+
+-- #################################################################### FONCTION/TRIGGER geo_v_ev_objet_polygon ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_objet_polygon() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+BEGIN
+   
+-- MAJ des attributs objets
+    UPDATE m_espace_vert.an_ev_objet SET
+    idobjet = OLD.idobjet,
+    idgestion = (SELECT idgestion FROM m_espace_vert.geo_ev_zone_gestion WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),
+    idsite = (SELECT idsite FROM m_espace_vert.geo_ev_zone_site WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),
+    idequipe = (SELECT idequipe FROM m_espace_vert.geo_ev_zone_equipe WHERE ST_Intersects(NEW.geom,geom) LIMIT 1),  
+    idcontrat = NEW.idcontrat,
+    insee = (SELECT insee FROM r_osm.geo_osm_commune WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    commune = (SELECT commune FROM r_osm.geo_osm_commune WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    quartier = (SELECT nom FROM r_administratif.geo_adm_quartier WHERE st_intersects(NEW.geom,geom) LIMIT 1),
+    typ1 = NEW.typ1,
+    typ2 = NEW.typ2,
+    typ3 = NEW.typ3,
+    etat = NEW.etat,  
+    doma = NEW.doma,
+    qualdoma = NEW.qualdoma,
+    op_sai = NEW.op_sai,  
+    date_sai = NEW.date_sai,
+    src_geom = NEW.src_geom,
+    src_date = NEW.src_date,    
+    op_att = NEW.op_att,
+    date_maj_att = NEW.date_maj_att,	    
+    op_maj = NEW.op_maj,  
+    date_maj = NEW.date_sai,
+    observ = NEW.observ  
+    WHERE idobjet = NEW.idobjet;      
+-- MAJ des attributs geom  
+    UPDATE m_espace_vert.geo_ev_objet_polygon SET
+    sup_m2 = round(cast(st_area(new.geom) as numeric),0),
+    perimetre = NEW.perimetre,
+    geom = NEW.geom 
+    WHERE idobjet = NEW.idobjet; 
+          
+    RETURN NEW;
+
+END;
+$$
+;
+     
+-- DROP TRIGGER IF EXISTS t_m_ev_objet_polygon ON m_espace_vert.geo_v_ev_objet_polygon;
+CREATE TRIGGER t_m_ev_objet_polygon INSTEAD OF
+UPDATE
+ON m_espace_vert.geo_v_ev_objet_polygon 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_objet_polygon();  
 
 
 -- #################################################################### VUE an_v_lt_ev_objet_typ123 ###############################################
