@@ -3322,3 +3322,34 @@ CREATE OR REPLACE VIEW m_espace_vert.an_v_lt_ev_objet_typ123
      LEFT JOIN m_espace_vert.lt_ev_objet_typ3 t3 ON t2.code::text = "left"(t3.code::text, 2);
 
 
+
+
+-- ####################################################################################################################################################
+-- ###                                                                                                                                              ###
+-- ###                                                                      TRIGGER                                                                 ###
+-- ###                                                                                                                                              ###
+-- ####################################################################################################################################################
+
+
+
+-- MAJ des calculs de surface des objets de type polygone !!!!!! renvoit vers fonction trigger générique du schéma public !!!!;
+-- DROP TRIGGER t_geo_ev_objet_polygon_sup_m2 ON m_espace_vert.geo_ev_objet_polygon;
+CREATE TRIGGER t_geo_ev_objet_polygon_sup_m2
+BEFORE INSERT OR UPDATE OF geom ON m_espace_vert.geo_ev_objet_polygon
+FOR EACH ROW EXECUTE PROCEDURE public.ft_r_sup_m2_maj();
+
+-- quid perimetre ??????
+
+-- MAJ des calculs de longueur des objets de type line !!!!!! renvoit vers fonction trigger générique du schéma public !!!!;
+-- DROP TRIGGER t_geo_ev_objet_line_long_m ON m_espace_vert.geo_ev_objet_line;
+CREATE TRIGGER t_geo_ev_objet_line_long_m
+BEFORE INSERT OR UPDATE OF geom ON m_espace_vert.geo_ev_objet_line
+FOR EACH ROW EXECUTE PROCEDURE public.ft_r_longm_maj();
+
+-- MAJ des calculs des coordonnées des objets de type point !!!!!! renvoit vers fonction trigger générique du schéma public !!!!;
+-- DROP TRIGGER t_geo_ev_objet_pct_xy_l93 ON m_espace_vert.geo_ev_objet_pct;
+CREATE TRIGGER t_geo_ev_objet_pct_xy_l93
+BEFORE INSERT OR UPDATE OF geom ON m_espace_vert.geo_ev_objet_pct
+FOR EACH ROW EXECUTE PROCEDURE public.ft_r_xy_l93();
+
+
