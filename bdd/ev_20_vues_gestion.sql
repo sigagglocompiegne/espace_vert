@@ -189,6 +189,142 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_arbre.naiss_com IS 'Commentaire
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_arbre.etatarbre IS 'Etat de l''arbre';
 
 
+-- #################################################################### FONCTION/TRIGGER arbre ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_vegetal_arbre() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+    -- Lors de la saisie d'un arbre, afficher un message d'avertissement dans la fiche si sa localisation se trouve à moins de 50cm d'un autre arbre, afin d'éviter la saisie de doublons.
+    IF (SELECT count(1) > 0 FROM m_espace_vert.geo_v_ev_vegetal_arbre WHERE ST_DWithin(NEW.geom,geom, 0.5) AND etat <> '3' )  THEN
+      RAISE EXCEPTION 'Erreur : Un arbre existe déjà à moins de 50cm de cette position.<br><br>';
+    END IF;
+  END IF;
+
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '11', '111');
+  --  
+  IF (TG_OP = 'INSERT') THEN
+    -- INSERTion des attributs spécifiques
+    INSERT INTO m_espace_vert.an_ev_vegetal_arbre
+    (idobjet, famille, genre, espece, cultivar, nomlatin, nomcommun, niv_allerg,
+    hauteur_cl, circonf, diam_houpp, implant, mode_cond, date_pl_an, date_pl_sa, periode_pl, stade_dev, sol_type, amena_pied,
+    remarq, remarq_com, proteg, proteg_com, contr, contr_type, naiss, naiss_com, etatarbre)
+    VALUES
+    (_idobjet, NEW.famille, NEW.genre, NEW.espece, NEW.cultivar, NEW.nomlatin, NEW.nomcommun, CASE WHEN NEW.niv_allerg IS NULL THEN '00' ELSE NEW.niv_allerg END,
+-- proprio
+    CASE WHEN NEW.hauteur_cl IS NULL THEN '00' ELSE NEW.hauteur_cl END,
+    NEW.circonf,
+    NEW.diam_houpp,    
+-- implant est déduit uniquement dans le cas où l'utilisateur ne le renseigne pas ('00' OU NULL)
+    CASE WHEN NEW.implant IN ('01','02','03') THEN NEW.implant WHEN (SELECT count(1) > 0 FROM m_espace_vert.geo_v_ev_vegetal_arbre_alignement b WHERE b.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),b.geom)) THEN '02' WHEN (SELECT count(1) > 0 FROM m_espace_vert.geo_v_ev_vegetal_arbre_bois c WHERE c.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),c.geom)) THEN '03' ELSE '00' END,
+    CASE WHEN NEW.mode_cond IS NULL THEN '00' ELSE NEW.mode_cond END,   
+-- historique
+    NEW.date_pl_an, 
+    CASE WHEN NEW.date_pl_sa IS NULL THEN '00' ELSE NEW.date_pl_sa END, 
+    CASE WHEN NEW.periode_pl IS NULL THEN '00' ELSE NEW.periode_pl END, 
+    CASE WHEN NEW.stade_dev IS NULL THEN '00' ELSE NEW.stade_dev END, 
+-- divers
+    CASE WHEN NEW.sol_type IS NULL THEN '00' ELSE NEW.sol_type END,
+    CASE WHEN NEW.amena_pied IS NULL THEN '00' ELSE NEW.amena_pied END,
+--
+    CASE WHEN NEW.remarq IS NULL THEN '0' ELSE NEW.remarq END,
+    CASE WHEN NEW.remarq ='t' THEN NEW.remarq_com ELSE NULL END,
+    CASE WHEN NEW.proteg IS NULL THEN '0' ELSE NEW.proteg END,
+    CASE WHEN NEW.proteg ='t' THEN NEW.proteg_com ELSE NULL END,
+    CASE WHEN NEW.contr IS NULL THEN '0' ELSE NEW.contr END,
+    CASE WHEN NEW.contr ='t' THEN NEW.contr_type ELSE NULL END,
+    CASE WHEN NEW.naiss IS NULL THEN '0' ELSE NEW.naiss END,     
+    CASE WHEN NEW.naiss ='t' THEN NEW.naiss_com ELSE NULL END,
+    CASE WHEN NEW.etatarbre IS NULL THEN '00' ELSE NEW.etatarbre END);     
+    -- INSERTion des attributs des EV végétaux  
+    INSERT INTO m_espace_vert.an_ev_vegetal
+    (idobjet, 
+    position)
+    VALUES
+    (_idobjet, 
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);  
+    RETURN NEW;  
+    
+  ELSIF (TG_OP = 'UPDATE') THEN
+    -- MAJ des attributs spécifiques
+    UPDATE m_espace_vert.an_ev_vegetal_arbre SET
+-- dico botanique    
+    famille = NEW.famille,
+    genre = NEW.genre,
+    espece = NEW.espece,
+    cultivar = NEW.cultivar,
+    nomlatin = NEW.nomlatin,
+    nomcommun = NEW.nomcommun,
+    niv_allerg = CASE WHEN NEW.niv_allerg IS NULL THEN '00' ELSE NEW.niv_allerg END,        
+-- proprio
+    hauteur_cl = CASE WHEN NEW.hauteur_cl IS NULL THEN '00' ELSE NEW.hauteur_cl END,
+    circonf = NEW.circonf,
+    diam_houpp = NEW.diam_houpp,    
+-- implant est déduit uniquement dans le cas où l'utilisateur ne le renseigne pas ('00' OU NULL)
+    implant = CASE WHEN NEW.implant IN ('01','02','03') THEN NEW.implant WHEN (SELECT count(1) > 0 FROM m_espace_vert.geo_v_ev_vegetal_arbre_alignement b WHERE b.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),b.geom)) THEN '02' WHEN (SELECT count(1) > 0 FROM m_espace_vert.geo_v_ev_vegetal_arbre_bois c WHERE c.etat = '2' AND ST_Intersects(St_buffer(NEW.geom,0.1),c.geom)) THEN '03' ELSE '00' END,
+    mode_cond = CASE WHEN NEW.mode_cond IS NULL THEN '00' ELSE NEW.mode_cond END,   
+-- historique
+    date_pl_an = NEW.date_pl_an, 
+    date_pl_sa = CASE WHEN NEW.date_pl_sa IS NULL THEN '00' ELSE NEW.date_pl_sa END, 
+    periode_pl = CASE WHEN NEW.periode_pl IS NULL THEN '00' ELSE NEW.periode_pl END, 
+    stade_dev = CASE WHEN NEW.stade_dev IS NULL THEN '00' ELSE NEW.stade_dev END, 
+-- divers
+    sol_type = CASE WHEN NEW.sol_type IS NULL THEN '00' ELSE NEW.sol_type END,
+    amena_pied = CASE WHEN NEW.amena_pied IS NULL THEN '00' ELSE NEW.amena_pied END,
+--
+    remarq = CASE WHEN NEW.remarq IS NULL THEN '0' ELSE NEW.remarq END,
+    remarq_com = CASE WHEN NEW.remarq ='t' THEN NEW.remarq_com ELSE NULL END,
+    proteg = CASE WHEN NEW.proteg IS NULL THEN '0' ELSE NEW.proteg END,
+    proteg_com = CASE WHEN NEW.proteg ='t' THEN NEW.proteg_com ELSE NULL END,
+    contr = CASE WHEN NEW.contr IS NULL THEN '0' ELSE NEW.contr END,
+    contr_type = CASE WHEN NEW.contr ='t' THEN NEW.contr_type ELSE NULL END,
+    naiss = CASE WHEN NEW.naiss IS NULL THEN '0' ELSE NEW.naiss END,     
+    naiss_com = CASE WHEN NEW.naiss ='t' THEN NEW.naiss_com ELSE NULL END,
+    etatarbre = CASE WHEN NEW.etatarbre IS NULL THEN '00' ELSE NEW.etatarbre END      
+    WHERE idobjet = NEW.idobjet;    
+    -- MAJ des attributs des EV végétaux  
+    UPDATE m_espace_vert.an_ev_vegetal SET
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
+    WHERE idobjet = NEW.idobjet;       
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'DELETE') THEN
+-- voir pour cas arbre supprimé (etatarbre) 
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+-- DROP TRIGGER IF EXISTS t_m_ev_vegetal_arbre ON m_espace_vert.geo_v_ev_vegetal_arbre;
+CREATE TRIGGER t_m_ev_vegetal_arbre INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+on m_espace_vert.geo_v_ev_vegetal_arbre 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_vegetal_arbre();
+
+
 
 -- #################################################################### VUE geo_v_ev_vegetal_arbre_alignement ###############################################
 
@@ -263,6 +399,66 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_arbre_alignement.long_m IS 'Lon
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_arbre_alignement.geom IS 'Géométrie des objets espaces verts';
 -- an_ev_vegetal
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_arbre_alignement."position" IS 'Position des objets';
+
+
+-- #################################################################### FONCTION/TRIGGER arbre_alignement ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_vegetal_arbre_alignement() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '11', '112');
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    -- INSERTion des attributs des EV végétaux    
+    INSERT INTO m_espace_vert.an_ev_vegetal
+    (idobjet, 
+    position)
+    VALUES
+    (_idobjet, 
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);  
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'UPDATE') THEN
+    -- MAJ des attributs des EV végétaux    
+    UPDATE m_espace_vert.an_ev_vegetal SET
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
+    WHERE idobjet = NEW.idobjet;
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+-- DROP TRIGGER IF EXISTS t_m_ev_vegetal_arbre_alignement ON m_espace_vert.geo_v_ev_vegetal_arbre_alignement;
+CREATE TRIGGER t_m_ev_vegetal_arbre_alignement INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+on m_espace_vert.geo_v_ev_vegetal_arbre_alignement
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_vegetal_arbre_alignement();
 
 
 -- #################################################################### VUE geo_v_ev_vegetal_arbre_bois ###############################################
@@ -342,6 +538,65 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_arbre_bois.geom IS 'Géométrie
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_arbre_bois."position" IS 'Position des objets';
 
 
+-- #################################################################### FONCTION/TRIGGER ZONE BOISEE ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_vegetal_arbre_bois() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '11', '113');
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    -- INSERTion des attributs des EV végétaux    
+    INSERT INTO m_espace_vert.an_ev_vegetal
+    (idobjet, 
+    position)
+    VALUES
+    (_idobjet, 
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);  
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'UPDATE') THEN
+    -- MAJ des attributs des EV végétaux  
+    UPDATE m_espace_vert.an_ev_vegetal SET
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
+    WHERE idobjet = NEW.idobjet;
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+-- DROP TRIGGER IF EXISTS t_m_ev_vegetal_arbre_bois ON m_espace_vert.geo_v_ev_vegetal_arbre_bois;
+CREATE TRIGGER t_m_ev_vegetal_arbre_bois INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+on m_espace_vert.geo_v_ev_vegetal_arbre_bois
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_vegetal_arbre_bois();
+
 
 -- #################################################################### VUE geo_v_ev_vegetal_arbuste ###############################################
 
@@ -419,6 +674,66 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_arbuste.y_l93 IS 'Coordonnées 
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_arbuste.geom IS 'Géométrie des objets espaces verts';
 -- an_ev_vegetal
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_arbuste."position" IS 'Position des objets';
+
+
+-- #################################################################### FONCTION/TRIGGER arbuste ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_vegetal_arbuste() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '12', '121');
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    -- INSERTion des attributs des EV végétaux    
+    INSERT INTO m_espace_vert.an_ev_vegetal
+    (idobjet, 
+    position)
+    VALUES
+    (_idobjet, 
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);  
+    RETURN NEW;
+ 
+  ELSIF (TG_OP = 'UPDATE') THEN
+    -- MAJ des attributs des EV végétaux     
+    UPDATE m_espace_vert.an_ev_vegetal SET
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
+    WHERE idobjet = NEW.idobjet;
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+-- DROP TRIGGER IF EXISTS t_m_ev_vegetal_arbuste ON m_espace_vert.geo_v_ev_vegetal_arbuste;
+CREATE TRIGGER t_m_ev_vegetal_arbuste INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+on m_espace_vert.geo_v_ev_vegetal_arbuste 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_vegetal_arbuste();
 
 
 -- #################################################################### geo_v_ev_vegetal_arbuste_haie ###############################################
@@ -519,6 +834,85 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_arbuste_haie.paill_type IS 'Typ
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_arbuste_haie.biodiv IS 'Biodiversité';
 
 
+
+-- #################################################################### FONCTION/TRIGGER haie ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_vegetal_arbuste_haie() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '12', '122');
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    -- INSERTion des attributs spécifiques
+    INSERT INTO m_espace_vert.an_ev_vegetal_arbuste_haie
+    (idobjet, 
+    veget_type,
+    hauteur, espac_type, paill_type, biodiv)
+    VALUES
+    (_idobjet, 
+    NEW.veget_type,
+    NEW.hauteur, NEW.espac_type, 
+    NEW.paill_type, NEW.biodiv);
+    -- INSERTion des attributs des EV végétaux      
+    INSERT INTO m_espace_vert.an_ev_vegetal
+    (idobjet, 
+    position)
+    VALUES
+    (_idobjet, 
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);  
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'UPDATE') THEN
+    -- MAJ des attributs spécifiques
+    UPDATE m_espace_vert.an_ev_vegetal_arbuste_haie SET
+    veget_type = NEW.veget_type,
+    hauteur = NEW.hauteur, 
+    espac_type = NEW.espac_type, 
+    paill_type = NEW.paill_type, 
+    biodiv = NEW.biodiv 
+    WHERE idobjet = NEW.idobjet;
+    -- MAJ des attributs des EV végétaux      
+    UPDATE m_espace_vert.an_ev_vegetal SET
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
+    WHERE idobjet = NEW.idobjet;
+    RETURN NEW;    
+
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+-- DROP TRIGGER IF EXISTS t_m_ev_vegetal_haie ON m_espace_vert.geo_v_ev_vegetal_arbuste_haie;
+CREATE TRIGGER t_m_ev_vegetal_haie INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+on m_espace_vert.geo_v_ev_vegetal_arbuste_haie
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_vegetal_arbuste_haie();
+
+
 -- #################################################################### geo_v_ev_vegetal_arbuste_massif ###############################################
 
 -- View: m_espace_vert.geo_v_ev_vegetal_arbuste_massif
@@ -610,6 +1004,84 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_arbuste_massif.biodiv IS 'Biodi
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_arbuste_massif.inv_faunis IS 'Inventaire faunistique / floristique réalisé (O/N)';
 
 
+-- #################################################################### FONCTION/TRIGGER arbuste_massif ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_vegetal_arbuste_massif() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '12', '123');
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    -- INSERTion des attributs spécifiques
+    INSERT INTO m_espace_vert.an_ev_vegetal_arbuste_massif
+    (idobjet,
+    espac_type, arros_type, 
+    arros_auto, biodiv, inv_faunis)
+    VALUES
+    (_idobjet,
+    NEW.espac_type, NEW.arros_type, 
+    CASE WHEN NEW.arros_auto IS NULL THEN '0' ELSE NEW.arros_auto END, NEW.biodiv, 
+    CASE WHEN NEW.inv_faunis IS NULL THEN '0' ELSE NEW.inv_faunis END);
+    -- INSERTion des attributs des EV végétaux  
+    INSERT INTO m_espace_vert.an_ev_vegetal
+    (idobjet, 
+    position)
+    VALUES
+    (_idobjet, 
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);  
+    RETURN NEW;    
+    
+  ELSIF (TG_OP = 'UPDATE') THEN
+    -- MAJ des attributs spécifiques
+    UPDATE m_espace_vert.an_ev_vegetal_arbuste_massif SET
+    espac_type = NEW.espac_type, 
+    arros_type = NEW.arros_type, 
+    arros_auto = CASE WHEN NEW.arros_auto IS NULL THEN '0' ELSE NEW.arros_auto END, 
+    biodiv = NEW.biodiv, 
+    inv_faunis = CASE WHEN NEW.inv_faunis IS NULL THEN '0' ELSE NEW.inv_faunis END 
+    WHERE idobjet = NEW.idobjet;
+    -- MAJ des attributs des EV végétaux  
+    UPDATE m_espace_vert.an_ev_vegetal SET
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
+    WHERE idobjet = NEW.idobjet;
+    RETURN NEW;     
+
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+-- DROP TRIGGER IF EXISTS t_m_ev_vegetal_arbuste_massif ON m_espace_vert.geo_v_ev_vegetal_arbuste_massif;
+CREATE TRIGGER t_m_ev_vegetal_arbuste_massif INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+on m_espace_vert.geo_v_ev_vegetal_arbuste_massif 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_vegetal_arbuste_massif();
+
+
 -- #################################################################### VUE geo_v_ev_vegetal_fleuri ###############################################
 
 -- View: m_espace_vert.geo_v_ev_vegetal_fleuri
@@ -686,6 +1158,68 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_fleuri.y_l93 IS 'Coordonnées Y
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_fleuri.geom IS 'Géométrie des objets espaces verts';
 -- an_ev_vegetal
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_fleuri."position" IS 'Position des objets';
+
+
+
+-- #################################################################### FONCTION/TRIGGER fleuri ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_vegetal_fleuri() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '13', '131');
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    -- INSERTion des attributs des EV végétaux   
+    INSERT INTO m_espace_vert.an_ev_vegetal
+    (idobjet, 
+    position)
+    VALUES
+    (_idobjet, 
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);  
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'UPDATE') THEN
+    -- MAJ des attributs des EV végétaux  
+    UPDATE m_espace_vert.an_ev_vegetal SET
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
+    WHERE idobjet = NEW.idobjet;
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+-- DROP TRIGGER IF EXISTS t_m_ev_vegetal_fleuri ON m_espace_vert.geo_v_ev_vegetal_fleuri;
+CREATE TRIGGER t_m_ev_vegetal_fleuri INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+on m_espace_vert.geo_v_ev_vegetal_fleuri 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_vegetal_fleuri();
+
 
 
 -- #################################################################### geo_v_ev_vegetal_fleuri_massif ###############################################
@@ -779,6 +1313,86 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_fleuri_massif.biodiv IS 'Biodiv
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_fleuri_massif.inv_faunis IS 'Inventaire faunistique / floristique réalisé (O/N)';
 
 
+-- #################################################################### FONCTION/TRIGGER fleuri_massif ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_vegetal_fleuri_massif() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '13', '132');
+
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    -- INSERTion des attributs spécifiques
+    INSERT INTO m_espace_vert.an_ev_vegetal_fleuri_massif
+    (idobjet, 
+    espac_type, arros_type, 
+    arros_auto, biodiv, inv_faunis)
+    VALUES
+    (_idobjet, 
+    NEW.espac_type, NEW.arros_type, 
+    CASE WHEN NEW.arros_auto IS NULL THEN '0' ELSE NEW.arros_auto END, NEW.biodiv, 
+    CASE WHEN NEW.inv_faunis IS NULL THEN '0' ELSE NEW.inv_faunis END);
+    -- INSERTion des attributs des EV végétaux  
+    INSERT INTO m_espace_vert.an_ev_vegetal
+    (idobjet, 
+    position)
+    VALUES
+    (_idobjet, 
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'UPDATE') THEN
+    -- MAJ des attributs spécifiques
+    UPDATE m_espace_vert.an_ev_vegetal_fleuri_massif SET
+    espac_type = NEW.espac_type, 
+    arros_type = NEW.arros_type, 
+    arros_auto = CASE WHEN NEW.arros_auto IS NULL THEN '0' ELSE NEW.arros_auto END, 
+    biodiv = NEW.biodiv, 
+    inv_faunis = CASE WHEN NEW.inv_faunis IS NULL THEN '0' ELSE NEW.inv_faunis END 
+    WHERE idobjet = NEW.idobjet;
+    -- MAJ des attributs des EV végétaux
+    UPDATE m_espace_vert.an_ev_vegetal SET
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
+    WHERE idobjet = NEW.idobjet;
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+-- DROP TRIGGER IF EXISTS t_m_ev_vegetal_fleuri_massif ON m_espace_vert.geo_v_ev_vegetal_fleuri_massif;
+CREATE TRIGGER t_m_ev_vegetal_fleuri_massif INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+on m_espace_vert.geo_v_ev_vegetal_fleuri_massif 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_vegetal_fleuri_massif();
+
+
+
 -- #################################################################### geo_v_ev_vegetal_herbe ###############################################
 
 -- View: m_espace_vert.geo_v_ev_vegetal_herbe
@@ -870,6 +1484,84 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_herbe.biodiv IS 'Biodiversité'
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_vegetal_herbe.inv_faunis IS 'Inventaire faunistique / floristique réalisé (O/N)';
 
 
+-- #################################################################### FONCTION/TRIGGER vegetal_herbe ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_vegetal_herbe() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '1', '14', '141');
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    -- INSERTion des attributs spécifiques
+    INSERT INTO m_espace_vert.an_ev_vegetal_herbe
+    (idobjet, 
+    espac_type, arros_type, arros_auto, 
+    biodiv, inv_faunis)
+    VALUES
+    (_idobjet, 
+    NEW.espac_type, NEW.arros_type, 
+    CASE WHEN NEW.arros_auto IS NULL THEN '0' ELSE NEW.arros_auto END, NEW.biodiv, 
+    CASE WHEN NEW.inv_faunis IS NULL THEN '0' ELSE NEW.inv_faunis END);
+    -- INSERTion des attributs des EV végétaux    
+    INSERT INTO m_espace_vert.an_ev_vegetal
+    (idobjet, 
+    position)
+    VALUES
+    (_idobjet, 
+    CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END);
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'UPDATE') THEN
+    -- MAJ des attributs spécifiques
+    UPDATE m_espace_vert.an_ev_vegetal_herbe SET
+    espac_type = NEW.espac_type, 
+    arros_type = NEW.arros_type, 
+    arros_auto = CASE WHEN NEW.arros_auto IS NULL THEN '0' ELSE NEW.arros_auto END, 
+    biodiv = NEW.biodiv, 
+    inv_faunis = CASE WHEN NEW.inv_faunis IS NULL THEN '0' ELSE NEW.inv_faunis END 
+    WHERE idobjet = NEW.idobjet;
+    -- MAJ des attributs des EV végétaux  
+    UPDATE m_espace_vert.an_ev_vegetal SET
+    position = CASE WHEN NEW.position IS NULL THEN '10' ELSE NEW.position END 
+    WHERE idobjet = NEW.idobjet;
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+--DROP TRIGGER IF EXISTS t_m_ev_vegetal_herbe ON m_espace_vert.geo_v_ev_vegetal_herbe;
+CREATE TRIGGER t_m_ev_vegetal_herbe INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+on m_espace_vert.geo_v_ev_vegetal_herbe 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_vegetal_herbe();
+
+
 -- #################################################################### geo_v_ev_mineral_circulation_voie ###############################################
 
 -- View: m_espace_vert.geo_v_ev_mineral_circulation_voie
@@ -946,6 +1638,67 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_mineral_circulation_voie.geom IS 'Géom
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_mineral_circulation_voie.larg_cm IS 'Largeur des objets en cm';
 
 
+-- #################################################################### FONCTION/TRIGGER circulation_voie ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_mineral_circulation_voie() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '2', '21', _record_used.typ3);
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    -- INSERTion des attributs des objets geoline    
+    INSERT INTO m_espace_vert.an_ev_objet_line_largeur
+    (idobjet, 
+    larg_cm)
+    VALUES
+    (_idobjet, 
+    NEW.larg_cm);
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'UPDATE') THEN
+    -- MAJ des attributs des objets geoline   
+    UPDATE m_espace_vert.an_ev_objet_line_largeur SET
+    larg_cm = NEW.larg_cm 
+    WHERE idobjet = NEW.idobjet;
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+-- DROP TRIGGER IF EXISTS t_m_ev_mineral_circulation_voie ON m_espace_vert.geo_v_ev_mineral_circulation_voie;
+CREATE TRIGGER t_m_ev_mineral_circulation_voie INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+ON m_espace_vert.geo_v_ev_mineral_circulation_voie 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_mineral_circulation_voie();
+
+
+
 -- #################################################################### geo_v_ev_mineral_circulation_zone ###############################################
 
 -- View: m_espace_vert.geo_v_ev_mineral_circulation_zone
@@ -1019,6 +1772,56 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_mineral_circulation_zone.perimetre IS '
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_mineral_circulation_zone.geom IS 'Géométrie des objets espaces verts';
 
 
+-- #################################################################### FONCTION/TRIGGER circulation_zone ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_mineral_circulation_zone() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '2', '21', _record_used.typ3);
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'UPDATE') THEN
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+-- DROP TRIGGER IF EXISTS t_m_ev_mineral_circulation_zone ON m_espace_vert.geo_v_ev_mineral_circulation_zone;
+CREATE TRIGGER t_m_ev_mineral_circulation_zone INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+ON m_espace_vert.geo_v_ev_mineral_circulation_zone 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_mineral_circulation_zone();
+
+
+
 -- #################################################################### geo_v_ev_mineral_cloture ###############################################
 
 -- View: m_espace_vert.geo_v_ev_mineral_cloture
@@ -1088,6 +1891,56 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_mineral_cloture.observ IS 'Observations
 -- geo_ev_objet_line
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_mineral_cloture.long_m IS 'Longueur en mètres';
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_mineral_cloture.geom IS 'Géométrie des objets espaces verts';
+
+
+
+-- #################################################################### FONCTION/TRIGGER cloture ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_mineral_cloture() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '2', '22', _record_used.typ3);
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'UPDATE') THEN
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+-- DROP TRIGGER IF EXISTS t_m_ev_mineral_cloture ON m_espace_vert.geo_v_ev_mineral_cloture;
+CREATE TRIGGER t_m_ev_mineral_cloture INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+ON m_espace_vert.geo_v_ev_mineral_cloture 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_mineral_cloture();
 
 
 -- #################################################################### VUE geo_v_ev_mineral_loisir_equipement ###############################################
@@ -1163,6 +2016,57 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_mineral_loisir_equipement.y_l93 IS 'Coo
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_mineral_loisir_equipement.geom IS 'Géométrie des objets espaces verts';
 
 
+
+
+-- #################################################################### FONCTION/TRIGGER loisir_equipement ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_mineral_loisir_equipement() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '2', '23', '231');
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'UPDATE') THEN
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+-- DROP TRIGGER IF EXISTS t_m_ev_mineral_loisir_equipement ON m_espace_vert.geo_v_ev_mineral_loisir_equipement;
+CREATE TRIGGER t_m_ev_mineral_loisir_equipement INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+ON m_espace_vert.geo_v_ev_mineral_loisir_equipement 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_mineral_loisir_equipement();
+
+
 -- #################################################################### geo_v_ev_mineral_loisir_zone ###############################################
 
 -- View: m_espace_vert.geo_v_ev_mineral_loisir_zone
@@ -1234,6 +2138,57 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_mineral_loisir_zone.observ IS 'Observat
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_mineral_loisir_zone.sup_m2 IS 'Surface en mètre carré';
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_mineral_loisir_zone.perimetre IS 'Périmètre des objets surfaciques en mètre';
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_mineral_loisir_zone.geom IS 'Géométrie des objets espaces verts';
+
+
+-- #################################################################### FONCTION/TRIGGER loisir_zone ###############################################
+
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_mineral_loisir_zone() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '2', '23', '232');
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'UPDATE') THEN
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+-- DROP TRIGGER IF EXISTS t_m_ev_mineral_loisir_zone ON m_espace_vert.geo_v_ev_mineral_loisir_zone;
+CREATE TRIGGER t_m_ev_mineral_loisir_zone INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+ON m_espace_vert.geo_v_ev_mineral_loisir_zone 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_mineral_loisir_zone();
+
 
 -- #################################################################### VUE geo_v_ev_hydro_eau_arrivee ###############################################
 
@@ -1308,6 +2263,55 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_hydro_eau_arrivee.y_l93 IS 'Coordonnée
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_hydro_eau_arrivee.geom IS 'Géométrie des objets espaces verts';
 
 
+-- #################################################################### FONCTION/TRIGGER eau_arrivee ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_hydro_eau_arrivee() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '3', '31', _record_used.typ3);
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'UPDATE') THEN
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+--DROP TRIGGER IF EXISTS t_m_ev_hydro_eau_arrivee ON m_espace_vert.geo_v_ev_hydro_eau_arrivee;
+CREATE TRIGGER t_m_ev_hydro_eau_arrivee INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+ON m_espace_vert.geo_v_ev_hydro_eau_arrivee 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_hydro_eau_arrivee();
+
+
 -- #################################################################### VUE geo_v_ev_hydro_eau_point ###############################################
 
 -- View: m_espace_vert.geo_v_ev_hydro_eau_point
@@ -1379,6 +2383,63 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_hydro_eau_point.observ IS 'Observations
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_hydro_eau_point.x_l93 IS 'Coordonnées X en lambert 93';
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_hydro_eau_point.y_l93 IS 'Coordonnées Y en Lambert 93';
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_hydro_eau_point.geom IS 'Géométrie des objets espaces verts';
+
+
+-- #################################################################### FONCTION/TRIGGER hydro eau_point et eau_etendue ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_hydro() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '3', '32', _record_used.typ3);
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'UPDATE') THEN
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+-- trigger sur table hydro_eau_point
+-- DROP TRIGGER IF EXISTS t_m_ev_hydro_eau_point ON m_espace_vert.geo_v_ev_hydro_eau_point;
+CREATE TRIGGER t_m_ev_hydro_eau_point INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+ON m_espace_vert.geo_v_ev_hydro_eau_point 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_hydro();
+
+-- trigger sur table hydro_eau_etendue
+-- DROP TRIGGER IF EXISTS t_m_ev_hydro_eau_etendue ON m_espace_vert.geo_v_ev_hydro_eau_etendue;
+CREATE TRIGGER t_m_ev_hydro_eau_etendue INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+ON m_espace_vert.geo_v_ev_hydro_eau_etendue 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_hydro();
 
 
 -- #################################################################### geo_v_ev_hydro_eau_cours ###############################################
@@ -1455,6 +2516,67 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_hydro_eau_cours.long_m IS 'Longueur en 
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_hydro_eau_cours.geom IS 'Géométrie des objets espaces verts';
 -- an_line_largeur
 COMMENT ON COLUMN m_espace_vert.geo_v_ev_hydro_eau_cours.larg_cm IS 'Largeur des objets en cm';
+
+
+-- #################################################################### FONCTION/TRIGGER hydro eau_cours ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_hydro_eau_cours() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '3', '32', _record_used.typ3);
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    -- INSERTion des attributs des objets geoline    
+    INSERT INTO m_espace_vert.an_ev_objet_line_largeur
+    (idobjet, 
+    larg_cm)
+    VALUES
+    (_idobjet, 
+    NEW.larg_cm);
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'UPDATE') THEN
+    -- MAJ des attributs des objets geoline   
+    UPDATE m_espace_vert.an_ev_objet_line_largeur SET
+    larg_cm = NEW.larg_cm 
+    WHERE idobjet = NEW.idobjet;
+    RETURN NEW;
+    
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+-- trigger sur table hydro_eau_cours
+--DROP TRIGGER IF EXISTS t_m_ev_hydro_eau_cours ON m_espace_vert.geo_v_ev_hydro_eau_cours;
+CREATE TRIGGER t_m_ev_hydro_eau_cours INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+ON m_espace_vert.geo_v_ev_hydro_eau_cours 
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_hydro_eau_cours();
 
 
 -- #################################################################### geo_v_ev_hydro_eau_etendue ###############################################
@@ -1748,6 +2870,68 @@ COMMENT ON COLUMN m_espace_vert.geo_v_ev_refnonclassee_polygon.geom IS 'Géomét
 
 
 -- ## vue objets par type de geométrie
+
+
+-- #################################################################### FONCTION/TRIGGER REFNONCLASSEE PCT-LIN-POLYGON ###############################################
+
+CREATE OR REPLACE FUNCTION m_espace_vert.ft_m_ev_refnonclassee() RETURNS trigger LANGUAGE plpgsql AS $$
+  
+  DECLARE _idobjet integer;
+  DECLARE _dataold text;
+  DECLARE _datanew text;
+  DECLARE _record_used record;
+
+BEGIN 
+  IF TG_OP = 'INSERT' THEN
+   -- générer un nouvel identifiant à partir de la séquence globale des objets EV
+    _idobjet := nextval('m_espace_vert.an_ev_objet_idobjet_seq');
+    _record_used := NEW;
+    _dataold := NULL;
+    _datanew := ROW(NEW.*)::text;
+  ELSIF TG_OP = 'UPDATE' THEN
+    _idobjet := NEW.idobjet;
+    _record_used := NEW;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := ROW(NEW.*)::text;
+  ELSE
+    _idobjet := OLD.idobjet;
+    _record_used := OLD;
+    _dataold := ROW(OLD.*)::text;
+    _datanew := NULL;
+  END IF;
+  PERFORM m_espace_vert.ft_m_ev_process_generic_info(TG_OP, TG_TABLE_NAME, _record_used.geom, _idobjet, _dataold, _datanew, _record_used.observ, _record_used.op_sai, _record_used.op_maj, '9', '99', '999');
+  -- 
+  IF (TG_OP = 'INSERT') THEN
+    RETURN NEW;
+  ELSIF (TG_OP = 'UPDATE') THEN
+    RETURN NEW;
+  ELSIF (TG_OP = 'DELETE') THEN
+    RETURN OLD;
+  END IF;
+END;
+$$
+;
+
+-- trigger sur table refnonclassee_point
+-- DROP TRIGGER IF EXISTS t_m_ev_refnonclassee_point ON m_espace_vert.geo_v_ev_refnonclassee_point;
+CREATE TRIGGER t_m_ev_refnonclassee_point INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+on m_espace_vert.geo_v_ev_refnonclassee_point
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_refnonclassee();
+
+-- trigger sur table refnonclassee_line
+-- DROP TRIGGER IF EXISTS t_m_ev_refnonclassee_line ON m_espace_vert.geo_v_ev_refnonclassee_line;
+CREATE TRIGGER t_m_ev_refnonclassee_line INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+on m_espace_vert.geo_v_ev_refnonclassee_line
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_refnonclassee();
+
+-- trigger sur table refnonclassee_polygon
+-- DROP TRIGGER IF EXISTS t_m_ev_refnonclassee_polygon ON m_espace_vert.geo_v_ev_refnonclassee_polygon;
+CREATE TRIGGER t_m_ev_refnonclassee_polygon INSTEAD OF
+INSERT OR UPDATE OR DELETE 
+on m_espace_vert.geo_v_ev_refnonclassee_polygon
+FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_refnonclassee();
 
 
 -- #################################################################### VUE geo_v_ev_objet_pct ###############################################
