@@ -1,6 +1,6 @@
 /*ESPACE VERT V2.2.0*/
 /*Creation droits sur l'ensemble des objets */
-/* init_db_ev.sql */
+/* ev_99_grant.sql */
 /*PostGIS*/
 /* Propriétaire : GeoCompiegnois - http://geo.compiegnois.fr/ */
 /* Auteurs : Grégory Bodet, Florent Vanhoutte, Caroline Sarg, Fabien Nicollet (Business Geografic) */
