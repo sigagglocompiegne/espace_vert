@@ -95,24 +95,34 @@ Particularité(s) à noter :
 * Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
 
 
-
-
-`geo_ev_polygon` : table géographique des objets des espaces verts saisis sous forme de polygone
+`geo_ev_objet_polygon` : table géographique des objets des espaces verts saisis sous forme de polygone
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
-|sup_m2|Surface de l'objet "espace vert" exprimée en mètre carré|integer|valeur vide interdite (issu du calcul SIG)|
-|perimetre|Périmètre du polygone saisie en mètre|integer|valeur vide interdite (issu du calcul SIG)|
-|geom|Attribut contenant la géométrie du polygone|geometry(multipolygon,2154)|valeur vide interdite|
+|idobjet|Identifiant des objets espaces verts|bigint| |
+|sup_m2|Surface en mètre carré|integer| |
+|perimetre|Périmètre des objets surfaciques en mètre|integer| |
+|geom|Géométrie des objets espace vert|USER-DEFINED| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
+
+
 
 `geo_ev_line` : table géographique des objets des espaces verts saisis sous forme de polyligne
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
-|long_m|Longueur de l'objet "espace vert" exprimée en mètre|integer|valeur vide interdite (issu du calcul SIG et arrondit au mètre)|
-|geom|Attribut contenant la géométrie de la polyligne|geometry(multilinestring,2154)|valeur vide interdite|
+|idobjet|Identifiant des objets espaces verts|bigint| |
+|long_m|Longueur en mètres|integer| |
+|geom|Géométrie des objets espace vert|USER-DEFINED| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
+
+
 
 `an_ev_geohaie` : classe d'attributs complémentaires des objets linéaires de type "Végétal" haie
 
