@@ -73,8 +73,12 @@ Particularité(s) à noter :
 * Une clé étrangère existe sur la table de valeur `idgestion` (lien vers la table des zones de gestion `geo_ev_zone_gestion`)
 * Une clé étrangère existe sur la table de valeur `idsite` (lien vers la table des sites cohérent `geo_ev_zone_site`)
 * Une clé étrangère existe sur la table de valeur `doma` (lien vers une liste de valeurs `lt_ev_objet_doma`)
-*
-*
+* Une clé étrangère existe sur la table de valeur `etat` (lien vers une liste de valeurs `lt_ev_objet_etat`)
+* Une clé étrangère existe sur la table de valeur `qualdoma` (lien vers une liste de valeurs `lt_ev_objet_qualdoma`)
+* Une clé étrangère existe sur la table de valeur `typ1` (lien vers la table des sites cohérent `lt_ev_objet_typ1`)
+* Une clé étrangère existe sur la table de valeur `typ2` (lien vers une liste de valeurs `lt_ev_objet_typ2`)
+* Une clé étrangère existe sur la table de valeur `typ3` (lien vers une liste de valeurs `lt_ev_objet_typ3`)
+* Une clé étrangère existe sur la table de valeur `src_geom` (lien vers une liste de valeurs `lt_src_geom`)
 
 * triggers : sans objet
   
