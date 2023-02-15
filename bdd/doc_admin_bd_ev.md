@@ -219,6 +219,51 @@ Particularité(s) à noter :
 
 
 
+`an_ev_vegetal_fleuri_massif` : classe d'attributs complémentaires des objets linéaires de type "Végétal" haie
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idobjet|Identifiant unique de l'objet|bigint| |
+|espac_type|Type d'espace|character varying(2)|'00'::character varying|
+|arros_auto|Arrosage automatique (O/N)|character varying(1)|'0'::character varying|
+|arros_type|Type d'arrosage automatique|character varying(2)|'00'::character varying|
+|biodiv|Biodiversité|character varying(254)| |
+|inv_faunis|Inventaire faunistique / floristique réalisé (O/N)|character varying(1)|'0'::character varying|
+
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table superclasse `an_ev_objet`)
+* Une clé étrangère existe sur la table de valeur `arros_auto` (lien vers une liste de valeurs `lt_ev_boolean`)
+* Une clé étrangère existe sur la table de valeur `inv_faunis` (lien vers une liste de valeurs `lt_ev_boolean`)
+* Une clé étrangère existe sur la table de valeur `arros_type` (lien vers une liste de valeurs `lt_ev_vegetal_arrosage_type`)
+* Une clé étrangère existe sur la table de valeur `espac_type` (lien vers une liste de valeurs `lt_ev_vegetal_arrosage_type`)
+
+
+`an_ev_vegetal_herbe` : classe d'attributs complémentaires des objets linéaires de type "Végétal" haie
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idobjet|Identifiant unique de l'objet|bigint| |
+|espac_type|Type d'espace|character varying(2)|'00'::character varying|
+|arros_auto|Arrosage automatique (O/N)|character varying(1)|'0'::character varying|
+|arros_type|Type d'arrosage automatique|character varying(2)|'00'::character varying|
+|biodiv|Biodiversité|character varying(254)| |
+|inv_faunis|Inventaire faunistique / floristique réalisé (O/N)|character varying(1)|'0'::character varying|
+
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table superclasse `an_ev_objet`)
+* Une clé étrangère existe sur la table de valeur `arros_auto` (lien vers une liste de valeurs `lt_ev_boolean`)
+* Une clé étrangère existe sur la table de valeur `inv_faunis` (lien vers une liste de valeurs `lt_ev_boolean`)
+* Une clé étrangère existe sur la table de valeur `arros_type` (lien vers une liste de valeurs `lt_ev_vegetal_arrosage_type`)
+* Une clé étrangère existe sur la table de valeur `espac_type` (lien vers une liste de valeurs `lt_ev_vegetal_arrosage_type`)
+
+
+
+
+
 `geo_ev_objet_pct` : table géographique des objets des espaces verts saisis sous forme de ponctuel
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
