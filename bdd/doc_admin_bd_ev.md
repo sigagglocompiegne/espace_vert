@@ -508,7 +508,6 @@ Particularité(s) à noter :
 |00|Non renseigné|
 
 
-
 `lt_ev_intervention_inter_type` : Liste permettant de décrire les types d'interventions
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
@@ -546,6 +545,111 @@ Particularité(s) à noter :
 |14102|Traitement|
 
 
+`lt_ev_intervention_objet_type` : Liste permettant de décrire le type d'objet des interventions
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant le Type d'objet des interventions|character varying(3)| |
+|valeur|Valeur de la classe décrivant le Type d'objet des interventions|character varying(80)| |
+
+|code | valeur |
+|:---|:---| 
+|000|Non renseigné|
+|111|Arbres|
+|113|Zones boisées|
+|122|Haies|
+|123|Massifs arbustifs|
+|132|Massifs fleuris|
+|141|Engazonnements|
+
+
+`lt_ev_intervention_periode` : Liste permettant de décrire les mois de l'année des interventions
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant les mois de l'année|character varying(2)| |
+|valeur|Valeur de la classe décrivant les mois de l'année|character varying(80)| |
+
+|code | valeur |
+|:---|:---| 
+|01|Janvier|
+|02|Février|
+|03|Mars|
+|04|Avril|
+|05|Mai|
+|06|Juin|
+|07|Juillet|
+|08|Août|
+|09|Septembre|
+|10|Octobre|
+|11|Novembre|
+|12|Décembre|
+|00|Non renseigné|
+
+
+`lt_ev_intervention_src_demand` : Liste permettant de décrire la source d'une demande d'intervention
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant la source d'une demande d'intervention|character varying(2)| |
+|valeur|Valeur de la classe décrivant la source d'une demande d'intervention|character varying(80)| |
+
+|code | valeur |
+|:---|:---| 
+|00|Non renseigné|
+|01|Interne|
+|02|Riverain|
+
+
+`lt_ev_intervention_statut` : Liste permettant de décrire le statut des demandes d'intervention
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant les unités pour le statut des demandes d'intervention|character varying(2)| |
+|valeur|Valeur de la classe décrivant les unités pour le statut des demandes d'intervention|character varying(80)| |
+
+|code | valeur |
+|:---|:---| 
+|00|Non renseigné|
+|01|Terminée|
+|02|Annulée|
+|03|Suspendue|
+|04|En cours|
+
+
+`lt_ev_objet_doma` : Liste permettant de décrire les types domanialités
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|code du type de domanialité|character varying(2)| |
+|valeur|valeur du type de domanialité|character varying(50)| |
+
+
+Valeurs possibles :
+|code | valeur |
+|:---|:---|  
+|00|Non renseignée|
+|10|Publique|
+|20|Privée (non déterminé)|
+|21|Privée (communale)|
+|22|Privée (autre organisme public, HLM, ...)|
+|23|Privée|
+
+`lt_ev_qualdoma` : Liste permettant de décrire la qualité de l'information sur la domanialité
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la qualité de l'information liée à la domanialité|character varying(2)| |
+|valeur|valeur de la qualité de l'information liée à la domanialité|character varying(50)| |
+
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|  
+|00|Non renseignée|
+|10|Déduite|
+|20|Déclarative|
 
 
 
@@ -654,40 +758,6 @@ Valeurs possibles :
 |99|Référence non classée|
 
 
-`lt_ev_objet_doma` : Liste permettant de décrire les types domanialités
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|    
-|code|code du type de domanialité|character varying(2)| |
-|valeur|valeur du type de domanialité|character varying(50)| |
-
-
-Valeurs possibles :
-
-|code | valeur |
-|:---|:---|  
-|00|Non renseignée|
-|10|Publique|
-|20|Privée (non déterminé)|
-|21|Privée (communale)|
-|22|Privée (autre organisme public, HLM, ...)|
-|23|Privée|
-
-`lt_ev_qualdoma` : Liste permettant de décrire la qualité de l'information sur la domanialité
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|    
-|code|Code de la qualité de l'information liée à la domanialité|character varying(2)| |
-|valeur|valeur de la qualité de l'information liée à la domanialité|character varying(50)| |
-
-
-Valeurs possibles :
-
-|code | valeur |
-|:---|:---|  
-|00|Non renseignée|
-|10|Déduite|
-|20|Déclarative|
 
 
 `lt_ev_vegetal_arbre_hauteur_cl` : Liste permettant de décrire la classe de hauteur de chaque objet arbre
