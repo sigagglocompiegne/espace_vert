@@ -137,20 +137,21 @@ Particularité(s) à noter :
 |paill_type|Type de paillage|character varying(2)| |
 |biodiv|Biodiversité|character varying(254)| |
 
-`an_ev_geoline` : classe d'attributs complémentaires des objets linéaires nécessitant une information de largeur
+`an_ev_objet_line_largeur` : classe d'attributs complémentaires des objets linéaires nécessitant une information de largeur
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
-|larg_cm|Largeur de l'objet "espace vert" exprimée en centimètre|integer|valeur vide interdite et maximum de 100cm|
+|idobjet|Identifiant unique de les objets concernés|bigint| |
+|larg_cm|Largeur des objets en cm|integer| |
 
 
-`an_ev_geovegetal` : classe d'attributs complémentaires des objets "espace vert" de type végétal
+`an_ev_vegetal` : classe d'attributs complémentaires des objets "espace vert" de type végétal
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
-|position|position  de l'objet |Character varying(2)|liste de valeurs `lt_ev_position`)|
+|idobjet|Identifiant unique de les objets concernés|bigint| |
+|position|Position des objets|character varying(2)|'10'::character varying|
+
 
 `an_ev_arbre` : table alphanumérique du patrimoine des objets des espaces verts correspond aux arbres.
 
