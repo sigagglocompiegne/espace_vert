@@ -100,8 +100,8 @@ Particularité(s) à noter : aucune
 
 Particularité(s) à noter : 
 * Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
-* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
-* Une clé étrangère existe sur la table de valeur `position` (lien vers la table des zones de gestion `position`)
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table superclasse `an_ev_objet`)
+* Une clé étrangère existe sur la table de valeur `position` (lien vers une liste de valeurs `lt_ev_vegetal_position`)
 
 
 
@@ -141,13 +141,13 @@ Particularité(s) à noter :
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
-* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
-* Une clé étrangère existe sur la table de valeur `contr` (lien vers la table des zones de gestion `lt_ev_boolean`)
-* Une clé étrangère existe sur la table de valeur `date_pl_sa` (lien vers la table des sites cohérent `lt_ev_vegetal_arbre_date_plantation_saison`)
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table superclasse `an_ev_objet`)
+* Une clé étrangère existe sur la table de valeur `contr` (lien vers une liste de valeurs n `lt_ev_boolean`)
+* Une clé étrangère existe sur la table de valeur `date_pl_sa` (lien vers une liste de valeurs `lt_ev_vegetal_arbre_date_plantation_saison`)
 * Une clé étrangère existe sur la table de valeur `etatarbre` (lien vers une liste de valeurs `lt_ev_vegetal_arbre_etatarbre`)
 * Une clé étrangère existe sur la table de valeur `hauteur_cl` (lien vers une liste de valeurs `lt_ev_vegetal_arbre_hauteur_cl`)
 * Une clé étrangère existe sur la table de valeur `implant` (lien vers une liste de valeurs `lt_ev_vegetal_arbre_implant`)
-* Une clé étrangère existe sur la table de valeur `mode_cond` (lien vers la table des sites cohérent `lt_ev_vegetal_arbre_mode_conduite`)
+* Une clé étrangère existe sur la table de valeur `mode_cond` (lien vers une liste de valeurs  `lt_ev_vegetal_arbre_mode_conduite`)
 * Une clé étrangère existe sur la table de valeur `naiss` (lien vers une liste de valeurs `lt_ev_boolean`)
 * Une clé étrangère existe sur la table de valeur `periode_pl` (lien vers une liste de valeurs `lt_ev_vegetal_arbre_periode_plantation`)
 * Une clé étrangère existe sur la table de valeur `proteg` (lien vers une liste de valeurs `lt_ev_boolean`)
@@ -169,9 +169,9 @@ Particularité(s) à noter :
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ `idetatsan` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
-* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
-* Une clé étrangère existe sur la table de valeur `anomal` (lien vers la table des zones de gestion `lt_ev_boolean`)
-* Une clé étrangère existe sur la table de valeur `surveil` (lien vers la table des sites cohérent `lt_ev_boolean`)
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table superclasse `an_ev_objet`)
+* Une clé étrangère existe sur la table de valeur `anomal` (lien vers une liste de valeurs `lt_ev_boolean`)
+* Une clé étrangère existe sur la table de valeur `surveil` (lien vers une liste de valeurs `lt_ev_boolean`)
 
 
 
@@ -190,11 +190,11 @@ Particularité(s) à noter :
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
-* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
-* Une clé étrangère existe sur la table de valeur `espac_type` (lien vers la table des zones de gestion `lt_ev_vegetal_arrosage_type`)
-* Une clé étrangère existe sur la table de valeur `paill_type` (lien vers la table des sites cohérent `lt_ev_vegetal_haie_paillage_type`)
-* Une clé étrangère existe sur la table de valeur `sai_type` (lien vers la table des zones de gestion `lt_ev_vegetal_haie_sai_type`)
-* Une clé étrangère existe sur la table de valeur `veget_type` (lien vers la table des sites cohérent `lt_ev_vegetal_haie_veget_type`)
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table superclasse `an_ev_objet`)
+* Une clé étrangère existe sur la table de valeur `espac_type` (llien vers une liste de valeurs `lt_ev_vegetal_arrosage_type`)
+* Une clé étrangère existe sur la table de valeur `paill_type` (lien vers une liste de valeurs `lt_ev_vegetal_haie_paillage_type`)
+* Une clé étrangère existe sur la table de valeur `sai_type` (lien vers une liste de valeurs `lt_ev_vegetal_haie_sai_type`)
+* Une clé étrangère existe sur la table de valeur `veget_type` (lien vers une liste de valeurs `lt_ev_vegetal_haie_veget_type`)
 
 
 
@@ -212,10 +212,10 @@ Particularité(s) à noter :
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
-* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
-* Une clé étrangère existe sur la table de valeur `arros_auto` (lien vers la table des zones de gestion `lt_ev_boolean`)
-* Une clé étrangère existe sur la table de valeur `arros_type` (lien vers la table des sites cohérent `lt_ev_vegetal_arrosage_type`)
-* Une clé étrangère existe sur la table de valeur `espac_type` (lien vers la table des zones de gestion `lt_ev_vegetal_arrosage_type`)
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table superclasse `an_ev_objet`)
+* Une clé étrangère existe sur la table de valeur `arros_auto` (lien vers une liste de valeurs `lt_ev_boolean`)
+* Une clé étrangère existe sur la table de valeur `arros_type` (lien vers une liste de valeurs `lt_ev_vegetal_arrosage_type`)
+* Une clé étrangère existe sur la table de valeur `espac_type` (lien vers une liste de valeurs `lt_ev_vegetal_arrosage_type`)
 
 
 
@@ -230,7 +230,7 @@ Particularité(s) à noter :
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
-* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table superclasse `an_ev_objet`)
 
 
 `geo_ev_objet_polygon` : table géographique des objets des espaces verts saisis sous forme de polygone
@@ -244,7 +244,7 @@ Particularité(s) à noter :
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
-* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table superclasse `an_ev_objet`)
 
 
 
@@ -258,7 +258,7 @@ Particularité(s) à noter :
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
-* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table superclasse `an_ev_objet`)
 
 
 
@@ -280,7 +280,7 @@ Particularité(s) à noter :
 
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
-* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table superclasse `an_ev_objet`)
 
 
 `geo_ev_zone_gestion` : table géographique délimitant les zones de gestion/entretien interne du service espace vert
