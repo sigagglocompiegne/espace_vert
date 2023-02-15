@@ -124,12 +124,18 @@ Particularité(s) à noter :
 
 
 
-`an_ev_geohaie` : classe d'attributs complémentaires des objets linéaires de type "Végétal" haie
+`an_ev_vegetal_arbuste_haie` : classe d'attributs complémentaires des objets linéaires de type "Végétal" haie
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
-|typsai|Type de saisie|character varying(2)|valeur vide interdite (liste de valeurs `lt_ev_typsaihaie`)|
+|idobjet|Identifiant unique de l'objet|bigint| |
+|sai_type|Type de saisie de l'objet linéaire haie|character varying(2)| |
+|veget_type|Type végétation|character varying(2)| |
+|hauteur|Hauteur|numeric| |
+|espac_type|Type d'espace|character varying(2)| |
+|surface|Surface en mètre carré|numeric| |
+|paill_type|Type de paillage|character varying(2)| |
+|biodiv|Biodiversité|character varying(254)| |
 
 `an_ev_geoline` : classe d'attributs complémentaires des objets linéaires nécessitant une information de largeur
 
