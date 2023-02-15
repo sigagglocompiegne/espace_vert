@@ -81,14 +81,14 @@ Particularité(s) à noter :
 * Une clé étrangère existe sur la table de valeur `src_geom` (lien vers une liste de valeurs `lt_src_geom`)
 
   
-`geo_ev_pct` : table géographique des objets des espaces verts saisis sous forme de ponctuel
+`geo_ev_objet_pct` : table géographique des objets des espaces verts saisis sous forme de ponctuel
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-|idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
-|x_l93|Coordonnée X du point saisi en Lambert 93|numeric(10,3)|valeur vide interdite|
-|y_l93|Coordonnée Y du point saisi en Lambert 93|numeric(10,3)|valeur vide interdite|
-|geom|Attribut contenant la géométrie du point|geometry(point,2154)|valeur vide interdite|
+|idobjet|Identifiant des objets espaces verts|bigint| |
+|x_l93|Coordonnées X en lambert 93|numeric| |
+|y_l93|Coordonnées Y en Lambert 93|numeric| |
+|geom|Géométrie des objets espaces verts|USER-DEFINED| |
 
 
 `geo_ev_polygon` : table géographique des objets des espaces verts saisis sous forme de polygone
