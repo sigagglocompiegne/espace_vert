@@ -39,7 +39,7 @@ L'ensemble des classes d'objets unitaires sont stockées dans le schéma m_espac
 
 ### Classe d'objet patrimoniale
 
-`an_ev_objet` : table alphanumérique des métadonnées des objets des espaces verts.
+`an_ev_objet` : table alphanumérique des métadonnées des objets des espaces verts (superclasse objet).
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
@@ -198,7 +198,7 @@ Particularité(s) à noter :
 
 
 
-`an_ev_vegetal_arbuste_massif` : classe d'attributs complémentaires des objets linéaires de type "Végétal" haie
+`an_ev_vegetal_arbuste_massif` : classe d'attributs complémentaires des objets polygones de type "Végétal" massif arbustif
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
@@ -219,7 +219,28 @@ Particularité(s) à noter :
 
 
 
-`an_ev_vegetal_fleuri_massif` : classe d'attributs complémentaires des objets linéaires de type "Végétal" haie
+`an_ev_vegetal_fleuri_massif` : classe d'attributs complémentaires des objets polygones de type "Végétal" massif fleuri
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idobjet|Identifiant unique de l'objet|bigint| |
+|espac_type|Type d'espace|character varying(2)|'00'::character varying|
+|arros_auto|Arrosage automatique (O/N)|character varying(1)|'0'::character varying|
+|arros_type|Type d'arrosage automatique|character varying(2)|'00'::character varying|
+|biodiv|Biodiversité|character varying(254)| |
+|inv_faunis|Inventaire faunistique / floristique réalisé (O/N)|character varying(1)|'0'::character varying|
+
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table superclasse `an_ev_objet`)
+* Une clé étrangère existe sur la table de valeur `arros_auto` (lien vers une liste de valeurs `lt_ev_boolean`)
+* Une clé étrangère existe sur la table de valeur `inv_faunis` (lien vers une liste de valeurs `lt_ev_boolean`)
+* Une clé étrangère existe sur la table de valeur `arros_type` (lien vers une liste de valeurs `lt_ev_vegetal_arrosage_type`)
+* Une clé étrangère existe sur la table de valeur `espac_type` (lien vers une liste de valeurs `lt_ev_vegetal_arrosage_type`)
+
+
+`an_ev_vegetal_herbe` : classe d'attributs complémentaires des objets polygones de type "Végétal" enherbé
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
@@ -240,25 +261,33 @@ Particularité(s) à noter :
 * Une clé étrangère existe sur la table de valeur `espac_type` (lien vers une liste de valeurs `lt_ev_vegetal_arrosage_type`)
 
 
-`an_ev_vegetal_herbe` : classe d'attributs complémentaires des objets linéaires de type "Végétal" haie
+
+
+
+`an_ev_vegetal_ref_bota` : table alphanumérique du référentiel botanique
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idobjet|Identifiant unique de l'objet|bigint| |
-|espac_type|Type d'espace|character varying(2)|'00'::character varying|
-|arros_auto|Arrosage automatique (O/N)|character varying(1)|'0'::character varying|
-|arros_type|Type d'arrosage automatique|character varying(2)|'00'::character varying|
-|biodiv|Biodiversité|character varying(254)| |
-|inv_faunis|Inventaire faunistique / floristique réalisé (O/N)|character varying(1)|'0'::character varying|
+|idref_bota|Identifiant de la référence botanique|bigint|nextval('m_espace_vert.an_ev_vegetal_ref_bota_idref_bota_seq'::regclass)|
+|typ2|Sous-Type d'espace vert de niveau 2|character varying(2)| |
+|typ3|Sous-Type d'espace vert de niveau 3|character varying(3)| |
+|famille|Nom de la famille(en latin)|character varying(20)| |
+|genre|Nom du genre(en latin)|character varying(20)| |
+|espece|Nom de l'espèce (en latin)|character varying(20)| |
+|cultivar|Nom du cultivar (en latin)|character varying(80)| |
+|nomlatin|Libellé scientifique complet (en latin)|character varying(80)| |
+|nomcommun|Libellé du nom commun/vernaculaire (en français)|character varying(80)| |
+|niv_allerg|Niveau allergisant|character varying(2)| |
 
 
 Particularité(s) à noter :
-* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
-* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table superclasse `an_ev_objet`)
-* Une clé étrangère existe sur la table de valeur `arros_auto` (lien vers une liste de valeurs `lt_ev_boolean`)
-* Une clé étrangère existe sur la table de valeur `inv_faunis` (lien vers une liste de valeurs `lt_ev_boolean`)
-* Une clé étrangère existe sur la table de valeur `arros_type` (lien vers une liste de valeurs `lt_ev_vegetal_arrosage_type`)
-* Une clé étrangère existe sur la table de valeur `espac_type` (lien vers une liste de valeurs `lt_ev_vegetal_arrosage_type`)
+* Une clé primaire existe sur le champ `idref_bota`
+* Une clé étrangère existe sur la table de valeur `typ2` (lien vers la table superclasse `lt_ev_objet_typ2`)
+* Une clé étrangère existe sur la table de valeur `typ3` (lien vers une liste de valeurs `lt_ev_objet_typ3`)
+* Une clé étrangère existe sur la table de valeur `niv_allerg` (lien vers une liste de valeurs `lt_ev_vegetal_niveau_allergisant`)
+
+
+
 
 
 
