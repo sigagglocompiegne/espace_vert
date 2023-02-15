@@ -326,16 +326,15 @@ Particularité(s) à noter :
 |329|Autre espace en eau|
 |999|Référence non classée|
 
-`lt_ev_typsite` : Liste permettant de décrire les types principaux des sites
+`lt_ev_zone_site_type` : Liste permettant de décrire les types principaux des sites
 
 **Proposition de classement des sites de lévé cartographique d'après le classement établis par le standard GeoPal. Pourra être adapté en fonction des besoins du service espace vert**
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|    
-|code|code du type principal décrivant le site|character varying(2)| |
-|valeur|libellé du type principal décrivant le site|character varying(30)| |
+|code|code du type de site intégrant les objets des espaces verts|character varying(2)| |
+|valeur|libellé du type de site intégrant les objets des espaces verts|character varying(100)| |
 
-Particularité(s) à noter : aucune
 
 Valeurs possibles :
 
@@ -346,10 +345,12 @@ Valeurs possibles :
 |02|Accotements de voies|
 |03|Accompagnement de bâtiments publics|
 |04|Accompagnement d'habitations|
-|05|Accompagnement d'établissents industriels et commerciaux|
+|05|Accompagnement d'établissements industriels et commerciaux|
 |06|Enceinte sportive|
 |07|Cimetière|
 |11|Espace naturel aménagé|
+|08|Enceinte scolaire|
+|99|Référence non classée|
 
 
 `lt_ev_doma` : Liste permettant de décrire les types domanialités
