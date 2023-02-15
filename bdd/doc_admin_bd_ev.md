@@ -206,11 +206,11 @@ Particularité(s) à noter :
 
 ### Classe d'objet non patrimoniale
 
-`an_ev_media` : Table gérant la liste des photos des objets Espace Vert (arbre notamment) avec le module média dans GEO (application Espace Vert V2)
+`an_ev_media` : Table gérant la liste des photos des objets Espace Vert (arbre notamment) avec le module média dans GEO (application Espace Vert)
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-|gid|Identifiant unique du média|integer|nextval('m_espace_vert_v2.an_ev_media_gid_seq'::regclass)|
+|gid|Identifiant unique du média|bigint|nextval('m_espace_vert.an_ev_media_gid_seq'::regclass)|
 |idobjet|Identifiant de l'objet|bigint| |
 |media|Champ Média de GEO|text| |
 |miniature|Champ miniature de GEO|bytea| |
@@ -218,6 +218,11 @@ Particularité(s) à noter :
 |t_fichier|Type de média dans GEO|text| |
 |op_sai|Libellé de l'opérateur ayant intégrer le document|character varying(100)| |
 |date_sai|Date d'intégration du document|timestamp without time zone| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
+
 
 `geo_ev_zone_gestion` : table géographique délimitant les zones de gestion/entretien interne du service espace vert
 
