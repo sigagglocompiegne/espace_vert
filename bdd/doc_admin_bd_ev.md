@@ -156,7 +156,7 @@ Particularité(s) à noter :
 * Une clé étrangère existe sur la table de valeur `stade_dev` (lien vers une liste de valeurs `lt_ev_vegetal_arbre_stade_dev`)
 
 
-`an_ev_vegetal_arbre_etat_sanitaire` : classe d'attributs complémentaires dsur les états sanitaires des arbres
+`an_ev_vegetal_arbre_etat_sanitaire` : classe d'attributs complémentaires sur les états sanitaires des arbres
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
@@ -261,9 +261,6 @@ Particularité(s) à noter :
 * Une clé étrangère existe sur la table de valeur `espac_type` (lien vers une liste de valeurs `lt_ev_vegetal_arrosage_type`)
 
 
-
-
-
 `an_ev_vegetal_ref_bota` : table alphanumérique du référentiel botanique
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
@@ -285,6 +282,73 @@ Particularité(s) à noter :
 * Une clé étrangère existe sur la table de valeur `typ2` (lien vers la table superclasse `lt_ev_objet_typ2`)
 * Une clé étrangère existe sur la table de valeur `typ3` (lien vers une liste de valeurs `lt_ev_objet_typ3`)
 * Une clé étrangère existe sur la table de valeur `niv_allerg` (lien vers une liste de valeurs `lt_ev_vegetal_niveau_allergisant`)
+
+
+`geo_ev_intervention` : table alphanumérique de gestion des interventions
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|objet_type|Type d'objets|character varying(3)| |
+|inter_type|Type d'intervention|character varying(254)|'00000'::character varying|
+|iddemande|Demande liée|integer| |
+|inter_date|Date d'intervention|date|now()|
+|ress_affec|Équipe / Entreprise|integer| |
+|statut|Statut|character varying(2)|'00'::character varying|
+|taches_eff|Liste des tâches effectuées|text| |
+|observ|Observations|character varying(254)| |
+|notif_resp|Envoyer notification aux responsables EV ?|boolean|true|
+|nb_jr_rapp|Nb jours rappel|integer| |
+|recurrent|Intervention récurrente|boolean|false|
+|freq_value|Fréquence (valeur)|integer| |
+|freq_unite|Fréquence (unité)|character varying(2)|'00'::character varying|
+|dat_ref|Date de référence|date| |
+|dat_sai|Date saisie|timestamp without time zone|now()|
+|op_sai|Auteur saisie|character varying(80)| |
+
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idinter`
+* Une clé étrangère existe sur la table de valeur `freq_unite` (lien vers la table superclasse `lt_ev_intervention_freq_unite`)
+* Une clé étrangère existe sur la table de valeur `objet_type` (lien vers une liste de valeurs `lt_ev_intervention_objet_type`)
+* Une clé étrangère existe sur la table de valeur `period_end` (lien vers une liste de valeurs `lt_ev_intervention_periode`)
+* Une clé étrangère existe sur la table de valeur `period_sta` (lien vers une liste de valeurs `lt_ev_intervention_periode`)
+* Une clé étrangère existe sur la table de valeur `ress_affec` (lien vers la table géographique `geo_ev_zone_equipe`)
+* Une clé étrangère existe sur la table de valeur `statut` (lien vers une liste de valeurs `lt_ev_intervention_statut`)
+
+
+
+
+
+`geo_ev_intervention_demande` : table alphanumérique de gestion des demandes d'interventions
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|objet_type|Type d'objets|character varying(3)| |
+|inter_type|Type d'intervention|character varying(254)|'00000'::character varying|
+|src_demand|Source demande|character varying(2)|'00'::character varying|
+|com_demand|Commentaire demande|text| |
+|dat_souhai|Date d'intervention souhaitée|date| |
+|contr_adm|Contraintes administratives|boolean|false|
+|contr_com|Commentaire sur contraintes adm.|text| |
+|ress_affec|Équipe / Entreprise affectée|integer| |
+|observ|Observations|character varying(254)| |
+|nb_jr_rapp|Nb jours rappel|integer| |
+|recurrent|Demande d'intervention récurrente|boolean|false|
+|freq_value|Fréquence (valeur)|integer| |
+|freq_unite|Fréquence (unité)|character varying(2)|'00'::character varying|
+|dat_ref|Date de référence|date| |
+|dat_sai|Date saisie|timestamp without time zone|now()|
+|op_sai|Auteur saisie|character varying(80)| |
+
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idinter`
+* Une clé étrangère existe sur la table de valeur `freq_unite` (lien vers la table superclasse `lt_ev_intervention_freq_unite`)
+* Une clé étrangère existe sur la table de valeur `objet_type` (lien vers une liste de valeurs `lt_ev_intervention_objet_type`)
+* Une clé étrangère existe sur la table de valeur `period_end` (lien vers une liste de valeurs `lt_ev_intervention_periode`)
+* Une clé étrangère existe sur la table de valeur `period_sta` (lien vers une liste de valeurs `lt_ev_intervention_periode`)
+* Une clé étrangère existe sur la table de valeur `ress_affec` (lien vers la table géographique `geo_ev_zone_equipe`)
+* Une clé étrangère existe sur la table de valeur `statut` (lien vers une liste de valeurs `lt_ev_intervention_statut`)
 
 
 
