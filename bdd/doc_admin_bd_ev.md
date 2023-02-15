@@ -80,69 +80,15 @@ Particularité(s) à noter :
 * Une clé étrangère existe sur la table de valeur `typ3` (lien vers une liste de valeurs `lt_ev_objet_typ3`)
 * Une clé étrangère existe sur la table de valeur `src_geom` (lien vers une liste de valeurs `lt_src_geom`)
 
-  
-`geo_ev_objet_pct` : table géographique des objets des espaces verts saisis sous forme de ponctuel
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|  
-|idobjet|Identifiant des objets espaces verts|bigint| |
-|x_l93|Coordonnées X en lambert 93|numeric| |
-|y_l93|Coordonnées Y en Lambert 93|numeric| |
-|geom|Géométrie des objets espaces verts|USER-DEFINED| |
-
-Particularité(s) à noter :
-* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
-* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
-
-
-`geo_ev_objet_polygon` : table géographique des objets des espaces verts saisis sous forme de polygone
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|
-|idobjet|Identifiant des objets espaces verts|bigint| |
-|sup_m2|Surface en mètre carré|integer| |
-|perimetre|Périmètre des objets surfaciques en mètre|integer| |
-|geom|Géométrie des objets espace vert|USER-DEFINED| |
-
-Particularité(s) à noter :
-* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
-* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
-
-
-
-`geo_ev_objet_line` : table géographique des objets des espaces verts saisis sous forme de polyligne
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|
-|idobjet|Identifiant des objets espaces verts|bigint| |
-|long_m|Longueur en mètres|integer| |
-|geom|Géométrie des objets espace vert|USER-DEFINED| |
-
-Particularité(s) à noter :
-* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
-* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
-
-
-
-`an_ev_vegetal_arbuste_haie` : classe d'attributs complémentaires des objets linéaires de type "Végétal" haie
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|
-|idobjet|Identifiant unique de l'objet|bigint| |
-|sai_type|Type de saisie de l'objet linéaire haie|character varying(2)| |
-|veget_type|Type végétation|character varying(2)| |
-|hauteur|Hauteur|numeric| |
-|espac_type|Type d'espace|character varying(2)| |
-|surface|Surface en mètre carré|numeric| |
-|paill_type|Type de paillage|character varying(2)| |
-|biodiv|Biodiversité|character varying(254)| |
-
+ 
 `an_ev_objet_line_largeur` : classe d'attributs complémentaires des objets linéaires nécessitant une information de largeur
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
 |idobjet|Identifiant unique de les objets concernés|bigint| |
 |larg_cm|Largeur des objets en cm|integer| |
+
+Particularité(s) à noter : aucune
 
 
 `an_ev_vegetal` : classe d'attributs complémentaires des objets "espace vert" de type végétal
@@ -151,6 +97,12 @@ Particularité(s) à noter :
 |:---|:---|:---|:---|
 |idobjet|Identifiant unique de les objets concernés|bigint| |
 |position|Position des objets|character varying(2)|'10'::character varying|
+
+Particularité(s) à noter : 
+* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
+* Une clé étrangère existe sur la table de valeur `position` (lien vers la table des zones de gestion `position`)
+
 
 
 `an_ev_vegetal_arbre` : table alphanumérique du patrimoine végétal des objets Arbres.
@@ -202,6 +154,113 @@ Particularité(s) à noter :
 * Une clé étrangère existe sur la table de valeur `remarq` (lien vers une liste de valeurs `lt_ev_boolean`)
 * Une clé étrangère existe sur la table de valeur `sol_type` (lien vers une liste de valeurs `lt_ev_vegetal_arbre_sol_type`)
 * Une clé étrangère existe sur la table de valeur `stade_dev` (lien vers une liste de valeurs `lt_ev_vegetal_arbre_stade_dev`)
+
+
+`an_ev_vegetal_arbre_etat_sanitaire` : classe d'attributs complémentaires dsur les états sanitaires des arbres
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+|idetatsan|Identifiant de l'état|integer|nextval('m_espace_vert.an_ev_vegetal_arbre_etat_sanitaire_idetatsan_seq'::regclass)|
+|idobjet|Identifiant de l'arbre|bigint| |
+|date_const|Date du constat de l'état sanitaire de l'arbre|timestamp without time zone| |
+|anomal|Arbre présentant des anomalies (O/N)|character varying(1)|'0'::character varying|
+|anomal_typ|Type(s) d'anomalie(s) relevées|character varying(80)|'00'::character varying|
+|surveil|Arbre à surveiller (O/N)|character varying(1)|'0'::character varying|
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idetatsan` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
+* Une clé étrangère existe sur la table de valeur `anomal` (lien vers la table des zones de gestion `lt_ev_boolean`)
+* Une clé étrangère existe sur la table de valeur `surveil` (lien vers la table des sites cohérent `lt_ev_boolean`)
+
+
+
+`an_ev_vegetal_arbuste_haie` : classe d'attributs complémentaires des objets linéaires de type "Végétal" haie
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idobjet|Identifiant unique de l'objet|bigint| |
+|sai_type|Type de saisie de l'objet linéaire haie|character varying(2)| |
+|veget_type|Type végétation|character varying(2)| |
+|hauteur|Hauteur|numeric| |
+|espac_type|Type d'espace|character varying(2)| |
+|surface|Surface en mètre carré|numeric| |
+|paill_type|Type de paillage|character varying(2)| |
+|biodiv|Biodiversité|character varying(254)| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
+* Une clé étrangère existe sur la table de valeur `espac_type` (lien vers la table des zones de gestion `lt_ev_vegetal_arrosage_type`)
+* Une clé étrangère existe sur la table de valeur `paill_type` (lien vers la table des sites cohérent `lt_ev_vegetal_haie_paillage_type`)
+* Une clé étrangère existe sur la table de valeur `sai_type` (lien vers la table des zones de gestion `lt_ev_vegetal_haie_sai_type`)
+* Une clé étrangère existe sur la table de valeur `veget_type` (lien vers la table des sites cohérent `lt_ev_vegetal_haie_veget_type`)
+
+
+
+`an_ev_vegetal_arbuste_massif` : classe d'attributs complémentaires des objets linéaires de type "Végétal" haie
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idobjet|Identifiant unique de l'objet|bigint| |
+|espac_type|Type d'espace|character varying(2)|'00'::character varying|
+|arros_auto|Arrosage automatique (O/N)|character varying(1)|'0'::character varying|
+|arros_type|Type d'arrosage automatique|character varying(2)|'00'::character varying|
+|biodiv|Biodiversité|character varying(254)| |
+|inv_faunis|Inventaire faunistique / floristique réalisé (O/N)|character varying(1)|'0'::character varying|
+
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
+* Une clé étrangère existe sur la table de valeur `arros_auto` (lien vers la table des zones de gestion `lt_ev_boolean`)
+* Une clé étrangère existe sur la table de valeur `arros_type` (lien vers la table des sites cohérent `lt_ev_vegetal_arrosage_type`)
+* Une clé étrangère existe sur la table de valeur `espac_type` (lien vers la table des zones de gestion `lt_ev_vegetal_arrosage_type`)
+
+
+
+`geo_ev_objet_pct` : table géographique des objets des espaces verts saisis sous forme de ponctuel
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+|idobjet|Identifiant des objets espaces verts|bigint| |
+|x_l93|Coordonnées X en lambert 93|numeric| |
+|y_l93|Coordonnées Y en Lambert 93|numeric| |
+|geom|Géométrie des objets espaces verts|USER-DEFINED| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
+
+
+`geo_ev_objet_polygon` : table géographique des objets des espaces verts saisis sous forme de polygone
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idobjet|Identifiant des objets espaces verts|bigint| |
+|sup_m2|Surface en mètre carré|integer| |
+|perimetre|Périmètre des objets surfaciques en mètre|integer| |
+|geom|Géométrie des objets espace vert|USER-DEFINED| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
+
+
+
+`geo_ev_objet_line` : table géographique des objets des espaces verts saisis sous forme de polyligne
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idobjet|Identifiant des objets espaces verts|bigint| |
+|long_m|Longueur en mètres|integer| |
+|geom|Géométrie des objets espace vert|USER-DEFINED| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
+
+
 
 
 ### Classe d'objet non patrimoniale
