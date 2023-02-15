@@ -110,7 +110,7 @@ Particularité(s) à noter :
 
 
 
-`geo_ev_line` : table géographique des objets des espaces verts saisis sous forme de polyligne
+`geo_ev_objet_line` : table géographique des objets des espaces verts saisis sous forme de polyligne
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
