@@ -80,7 +80,6 @@ Particularité(s) à noter :
 * Une clé étrangère existe sur la table de valeur `typ3` (lien vers une liste de valeurs `lt_ev_objet_typ3`)
 * Une clé étrangère existe sur la table de valeur `src_geom` (lien vers une liste de valeurs `lt_src_geom`)
 
-* triggers : sans objet
   
 `geo_ev_pct` : table géographique des objets des espaces verts saisis sous forme de ponctuel
 
