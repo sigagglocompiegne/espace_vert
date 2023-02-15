@@ -353,52 +353,48 @@ Valeurs possibles :
 |99|Référence non classée|
 
 
-`lt_ev_doma` : Liste permettant de décrire les types domanialités
+`lt_ev_objet_doma` : Liste permettant de décrire les types domanialités
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|    
-|code|code du |character varying(2)| |
-|valeur|libellé |character varying(30)| |
+|code|code du type de domanialité|character varying(2)| |
+|valeur|valeur du type de domanialité|character varying(50)| |
 
-Particularité(s) à noter : aucune
 
 Valeurs possibles :
 
 |code | valeur |
 |:---|:---|  
-|00|Non renseigné|
-|10|Public|
+|00|Non renseignée|
+|10|Publique|
 |20|Privée (non déterminé)|
 |21|Privée (communale)|
-|22|Privée (autre organisme public)|
+|22|Privée (autre organisme public, HLM, ...)|
 |23|Privée|
 
 `lt_ev_qualdoma` : Liste permettant de décrire la qualité de l'information sur la domanialité
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|    
-|code|code du |character varying(2)| |
-|valeur|libellé |character varying(30)| |
+|code|Code de la qualité de l'information liée à la domanialité|character varying(2)| |
+|valeur|valeur de la qualité de l'information liée à la domanialité|character varying(50)| |
 
-Particularité(s) à noter : aucune
 
 Valeurs possibles :
 
 |code | valeur |
 |:---|:---|  
-|00|Non renseigné|
+|00|Non renseignée|
 |10|Déduite|
 |20|Déclarative|
 
 
-`lt_ev_arbrehauteur` : Liste permettant de décrire la classe de hauteur de chaque objet arbre
+`lt_ev_vegetal_arbre_hauteur_cl` : Liste permettant de décrire la classe de hauteur de chaque objet arbre
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-|code|Code de la classe de hauteur des objets ponctuels arbre|character varying(2)| |
-|valeur|Valeur de la classe de hauteur des objets ponctuels arbre|character varying(80)| |
-
-Particularité(s) à noter : aucune
+|code|Code de la classe décrivant la hauteur des objets ponctuels arbre|character varying(2)| |
+|valeur|Valeur de la classe décrivant la hauteur des objets ponctuels arbre|character varying(80)| |
 
 Valeurs possibles :
 
@@ -413,93 +409,31 @@ Valeurs possibles :
 |06|15 à 20 mètres|
 |07|Plus de 20 mètres|
 
-`lt_ev_arbreforme` : Liste permettant de décrire la classe de forme de chaque objet arbre
+
+`lt_ev_vegetal_arbre_implant` : Liste permettant de décrire la classe d'implantation de chaque objet arbre
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-|code|Code de la classe de forme des objets ponctuels arbre|character varying(2)| |
-|valeur|Valeur de la classe de forme des objets ponctuels arbre|character varying(80)| |
+|code|Code de la classe décrivant l'implantation des objets ponctuels arbre|character varying(2)| |
+|valeur|Valeur de la classe décrivant l'implantation des objets ponctuels arbre|character varying(80)| |
 
-Particularité(s) à noter : aucune
-
-Valeurs possibles :
-
-|code | valeur |
-|:---|:---| 
-|00|Non renseigné|
-|01|Rideau|
-|02|Taille de contrainte|
-|03|Taille douce|
-|04|Libre|
-|05|Tête de chat|
-
-`lt_ev_arbreimplant` : Liste permettant de décrire la classe d'implantation de chaque objet arbre
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|  
-|code|Code de la classe d'implantation des objets ponctuels arbre|character varying(2)| |
-|valeur|Valeur de la classe d'implantation des objets ponctuels arbre|character varying(80)| |
-
-Particularité(s) à noter : aucune
 
 Valeurs possibles :
 
 |code | valeur |
 |:---|:---|
 |00|Non renseigné|
-|01|Alignement|
-|02|Groupe/Bosquet|
-|03|Solitaire|
+|01|Isolé|
+|02|Alignement|
+|03|Bois|
 
-`lt_ev_arbredanger` : Liste permettant de décrire la classe de dangerosité de chaque objet arbre
 
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|  
-|code|Code de la classe de dangerosité des objets ponctuels arbre|character varying(2)| |
-|valeur|Valeur de la classe de dangerosité des objets ponctuels arbre|character varying(80)| |
-
-Particularité(s) à noter : aucune
-
-Valeurs possibles :
-
-|code | valeur |
-|:---|:---|
-|00|Non renseigné|
-|01|Aucun|
-|02|Dangereux|
-|03|Moyenne dangereux|
-|04|Faiblement dangereux|
-
-`lt_ev_arbresol` : Liste permettant de décrire la classe de nature de sol de chaque objet arbre
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|  
-|code|Code de la classe de nature de sol des objets ponctuels arbre|character varying(2)| |
-|valeur|Valeur de la classe de nature de sol des objets ponctuels arbre|character varying(80)| |
-
-Particularité(s) à noter : aucune
-
-Valeurs possibles :
-
-|code | valeur |
-|:---|:---|
-|00|Non renseigné|
-|01|Gazon|
-|02|Minéral|
-|03|Paillage|
-|04|Synthétique|
-|05|Terre|
-|06|Végétalisé|
-|99|Autre|
-
-`lt_ev_typsaihaie` : Liste permettant de décrire le type de saisie de la sous-classe de précision des objets espace vert de type haie
+`lt_ev_vegetal_haie_sai_type` : Liste permettant de décrire le type de saisie de la sous-classe de précision des objets espace vert de type haie
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
 |code|Code de la classe du type de saisie de la sous-classe de précision des objets espace vert de type haie|character varying(2)| |
 |valeur|Valeur de la classe du type de saisie de la sous-classe de précision des objets espace vert de type haie|character varying(80)| |
-
-Particularité(s) à noter : aucune
 
 Valeurs possibles :
 
