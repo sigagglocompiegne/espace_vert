@@ -317,8 +317,6 @@ Particularité(s) à noter :
 
 
 
-
-
 `geo_ev_intervention_demande` : table alphanumérique de gestion des demandes d'interventions
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
@@ -352,8 +350,17 @@ Particularité(s) à noter :
 
 
 
+`geo_ev_objet_line` : table géographique des objets des espaces verts saisis sous forme de polyligne
 
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idobjet|Identifiant des objets espaces verts|bigint| |
+|long_m|Longueur en mètres|integer| |
+|geom|Géométrie des objets espace vert|USER-DEFINED| |
 
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table superclasse `an_ev_objet`)
 
 
 
@@ -383,21 +390,6 @@ Particularité(s) à noter :
 Particularité(s) à noter :
 * Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
 * Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table superclasse `an_ev_objet`)
-
-
-
-`geo_ev_objet_line` : table géographique des objets des espaces verts saisis sous forme de polyligne
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|
-|idobjet|Identifiant des objets espaces verts|bigint| |
-|long_m|Longueur en mètres|integer| |
-|geom|Géométrie des objets espace vert|USER-DEFINED| |
-
-Particularité(s) à noter :
-* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
-* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table superclasse `an_ev_objet`)
-
 
 
 
