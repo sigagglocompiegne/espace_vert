@@ -153,7 +153,7 @@ Particularité(s) à noter :
 |position|Position des objets|character varying(2)|'10'::character varying|
 
 
-`an_ev_vegetal_arbre` : table alphanumérique du patrimoine des objets des espaces verts correspond aux arbres.
+`an_ev_vegetal_arbre` : table alphanumérique du patrimoine végétal des objets Arbres.
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
