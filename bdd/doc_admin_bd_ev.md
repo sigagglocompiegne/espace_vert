@@ -246,59 +246,32 @@ Particularité(s) à noter :
 |geom|Géométrie surfacique|USER-DEFINED| |
 
 
-`geo_ev_secteur_presta` : Table géographique contenant la délimitation des secteurs d'intervention des prestataires en espace vert pour la ville de Compiègne
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|
-|gid|Identifiant unique insignifiant|bigint| |
-|lib_secteur|Libellé du secteur d'intervention|character varying(80)| |
-|id_contrat|Référence au contrat concerné pour le secteur (table lt_contrat dans le schéma r_objet)|character varying(2)| |
-|geom|Attribut de géométrie des objets|geometry(MultiPolygon,2154)| |
-
-`geo_ev_zone_inv` : Table contenant la zone d'inventaire réalisée en 2021 et groupé par direction des espaces verts (attributs typo)
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|
-|gid|Identifiant unique|bigint| |
-|typo|Direction des espaces verts ou collectivité gestionnaire des espaces verts|character varying(50)| |
-|surf_ha|Surface en hectare|double precision| |
-|surf_m2|Surface en m²|bigint| |
-|geom|Géométrie des objets|geometry(MultiPolygon,2154)| |
-
-`geo_ev_secteur_inv` : Table géographique contenant le carroyage des secteurs inventoriés par le bureau d''étude AET
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|
-|id|Identifiant du carreau|smallint| |
-|statut|Etape d'inventaire 0 : non commencé ou en cours 1 : vérification terrain 2 : terminé|smallint| |
-|geom|Géométrie des objets|geometry(Polygon,2154)| |
-
-
 ## Liste de valeurs
 
-`lt_ev_typ1` : Liste permettant de décrire la nomenclature de niveau 1 des objets d'espaces verts.
+`lt_ev_objet_typ1` : Liste permettant de décrire la nomenclature de niveau 1 des objets d'espaces verts.
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|    
-|code|Code du type principal des objets espaces verts de niveau 1|character varying(2)| |
-|valeur|Valeur du type principal des objets espaces verts de niveau 1|character varying(50)| |
+|code|Code du type principal des objets espaces verts|character varying(1)| |
+|valeur|Valeur du type principal des objets espaces verts|character varying(50)| |
 
 |code | valeur |
 |:---|:---| 
+|0|Non renseigné|
 |1|Végétal|
 |2|Minéral|
 |3|Hydrographie|
 |9|Référence non classée|
 
-`lt_ev_typ2` : Liste permettant de décrire la nomenclature de niveau 2 des objets d'espaces verts.
+`lt_ev_objet_typ2` : Liste permettant de décrire la nomenclature de niveau 2 des objets d'espaces verts.
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|    
-|code|Code du sous-type principal des objets espaces verts de niveau 2|character varying(5)| |
-|valeur|Valeur du sous-type principal des objets espaces verts de niveau 2|character varying(100)| |
+|code|Code du sous-type de niveau 2 principal des objets espaces verts|character varying(2)| |
+|valeur|Valeur du sous-type de niveau 2 principal des objets espaces verts|character varying(100)| |
 
 |code | valeur |
-|:---|:---| 
+|00|Non renseigné|
 |11|Arboré|
 |12|Arbustif|
 |13|Fleuri|
@@ -310,46 +283,47 @@ Particularité(s) à noter :
 |32|Espace en eau|
 |99|Référence non classée|
 
-`lt_ev_typ3` : Liste permettant de décrire la nomenclature de niveau 3 des objets d'espaces verts.
+`lt_ev_objet_typ3` : Liste permettant de décrire la nomenclature de niveau 3 des objets d'espaces verts.
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|    
-|code|Code du sous-type principal des objets espaces verts de niveau 3|character varying(5)| |
-|valeur|Valeur du sous-type principal des objets espaces verts de niveau 3|character varying(100)| |
+|code|Code du sous-type de niveau 3 principal des objets espaces verts|character varying(3)| |
+|valeur|Valeur du sous-type de niveau 3 principal des objets espaces verts|character varying(100)| |
 
 |code | valeur |
 |:---|:---| 
-|111|Arbre isolé|
-|112|Arbre en alignement|
-|113|Zone boisée|
-|121|Arbuste isolé|
-|122|Haie arbustive|
-|123|Massif arbustif|
-|131|Point fleuri|
-|132|Massif fleuri|
-|141|Pelouse, gazon|
-|211|Allée|
-|212|Piste cyclable|
-|213|Parking matérialisé|
-|214|Espace de stationnement libre|
-|215|Place, parvis|
-|219|Autre circulation|
-|221|Mur|
-|222|Grillage|
-|223|Palissage|
-|229|Autre clôture|
-|231|Loisirs isolé|
-|232|Surface de loisirs|
-|311|Fontaine|
-|312|Robinet|
-|319|Autre arrivée d'eau|
-|321|Rivière|
-|322|Ru|
-|323|Bassin|
-|324|Marre|
-|325|Etang|
-|329|Autre espace en eau|
-|999|Référence non classée|
+"|000|Non renseigné|"
+"|111|Arbre isolé|"
+"|112|Arbre en alignement|"
+"|113|Zone boisée|"
+"|121|Arbuste isolé|"
+"|122|Haie arbustive|"
+"|123|Massif arbustif|"
+"|131|Point fleuri|"
+"|132|Massif fleuri|"
+"|141|Pelouse, gazon|"
+"|211|Allée|"
+"|212|Piste cyclable|"
+"|213|Parking matérialisé|"
+"|214|Espace de stationnement libre|"
+"|215|Parvis, place|"
+"|219|Autre circulation|"
+"|221|Mur|"
+"|222|Grillage|"
+"|223|Palissage|"
+"|229|Autre clôture|"
+"|231|Loisirs isolé|"
+"|232|Surface de loisirs|"
+"|311|Fontaine|"
+"|312|Robinet|"
+"|319|Autre arrivée d'eau|"
+"|321|Rivière|"
+"|322|Ru|"
+"|323|Bassin|"
+"|324|Marre|"
+"|325|Etang|"
+"|329|Autre espace en eau|"
+"|999|Référence non classée|"
 
 `lt_ev_typsite` : Liste permettant de décrire les types principaux des sites
 
