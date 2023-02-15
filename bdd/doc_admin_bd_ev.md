@@ -292,38 +292,38 @@ Particularité(s) à noter :
 
 |code | valeur |
 |:---|:---| 
-"|000|Non renseigné|"
-"|111|Arbre isolé|"
-"|112|Arbre en alignement|"
-"|113|Zone boisée|"
-"|121|Arbuste isolé|"
-"|122|Haie arbustive|"
-"|123|Massif arbustif|"
-"|131|Point fleuri|"
-"|132|Massif fleuri|"
-"|141|Pelouse, gazon|"
-"|211|Allée|"
-"|212|Piste cyclable|"
-"|213|Parking matérialisé|"
-"|214|Espace de stationnement libre|"
-"|215|Parvis, place|"
-"|219|Autre circulation|"
-"|221|Mur|"
-"|222|Grillage|"
-"|223|Palissage|"
-"|229|Autre clôture|"
-"|231|Loisirs isolé|"
-"|232|Surface de loisirs|"
-"|311|Fontaine|"
-"|312|Robinet|"
-"|319|Autre arrivée d'eau|"
-"|321|Rivière|"
-"|322|Ru|"
-"|323|Bassin|"
-"|324|Marre|"
-"|325|Etang|"
-"|329|Autre espace en eau|"
-"|999|Référence non classée|"
+|000|Non renseigné|
+|111|Arbre isolé|
+|112|Arbre en alignement|
+|113|Zone boisée|
+|121|Arbuste isolé|
+|122|Haie arbustive|
+|123|Massif arbustif|
+|131|Point fleuri|
+|132|Massif fleuri|
+|141|Pelouse, gazon|
+|211|Allée|
+|212|Piste cyclable|
+|213|Parking matérialisé|
+|214|Espace de stationnement libre|
+|215|Parvis, place|
+|219|Autre circulation|
+|221|Mur|
+|222|Grillage|
+|223|Palissage|
+|229|Autre clôture|
+|231|Loisirs isolé|
+|232|Surface de loisirs|
+|311|Fontaine|
+|312|Robinet|
+|319|Autre arrivée d'eau|
+|321|Rivière|
+|322|Ru|
+|323|Bassin|
+|324|Marre|
+|325|Etang|
+|329|Autre espace en eau|
+|999|Référence non classée|
 
 `lt_ev_typsite` : Liste permettant de décrire les types principaux des sites
 
