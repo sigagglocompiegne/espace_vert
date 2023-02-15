@@ -443,7 +443,7 @@ Valeurs possibles :
 |20|Largeur à appliquer dans le sens de saisie|
 |30|Largeur à appliquer dans le sens inverse de saisie|
 
-`lt_ev_position` : Liste permettant de décrire le type de saisie de la sous-classe de précision des objets espace vert de type haie
+`lt_ev_vegetal_position` : Liste permettant de décrire le type de saisie de la sous-classe de précision des objets espace vert de type haie
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
@@ -456,13 +456,14 @@ Valeurs possibles :
 
 |code | valeur |
 |:---|:---|
+|00|Non renseigné|
 |10|Sol|
 |20|Hors-sol (non précisé)|
 |21|Pot|
 |22|Bac|
 |23|Jardinière|
 |24|Suspension|
-|29|Autre|
+|29|Hors-sol (autre)|
 
 ---
 
