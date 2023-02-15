@@ -271,6 +271,7 @@ Particularité(s) à noter :
 |valeur|Valeur du sous-type de niveau 2 principal des objets espaces verts|character varying(100)| |
 
 |code | valeur |
+|:---|:---| 
 |00|Non renseigné|
 |11|Arboré|
 |12|Arbustif|
