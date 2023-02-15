@@ -228,21 +228,22 @@ Particularité(s) à noter :
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idzone|Identifiant unique de la zone|integer||
-|nom|Libellé du responable de l'entretien de la zone |varchar(50)||
-|sup_m2|Surface de la zone exprimée en mètre carré|integer|valeur vide interdite (issu du calcul SIG)|
-|geom|Attribut contenant la géométrie de la zone|geometry(multipolygon,2154)|valeur vide interdite|
+|idgestion|Identifiant du site|bigint|nextval('m_espace_vert.geo_ev_zone_gestion_idgestion_seq'::regclass)|
+|nom|Nom de la zone de gestion|character varying(100)| |
+|gestion|Nom du gestionnaire|character varying(80)| |
+|sup_m2|Surface en mètre carré|bigint| |
+|geom|Géométrie surfacique|USER-DEFINED| |
 
-* Particularité : attention à ne pas confondre les zones de gestion du service espace vert sur la ville de Compiègne pour un usage interne de gestion d'équipe et la table géographique des zones de gestion entre la ville et l'Agglomération (`geo_amt_zone_gestion`) listée dans les dépendances.
 
-`geo_ev_site` : table géographique délimitant les sites de production cartographique
+`geo_ev_zone_site` : table géographique délimitant les sites cohérents
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
-|idsite|Identifiant unique de l'objet|integer|valeur vide interdite (issu de la classe an_ev_objet)|
-|nom|Libellé du site|varchar(100)||
-|typ|Typologie du site|varchar(2)|00 (liste de valeurs `lt_ev_typsite`)|
-|geom|Attribut contenant la géométrie du site|geometry(polygon,2154)|valeur vide interdite|
+|idsite|Identifiant du site|bigint|nextval('m_espace_vert.geo_ev_zone_site_idsite_seq'::regclass)|
+|nom|Nom du site|character varying(100)| |
+|typ|Type de site|character varying(2)| |
+|sup_m2|Surface en mètre carré|bigint| |
+|geom|Géométrie surfacique|USER-DEFINED| |
 
 
 `geo_ev_secteur_presta` : Table géographique contenant la délimitation des secteurs d'intervention des prestataires en espace vert pour la ville de Compiègne
