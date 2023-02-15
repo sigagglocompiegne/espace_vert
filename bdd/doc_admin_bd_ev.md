@@ -467,6 +467,9 @@ Particularité(s) à noter :
 |code|Code de la liste énumérée relative à l'état d'un attribut boolean|character varying(1)| |
 |valeur|Valeur de la liste énumérée relative à l'état d'un attribut boolean|character varying(30)| |
 
+
+Valeurs possibles :
+
 |code | valeur |
 |:---|:---| 
 |0|Non renseigné|
@@ -481,6 +484,9 @@ Particularité(s) à noter :
 |:---|:---|:---|:---|    
 |code|Code de la classe décrivant la liste des spécialisations des entreprises|character varying(2)| |
 |valeur|Valeur de la classe décrivant la liste des spécialisations des entreprises|character varying(80)| |
+
+
+Valeurs possibles :
 
 |code | valeur |
 |:---|:---| 
@@ -499,6 +505,9 @@ Particularité(s) à noter :
 |code|Code de la classe décrivant les unités pour la fréquence des demandes d'intervention|character varying(2)| |
 |valeur|Valeur de la classe décrivant les unités pour la fréquence des demandes d'intervention|character varying(80)| |
 
+
+Valeurs possibles :
+
 |code | valeur |
 |:---|:---| 
 |01|Jours|
@@ -514,6 +523,9 @@ Particularité(s) à noter :
 |:---|:---|:---|:---|    
 |code|Code de la classe décrivant le type d'intervention|character varying(5)| |
 |valeur|Valeur de la classe décrivant le type d'intervention|character varying(80)| |
+
+
+Valeurs possibles :
 
 |code | valeur |
 |:---|:---| 
@@ -552,6 +564,9 @@ Particularité(s) à noter :
 |code|Code de la classe décrivant le Type d'objet des interventions|character varying(3)| |
 |valeur|Valeur de la classe décrivant le Type d'objet des interventions|character varying(80)| |
 
+
+Valeurs possibles :
+
 |code | valeur |
 |:---|:---| 
 |000|Non renseigné|
@@ -569,6 +584,9 @@ Particularité(s) à noter :
 |:---|:---|:---|:---|    
 |code|Code de la classe décrivant les mois de l'année|character varying(2)| |
 |valeur|Valeur de la classe décrivant les mois de l'année|character varying(80)| |
+
+
+Valeurs possibles :
 
 |code | valeur |
 |:---|:---| 
@@ -594,6 +612,9 @@ Particularité(s) à noter :
 |code|Code de la classe décrivant la source d'une demande d'intervention|character varying(2)| |
 |valeur|Valeur de la classe décrivant la source d'une demande d'intervention|character varying(80)| |
 
+
+Valeurs possibles :
+
 |code | valeur |
 |:---|:---| 
 |00|Non renseigné|
@@ -607,6 +628,9 @@ Particularité(s) à noter :
 |:---|:---|:---|:---|    
 |code|Code de la classe décrivant les unités pour le statut des demandes d'intervention|character varying(2)| |
 |valeur|Valeur de la classe décrivant les unités pour le statut des demandes d'intervention|character varying(80)| |
+
+
+Valeurs possibles :
 
 |code | valeur |
 |:---|:---| 
@@ -624,8 +648,8 @@ Particularité(s) à noter :
 |code|code du type de domanialité|character varying(2)| |
 |valeur|valeur du type de domanialité|character varying(50)| |
 
-
 Valeurs possibles :
+
 |code | valeur |
 |:---|:---|  
 |00|Non renseignée|
@@ -634,6 +658,25 @@ Valeurs possibles :
 |21|Privée (communale)|
 |22|Privée (autre organisme public, HLM, ...)|
 |23|Privée|
+
+
+`lt_ev_objet_etat` : Liste permettant de décrire l'état des objets EV
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la liste énumérée relative à l'état des objets EV|character varying(1)| |
+|valeur|Valeur de la liste énumérée relative à l'état des objets EV|character varying(80)| |
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|  
+|0|Non renseigné|
+|1|Projet|
+|2|Existant|
+|3|Supprimé|
+
+
 
 `lt_ev_qualdoma` : Liste permettant de décrire la qualité de l'information sur la domanialité
 
@@ -660,6 +703,9 @@ Valeurs possibles :
 |code|Code du type principal des objets espaces verts|character varying(1)| |
 |valeur|Valeur du type principal des objets espaces verts|character varying(50)| |
 
+
+Valeurs possibles :
+
 |code | valeur |
 |:---|:---| 
 |0|Non renseigné|
@@ -674,6 +720,9 @@ Valeurs possibles :
 |:---|:---|:---|:---|    
 |code|Code du sous-type de niveau 2 principal des objets espaces verts|character varying(2)| |
 |valeur|Valeur du sous-type de niveau 2 principal des objets espaces verts|character varying(100)| |
+
+
+Valeurs possibles :
 
 |code | valeur |
 |:---|:---| 
@@ -695,6 +744,9 @@ Valeurs possibles :
 |:---|:---|:---|:---|    
 |code|Code du sous-type de niveau 3 principal des objets espaces verts|character varying(3)| |
 |valeur|Valeur du sous-type de niveau 3 principal des objets espaces verts|character varying(100)| |
+
+
+Valeurs possibles :
 
 |code | valeur |
 |:---|:---| 
@@ -730,6 +782,51 @@ Valeurs possibles :
 |325|Etang|
 |329|Autre espace en eau|
 |999|Référence non classée|
+
+
+`lt_ev_vegetal_arbre_amenagement_pied` : Liste permettant de décrire l'aménagement du pied des arbres.
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant l'aménagement du pied des arbres|character varying(2)| |
+|valeur|Valeur de la classe décrivant l'aménagement du pied des arbres|character varying(80)| |
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---| 
+|00|Non renseigné|
+|01|Grille|
+|02|Fleuri|
+|03|Paillage|
+|99|Autre|
+
+
+
+`lt_ev_vegetal_arbre_contr_type` : Liste permettant de décrire le type de contrainte des arbres.
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant le Type de contrainte des arbres|character varying(2)| |
+|valeur|Valeur de la classe décrivant le Type de contrainte des arbres|character varying(80)| |
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---| 
+|00|Non renseigné|
+|01|Cohabitation|
+|02|Candélabre|
+|03|Bâtiment|
+|04|Feu de signalisation|
+|05|Cable aérien|
+|99|Autre|
+
+
+
+
+
+
 
 `lt_ev_zone_site_type` : Liste permettant de décrire les types principaux des sites
 
