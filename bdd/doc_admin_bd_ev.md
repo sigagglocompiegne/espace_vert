@@ -413,6 +413,20 @@ Particularité(s) à noter :
 * Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table superclasse `an_ev_objet`)
 
 
+`geo_ev_zone_equipe` : table géographique délimitant les zones d'équipe du service espace vert
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
+|idequipe|Identifiant d'équipe|bigint|nextval('m_espace_vert.geo_ev_zone_equipe_idequipe_seq'::regclass)|
+|nom|Nom de la zone de equipe|character varying(100)| |
+|equipe|Nom du equipenaire|character varying(80)| |
+|sup_m2|Surface en mètre carré|bigint| |
+|geom|Géométrie surfacique|USER-DEFINED| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idequipe` 
+
+
 `geo_ev_zone_gestion` : table géographique délimitant les zones de gestion/entretien interne du service espace vert
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
@@ -422,6 +436,9 @@ Particularité(s) à noter :
 |gestion|Nom du gestionnaire|character varying(80)| |
 |sup_m2|Surface en mètre carré|bigint| |
 |geom|Géométrie surfacique|USER-DEFINED| |
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idgestion` 
 
 
 `geo_ev_zone_site` : table géographique délimitant les sites cohérents
@@ -434,8 +451,103 @@ Particularité(s) à noter :
 |sup_m2|Surface en mètre carré|bigint| |
 |geom|Géométrie surfacique|USER-DEFINED| |
 
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idsite` 
+* Une clé étrangère existe sur la table de valeur `typ` (lien vers une liste de valeurs `lt_ev_zone_site_type`)
+
+
+
 
 ## Liste de valeurs
+
+`lt_ev_boolean` : Liste d'attribut de type booléen
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la liste énumérée relative à l'état d'un attribut boolean|character varying(1)| |
+|valeur|Valeur de la liste énumérée relative à l'état d'un attribut boolean|character varying(30)| |
+
+|code | valeur |
+|:---|:---| 
+|0|Non renseigné|
+|f|Non|
+|t|Oui|
+|z|Non concerné|
+
+
+`lt_ev_equipe_specialisation` : Liste permettant de décrire les specialisations des équipes
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant la liste des spécialisations des entreprises|character varying(2)| |
+|valeur|Valeur de la classe décrivant la liste des spécialisations des entreprises|character varying(80)| |
+
+|code | valeur |
+|:---|:---| 
+|00|Non renseigné|
+|01|Taille en rideau|
+|02|Tonte|
+|03|Désherbage|
+|04|Taille|
+
+
+
+`lt_ev_intervention_freq_unite` : Liste permettant de décrire les fréquences des demandes d'intervention
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant les unités pour la fréquence des demandes d'intervention|character varying(2)| |
+|valeur|Valeur de la classe décrivant les unités pour la fréquence des demandes d'intervention|character varying(80)| |
+
+|code | valeur |
+|:---|:---| 
+|01|Jours|
+|02|Semaines|
+|03|Mois|
+|04|Ans|
+|00|Non renseigné|
+
+
+
+`lt_ev_intervention_inter_type` : Liste permettant de décrire les types d'interventions
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant le type d'intervention|character varying(5)| |
+|valeur|Valeur de la classe décrivant le type d'intervention|character varying(80)| |
+
+|code | valeur |
+|:---|:---| 
+|00000|Non renseigné|
+|11100|Non renseigné|
+|11101|Abattage|
+|11102|Dessouchage|
+|11103|Tête de chat|
+|11104|Cohabitation|
+|11105|Sanitaire|
+|11106|Sélection|
+|11107|Démontage|
+|11108|Remontée de couronne|
+|11109|Formation|
+|11110|Branche cassée|
+|11111|Branche en suspension|
+|11112|Arbre accidenté|
+|11301|Abattage|
+|11302|Coupe|
+|11303|Elagage|
+|12201|Abattage|
+|12202|Coupe|
+|12203|Elagage|
+|12301|Tonte|
+|12302|Traitement|
+|13201|Tonte|
+|13202|Traitement|
+|14101|Tonte|
+|14102|Traitement|
+
+
+
+
 
 `lt_ev_objet_typ1` : Liste permettant de décrire la nomenclature de niveau 1 des objets d'espaces verts.
 
