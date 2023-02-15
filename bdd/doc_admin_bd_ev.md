@@ -90,6 +90,12 @@ Particularité(s) à noter :
 |y_l93|Coordonnées Y en Lambert 93|numeric| |
 |geom|Géométrie des objets espaces verts|USER-DEFINED| |
 
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
+
+
+
 
 `geo_ev_polygon` : table géographique des objets des espaces verts saisis sous forme de polygone
 
