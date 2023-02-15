@@ -153,38 +153,56 @@ Particularité(s) à noter :
 |position|Position des objets|character varying(2)|'10'::character varying|
 
 
-`an_ev_arbre` : table alphanumérique du patrimoine des objets des espaces verts correspond aux arbres.
-
-**Cette classe est issue de l'inventaire initié depuis 2014 et pourra faire l'objet d'une réadapation dans ce nouveau modèle. Le complément demandé lors de la production cartographique en 2021 sera uniquement de l'ordre du positionnement. Les attributs métiers seront renseignés par le service "espace vert" dans un second temps.**
+`an_ev_vegetal_arbre` : table alphanumérique du patrimoine des objets des espaces verts correspond aux arbres.
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|  
-|idobjet|Identifiant unique de l'objet|bigint|valeur vide interdite (issu de la classe an_ev_objet)|
-|nom|Libellé du nom de l'arbre en français (standard)|character varying(50)||
-|genre|Nom du genre de l''arbre (en latin)|character varying(20)||
-|espece|Nom de l'espèce de l'arbre (en latin)|character varying(20)||
-|hauteur|Classe de hauteur de l'arbre en mètre|character varying(2)|00 (liste de valeurs `lt_ev_arbrehauteur`)|
-|circonf|Circonférence du tronc en centimètre|integer||
-|forme|Classe de forme de l'arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbreforme`)|
-|etat_gen|Etat général l'arbre|character varying(2)|00 (non saisi à ce jour)|
-|implant|Type d'implantation de l'arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbreimplant`)|
-|remarq|Arbre remarquable|character varying(3)||
-|malad_obs|Présence de la maladie/parasite|character varying(3)||
-|malad_nom|Nom de la maladie ou du parasite|character varying(80)||
-|danger|Dangerosité de l''arbre|character varying(2)|00 (liste de valeurs `lt_ev_arbredanger`)|
-|natur_sol|Nature du sol|character varying(2)|00 (liste de valeurs `lt_ev_arbresol`)|
-|envnmt_obs|Observation environnementale diverse sur l'arbre|character varying(254)||
-|utilis_obs|Observation de l'opérateur diverse sur l'arbre|character varying(254)||
-|plt_fic_1|Photo n°1| character(230)||
-|cplt_fic_2|Photo n°2| character(230)||
-|gps_date|Données du GPS (date du relevé)| date||
-|gnss_heigh|Données du GPS (hauteur)|double precision||
-|vert_prec|Données du GPS (précision verticale)| double precision||
-|horz_prec|Données du GPS (précision horizontale)| double precision||
-|northing|Données du GPS (coordonnées Y en Lambert 93)| double precision||
-|easting|Données du GPS (coordonnées X en Lambert 93)| double precision||
-    
-**Il n'est pas prévu pour le moment une sous-classe métiers pour les objets ponctuels autre que les objets arbres.**
+|idobjet|Identifiant de l'objet|bigint| |
+|famille|Nom de la famille de l'arbre (en latin)|character varying(20)| |
+|genre|Nom du genre de l'arbre (en latin)|character varying(20)| |
+|espece|Nom de l'espèce de l'arbre (en latin)|character varying(20)| |
+|cultivar|Nom du cultivar de l'arbre (en latin)|character varying(20)| |
+|nomlatin|Libellé scientifique complet du nom de l'arbre (en latin)|character varying(80)| |
+|nomcommun|Libellé du nom commun/vernaculaire de l'arbre (en français)|character varying(80)| |
+|niv_allerg|Niveau allergisant|character varying(2)|'00'::character varying|
+|hauteur_cl|Classe de hauteur de l'arbre en mètre|character varying(2)|'00'::character varying|
+|circonf|Circonférence du tronc en centimètre|integer| |
+|diam_houpp|Diamètre houppier en mètre|integer| |
+|implant|Type d'implantation de l'arbre|character varying(2)|'00'::character varying|
+|mode_cond|Mode de conduite, assimilé à « port de taille » ou forme taillée|character varying(2)|'00'::character varying|
+|date_pl_an|Date de plantation (année)|integer| |
+|date_pl_sa|Date de plantation (saison)|character varying(2)|'00'::character varying|
+|periode_pl|Période de plantation approx. (Décennie)|character varying(2)|'00'::character varying|
+|stade_dev|Stade de développement|character varying(2)|'00'::character varying|
+|sol_type|Type de sol|character varying(2)|'00'::character varying|
+|amena_pied|Aménagement pied de l'arbre|character varying(80)| |
+|remarq|Arbre remarquable (O/N)|character varying(1)|'0'::character varying|
+|remarq_com|Commentaires arbre remarquable|character varying(254)| |
+|proteg|Arbre protégé (O/N)|character varying(1)|'0'::character varying|
+|proteg_com|Commentaires arbre protégé|character varying(254)| |
+|contr|Contrainte (O/N)|character varying(1)|'0'::character varying|
+|contr_type|Type(s) de contrainte(s)|character varying(80)| |
+|naiss|Programme naissance (O/N)|character varying(1)|'0'::character varying|
+|naiss_com|Commentaire arbre du programme naissance|character varying(254)| |
+|etatarbre|Etat de l'arbre|character varying(2)| |
+
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idobjet` l'attribution automatique de la référence unique s'effectue via une vue de gestion. 
+* Une clé étrangère existe sur la table de valeur `idobjet` (lien vers la table des équipes `an_ev_objet`)
+* Une clé étrangère existe sur la table de valeur `contr` (lien vers la table des zones de gestion `lt_ev_boolean`)
+* Une clé étrangère existe sur la table de valeur `date_pl_sa` (lien vers la table des sites cohérent `lt_ev_vegetal_arbre_date_plantation_saison`)
+* Une clé étrangère existe sur la table de valeur `etatarbre` (lien vers une liste de valeurs `lt_ev_vegetal_arbre_etatarbre`)
+* Une clé étrangère existe sur la table de valeur `hauteur_cl` (lien vers une liste de valeurs `lt_ev_vegetal_arbre_hauteur_cl`)
+* Une clé étrangère existe sur la table de valeur `implant` (lien vers une liste de valeurs `lt_ev_vegetal_arbre_implant`)
+* Une clé étrangère existe sur la table de valeur `mode_cond` (lien vers la table des sites cohérent `lt_ev_vegetal_arbre_mode_conduite`)
+* Une clé étrangère existe sur la table de valeur `naiss` (lien vers une liste de valeurs `lt_ev_boolean`)
+* Une clé étrangère existe sur la table de valeur `periode_pl` (lien vers une liste de valeurs `lt_ev_vegetal_arbre_periode_plantation`)
+* Une clé étrangère existe sur la table de valeur `proteg` (lien vers une liste de valeurs `lt_ev_boolean`)
+* Une clé étrangère existe sur la table de valeur `remarq` (lien vers une liste de valeurs `lt_ev_boolean`)
+* Une clé étrangère existe sur la table de valeur `sol_type` (lien vers une liste de valeurs `lt_ev_vegetal_arbre_sol_type`)
+* Une clé étrangère existe sur la table de valeur `stade_dev` (lien vers une liste de valeurs `lt_ev_vegetal_arbre_stade_dev`)
+
 
 ### Classe d'objet non patrimoniale
 
