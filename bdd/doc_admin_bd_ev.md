@@ -823,7 +823,22 @@ Valeurs possibles :
 |99|Autre|
 
 
+`lt_ev_vegetal_arbre_date_plantation_saison` : Liste permettant de décrire la date de plantation (saison) des arbres.
 
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant la Date de plantation (saison) des arbres|character varying(2)| |
+|valeur|Valeur de la classe décrivant la Date de plantation (saison) des arbres|character varying(80)| |
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---| 
+|00|Non renseigné|
+|01|Hiver|
+|02|Printemps|
+|03|Eté|
+|04|Automne|
 
 
 
