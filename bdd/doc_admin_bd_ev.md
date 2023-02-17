@@ -791,6 +791,7 @@ Valeurs possibles :
 |code|Code de la classe décrivant l'aménagement du pied des arbres|character varying(2)| |
 |valeur|Valeur de la classe décrivant l'aménagement du pied des arbres|character varying(80)| |
 
+
 Valeurs possibles :
 
 |code | valeur |
@@ -809,6 +810,7 @@ Valeurs possibles :
 |:---|:---|:---|:---|    
 |code|Code de la classe décrivant le Type de contrainte des arbres|character varying(2)| |
 |valeur|Valeur de la classe décrivant le Type de contrainte des arbres|character varying(80)| |
+
 
 Valeurs possibles :
 
@@ -830,6 +832,7 @@ Valeurs possibles :
 |code|Code de la classe décrivant la Date de plantation (saison) des arbres|character varying(2)| |
 |valeur|Valeur de la classe décrivant la Date de plantation (saison) des arbres|character varying(80)| |
 
+
 Valeurs possibles :
 
 |code | valeur |
@@ -839,6 +842,109 @@ Valeurs possibles :
 |02|Printemps|
 |03|Eté|
 |04|Automne|
+
+
+`lt_ev_vegetal_arbre_etat_sanitaire_anomal_typ` : Liste permettant de décrire le type d'anomalie des arbres.
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant le Type d'anomalie des arbres|character varying(2)| |
+|valeur|Valeur de la classe décrivant le Type d'anomalie des arbres|character varying(80)| |
+
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---| 
+|00|Non renseigné|
+|01|Descente de cime|
+|02|Champignon|
+|03|Ravageur|
+|04|Pourriture|
+|05|Défaut mécanique (écorce incluse)|
+|06|Racine altérée|
+|99|Autre|
+
+
+`lt_ev_vegetal_arbre_etatarbre` : Liste permettant de décrire l'état des arbres.
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant l'état des arbres|character varying(2)| |
+|valeur|Valeur de la classe décrivant l'état des arbres|character varying(80)| |
+
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---| 
+|00|Non renseigné|
+|10|Projet|
+|20|Existant|
+|21|Abattu|
+|22|Désouché|
+|30|Supprimé|
+
+
+`lt_ev_vegetal_arbre_hauteur_cl` : Liste permettant de décrire la hauteur des arbres.
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant la hauteur des objets ponctuels arbre|character varying(2)| |
+|valeur|Valeur de la classe décrivant la hauteur des objets ponctuels arbre|character varying(80)| |
+
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---| 
+|00|Non renseigné|
+|01|Moins de 1 mètre|
+|02|1 à 2 mètres|
+|03|2 à 5 mètres|
+|04|5 à 10 mètres|
+|05|10 à 15 mètres|
+|06|15 à 20 mètres|
+|07|Plus de 20 mètres|
+
+
+`lt_ev_vegetal_arbre_implant` : Liste permettant de décrire la classe d'implantation de chaque objet arbre
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+|code|Code de la classe décrivant l'implantation des objets ponctuels arbre|character varying(2)| |
+|valeur|Valeur de la classe décrivant l'implantation des objets ponctuels arbre|character varying(80)| |
+
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---|
+|00|Non renseigné|
+|01|Isolé|
+|02|Alignement|
+|03|Bois|
+
+
+`lt_ev_vegetal_arbre_mode_conduite` : Liste permettant de décrire le mode de conduite des arbres.
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant le Mode de conduite des arbres|character varying(2)| |
+|valeur|Valeur de la classe décrivant le Mode de conduite des arbres|character varying(80)| |
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---| 
+|00|Non renseigné|
+|01|Tête de chat|
+|02|Mauvais suivi|
+|03|Rideaux|
+|04|Port libre|
+|05|Semi libre|
+|06|Accompagnement|
+|99|Autre|
 
 
 
@@ -872,43 +978,7 @@ Valeurs possibles :
 
 
 
-`lt_ev_vegetal_arbre_hauteur_cl` : Liste permettant de décrire la classe de hauteur de chaque objet arbre
 
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|  
-|code|Code de la classe décrivant la hauteur des objets ponctuels arbre|character varying(2)| |
-|valeur|Valeur de la classe décrivant la hauteur des objets ponctuels arbre|character varying(80)| |
-
-Valeurs possibles :
-
-|code | valeur |
-|:---|:---|  
-|00|Non renseigné|
-|01|Moins de 1 mètre|
-|02|1 à 2 mètres|
-|03|2 à 5 mètres|
-|04|5 à 10 mètres|
-|05|10 à 15 mètres|
-|06|15 à 20 mètres|
-|07|Plus de 20 mètres|
-
-
-`lt_ev_vegetal_arbre_implant` : Liste permettant de décrire la classe d'implantation de chaque objet arbre
-
-|Nom attribut | Définition | Type  | Valeurs par défaut |
-|:---|:---|:---|:---|  
-|code|Code de la classe décrivant l'implantation des objets ponctuels arbre|character varying(2)| |
-|valeur|Valeur de la classe décrivant l'implantation des objets ponctuels arbre|character varying(80)| |
-
-
-Valeurs possibles :
-
-|code | valeur |
-|:---|:---|
-|00|Non renseigné|
-|01|Isolé|
-|02|Alignement|
-|03|Bois|
 
 
 `lt_ev_vegetal_haie_sai_type` : Liste permettant de décrire le type de saisie de la sous-classe de précision des objets espace vert de type haie
