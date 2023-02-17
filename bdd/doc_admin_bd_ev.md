@@ -948,6 +948,91 @@ Valeurs possibles :
 
 
 
+`lt_ev_vegetal_arbre_periode_plantation` : Liste permettant de décrire la période de plantation des arbres.
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant la Période de plantation des arbres|character varying(2)| |
+|valeur|Valeur de la classe décrivant la Période de plantation des arbres|character varying(80)| |
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---| 
+|00|Non renseigné|
+|01|avant 1900|
+|02|1900 à 1909|
+|03|1910 à 1919|
+|04|1920 à 1929|
+|05|1930 à 1939|
+|06|1940 à 1949|
+|07|1950 à 1959|
+|08|1960 à 1969|
+|09|1970 à 1979|
+|10|1980 à 1989|
+|11|1990 à 1999|
+|12|2000 à 2009|
+|13|2010 à 2019|
+|14|2020 à 2029|
+
+
+
+`lt_ev_vegetal_arbre_sol_type` : Liste permettant de décrire le type de sol des arbres.
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant le Type de sol des arbres|character varying(2)| |
+|valeur|Valeur de la classe décrivant le Type de sol des arbres|character varying(80)| |
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---| 
+|00|Non renseigné|
+|01|Mauvais|
+|02|Moyen|
+|03|Bon|
+
+
+`lt_ev_vegetal_arbre_stade_dev` : Liste permettant de décrire le stade de développement des arbres.
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant le Stade de développement des arbres|character varying(2)| |
+|valeur|Valeur de la classe décrivant le Stade de développement des arbres|character varying(80)| |
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---| 
+|00|Non renseigné|
+|01|Jeune|
+|02|Adulte|
+|03|Mature|
+
+
+`lt_ev_vegetal_arrosage_type` : Liste permettant de décrire le type d'arrosage automatique des espaces végétalisés.
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant le Type d'arrosage automatique des espaces végétalisés|character varying(2)| |
+|valeur|Valeur de la classe décrivant le Type d'arrosage automatique des espaces végétalisés|character varying(80)| |
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---| 
+|00|Non renseigné|
+|01|Arrosage à jet rotatif|
+|02|Arrosage goutte à goutte ou localisé|
+|03|Arrosage en surface - asperseur|
+|04|Arrosage enterré|
+|05|Tuyaux poreux|
+|06|Arroseur oscillant|
+|07|Arroseur canon|
+|08|Tuyaux à goutteurs intégrés|
+
+
 
 `lt_ev_zone_site_type` : Liste permettant de décrire les types principaux des sites
 
