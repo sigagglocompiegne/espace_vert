@@ -1033,6 +1033,42 @@ Valeurs possibles :
 |08|Tuyaux à goutteurs intégrés|
 
 
+`lt_ev_vegetal_espace_type` : Liste permettant de décrire le type d'espace des espaces végétalisés.
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant le Type d'espace des espaces végétalisés|character varying(2)| |
+|valeur|Valeur de la classe décrivant le Type d'espace des espaces végétalisés|character varying(80)| |
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---| 
+|00|Non renseigné|
+|01|Ambiance fleuries/horticoles|
+|02|Ambiance végétale/ornementales|
+|03|Ambiance champêtre|
+|04|Ambiance de nature|
+
+
+
+`lt_ev_vegetal_haie_paillage_type` : Liste permettant de décrire le type paillage des haies.
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|    
+|code|Code de la classe décrivant le Type paillage des haies|character varying(2)| |
+|valeur|Valeur de la classe décrivant le Type paillage des haies|character varying(80)| |
+
+Valeurs possibles :
+
+|code | valeur |
+|:---|:---| 
+|00|Non renseigné|
+|01|Paillage organique|
+|02|Paillage minéral|
+
+
+
 
 `lt_ev_zone_site_type` : Liste permettant de décrire les types principaux des sites
 
