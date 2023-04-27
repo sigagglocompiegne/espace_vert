@@ -76,14 +76,28 @@ FROM
 WHERE
 	o.typ3::text = '111'::text;
 
-ALTER TABLE x_opendata.xopendata_an_v_ev_vegetal_arbre
-OWNER TO sig_create;
-
-COMMENT ON VIEW x_opendata.xopendata_an_v_ev_vegetal_arbre
-IS 'Vue opendata de la données ''Arbres urbains''';
 
 
-GRANT ALL ON TABLE x_opendata.xopendata_an_v_ev_vegetal_arbre TO sig_read WITH GRANT OPTION;
-GRANT ALL ON TABLE x_opendata.xopendata_an_v_ev_vegetal_arbre TO sig_create WITH GRANT OPTION;
-GRANT ALL ON TABLE x_opendata.xopendata_an_v_ev_vegetal_arbre TO sig_edit WITH GRANT OPTION;
-GRANT ALL ON TABLE x_opendata.xopendata_an_v_ev_vegetal_arbre TO create_sig;
+COMMENT ON VIEW x_opendata.xopendata_an_v_ev_vegetal_arbre IS 'Table géographique des secteurs de gestion espace vert de l''ARC';
+
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.id IS 'identifiant unique de l''objet arbre pour le jeu de données.';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.longitude IS 'La longitude de la localisation de l''arbre dans le système de coordonnées WGS84.';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.latitude IS 'La latitude de la localisation de l''arbre dans le système de coordonnées WGS84.';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.date_releve IS 'Date à laquelle les données ont été relevées pour cet arbre.';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.famille IS 'Le taxon auquel appartient l''arbre en latin (cinquième niveau de la classification classique).';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.genre IS 'La subdivision de la famille auquel appartient l''arbre en latin (sixième niveau de la classification classique).';	
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.espece IS 'La subdivision du genre auquel appartient l''arbre en latin (septième niveau de la classification classique).';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.cultivar_variete IS 'La subdivision de l''espèce auquel appartient l''arbre en latin.';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.nom_vernaculaire IS 'Le nom commun français correspondant au ([genre][espèce][cultivar]).';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.code_insee IS 'Le code INSEE de la commune dans laquelle l''arbre se trouve.';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.date_plantation IS 'La date de plantation de l''arbre';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.stade_developpement IS 'La maturité de l''arbre en fonction de sa date de plantation.';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.hauteur IS 'La hauteur de l''arbre exprimée en cm';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.circonference IS 'La circonférence de l''arbre mesurée à hauteur d''homme, exprimée en cm';	
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.diametre_couronne IS 'Le diamètre du houpier de l''arbre';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.description_pied_arbre IS 'Aménagement présent sur le sol autour du pied de l''arbre';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.remarquable IS 'Classification de l''arbre à remarquable selon son âge, sa circonférence et sa hauteur';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.protege IS 'Si l''arbre fait l''objet d''une classification et d''une protection';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.contrainte_aerienne IS 'Indique la présence de contraintes physiques au-dessus du sol';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.allergie IS 'Indique le potentiel allergisant de l''arbre';
+COMMENT ON COLUMN x_opendata.xopendata_an_v_ev_vegetal_arbre.remarque IS 'Tout autre remarque nécessaire à la gestion de l''arbre';
