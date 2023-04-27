@@ -1283,7 +1283,11 @@ Sans objet
 
 ## Export Open Data
 
-Sans objet
+`xopendata_an_v_ev_vegetal_arbre` : table des arbres urbains destinée à l'opendata
+
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|
 
 
 
