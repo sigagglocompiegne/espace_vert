@@ -53,4 +53,5 @@
 2023-01-27 : CS / créer la vue VUE an_v_lt_ev_objet_typ123
 2023-01-31 : FV / suppression contrainte sur type anomalie de la table état sanitaire pour permettre à le passe en multivalué
 2023-02-09 : CS / Mise à jour de la documentation technique
+2023-04-27 : CS / Mise à jour de la vue opendata
 */
