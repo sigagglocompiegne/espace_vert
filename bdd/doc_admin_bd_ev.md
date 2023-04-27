@@ -457,6 +457,28 @@ Particularité(s) à noter :
 
 
 
+`geo_ev_secteur_gestion_arc` : table géographique délimitant les zones de gestion de l'ARC
+
+|Nom attribut | Définition | Type  | Valeurs par défaut |
+|:---|:---|:---|:---|  
+|idsecteur|Identifiant du secteur|bigint|nextval('m_espace_vert.geo_ev_secteur_gestion_arc_seq'::regclass)|
+|nom_secteur|Nom du secteur de gestion de l'ARC|character varying(100)| |
+|coherence|Cohérence (oui/non) entre le zonage terrain et le zonage d'intervention réel|character varying(80)| |
+|remarques|Champ texte pour les remarques|character varying(250)| |
+|sup_m2|Surface en mètre carré|bigint| |
+|insee|Code INSEE|character varying(5)| |
+|commune|Nom de la commune|character varying(250)| |
+|op_sai|Opérateur de saisie de l'objet|character varying(80)| |
+|date_sai|Date de saisie de l'objet|timestamp without time zone| |
+|op_maj|Opérateur de la dernière mise à jour de l'objet|character varying(80)| |
+|date_maj|Date de la dernière mise jour de l'objet|timestamp without time zone| |
+|geom|Géométrie surfacique|USER-DEFINED| |
+
+
+Particularité(s) à noter :
+* Une clé primaire existe sur le champ `idsecteur` 
+
+
 
 ## Liste de valeurs
 
