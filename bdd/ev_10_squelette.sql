@@ -2074,13 +2074,113 @@ FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_zone_equipe_set();
 
 
 
+-- ################################################################# TABLE geo_ev_secteur_gestion_arc ###############################################
+
+-- DROP TABLE IF EXISTS m_espace_vert.geo_ev_secteur_gestion_arc;
+
+CREATE TABLE IF NOT EXISTS m_espace_vert.geo_ev_secteur_gestion_arc
+(
+    idsecteur bigint NOT NULL DEFAULT nextval('m_espace_vert.geo_ev_secteur_gestion_arc_seq'::regclass),
+    nom_secteur character varying(100),
+    coherence character varying(80),
+    remarques character varying(250),
+    sup_m2 bigint,
+	  insee character varying(5),
+	  commune character varying(250),
+  	op_sai character varying(80),
+    date_sai timestamp without time zone,
+  	op_maj character varying(80),
+    date_maj timestamp without time zone,
+  	geom geometry(Polygon,2154),
+    CONSTRAINT geo_ev_secteur_gestion_arc_pkey PRIMARY KEY (idsecteur)
+)
+WITH (
+    OIDS = FALSE
+);
+
+
+ALTER TABLE IF EXISTS m_espace_vert.geo_ev_secteur_gestion_arc OWNER to sig_read;
+
+COMMENT ON TABLE m_espace_vert.geo_ev_secteur_gestion_arc IS 'Table géographique des secteurs de gestion espace vert de l''ARC';
+COMMENT ON COLUMN m_espace_vert.geo_ev_secteur_gestion_arc.idsecteur IS 'Identifiant du secteur';
+COMMENT ON COLUMN m_espace_vert.geo_ev_secteur_gestion_arc.nom_secteur IS 'Nom du secteur de gestion de l''ARC';
+COMMENT ON COLUMN m_espace_vert.geo_ev_secteur_gestion_arc.coherence IS 'Cohérence (oui/non) entre le zonage terrain et le zonage d''intervention réel';
+COMMENT ON COLUMN m_espace_vert.geo_ev_secteur_gestion_arc.remarques IS 'Champ texte pour les remarques';
+COMMENT ON COLUMN m_espace_vert.geo_ev_secteur_gestion_arc.sup_m2 IS 'Surface en mètre carré';
+COMMENT ON COLUMN m_espace_vert.geo_ev_secteur_gestion_arc.insee IS 'Code INSEE';	
+COMMENT ON COLUMN m_espace_vert.geo_ev_secteur_gestion_arc.commune IS 'Nom de la commune';
+COMMENT ON COLUMN m_espace_vert.geo_ev_secteur_gestion_arc.geom IS 'Géométrie surfacique';	
+COMMENT ON COLUMN m_espace_vert.geo_ev_secteur_gestion_arc.op_sai IS 'Opérateur de saisie de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_ev_secteur_gestion_arc.date_sai IS 'Date de saisie de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_ev_secteur_gestion_arc.op_maj IS 'Opérateur de la dernière mise à jour de l''objet';
+COMMENT ON COLUMN m_espace_vert.geo_ev_secteur_gestion_arc.date_maj IS 'Date de la dernière mise jour de l''objet';
+COMMENT ON CONSTRAINT geo_ev_secteur_gestion_arc_pkey ON m_espace_vert.geo_ev_secteur_gestion_arc IS 'Clé primaire de la classe geo_ev_zone_gestion';
 
 
 
 
+-- #################################################################### FONCTION/TRIGGER Secteur Gestion ARC ###############################################
 
 
+-- Trigger: t_geo_ev_secteur_gestion_arc_sup_m2
+-- DROP TRIGGER IF EXISTS t_geo_ev_secteur_gestion_arc_sup_m2 ON m_espace_vert.geo_ev_secteur_gestion_arc;
 
+CREATE TRIGGER t_geo_ev_secteur_gestion_arc_sup_m2
+    BEFORE INSERT OR UPDATE OF geom
+    ON m_espace_vert.geo_ev_secteur_gestion_arc
+    FOR EACH ROW
+    EXECUTE PROCEDURE public.ft_r_sup_m2_maj();
+
+
+-- Trigger: t_geo_ev_secteur_gestion_arc_insee
+-- DROP TRIGGER IF EXISTS t_geo_ev_secteur_gestion_arc_insee ON m_espace_vert.geo_ev_secteur_gestion_arc;
+
+CREATE TRIGGER t_geo_ev_secteur_gestion_arc_insee
+    BEFORE INSERT OR UPDATE OF geom
+    ON m_espace_vert.geo_ev_secteur_gestion_arc
+    FOR EACH ROW
+    EXECUTE PROCEDURE public.ft_r_insee();
+	
+	
+-- Trigger: t_geo_ev_secteur_gestion_arc_commune
+-- DROP TRIGGER IF EXISTS t_geo_ev_secteur_gestion_arc_commune ON m_espace_vert.geo_ev_secteur_gestion_arc;
+
+CREATE TRIGGER t_geo_ev_secteur_gestion_arc_commune
+	BEFORE INSERT OR UPDATE OF geom
+	ON m_espace_vert.geo_ev_secteur_gestion_arc
+    FOR EACH ROW
+    EXECUTE PROCEDURE public.ft_r_commune_c();
+
+
+-- Trigger: t_geo_ev_secteur_gestion_arc_date_sai
+-- DROP TRIGGER IF EXISTS t_geo_ev_secteur_gestion_arc_date_sai ON m_espace_vert.geo_ev_secteur_gestion_arc;
+
+CREATE TRIGGER t_geo_ev_secteur_gestion_arc_date_sai
+	BEFORE INSERT
+	ON m_espace_vert.geo_ev_secteur_gestion_arc
+    FOR EACH ROW
+    EXECUTE PROCEDURE public.ft_r_timestamp_sai();
+	
+	
+-- Trigger: t_geo_ev_secteur_gestion_arc_date_maj
+-- DROP TRIGGER IF EXISTS t_geo_ev_secteur_gestion_arc_date_maj ON m_espace_vert.geo_ev_secteur_gestion_arc;
+
+--CREATE TRIGGER t_geo_ev_secteur_gestion_arc_date_maj
+--	BEFORE INSERT OR UPDATE OF geom
+--	ON m_espace_vert.geo_ev_secteur_gestion_arc
+--    FOR EACH ROW
+--    EXECUTE PROCEDURE public.ft_r_timestamp_maj();
+
+
+-- Trigger: t_geo_ev_secteur_gestion_arc_date_maj
+-- DROP TRIGGER IF EXISTS t_geo_ev_secteur_gestion_arc_date_maj ON m_espace_vert.geo_ev_secteur_gestion_arc;
+
+CREATE TRIGGER t_geo_ev_secteur_gestion_arc_date_maj
+	BEFORE UPDATE
+	ON m_espace_vert.geo_ev_secteur_gestion_arc
+    FOR EACH ROW
+    EXECUTE PROCEDURE public.ft_r_date_maj();
+	
 
 
 -- ################################################################# TABLE geo_ev_intervention_demande ###############################################
