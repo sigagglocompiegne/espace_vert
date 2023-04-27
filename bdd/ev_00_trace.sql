@@ -54,4 +54,5 @@
 2023-01-31 : FV / suppression contrainte sur type anomalie de la table état sanitaire pour permettre à le passe en multivalué
 2023-02-09 : CS / Mise à jour de la documentation technique
 2023-04-27 : CS / Mise à jour de la vue opendata
+2023-04-27 : CS / Mise à jour de la table geo_ev_secteur_gestion_arc
 */
