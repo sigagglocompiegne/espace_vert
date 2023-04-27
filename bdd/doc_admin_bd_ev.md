@@ -1288,7 +1288,27 @@ Sans objet
 
 |Nom attribut | Définition | Type  | Valeurs par défaut |
 |:---|:---|:---|:---|
-
+|id|identifiant unique de l'objet arbre pour le jeu de données.|bigint| |
+|longitude|La longitude de la localisation de l'arbre dans le système de coordonnées WGS84.|numeric| |
+|latitude|La latitude de la localisation de l'arbre dans le système de coordonnées WGS84.|numeric| |
+|date_releve|Date à laquelle les données ont été relevées pour cet arbre.|date| |
+|famille|Le taxon auquel appartient l'arbre en latin (cinquième niveau de la classification classique).|character varying(20)| |
+|genre|La subdivision de la famille auquel appartient l'arbre en latin (sixième niveau de la classification classique).|character varying(20)| |
+|espece|La subdivision du genre auquel appartient l'arbre en latin (septième niveau de la classification classique).|character varying(20)| |
+|cultivar_variete|La subdivision de l'espèce auquel appartient l'arbre en latin.|character varying(20)| |
+|nom_vernaculaire|Le nom commun français correspondant au ([genre][espèce][cultivar]).|character varying(80)| |
+|code_insee|Le code INSEE de la commune dans laquelle l'arbre se trouve.|character varying(5)| |
+|date_plantation|La date de plantation de l'arbre|integer| |
+|stade_developpement|La maturité de l'arbre en fonction de sa date de plantation.|character varying(80)| |
+|hauteur|La hauteur de l'arbre exprimée en cm|integer| |
+|circonference|La circonférence de l'arbre mesurée à hauteur d'homme, exprimée en cm|integer| |
+|diametre_couronne|Le diamètre du houpier de l'arbre|integer| |
+|description_pied_arbre|Aménagement présent sur le sol autour du pied de l'arbre|character varying(80)| |
+|remarquable|Classification de l'arbre à remarquable selon son âge, sa circonférence et sa hauteur|text| |
+|protege|Si l'arbre fait l'objet d'une classification et d'une protection|text| |
+|contrainte_aerienne|Indique la présence de contraintes physiques au-dessus du sol|character varying(80)| |
+|allergie|Indique le potentiel allergisant de l'arbre|integer| |
+|remarque|Tout autre remarque nécessaire à la gestion de l'arbre|character varying(254)| |
 
 
 
