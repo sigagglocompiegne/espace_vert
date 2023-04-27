@@ -2160,16 +2160,6 @@ CREATE TRIGGER t_geo_ev_secteur_gestion_arc_date_sai
 	ON m_espace_vert.geo_ev_secteur_gestion_arc
     FOR EACH ROW
     EXECUTE PROCEDURE public.ft_r_timestamp_sai();
-	
-	
--- Trigger: t_geo_ev_secteur_gestion_arc_date_maj
--- DROP TRIGGER IF EXISTS t_geo_ev_secteur_gestion_arc_date_maj ON m_espace_vert.geo_ev_secteur_gestion_arc;
-
---CREATE TRIGGER t_geo_ev_secteur_gestion_arc_date_maj
---	BEFORE INSERT OR UPDATE OF geom
---	ON m_espace_vert.geo_ev_secteur_gestion_arc
---    FOR EACH ROW
---    EXECUTE PROCEDURE public.ft_r_timestamp_maj();
 
 
 -- Trigger: t_geo_ev_secteur_gestion_arc_date_maj
