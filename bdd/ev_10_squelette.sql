@@ -76,6 +76,7 @@ DROP TABLE IF EXISTS m_espace_vert.an_ev_vegetal_herbe;
 DROP TABLE IF EXISTS m_espace_vert.geo_ev_zone_gestion;
 DROP TABLE IF EXISTS m_espace_vert.geo_ev_zone_site;
 DROP TABLE IF EXISTS m_espace_vert.geo_ev_zone_equipe;
+DROP TABLE IF EXISTS m_espace_vert.geo_ev_secteur_gestion_arc;
 -- referentiel
 DROP TABLE IF EXISTS m_espace_vert.an_ev_vegetal_ref_bota;
 -- intervention
@@ -142,6 +143,7 @@ DROP SEQUENCE IF EXISTS m_espace_vert.an_ev_vegetal_ref_bota_idref_bota_seq;
 DROP SEQUENCE IF EXISTS m_espace_vert.geo_ev_zone_gestion_idgestion_seq;
 DROP SEQUENCE IF EXISTS m_espace_vert.geo_ev_zone_site_idsite_seq;
 DROP SEQUENCE IF EXISTS m_espace_vert.geo_ev_zone_equipe_idequipe_seq;
+DROP SEQUENCE IF EXISTS m_espace_vert.geo_ev_secteur_gestion_arc_seq
 -- inter
 DROP SEQUENCE IF EXISTS m_espace_vert.geo_ev_intervention_idinter_seq;
 -- relation
@@ -1389,7 +1391,22 @@ CREATE SEQUENCE m_espace_vert.geo_ev_zone_equipe_idequipe_seq
     START 0
     MINVALUE 0
     MAXVALUE 9223372036854775807
-    CACHE 1;                  
+    CACHE 1;               
+
+  
+-- ################################################################# Séquence sur TABLE geo_ev_secteur_gestion_arc ###############################################
+
+
+-- SEQUENCE: m_espace_vert.geo_ev_secteur_gestion_arc_seq
+
+-- DROP SEQUENCE IF EXISTS m_espace_vert.geo_ev_secteur_gestion_arc_seq;
+
+CREATE SEQUENCE IF NOT EXISTS m_espace_vert.geo_ev_secteur_gestion_arc_seq
+    INCREMENT 1
+    START 0
+    MINVALUE 0
+    MAXVALUE 9223372036854775807
+    CACHE 1;
 
 
 -- ################################################################# Séquence sur TABLE lk_ev_intervention_objet ###############################################
@@ -2054,6 +2071,15 @@ $$
 CREATE TRIGGER t_m_ev_zone_equipe_set 
 AFTER INSERT OR UPDATE of geom OR DELETE ON m_espace_vert.geo_ev_zone_equipe
 FOR EACH ROW EXECUTE PROCEDURE m_espace_vert.ft_m_ev_zone_equipe_set();
+
+
+
+
+
+
+
+
+
 
 
 
